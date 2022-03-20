@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A8AD062D-9053-4BBD-BBCA-FDF055B984BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QZI.Identity.API", "QZI.Identity.API\QZI.Identity.API.csproj", "{EA5A4CD7-F3B8-4F80-894E-57433DC6D5E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA5A4CD7-F3B8-4F80-894E-57433DC6D5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA5A4CD7-F3B8-4F80-894E-57433DC6D5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA5A4CD7-F3B8-4F80-894E-57433DC6D5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA5A4CD7-F3B8-4F80-894E-57433DC6D5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA5A4CD7-F3B8-4F80-894E-57433DC6D5E1} = {A8AD062D-9053-4BBD-BBCA-FDF055B984BC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC27B9CA-1382-44C3-A2B1-5C0CEDBB9EC0}
+	EndGlobalSection
+EndGlobal
