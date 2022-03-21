@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QZI.Identity.API
+namespace Qzi.Identity.Api
 {
     public class Program
     {
