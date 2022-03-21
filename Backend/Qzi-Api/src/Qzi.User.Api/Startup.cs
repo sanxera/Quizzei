@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Qzi.Identity.Api.Configuration;
+using Microsoft.OpenApi.Models;
+using Qzi.User.Api.Configuration;
 
-namespace Qzi.Identity.Api
+namespace Qzi.User.Api
 {
     public class Startup
     {
@@ -29,15 +30,15 @@ namespace Qzi.Identity.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddApiConfiguration();
             services.AddSwaggerConfiguration();
-            services.AddDefaultIdentityConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwaggerConfiguration();
             app.UseApiConfiguration(env);
+            app.UseSwaggerConfiguration();
         }
     }
 }
