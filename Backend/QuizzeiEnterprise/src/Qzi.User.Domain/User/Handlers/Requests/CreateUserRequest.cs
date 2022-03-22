@@ -1,4 +1,4 @@
-﻿namespace Qzi.User.Domain.User.Handlers.Requests
+﻿namespace QZI.User.Domain.User.Handlers.Requests
 {
     public class CreateUserRequest
     {

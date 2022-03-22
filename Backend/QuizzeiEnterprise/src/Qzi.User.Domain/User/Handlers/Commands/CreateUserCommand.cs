@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
-using NetDevPack.Messaging;
-using Qzi.User.Domain.Configuration;
-using Qzi.User.Domain.User.Handlers.Requests;
-using Qzi.User.Domain.User.Handlers.Responses;
-using Qzi.User.Domain.User.Validations;
+using QZI.User.Domain.Configuration;
+using QZI.User.Domain.User.Handlers.Requests;
+using QZI.User.Domain.User.Handlers.Responses;
+using QZI.User.Domain.User.Validations;
 
-namespace Qzi.User.Domain.User.Handlers.Commands
+namespace QZI.User.Domain.User.Handlers.Commands
 {
     public class CreateUserCommand : Command<CreateUserResponse>
     {

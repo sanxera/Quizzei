@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Qzi.User.Api
+namespace QZI.User.API
 {
     public class Program
     {

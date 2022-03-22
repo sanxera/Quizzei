@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Qzi.User.Api.Configuration
+namespace QZI.User.API.Configuration
 {
     public static class ApiConfig
     {

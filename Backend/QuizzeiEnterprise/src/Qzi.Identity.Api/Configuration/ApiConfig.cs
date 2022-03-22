@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDevPack.Identity;
 
-namespace Qzi.Identity.Api.Configuration
+namespace QZI.Identity.API.Configuration
 {
     public static class ApiConfig
     {

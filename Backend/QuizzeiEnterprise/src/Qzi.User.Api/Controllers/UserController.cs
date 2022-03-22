@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Qzi.User.Domain.User.Handlers.Commands;
-using Qzi.User.Domain.User.Handlers.Requests;
+using QZI.User.Domain.User.Handlers.Commands;
+using QZI.User.Domain.User.Handlers.Requests;
 
-namespace Qzi.User.Api.Controllers
+namespace QZI.User.API.Controllers
 {
     [Route("api/users")]
     public class UserController : MainController

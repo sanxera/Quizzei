@@ -5,9 +5,9 @@ using Microsoft.Extensions.Options;
 using NetDevPack.Identity.Jwt;
 using NetDevPack.Identity.Jwt.Model;
 using NetDevPack.Identity.Model;
-using Qzi.Identity.Api.Controllers.Abstraction;
+using QZI.Identity.API.Controllers.Abstraction;
 
-namespace Qzi.Identity.Api.Controllers
+namespace QZI.Identity.API.Controllers
 {
     [Route("api/identity")]
     public class AuthController : MainController

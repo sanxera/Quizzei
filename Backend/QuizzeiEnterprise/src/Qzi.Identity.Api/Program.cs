@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Qzi.Identity.Api
+namespace QZI.Identity.API
 {
     public class Program
     {

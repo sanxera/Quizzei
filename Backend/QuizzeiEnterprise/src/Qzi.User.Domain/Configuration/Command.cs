@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentValidation.Results;
 using MediatR;
 
-namespace Qzi.User.Domain.Configuration
+namespace QZI.User.Domain.Configuration
 {
     public abstract class Command<TResponse> : ICommand, IRequest<TResponse>
     {

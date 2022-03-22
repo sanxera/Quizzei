@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Qzi.User.Api.Configuration;
+using QZI.User.API.Configuration;
 
-namespace Qzi.User.Api
+namespace QZI.User.API
 {
     public class Startup
     {

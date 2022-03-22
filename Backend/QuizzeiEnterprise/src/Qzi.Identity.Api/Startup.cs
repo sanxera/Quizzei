@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Qzi.Identity.Api.Configuration;
+using QZI.Identity.API.Configuration;
 
-namespace Qzi.Identity.Api
+namespace QZI.Identity.API
 {
     public class Startup
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Qzi.Identity.Api.Configuration
+namespace QZI.Identity.API.Configuration
 {
     public static class SwaggerConfig
     {

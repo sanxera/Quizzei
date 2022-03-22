@@ -1,11 +1,25 @@
-﻿using Qzi.User.Domain.Abstractions.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Qzi.User.Domain.User.Entities
+#nullable disable
+
+namespace QZI.User.Domain.User.Entities
 {
-    public class Profile : Entity
+    public partial class Profile
     {
-        public int Id { get; set; }
+        public Profile()
+        {
+            Users = new HashSet<User>();
+        }
+
+        public int ProfileId { get; set; }
         public string Description { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
+        public int PermissionId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
+
+        public virtual Permission Permission { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

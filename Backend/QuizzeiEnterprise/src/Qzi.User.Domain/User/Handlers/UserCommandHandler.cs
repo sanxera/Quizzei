@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Qzi.User.Domain.User.Handlers.Commands;
-using Qzi.User.Domain.User.Handlers.Responses;
+using QZI.User.Domain.User.Handlers.Commands;
+using QZI.User.Domain.User.Handlers.Responses;
 
-namespace Qzi.User.Domain.User.Handlers
+namespace QZI.User.Domain.User.Handlers
 {
     public class UserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
     {

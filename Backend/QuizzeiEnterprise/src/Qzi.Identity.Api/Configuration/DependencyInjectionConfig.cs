@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Qzi.Identity.Api.Configuration
+namespace QZI.Identity.API.Configuration
 {
     public static class DependencyInjectionConfig
     {

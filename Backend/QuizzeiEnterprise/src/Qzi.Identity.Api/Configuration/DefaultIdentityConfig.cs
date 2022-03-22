@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Identity;
 using NetDevPack.Identity.Jwt;
 
-namespace Qzi.Identity.Api.Configuration
+namespace QZI.Identity.API.Configuration
 {
     public static class DefaultIdentityConfig
     {

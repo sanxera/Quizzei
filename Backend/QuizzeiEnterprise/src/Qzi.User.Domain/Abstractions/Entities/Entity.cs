@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Qzi.User.Domain.Abstractions.Entities
+namespace QZI.User.Domain.Abstractions.Entities
 {
     public abstract class Entity
     {
