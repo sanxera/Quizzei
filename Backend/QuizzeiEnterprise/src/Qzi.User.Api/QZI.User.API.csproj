@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Qzi.User.Domain\Qzi.User.Domain.csproj" />
+    <ProjectReference Include="..\Qzi.User.Domain\QZI.User.Domain.csproj" />
   </ItemGroup>
 
 </Project>
