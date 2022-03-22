@@ -4,7 +4,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Qzi.User.Api.Controllers.Abstraction
+namespace Qzi.User.Api.Controllers
 {
     [ApiController]
     public abstract class MainController : ControllerBase
