@@ -25,5 +25,15 @@ namespace QZI.User.API.Controllers
 
             return CustomResponse(result);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
+        {
+            var command = new UserLoginCommand(userLoginRequest);
+
+            var result = await _mediator.Send(command);
+
+            return CustomResponse(result);
+        }
     }
 }

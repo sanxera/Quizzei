@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace QZI.User.Domain.User.Entities
 {
-    public partial class Profile
+    public class Profile
     {
         public Profile()
         {
@@ -18,8 +18,6 @@ namespace QZI.User.Domain.User.Entities
         public int PermissionId { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-
-        public virtual Permission Permission { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

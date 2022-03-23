@@ -30,10 +30,10 @@ namespace QZI.User.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup));
             services.AddApiConfiguration();
             services.AddSwaggerConfiguration();
             services.AddDependencyInjectionConfiguration();
+            services.AddMediatR(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
