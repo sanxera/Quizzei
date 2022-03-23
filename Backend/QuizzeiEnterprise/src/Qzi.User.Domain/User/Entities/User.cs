@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace QZI.User.Domain.User.Entities
 {
     public partial class User
@@ -27,5 +25,17 @@ namespace QZI.User.Domain.User.Entities
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Classroom> Classrooms { get; set; }
         public virtual ICollection<QuizProcess> QuizProcesses { get; set; }
+
+        public static User CreateNewUser(string name, string password, string email, int profileId) => new User
+        {
+            UserUuid = Guid.NewGuid(),
+            Name = name,
+            Email = email,
+            Password = password,
+            Active = true,
+            ProfileId = profileId,
+            CreatedAt = DateTime.Now,
+            CreatedBy = "System",
+        };
     }
 }
