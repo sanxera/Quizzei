@@ -19,7 +19,11 @@ namespace QZI.User.Domain.User.Handlers
 
         public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var userRegister = request.Request;
+            var newUser = Entities.User.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
+
+            await _userRepository.InsertNewUser(newUser);
+            return new CreateUserResponse();
         }
 
         public async Task<UserLoginResponse> Handle(UserLoginCommand request, CancellationToken cancellationToken)

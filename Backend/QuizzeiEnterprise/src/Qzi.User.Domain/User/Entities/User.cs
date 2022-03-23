@@ -1,7 +1,5 @@
 ﻿using System;
 
-#nullable disable
-
 namespace QZI.User.Domain.User.Entities
 {
     public class User
