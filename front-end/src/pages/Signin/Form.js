@@ -29,7 +29,7 @@ class FormComponent extends React.Component {
         name="basic"
         onFinish={this.onFinish}
       >
-        <Form.Item name="username">
+        <Form.Item name="email">
           <Input bordered={false} style={{ ...INPUT_STYLE }} placeholder="Email" suffix={<UserOutlined />} />
         </Form.Item>
 
