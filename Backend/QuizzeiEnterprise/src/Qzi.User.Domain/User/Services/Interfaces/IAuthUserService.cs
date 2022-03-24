@@ -7,5 +7,6 @@ namespace QZI.User.Domain.User.Services.Interfaces
     public interface IAuthUserService
     {
         Task<UserLoginResponse> Login(UserLoginRequest request);
+        Task<CreateUserResponse> RegisterIdentityUser(CreateUserRequest request);
     }
 }

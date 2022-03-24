@@ -21,8 +21,8 @@ namespace QZI.User.API.Configuration
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<QuizzeiContext>();
 
-            services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserCommandHandler>();
-            services.AddScoped<IRequestHandler<UserLoginCommand, UserLoginResponse>, UserCommandHandler>();
+            services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserIdentityCommandHandler>();
+            services.AddScoped<IRequestHandler<UserLoginCommand, UserLoginResponse>, UserIdentityCommandHandler>();
  
             return services;
         }

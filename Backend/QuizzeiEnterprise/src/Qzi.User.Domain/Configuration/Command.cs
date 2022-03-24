@@ -14,5 +14,7 @@ namespace QZI.User.Domain.Configuration
         public long MessageTimestamp { get; private set; }
         public abstract ValidationResult ValidationResult { get; }
         public bool IsValid => ValidationResult.IsValid;
+
+        public abstract void Validate();
     }
 }

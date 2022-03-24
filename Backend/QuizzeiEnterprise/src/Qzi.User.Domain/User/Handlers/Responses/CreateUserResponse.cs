@@ -2,11 +2,6 @@
 {
     public class CreateUserResponse
     {
-        public int Id { get; set; }
-
-        public CreateUserResponse()
-        {
-            
-        }
+        public bool Created { get; set; }
     }
 }

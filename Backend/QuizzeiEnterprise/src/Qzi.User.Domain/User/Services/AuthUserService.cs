@@ -26,5 +26,14 @@ namespace QZI.User.Domain.User.Services
 
             return new UserLoginResponse {Token = await response.Content.ReadAsStringAsync() };
         }
+
+        public async Task<CreateUserResponse> RegisterIdentityUser(CreateUserRequest request)
+        {
+            var registerContent = GetContent(request);
+
+            await _httpClient.PostAsync("/api/identity/register", registerContent);
+
+            return new CreateUserResponse {Created = true};
+        }
     }
 }

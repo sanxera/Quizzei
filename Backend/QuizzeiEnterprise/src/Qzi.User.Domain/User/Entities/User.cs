@@ -4,8 +4,6 @@ namespace QZI.User.Domain.User.Entities
 {
     public class User
     {
-        public User() { }
-
         public Guid UserUuid { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -15,5 +13,20 @@ namespace QZI.User.Domain.User.Entities
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public virtual Profile Profile { get; set; }
+
+        public static User CreateNewUser(string name, string email, string password, int profileId)
+        {
+            return new User()
+            {
+                UserUuid = Guid.NewGuid(),
+                Name = name,
+                Email = email,
+                Password = password,
+                Active = true,
+                ProfileId = profileId,
+                CreatedAt = DateTime.Now,
+                CreatedBy = "System"
+            };
+        }
     }
 }
