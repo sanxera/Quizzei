@@ -31,9 +31,7 @@ namespace QZI.User.Domain.User.Handlers
             var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
 
             await _userRepository.InsertNewUser(newUser);
-            await _authUserService.RegisterIdentityUser(identityNewUser);
-
-            return new CreateUserResponse {Created = true};
+            return await _authUserService.RegisterIdentityUser(identityNewUser);
         }
 
         public async Task<LoginUserResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)

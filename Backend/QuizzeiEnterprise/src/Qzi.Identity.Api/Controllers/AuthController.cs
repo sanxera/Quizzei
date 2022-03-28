@@ -26,7 +26,7 @@ namespace QZI.Identity.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(RegisterUser registerUser)
+        public async Task<ActionResult> Register([FromBody] RegisterUser registerUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -41,7 +41,7 @@ namespace QZI.Identity.API.Controllers
 
             if (result.Succeeded)
             {
-                return CustomResponse(GetUserResponse(user.Email));
+                return CustomResponse(new { Created = true });
             }
 
             foreach (var error in result.Errors)

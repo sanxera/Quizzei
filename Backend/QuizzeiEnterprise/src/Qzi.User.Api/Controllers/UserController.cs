@@ -40,7 +40,8 @@ namespace QZI.User.API.Controllers
             var command = new LoginUserCommand(loginUserRequest);
 
             var result = await _mediator.Send(command);
-            if (result.Logged) return CustomResponse(result);
+            
+            return CustomResponse(result);
 
             foreach (var error in result.ResponseResult.Errors.Messages)
             {
