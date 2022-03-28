@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using QZI.Core.Abstract;
+using QZI.Core.Communication;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
-using QZI.User.Domain.User.Services.Abstract;
 using QZI.User.Domain.User.Services.Interfaces;
 
 namespace QZI.User.Domain.User.Services
@@ -24,16 +25,34 @@ namespace QZI.User.Domain.User.Services
 
             var response = await _httpClient.PostAsync("/api/identity/login", loginContent);
 
-            return new LoginUserResponse {Token = await response.Content.ReadAsStringAsync() };
+            if (!TreatErrorsResponse(response))
+            {
+                return new LoginUserResponse
+                {
+                    Logged = false,
+                    ResponseResult = await DeserializeObjectResponse<ResponseResult>(response)
+                };
+            }
+
+            return await DeserializeObjectResponse<LoginUserResponse>(response);
         }
 
         public async Task<CreateUserResponse> RegisterIdentityUser(CreateIdentityUserRequest request)
         {
             var registerContent = GetContent(request);
 
-            await _httpClient.PostAsync("/api/identity/register", registerContent);
+            var response = await _httpClient.PostAsync("/api/identity/register", registerContent);
 
-            return new CreateUserResponse {Created = true};
+            if (!TreatErrorsResponse(response))
+            {
+                return new CreateUserResponse
+                {
+                    Created = false,
+                    ResponseResult = await DeserializeObjectResponse<ResponseResult>(response)
+                };
+            }
+
+            return await DeserializeObjectResponse<CreateUserResponse>(response);
         }
     }
 }

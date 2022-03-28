@@ -62,7 +62,7 @@ namespace QZI.Identity.API.Controllers
             if (result.Succeeded)
             {
                 var fullJwt = GetFullJwt(loginUser.Email);
-                return CustomResponse(fullJwt);
+                return CustomResponse(new {Token = fullJwt, Logged = true});
             }
 
             if (result.IsLockedOut)
