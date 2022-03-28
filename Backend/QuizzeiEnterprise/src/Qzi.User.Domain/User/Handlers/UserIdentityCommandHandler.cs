@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using QZI.User.Domain.User.Handlers.Commands;
+using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
 using QZI.User.Domain.User.Repositories;
 using QZI.User.Domain.User.Services.Interfaces;
@@ -27,9 +28,10 @@ namespace QZI.User.Domain.User.Handlers
 
             var userRegister = request.Request;
             var newUser = Entities.User.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
+            var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
 
             await _userRepository.InsertNewUser(newUser);
-            await _authUserService.RegisterIdentityUser(userRegister);
+            await _authUserService.RegisterIdentityUser(identityNewUser);
 
             return new CreateUserResponse {Created = true};
         }

@@ -27,7 +27,7 @@ namespace QZI.User.Domain.User.Services
             return new LoginUserResponse {Token = await response.Content.ReadAsStringAsync() };
         }
 
-        public async Task<CreateUserResponse> RegisterIdentityUser(CreateUserRequest request)
+        public async Task<CreateUserResponse> RegisterIdentityUser(CreateIdentityUserRequest request)
         {
             var registerContent = GetContent(request);
 
