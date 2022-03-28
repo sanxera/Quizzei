@@ -23,7 +23,10 @@ namespace QZI.User.API.Configuration
 
             app.UseRouting();
 
-            app.UseCors("Total");
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseAuthentication();
 

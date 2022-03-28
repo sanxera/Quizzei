@@ -7,19 +7,19 @@ using QZI.User.Domain.User.Validations;
 
 namespace QZI.User.Domain.User.Handlers.Commands
 {
-    public class UserLoginCommand : Command<UserLoginResponse>
+    public class LoginUserCommand : Command<LoginUserResponse>
     {
-        private readonly IValidator<UserLoginRequest> _validator;
+        private readonly IValidator<LoginUserRequest> _validator;
         private ValidationResult _validationResult;
 
-        public UserLoginCommand(UserLoginRequest request)
+        public LoginUserCommand(LoginUserRequest request)
         {
             Request = request;
 
-            _validator = new UserLoginValidator();
+            _validator = new LoginUserValidator();
         }
 
-        public UserLoginRequest Request { get; set; }
+        public LoginUserRequest Request { get; set; }
 
         public override ValidationResult ValidationResult
         {

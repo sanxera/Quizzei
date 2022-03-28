@@ -18,13 +18,13 @@ namespace QZI.User.Domain.User.Services
             _httpClient = httpClient;
         }
 
-        public async Task<UserLoginResponse> Login(UserLoginRequest request)
+        public async Task<LoginUserResponse> Login(LoginUserRequest request)
         {
             var loginContent = GetContent(request);
 
             var response = await _httpClient.PostAsync("/api/identity/login", loginContent);
 
-            return new UserLoginResponse {Token = await response.Content.ReadAsStringAsync() };
+            return new LoginUserResponse {Token = await response.Content.ReadAsStringAsync() };
         }
 
         public async Task<CreateUserResponse> RegisterIdentityUser(CreateUserRequest request)

@@ -17,6 +17,9 @@ namespace QZI.User.Domain.User.Validations
 
             RuleFor(x => x.Name)
                 .NotEmpty();
+
+            RuleFor(x => x.ProfileId)
+                .NotEmpty();
         }
     }
 }

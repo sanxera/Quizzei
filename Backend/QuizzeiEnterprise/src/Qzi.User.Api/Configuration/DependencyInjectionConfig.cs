@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QZI.User.Domain.User.Handlers;
 using QZI.User.Domain.User.Handlers.Commands;
@@ -14,15 +16,19 @@ namespace QZI.User.API.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient<IAuthUserService, AuthUserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddDbContext<QuizzeiContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<QuizzeiContext>();
 
             services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserIdentityCommandHandler>();
-            services.AddScoped<IRequestHandler<UserLoginCommand, UserLoginResponse>, UserIdentityCommandHandler>();
+            services.AddScoped<IRequestHandler<LoginUserCommand, LoginUserResponse>, UserIdentityCommandHandler>();
  
             return services;
         }

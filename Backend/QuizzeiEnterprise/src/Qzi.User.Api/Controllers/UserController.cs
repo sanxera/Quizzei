@@ -27,9 +27,9 @@ namespace QZI.User.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
+        public async Task<IActionResult> Login([FromBody] LoginUserRequest loginUserRequest)
         {
-            var command = new UserLoginCommand(userLoginRequest);
+            var command = new LoginUserCommand(loginUserRequest);
 
             var result = await _mediator.Send(command);
 

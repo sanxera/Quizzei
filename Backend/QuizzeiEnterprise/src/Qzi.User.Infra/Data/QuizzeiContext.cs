@@ -20,7 +20,7 @@ namespace QZI.User.Infra.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=defaultconnection");
+                optionsBuilder.UseSqlServer("Name=DefaultConnection");
             }
         }
 

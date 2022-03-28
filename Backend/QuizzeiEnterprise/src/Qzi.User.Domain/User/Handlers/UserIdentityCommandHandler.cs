@@ -10,7 +10,7 @@ namespace QZI.User.Domain.User.Handlers
 {
     public class UserIdentityCommandHandler :
         IRequestHandler<CreateUserCommand, CreateUserResponse>,
-        IRequestHandler<UserLoginCommand, UserLoginResponse>
+        IRequestHandler<LoginUserCommand, LoginUserResponse>
     {
         private readonly IAuthUserService _authUserService;
         private readonly IUserRepository _userRepository;
@@ -34,7 +34,7 @@ namespace QZI.User.Domain.User.Handlers
             return new CreateUserResponse {Created = true};
         }
 
-        public async Task<UserLoginResponse> Handle(UserLoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginUserResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             request.Validate();
 
