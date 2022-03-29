@@ -9,10 +9,12 @@ namespace QZI.User.Domain.User.Validations
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress();
+                .EmailAddress()
+                .WithMessage("O email informado não é validao, tente novamente com um novo email !");
 
             RuleFor(x => x.Password)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("Senha inválida, tente novamente");
         }
     }
 }
