@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using QZI.Core.Models;
 using QZI.Core.Models.Customers.Party.Ref.Data.Dir.Jd.Itg.Domain.Configurations.Models;
 
-namespace QZI.Core.Abstract
+namespace QZI.Core.Exceptions.Abstract
 {
     [Serializable]
     public abstract class DomainException : Exception

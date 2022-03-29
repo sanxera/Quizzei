@@ -1,7 +1,6 @@
 ﻿
 using FluentValidation;
 using FluentValidation.Results;
-using QZI.Core.Exceptions;
 using QZI.User.Domain.Configuration;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;

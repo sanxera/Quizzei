@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using FluentValidation.Results;
-using QZI.Core.Abstract;
+using QZI.Core.Exceptions.Abstract;
 using QZI.Core.Models;
 
 namespace QZI.Core.Exceptions

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Core.Abstract;
+using QZI.Core.Controllers;
 using QZI.User.Domain.User.Handlers.Commands;
 using QZI.User.Domain.User.Handlers.Requests;
 

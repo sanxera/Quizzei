@@ -3,9 +3,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using QZI.Core.Communication;
-using QZI.Core.Exceptions;
 
-namespace QZI.Core.Abstract
+namespace QZI.Core.Services
 {
     public abstract class Service
     {
@@ -26,27 +25,9 @@ namespace QZI.Core.Abstract
             return JsonSerializer.Deserialize<T>(await responseMessage.Content.ReadAsStringAsync(), options);
         }
 
-        protected bool TreatErrorsResponse(HttpResponseMessage response)
+        protected async Task<ResponseResult> ProcessResponse(HttpResponseMessage response)
         {
-            switch ((int)response.StatusCode)
-            {
-                case 401:
-                case 403:
-                case 404:
-                case 500:
-                    throw new CustomHttpRequestException(response.StatusCode);
-
-                case 400:
-                    return false;
-            }
-
-            response.EnsureSuccessStatusCode();
-            return true;
-        }
-
-        protected ResponseResult ReturnOk()
-        {
-            return new ResponseResult();
+            return await DeserializeObjectResponse<ResponseResult>(response);
         }
     }
 }

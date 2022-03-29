@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Commands;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
@@ -25,13 +27,20 @@ namespace QZI.User.Domain.User.Handlers
         public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             request.Validate();
-
             var userRegister = request.Request;
-            var newUser = Entities.User.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
-            var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
 
-            await _userRepository.InsertNewUser(newUser);
-            return await _authUserService.RegisterIdentityUser(identityNewUser);
+            try
+            {
+                var newUser = Entities.User.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
+                var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
+
+                await _userRepository.InsertNewUser(newUser);
+                return await _authUserService.RegisterIdentityUser(identityNewUser);
+            }
+            catch (Exception ex)
+            {
+                throw new CreateUserException(ex.Message, ex);
+            }
         }
 
         public async Task<LoginUserResponse> Handle(LoginUserCommand request, CancellationToken cancellationToken)

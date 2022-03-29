@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using QZI.Core.Abstract;
-using QZI.Core.Communication;
+using QZI.Core.Services;
+using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
 using QZI.User.Domain.User.Services.Interfaces;
@@ -24,15 +25,7 @@ namespace QZI.User.Domain.User.Services
             var loginContent = GetContent(request);
 
             var response = await _httpClient.PostAsync("/api/identity/login", loginContent);
-
-            if (!TreatErrorsResponse(response))
-            {
-                return new LoginUserResponse
-                {
-                    Logged = false,
-                    ResponseResult = await DeserializeObjectResponse<ResponseResult>(response)
-                };
-            }
+            await ResponseContainsErrors(response);
 
             return await DeserializeObjectResponse<LoginUserResponse>(response);
         }
@@ -43,16 +36,22 @@ namespace QZI.User.Domain.User.Services
 
             var response = await _httpClient.PostAsync("/api/identity/register", registerContent);
 
-            if (!TreatErrorsResponse(response))
-            {
-                return new CreateUserResponse
-                {
-                    Created = false,
-                    ResponseResult = await DeserializeObjectResponse<ResponseResult>(response)
-                };
-            }
+            await ResponseContainsErrors(response);
 
             return await DeserializeObjectResponse<CreateUserResponse>(response);
+        }
+
+        private async Task ResponseContainsErrors(HttpResponseMessage response)
+        {
+            var responseResult = await ProcessResponse(response);
+            var message = responseResult.Errors.Messages.FirstOrDefault();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new LoginFailedException(message);
+            }
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }

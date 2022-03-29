@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using NetDevPack.Identity.Jwt;
 using NetDevPack.Identity.Jwt.Model;
 using NetDevPack.Identity.Model;
-using QZI.Core.Abstract;
+using QZI.Core.Controllers;
 
 namespace QZI.Identity.API.Controllers
 {
