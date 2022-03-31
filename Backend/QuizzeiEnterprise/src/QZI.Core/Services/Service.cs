@@ -2,8 +2,9 @@
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using QZI.Core.Communication;
 
-namespace QZI.User.Domain.User.Services.Abstract
+namespace QZI.Core.Services
 {
     public abstract class Service
     {
@@ -22,6 +23,11 @@ namespace QZI.User.Domain.User.Services.Abstract
             };
 
             return JsonSerializer.Deserialize<T>(await responseMessage.Content.ReadAsStringAsync(), options);
+        }
+
+        protected async Task<ResponseResult> ProcessResponse(HttpResponseMessage response)
+        {
+            return await DeserializeObjectResponse<ResponseResult>(response);
         }
     }
 }

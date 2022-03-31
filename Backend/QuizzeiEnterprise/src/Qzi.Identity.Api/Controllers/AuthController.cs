@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using NetDevPack.Identity.Jwt;
 using NetDevPack.Identity.Jwt.Model;
 using NetDevPack.Identity.Model;
-using QZI.Identity.API.Controllers.Abstraction;
+using QZI.Core.Controllers;
 
 namespace QZI.Identity.API.Controllers
 {
@@ -26,7 +26,7 @@ namespace QZI.Identity.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register(RegisterUser registerUser)
+        public async Task<ActionResult> Register([FromBody] RegisterUser registerUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -41,7 +41,7 @@ namespace QZI.Identity.API.Controllers
 
             if (result.Succeeded)
             {
-                return CustomResponse(GetUserResponse(user.Email));
+                return CustomResponse(new { Created = true });
             }
 
             foreach (var error in result.Errors)
@@ -62,7 +62,7 @@ namespace QZI.Identity.API.Controllers
             if (result.Succeeded)
             {
                 var fullJwt = GetFullJwt(loginUser.Email);
-                return CustomResponse(fullJwt);
+                return CustomResponse(new {Token = fullJwt, Logged = true});
             }
 
             if (result.IsLockedOut)

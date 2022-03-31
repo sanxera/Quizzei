@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using QZI.Core.Services;
+using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
-using QZI.User.Domain.User.Services.Abstract;
 using QZI.User.Domain.User.Services.Interfaces;
 
 namespace QZI.User.Domain.User.Services
@@ -18,22 +20,38 @@ namespace QZI.User.Domain.User.Services
             _httpClient = httpClient;
         }
 
-        public async Task<UserLoginResponse> Login(UserLoginRequest request)
+        public async Task<LoginUserResponse> Login(LoginUserRequest request)
         {
             var loginContent = GetContent(request);
 
             var response = await _httpClient.PostAsync("/api/identity/login", loginContent);
+            await ResponseContainsErrors(response);
 
-            return new UserLoginResponse {Token = await response.Content.ReadAsStringAsync() };
+            return await DeserializeObjectResponse<LoginUserResponse>(response);
         }
 
-        public async Task<CreateUserResponse> RegisterIdentityUser(CreateUserRequest request)
+        public async Task<CreateUserResponse> RegisterIdentityUser(CreateIdentityUserRequest request)
         {
             var registerContent = GetContent(request);
 
-            await _httpClient.PostAsync("/api/identity/register", registerContent);
+            var response = await _httpClient.PostAsync("/api/identity/register", registerContent);
 
-            return new CreateUserResponse {Created = true};
+            await ResponseContainsErrors(response);
+
+            return await DeserializeObjectResponse<CreateUserResponse>(response);
+        }
+
+        private async Task ResponseContainsErrors(HttpResponseMessage response)
+        {
+            var responseResult = await ProcessResponse(response);
+            var message = responseResult.Errors.Messages.FirstOrDefault();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new LoginFailedException(message);
+            }
+
+            response.EnsureSuccessStatusCode();
         }
     }
 }

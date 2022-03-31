@@ -1,9 +1,11 @@
-﻿using FluentValidation;
+﻿
+using FluentValidation;
 using FluentValidation.Results;
 using QZI.User.Domain.Configuration;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
 using QZI.User.Domain.User.Validations;
+using ValidationException = QZI.Core.Exceptions.ValidationException;
 
 namespace QZI.User.Domain.User.Handlers.Commands
 {
@@ -36,7 +38,7 @@ namespace QZI.User.Domain.User.Handlers.Commands
         public override void Validate()
         {
             if (ValidationResult.Errors.Count > 0)
-                throw new ValidationException(ValidationResult.Errors);
+                throw new ValidationException(ValidationResult);
         }
     }
 }

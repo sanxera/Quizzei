@@ -9,7 +9,7 @@ namespace QZI.User.Domain.User.Entities
     {
         public Profile()
         {
-            Users = new HashSet<User>();
+            Users = new HashSet<PersonalUser>();
         }
 
         public int ProfileId { get; set; }
@@ -18,6 +18,6 @@ namespace QZI.User.Domain.User.Entities
         public int PermissionId { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<PersonalUser> Users { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace QZI.User.Domain.User.Entities
 {
-    public class User
+    public class PersonalUser
     {
         public Guid UserUuid { get; set; }
         public string Name { get; set; }
@@ -14,9 +14,9 @@ namespace QZI.User.Domain.User.Entities
         public string CreatedBy { get; set; }
         public virtual Profile Profile { get; set; }
 
-        public static User CreateNewUser(string name, string email, string password, int profileId)
+        public static PersonalUser CreateNewUser(string name, string email, string password, int profileId)
         {
-            return new User()
+            return new PersonalUser()
             {
                 UserUuid = Guid.NewGuid(),
                 Name = name,

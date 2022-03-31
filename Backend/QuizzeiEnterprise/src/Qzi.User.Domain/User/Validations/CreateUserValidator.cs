@@ -10,13 +10,20 @@ namespace QZI.User.Domain.User.Validations
         {
             RuleFor(x => x.Email)
                 .NotEmpty()
-                .EmailAddress(EmailValidationMode.AspNetCoreCompatible);
+                .EmailAddress(EmailValidationMode.AspNetCoreCompatible)
+                .WithMessage($"O email informado é inválido !");
 
             RuleFor(x => x.Password)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("A senha informado é inválida !");
 
             RuleFor(x => x.Name)
-                .NotEmpty();
+                .NotEmpty()
+                .WithMessage("O nome informado é inválido !");
+
+            RuleFor(x => x.ProfileId)
+                .NotEmpty()
+                .WithMessage("O perfil informado não existe !");
         }
     }
 }

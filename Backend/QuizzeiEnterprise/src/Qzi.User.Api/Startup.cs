@@ -32,7 +32,7 @@ namespace QZI.User.API
         {
             services.AddApiConfiguration();
             services.AddSwaggerConfiguration();
-            services.AddDependencyInjectionConfiguration();
+            services.AddDependencyInjectionConfiguration(Configuration);
             services.AddMediatR(typeof(Startup));
         }
 

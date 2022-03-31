@@ -3,24 +3,19 @@ using QZI.User.Domain.User.Entities;
 
 namespace QZI.User.Infra.Data
 {
-    public partial class QuizzeiContext : DbContext
+    public class QuizzeiContext : DbContext
     {
-        public QuizzeiContext()
-        {
-        }
+        public QuizzeiContext() { }
+        public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options) { }
 
-        public QuizzeiContext(DbContextOptions<QuizzeiContext> options)
-            : base(options)
-        {
-        }
         public virtual DbSet<Profile> Profiles { get; set; }
-        public virtual DbSet<Domain.User.Entities.User> Users { get; set; }
+        public virtual DbSet<PersonalUser> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=defaultconnection");
+                optionsBuilder.UseSqlServer("Name=DefaultConnection");
             }
         }
 
@@ -57,7 +52,7 @@ namespace QZI.User.Infra.Data
                 entity.Property(e => e.PermissionId).HasColumnName("PERMISSION_ID");
             });
 
-            modelBuilder.Entity<Domain.User.Entities.User>(entity =>
+            modelBuilder.Entity<PersonalUser>(entity =>
             {
                 entity.HasKey(e => e.UserUuid);
 
@@ -109,6 +104,9 @@ namespace QZI.User.Infra.Data
             OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        private void OnModelCreatingPartial(ModelBuilder modelBuilder)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
