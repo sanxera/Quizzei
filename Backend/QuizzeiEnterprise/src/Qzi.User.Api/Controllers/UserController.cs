@@ -24,14 +24,7 @@ namespace QZI.User.API.Controllers
 
             var result = await _mediator.Send(command);
 
-            if (result.Created) return CustomResponse(result);
-
-            foreach (var error in result.ResponseResult.Errors.Messages)
-            {
-                AddError(error);
-            }
-
-            return CustomResponse();
+            return CustomResponse(result);
         }
 
         [HttpPost("login")]
@@ -42,13 +35,6 @@ namespace QZI.User.API.Controllers
             var result = await _mediator.Send(command);
             
             return CustomResponse(result);
-
-            foreach (var error in result.ResponseResult.Errors.Messages)
-            {
-                AddError(error);
-            }
-
-            return CustomResponse();
         }
     }
 }

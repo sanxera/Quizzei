@@ -22,8 +22,8 @@ namespace QZI.Core.Exceptions.Abstract
         {
         }
 
-        public virtual string Title => "unexpected error";
-        public virtual string Detail => "an unexpected error occurred";
+        public virtual string Title => "Unexpected Error";
+        public virtual string Detail => "An unexpected error occurred";
         public virtual HttpStatusCode StatusCode => HttpStatusCode.InternalServerError;
 
         public virtual Error Error => new Error
