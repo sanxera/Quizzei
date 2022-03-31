@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QZI.User.Domain.User.Entities;
 using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Commands;
 using QZI.User.Domain.User.Handlers.Requests;
@@ -28,11 +29,12 @@ namespace QZI.User.Domain.User.Handlers
         {
             request.Validate();
             var userRegister = request.Request;
+            var newUser = PersonalUser.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
+            var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
 
             try
             {
-                var newUser = Entities.User.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
-                var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
+                await CheckIfUserAlreadyCreated(newUser.Email);
 
                 await _userRepository.InsertNewUser(newUser);
                 return await _authUserService.RegisterIdentityUser(identityNewUser);
@@ -48,6 +50,16 @@ namespace QZI.User.Domain.User.Handlers
             request.Validate();
 
             return await _authUserService.Login(request.Request);
+        }
+
+        private async Task CheckIfUserAlreadyCreated(string email)
+        {
+            var user = await _userRepository.FindUserByEmail(email);
+
+            if (user is not null)
+            {
+                throw new UserAlreadyCreated("PersonalUser already created");
+            }
         }
     }
 }
