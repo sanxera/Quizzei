@@ -3,7 +3,7 @@ using QZI.User.Domain.User.Entities;
 
 namespace QZI.User.Infra.Data
 {
-    public class QuizzeiContext : DbContext
+    public partial class QuizzeiContext : DbContext
     {
         public QuizzeiContext() { }
         public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options) { }
@@ -104,9 +104,6 @@ namespace QZI.User.Infra.Data
             OnModelCreatingPartial(modelBuilder);
         }
 
-        private void OnModelCreatingPartial(ModelBuilder modelBuilder)
-        {
-            throw new System.NotImplementedException();
-        }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
