@@ -1,15 +1,16 @@
 import React from 'react';
 import { Result, Button } from 'antd';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Signin from '../pages/Signin';
+import Signin from '../pages/Session/Login/index';
 import ProtectedRoutes from './protectedRoutes';
+import Register from '../pages/Session/Register/index';
 
 export const RoutesList = () => {
   const navigate = useNavigate();
   return (
     <Routes>
       <Route path="/" element={<Signin navigate={navigate} />} />
-      <Route path="/register" element={<div>Cadastrar-se</div>} />
+      <Route path="/register" element={<Register />} />
       <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/dashboard" element={<div>DASHBOARD</div>} />

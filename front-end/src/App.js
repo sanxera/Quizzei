@@ -1,17 +1,15 @@
 
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RoutesList } from './routes/routes';
 
-import './App.css'
+import './App.less'
 
 function App() {
   return (
-    <div id="app">
-      <Router>
-        <RoutesList />
-      </Router>
-    </div>
+    <Router>
+      <RoutesList />
+    </Router>
   );
 }
 
