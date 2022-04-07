@@ -22,10 +22,10 @@ namespace QZI.User.API.Configuration
             services.AddHttpClient<IAuthUserService, AuthUserService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddDbContext<QuizzeiContext>(options =>
+            services.AddDbContext<UserContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<QuizzeiContext>();
+            services.AddScoped<UserContext>();
 
             services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserIdentityCommandHandler>();
             services.AddScoped<IRequestHandler<LoginUserCommand, LoginUserResponse>, UserIdentityCommandHandler>();

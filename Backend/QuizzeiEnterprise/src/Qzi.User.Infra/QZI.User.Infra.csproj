@@ -19,4 +19,7 @@
 	<ItemGroup>
 	  <None Remove="Microsoft.EntityFrameworkCore" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Data\Mappers\" />
+	</ItemGroup>
 </Project>

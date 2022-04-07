@@ -7,9 +7,9 @@ namespace QZI.User.Infra.Data.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly QuizzeiContext _context;
+        private readonly UserContext _context;
 
-        public UserRepository(QuizzeiContext context)
+        public UserRepository(UserContext context)
         {
             _context = context;
         }

@@ -3,10 +3,10 @@ using QZI.User.Domain.User.Entities;
 
 namespace QZI.User.Infra.Data
 {
-    public partial class QuizzeiContext : DbContext
+    public partial class UserContext : DbContext
     {
-        public QuizzeiContext() { }
-        public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options) { }
+        public UserContext() { }
+        public UserContext(DbContextOptions<UserContext> options) : base(options) { }
 
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<PersonalUser> Users { get; set; }
