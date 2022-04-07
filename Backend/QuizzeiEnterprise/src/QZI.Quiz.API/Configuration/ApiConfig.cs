@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QZI.Core.Filters;
 
-namespace QZI.User.API.Configuration
+namespace QZI.Quiz.API.Configuration
 {
     public static class ApiConfig
     {

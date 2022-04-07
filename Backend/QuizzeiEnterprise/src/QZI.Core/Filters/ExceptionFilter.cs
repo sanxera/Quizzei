@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using QZI.Core.Exceptions;
 using QZI.Core.Models.Customers.Party.Ref.Data.Dir.Jd.Itg.Domain.Configurations.Models;
 
-namespace QZI.User.API.Configuration.Filters
+namespace QZI.Core.Filters
 {
     public class ExceptionFilter : IExceptionFilter
     {
