@@ -10,8 +10,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Quiz\Handlers\Commands\" />
-	  <Folder Include="Quiz\Handlers\Responses\" />
+	  <None Remove="Quiz\Handlers\" />
+	  <None Remove="Quiz\Handlers\Commands\" />
+	  <None Remove="Quiz\Handlers\Requests\" />
+	  <None Remove="Quiz\Handlers\Response\" />
 	</ItemGroup>
-
+	<ItemGroup>
+	  <Folder Include="Quiz\Handlers\" />
+	  <Folder Include="Quiz\Handlers\Commands\" />
+	  <Folder Include="Quiz\Handlers\Requests\" />
+	  <Folder Include="Quiz\Handlers\Response\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\QZI.Core\QZI.Core.csproj" />
+	</ItemGroup>
 </Project>
