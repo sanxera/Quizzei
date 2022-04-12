@@ -15,7 +15,7 @@ export async function login(params) {
 
 export async function register(params) {
   if (!params) return;
-  return request('api/users/register', {
+  return request('api/users/create-user', {
     method: 'POST',
     data: {
       ...params

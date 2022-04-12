@@ -23,7 +23,7 @@ const FormComponent = ({ profileID }) => {
       name="basic"
       onFinish={onFinish}
     >
-      <Form.Item name="profile" initialValue={profileID} />
+      <Form.Item name="profileId" initialValue={profileID} />
 
       <Form.Item name="name">
         <Input bordered={false} style={{ ...INPUT_STYLE }} placeholder="Nome" />
