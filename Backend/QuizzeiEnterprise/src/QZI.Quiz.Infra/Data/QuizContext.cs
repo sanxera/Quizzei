@@ -9,6 +9,7 @@ namespace QZI.Quiz.Infra.Data
         public QuizContext(DbContextOptions<QuizContext> options) : base(options) { }
 
         public virtual DbSet<QuizInfo> QuizzesInfos { get; set; }
+        public virtual DbSet<QuizCategory> QuizCategories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +24,7 @@ namespace QZI.Quiz.Infra.Data
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.AddQuizInfoMapping();
+            modelBuilder.AddQuizCategoryMapping();
 
             base.OnModelCreating(modelBuilder);
         }

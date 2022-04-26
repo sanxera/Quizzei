@@ -45,7 +45,16 @@ namespace QZI.Quiz.Infra.Data.Mappers
                     .IsRequired()
                     .HasColumnType("int");
 
-                entity.Property(e => e.CategoryId).HasColumnName("CATEGORY_ID");
+                entity.Property(e => e.CategoryId)
+                    .HasColumnName("CATEGORY_ID");
+
+                entity.HasKey(e => e.QuizInfoUuid)
+                    .HasName("QUIZ_UUID");
+
+                entity
+                    .HasOne(x => x.Category)
+                    .WithMany(y => y.QuizInfo)
+                    .HasForeignKey(t => t.CategoryId);
             });
         }
     }

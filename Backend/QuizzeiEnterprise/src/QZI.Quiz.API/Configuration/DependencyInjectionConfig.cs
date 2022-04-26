@@ -1,5 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QZI.Quiz.Domain.Quiz.Handlers;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands;
+using QZI.Quiz.Domain.Quiz.Handlers.Response;
+using QZI.Quiz.Domain.Quiz.Repositories;
+using QZI.Quiz.Infra.Data;
+using QZI.Quiz.Infra.Data.Repository;
 
 namespace QZI.Quiz.API.Configuration
 {
@@ -7,18 +15,16 @@ namespace QZI.Quiz.API.Configuration
     {
         public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddHttpClient<IAuthUserService, AuthUserService>();
-            //services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
+            services.AddScoped<IQuizCategoryRepository, QuizCategoryRepository>();
 
-            //services.AddDbContext<QuizzeiContext>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<QuizContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddScoped<QuizzeiContext>();
+            services.AddScoped<QuizContext>();
 
-            //services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserIdentityCommandHandler>();
-            //services.AddScoped<IRequestHandler<LoginUserCommand, LoginUserResponse>, UserIdentityCommandHandler>();
- 
+            services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInfoCommandHandler>();
+
             return services;
         }
     }

@@ -1,14 +1,29 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using QZI.Core.Controllers;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands;
+using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 
 namespace QZI.Quiz.API.Controllers
 {
     public class QuizInfoController : MainController
     {
-        public async Task<IActionResult> CreateQuizInfo()
+        private readonly IMediator _mediator;
+
+        public QuizInfoController(IMediator mediator)
         {
-            return Ok();
+            _mediator = mediator;
+        }
+
+        [HttpPost("create-quiz-info")]
+        public async Task<IActionResult> CreateQuizInfo([FromBody] CreateQuizInfoRequest request)
+        {
+            var command = new CreateQuizInfoCommand(request);
+
+            var response = await _mediator.Send(command);
+
+            return response.Created ? Ok(response) : BadRequest(response);
         }
     }
 }
