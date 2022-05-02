@@ -15,12 +15,14 @@
 	  <None Remove="Quiz\Handlers\Commands\" />
 	  <None Remove="Quiz\Handlers\Requests\" />
 	  <None Remove="Quiz\Handlers\Response\" />
+	  <None Remove="Quiz\CategoryDto\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Quiz\Handlers\" />
 	  <Folder Include="Quiz\Handlers\Commands\" />
 	  <Folder Include="Quiz\Handlers\Requests\" />
 	  <Folder Include="Quiz\Handlers\Response\" />
+	  <Folder Include="Quiz\Dtos\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\QZI.Core\QZI.Core.csproj" />

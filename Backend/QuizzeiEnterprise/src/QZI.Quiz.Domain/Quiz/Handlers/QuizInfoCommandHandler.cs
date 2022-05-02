@@ -12,9 +12,9 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
     public class QuizInfoCommandHandler : IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>
     {
         private readonly IQuizInfoRepository _quizInfoRepository;
-        private readonly IQuizCategoryRepository _quizCategoryRepository;
+        private readonly ICategoryRepository _quizCategoryRepository;
 
-        public QuizInfoCommandHandler(IQuizInfoRepository quizInfoRepository, IQuizCategoryRepository quizCategoryRepository)
+        public QuizInfoCommandHandler(IQuizInfoRepository quizInfoRepository, ICategoryRepository quizCategoryRepository)
         {
             _quizInfoRepository = quizInfoRepository;
             _quizCategoryRepository = quizCategoryRepository;

@@ -7,6 +7,7 @@ using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 
 namespace QZI.Quiz.API.Controllers
 {
+    [Route("api/quizzes")]
     public class QuizInfoController : MainController
     {
         private readonly IMediator _mediator;
@@ -17,7 +18,7 @@ namespace QZI.Quiz.API.Controllers
         }
 
         [HttpPost("create-quiz-info")]
-        public async Task<IActionResult> CreateQuizInfo([FromBody] CreateQuizInfoRequest request)
+        public async Task<IActionResult> CreateQuizInfo([FromBody] CreatCategoryRequest request)
         {
             var command = new CreateQuizInfoCommand(request);
 

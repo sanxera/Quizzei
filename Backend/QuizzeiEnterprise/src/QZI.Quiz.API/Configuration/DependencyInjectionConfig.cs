@@ -16,7 +16,7 @@ namespace QZI.Quiz.API.Configuration
         public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
-            services.AddScoped<IQuizCategoryRepository, QuizCategoryRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddDbContext<QuizContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -24,7 +24,8 @@ namespace QZI.Quiz.API.Configuration
             services.AddScoped<QuizContext>();
 
             services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInfoCommandHandler>();
-
+            services.AddScoped<IRequestHandler<CreateCategoryCommand, CreateCategoryResponse>, CategoryCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllCategoriesCommand, GetAllCategoriesResponse>, CategoryCommandHandler>();
             return services;
         }
     }

@@ -2,7 +2,7 @@
 
 namespace QZI.Quiz.Domain.Quiz.Handlers.Requests
 {
-    public class CreateQuizInfoRequest
+    public class CreatCategoryRequest
     {
         public string Title { get; set; }
         public string Description { get; set; }

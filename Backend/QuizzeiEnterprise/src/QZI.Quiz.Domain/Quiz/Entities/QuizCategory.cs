@@ -11,5 +11,16 @@ namespace QZI.Quiz.Domain.Quiz.Entities
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
+
+        public static QuizCategory CreateQuizCategory(string name)
+        {
+            return new QuizCategory
+            {
+                Description = name,
+                Active = true,
+                CreatedAt = DateTime.Now,
+                CreatedBy = "Admin"
+            };
+        }
     }
 }
