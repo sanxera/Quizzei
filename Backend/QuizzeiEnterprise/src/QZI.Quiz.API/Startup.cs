@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetDevPack.Identity;
+using NetDevPack.Identity.User;
 using QZI.Quiz.API.Configuration;
 
 namespace QZI.Quiz.API
@@ -30,7 +32,7 @@ namespace QZI.Quiz.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApiConfiguration();
+            services.AddApiConfiguration(Configuration);
             services.AddSwaggerConfiguration();
             services.AddDependencyInjectionConfiguration(Configuration);
             services.AddMediatR(typeof(Startup));

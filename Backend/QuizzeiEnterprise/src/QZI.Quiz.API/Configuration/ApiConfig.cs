@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetDevPack.Identity;
+using NetDevPack.Identity.User;
 using QZI.Core.Filters;
 
 namespace QZI.Quiz.API.Configuration
 {
     public static class ApiConfig
     {
-        public static void AddApiConfiguration(this IServiceCollection services)
+        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
+            services.AddDefaultIdentityConfiguration(configuration);
+            services.AddAspNetUserConfiguration();
         }
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
@@ -29,7 +34,7 @@ namespace QZI.Quiz.API.Configuration
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseAuthentication();
+            app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {

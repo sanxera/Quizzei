@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NetDevPack.Identity.Authorization;
 using QZI.Core.Controllers;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands;
 using QZI.Quiz.Domain.Quiz.Handlers.Requests;
@@ -8,6 +10,7 @@ using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 namespace QZI.Quiz.API.Controllers
 {
     [Route("api/quizzes")]
+    [Authorize]
     public class QuizInfoController : MainController
     {
         private readonly IMediator _mediator;
@@ -17,8 +20,9 @@ namespace QZI.Quiz.API.Controllers
             _mediator = mediator;
         }
 
+        [CustomAuthorize("QuizInfo", "Create")]
         [HttpPost("create-quiz-info")]
-        public async Task<IActionResult> CreateQuizInfo([FromBody] CreateCategoryRequest request)
+        public async Task<IActionResult> CreateQuizInfo([FromBody] CreateQuizInfoRequest request)
         {
             var command = new CreateQuizInfoCommand(request);
 
