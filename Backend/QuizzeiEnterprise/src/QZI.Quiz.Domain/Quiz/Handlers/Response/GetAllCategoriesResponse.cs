@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using QZI.Quiz.Domain.Quiz.Dtos;
 using QZI.Quiz.Domain.Quiz.Entities;
 

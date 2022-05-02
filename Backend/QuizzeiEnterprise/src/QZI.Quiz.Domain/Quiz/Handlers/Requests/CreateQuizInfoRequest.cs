@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace QZI.Quiz.Domain.Quiz.Handlers.Requests
+﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Requests
 {
-    public class CreatCategoryRequest
+    public class CreateQuizInfoRequest
     {
         public string Title { get; set; }
         public string Description { get; set; }

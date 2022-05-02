@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QZI.Quiz.Domain.Quiz.Entities;
 
 namespace QZI.Quiz.Infra.Data.Mappers

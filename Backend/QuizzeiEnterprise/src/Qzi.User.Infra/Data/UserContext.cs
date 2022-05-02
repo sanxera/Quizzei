@@ -13,10 +13,7 @@ namespace QZI.User.Infra.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Name=DefaultConnection");
-            }
+            optionsBuilder.UseSqlServer("Name=DefaultConnection");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

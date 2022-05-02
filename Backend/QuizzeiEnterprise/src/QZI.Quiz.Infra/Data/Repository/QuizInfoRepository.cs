@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using QZI.Quiz.Domain.Quiz.Entities;
 using QZI.Quiz.Domain.Quiz.Repositories;
 

@@ -18,7 +18,7 @@ namespace QZI.Quiz.API.Controllers
         }
 
         [HttpPost("create-quiz-info")]
-        public async Task<IActionResult> CreateQuizInfo([FromBody] CreatCategoryRequest request)
+        public async Task<IActionResult> CreateQuizInfo([FromBody] CreateCategoryRequest request)
         {
             var command = new CreateQuizInfoCommand(request);
 

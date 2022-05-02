@@ -1,5 +1,4 @@
-﻿using System;
-namespace QZI.Quiz.Domain.Quiz.Handlers.Response
+﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Response
 {
     public class CreateQuizInfoResponse
     {
