@@ -10,17 +10,11 @@ namespace QZI.Core.Exceptions.Abstract
     [Serializable]
     public abstract class DomainException : Exception
     {
-        protected DomainException(string message) : base(message)
-        {
-        }
+        protected DomainException(string message) : base(message) { }
 
-        protected DomainException(string message, Exception innerEx) : base(message, innerEx)
-        {
-        }
+        protected DomainException(string message, Exception innerEx) : base(message, innerEx) { }
 
-        protected DomainException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        protected DomainException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public virtual string Title => "Unexpected Error";
         public virtual string Detail => "An unexpected error occurred";

@@ -24,7 +24,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\QZI.Core\QZI.Core.csproj" />
 		<ProjectReference Include="..\Qzi.User.Domain\QZI.User.Domain.csproj" />
-		<ProjectReference Include="..\Qzi.User.Infra\QZI.User.Infra.csproj" />
+		<ProjectReference Include="..\QZI.User.Infra.CrossCutting.IoC\QZI.User.Infra.CrossCutting.IoC.csproj" />
 	</ItemGroup>
 
 </Project>

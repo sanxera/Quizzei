@@ -1,12 +1,15 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NetDevPack.Identity.Authorization;
 using QZI.Core.Controllers;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands;
 using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 
 namespace QZI.Quiz.API.Controllers
 {
+    [Authorize]
     [Route("api/categories")]
     public class CategoryController : MainController
     {
@@ -17,6 +20,7 @@ namespace QZI.Quiz.API.Controllers
             _mediator = mediator;
         }
 
+        [CustomAuthorize("Category", "Create")]
         [HttpPost("create-category")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
@@ -27,6 +31,7 @@ namespace QZI.Quiz.API.Controllers
             return Ok(result);
         }
 
+        [CustomAuthorize("Category", "Get")]
         [HttpPost("get-all")]
         public async Task<IActionResult> GetAllCategories()
         {

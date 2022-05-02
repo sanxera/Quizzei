@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using QZI.User.Domain.User.Entities;
 using QZI.User.Domain.User.Repositories;
 
-namespace QZI.User.Infra.Data.Repository
+namespace QZI.User.Infra.Data.Data.Repository
 {
     public class UserRepository : IUserRepository
     {

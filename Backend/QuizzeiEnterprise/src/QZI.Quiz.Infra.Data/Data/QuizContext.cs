@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QZI.Quiz.Domain.Quiz.Entities;
-using QZI.Quiz.Infra.Data.Mappers;
+using QZI.Quiz.Infra.Data.Data.Mappers;
 
-namespace QZI.Quiz.Infra.Data
+namespace QZI.Quiz.Infra.Data.Data
 {
     public class QuizContext : DbContext
     {

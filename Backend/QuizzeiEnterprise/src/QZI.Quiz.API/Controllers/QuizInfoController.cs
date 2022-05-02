@@ -9,8 +9,8 @@ using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 
 namespace QZI.Quiz.API.Controllers
 {
-    [Route("api/quizzes")]
     [Authorize]
+    [Route("api/quizzes")]
     public class QuizInfoController : MainController
     {
         private readonly IMediator _mediator;

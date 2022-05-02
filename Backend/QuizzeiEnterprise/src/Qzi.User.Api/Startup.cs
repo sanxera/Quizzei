@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QZI.User.API.Configuration;
+using QZI.User.Infra.CrossCutting.IoC;
 
 namespace QZI.User.API
 {
@@ -32,7 +33,7 @@ namespace QZI.User.API
         {
             services.AddApiConfiguration();
             services.AddSwaggerConfiguration();
-            services.AddDependencyInjectionConfiguration(Configuration);
+            services.RegisterModules(Configuration);
             services.AddMediatR(typeof(Startup));
         }
 

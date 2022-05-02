@@ -6,7 +6,7 @@ using NetDevPack.Identity.Jwt;
 
 namespace QZI.Quiz.API.Configuration
 {
-    public static class DefaultIdentityConfig
+    public static class IdentityConfig
     {
         public static void AddDefaultIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {

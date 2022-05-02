@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetDevPack.Identity;
-using NetDevPack.Identity.User;
 using QZI.Quiz.API.Configuration;
+using QZI.Quiz.Infra.CrossCutting.IoC;
 
 namespace QZI.Quiz.API
 {
@@ -34,7 +33,7 @@ namespace QZI.Quiz.API
         {
             services.AddApiConfiguration(Configuration);
             services.AddSwaggerConfiguration();
-            services.AddDependencyInjectionConfiguration(Configuration);
+            services.RegisterModules(Configuration);
             services.AddMediatR(typeof(Startup));
         }
 

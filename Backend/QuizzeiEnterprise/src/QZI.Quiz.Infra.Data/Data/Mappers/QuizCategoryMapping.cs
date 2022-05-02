@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QZI.Quiz.Domain.Quiz.Entities;
 
-namespace QZI.Quiz.Infra.Data.Mappers
+namespace QZI.Quiz.Infra.Data.Data.Mappers
 {
     public static class QuizCategoryMapping
     {

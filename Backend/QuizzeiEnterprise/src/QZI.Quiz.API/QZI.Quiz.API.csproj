@@ -22,9 +22,8 @@
     <ProjectReference Include="..\QZI.Quiz.Domain\QZI.Quiz.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-    <ProjectReference Include="..\QZI.Quiz.Infra\QZI.Quiz.Infra.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <ProjectReference Include="..\QZI.Quiz.Infra.CrossCutting.IoC\QZI.Quiz.Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\QZI.Quiz.Infra.Data\QZI.Quiz.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

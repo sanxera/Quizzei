@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using QZI.Quiz.Domain.Quiz.Entities;
+using QZI.Quiz.Domain.Quiz.Exceptions;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands;
 using QZI.Quiz.Domain.Quiz.Handlers.Response;
 using QZI.Quiz.Domain.Quiz.Repositories;
@@ -30,20 +31,26 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
 
                 return new CreateCategoryResponse { Created = true };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new CategoryException("Error to create category.", ex);
             }
         }
 
         public async Task<GetAllCategoriesResponse> Handle(GetAllCategoriesCommand request, CancellationToken cancellationToken)
         {
+            try
+            {
+                var categories = _categoryRepository.GetAllCategories();
+                var dto = new GetAllCategoriesResponse();
 
-            var categories = _categoryRepository.GetAllCategories();
-            var dto = new GetAllCategoriesResponse();
-
-            dto.CreateListOfCategoryDto(categories);
-            return dto;
+                dto.CreateListOfCategoryDto(categories);
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                throw new CategoryException("Error to get all categories.", ex);
+            }
         }
     }
 }

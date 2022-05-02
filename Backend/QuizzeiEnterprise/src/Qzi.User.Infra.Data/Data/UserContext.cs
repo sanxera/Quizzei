@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QZI.User.Domain.User.Entities;
 
-namespace QZI.User.Infra.Data
+namespace QZI.User.Infra.Data.Data
 {
     public partial class UserContext : DbContext
     {

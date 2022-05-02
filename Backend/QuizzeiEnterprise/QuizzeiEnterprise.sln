@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.User.API", "src\Qzi.Use
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.User.Domain", "src\Qzi.User.Domain\QZI.User.Domain.csproj", "{2493F575-A2B5-402D-B0D7-74638F507EDF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.User.Infra", "src\Qzi.User.Infra\QZI.User.Infra.csproj", "{5B009C00-428E-4857-A54F-A3CBC079917A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.User.Infra.Data", "src\Qzi.User.Infra.Data\QZI.User.Infra.Data.csproj", "{5B009C00-428E-4857-A54F-A3CBC079917A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Identity.API", "src\Qzi.Identity.Api\QZI.Identity.API.csproj", "{8C3ABC1E-B7AE-4445-ABAA-B8E4BB2806E2}"
 EndProject
@@ -27,7 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Quiz.API", "src\QZI.Qui
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Quiz.Domain", "src\QZI.Quiz.Domain\QZI.Quiz.Domain.csproj", "{277C0F7E-8BF1-42FF-B1F2-B4569FA2079A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Quiz.Infra", "src\QZI.Quiz.Infra\QZI.Quiz.Infra.csproj", "{C02AA2B4-A06B-4386-A2E0-B38623D4F5EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Quiz.Infra.Data", "src\QZI.Quiz.Infra.Data\QZI.Quiz.Infra.Data.csproj", "{C02AA2B4-A06B-4386-A2E0-B38623D4F5EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Quiz.Infra.CrossCutting.IoC", "src\QZI.Quiz.Infra.CrossCutting.IoC\QZI.Quiz.Infra.CrossCutting.IoC.csproj", "{BB6CBE88-AD85-4E47-AE93-78DDB267CBEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QZI.User.Infra.CrossCutting.IoC", "src\QZI.User.Infra.CrossCutting.IoC\QZI.User.Infra.CrossCutting.IoC.csproj", "{D50E8E85-438B-4EF0-A9ED-8A343377ED13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,14 @@ Global
 		{C02AA2B4-A06B-4386-A2E0-B38623D4F5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C02AA2B4-A06B-4386-A2E0-B38623D4F5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C02AA2B4-A06B-4386-A2E0-B38623D4F5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6CBE88-AD85-4E47-AE93-78DDB267CBEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6CBE88-AD85-4E47-AE93-78DDB267CBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6CBE88-AD85-4E47-AE93-78DDB267CBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6CBE88-AD85-4E47-AE93-78DDB267CBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50E8E85-438B-4EF0-A9ED-8A343377ED13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50E8E85-438B-4EF0-A9ED-8A343377ED13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50E8E85-438B-4EF0-A9ED-8A343377ED13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50E8E85-438B-4EF0-A9ED-8A343377ED13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +95,8 @@ Global
 		{12CB93C0-B70D-4135-885A-D00191E6FB16} = {CBFF56E1-9CA7-4449-9D2C-3ECAD9AB7FF5}
 		{277C0F7E-8BF1-42FF-B1F2-B4569FA2079A} = {CBFF56E1-9CA7-4449-9D2C-3ECAD9AB7FF5}
 		{C02AA2B4-A06B-4386-A2E0-B38623D4F5EA} = {CBFF56E1-9CA7-4449-9D2C-3ECAD9AB7FF5}
+		{BB6CBE88-AD85-4E47-AE93-78DDB267CBEC} = {CBFF56E1-9CA7-4449-9D2C-3ECAD9AB7FF5}
+		{D50E8E85-438B-4EF0-A9ED-8A343377ED13} = {5ED67E1E-40B1-4B58-B781-64354C0F3663}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5956A87C-989E-4D4C-82AF-3574E155EEBD}
