@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using MediatR;
 using QZI.Quiz.Domain.Quiz.Entities;
 using QZI.Quiz.Domain.Quiz.Exceptions;
-using QZI.Quiz.Domain.Quiz.Handlers.Commands;
-using QZI.Quiz.Domain.Quiz.Handlers.Response;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz;
+using QZI.Quiz.Domain.Quiz.Handlers.Response.Quiz;
 using QZI.Quiz.Domain.Quiz.Repositories;
 
 namespace QZI.Quiz.Domain.Quiz.Handlers

@@ -1,4 +1,4 @@
-﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Response
+﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Response.Quiz
 {
     public class CreateQuizInfoResponse
     {

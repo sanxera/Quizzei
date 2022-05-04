@@ -3,5 +3,5 @@ using QZI.Quiz.Domain.Quiz.Repositories.Base;
 
 namespace QZI.Quiz.Domain.Quiz.Repositories
 {
-    public interface IQuizInfoRepository : IRepository<QuizInfo> { }
+    public interface IQuestionRepository : IRepository<Question> { }
 }

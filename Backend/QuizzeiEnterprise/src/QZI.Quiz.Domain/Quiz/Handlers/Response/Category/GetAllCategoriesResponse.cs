@@ -2,7 +2,7 @@
 using QZI.Quiz.Domain.Quiz.Dtos;
 using QZI.Quiz.Domain.Quiz.Entities;
 
-namespace QZI.Quiz.Domain.Quiz.Handlers.Response
+namespace QZI.Quiz.Domain.Quiz.Handlers.Response.Category
 {
     public class GetAllCategoriesResponse
     {

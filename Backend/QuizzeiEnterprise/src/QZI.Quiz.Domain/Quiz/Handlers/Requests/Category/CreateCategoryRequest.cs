@@ -1,4 +1,4 @@
-﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Requests
+﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Requests.Category
 {
     public class CreateCategoryRequest
     {

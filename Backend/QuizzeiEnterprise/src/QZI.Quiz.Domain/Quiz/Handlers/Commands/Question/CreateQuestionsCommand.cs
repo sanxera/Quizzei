@@ -1,23 +1,21 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using QZI.Quiz.Domain.Configuration;
-using QZI.Quiz.Domain.Quiz.Handlers.Requests;
-using QZI.Quiz.Domain.Quiz.Handlers.Response;
+using QZI.Quiz.Domain.Quiz.Handlers.Requests.Questions;
+using QZI.Quiz.Domain.Quiz.Handlers.Response.Question;
 using ValidationException = QZI.Core.Exceptions.ValidationException;
 
-namespace QZI.Quiz.Domain.Quiz.Handlers.Commands
+namespace QZI.Quiz.Domain.Quiz.Handlers.Commands.Question
 {
-    public class GetAllCategoriesCommand : Command<GetAllCategoriesResponse>
+    public class CreateQuestionsCommand : Command<CreateQuestionsResponse>
     {
-        private readonly IValidator<GetAllCategoriesRequest> _validator;
+        private readonly IValidator<CreateQuestionsRequest> _validator;
         private ValidationResult _validationResult;
+        public CreateQuestionsRequest Request { get; set; }
 
-        public GetAllCategoriesRequest Request { get; set; }
-
-        public GetAllCategoriesCommand(GetAllCategoriesRequest request)
+        public CreateQuestionsCommand(CreateQuestionsRequest request)
         {
             Request = request;
-
             _validator = null;
         }
 

@@ -1,4 +1,4 @@
-﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Requests
+﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Requests.Quiz
 {
     public class CreateQuizInfoRequest
     {

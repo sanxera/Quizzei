@@ -1,35 +1,33 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QZI.Quiz.Domain.Quiz.Entities;
 
 namespace QZI.Quiz.Infra.Data.Data.Mappers
 {
-    public static class QuizCategoryMapping
+    public class QuizCategoryMapping : IEntityTypeConfiguration<QuizCategory>
     {
-        public static void AddQuizCategoryMapping(this ModelBuilder builder)
+        public void Configure(EntityTypeBuilder<QuizCategory> builder)
         {
-            builder.Entity<QuizCategory>(entity =>
-            {
-                entity.ToTable("QUIZ_CATEGORY");
+            builder.ToTable("QUIZ_CATEGORY");
 
-                entity.Property(e => e.QuizCategoryId)
-                    .HasColumnName("CATEGORY_ID");
+            builder.Property(e => e.QuizCategoryId)
+                .HasColumnName("CATEGORY_ID");
 
-                entity.Property(e => e.Description)
-                    .HasColumnName("DESCRIPTION");
+            builder.Property(e => e.Description)
+                .HasColumnName("DESCRIPTION");
 
-                entity.Property(e => e.Active)
-                    .HasColumnName("ACTIVE");
+            builder.Property(e => e.Active)
+                .HasColumnName("ACTIVE");
 
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnName("CREATED_AT");
+            builder.Property(e => e.CreatedAt)
+                .HasColumnName("CREATED_AT");
 
-                entity.Property(e => e.CreatedBy)
-                    .HasColumnName("CREATED_BY");
+            builder.Property(e => e.CreatedBy)
+                .HasColumnName("CREATED_BY");
 
-                entity
-                    .HasKey(e => e.QuizCategoryId)
-                    .HasName("CATEGORY_ID");
-            });
+            builder
+                .HasKey(e => e.QuizCategoryId)
+                .HasName("CATEGORY_ID");
         }
     }
 }

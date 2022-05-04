@@ -4,8 +4,8 @@ using QZI.Quiz.Infra.Data.Data.Repository.Base;
 
 namespace QZI.Quiz.Infra.Data.Data.Repository
 {
-    public class QuizInfoRepository : RepositoryBase<QuizInfo>, IQuizInfoRepository
+    public class QuestionOptionRepository : RepositoryBase<QuestionOption>, IQuestionOptionRepository
     {
-        public QuizInfoRepository(QuizContext context) : base(context) { }
+        public QuestionOptionRepository(QuizContext context) : base(context) { }
     }
 }

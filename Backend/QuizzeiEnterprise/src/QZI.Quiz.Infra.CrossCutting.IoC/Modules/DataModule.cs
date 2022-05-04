@@ -13,10 +13,11 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
         {
             services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IQuestionOptionRepository, QuestionOptionRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
 
             services.AddDbContext<QuizContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
             services.AddScoped<QuizContext>();
         }
     }

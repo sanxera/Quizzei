@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\QZI.Quiz.Domain\QZI.Quiz.Domain.csproj" />
   </ItemGroup>
 

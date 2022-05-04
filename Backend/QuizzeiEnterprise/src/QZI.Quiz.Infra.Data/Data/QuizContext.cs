@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using QZI.Quiz.Domain.Quiz.Entities;
-using QZI.Quiz.Infra.Data.Data.Mappers;
 
 namespace QZI.Quiz.Infra.Data.Data
 {
@@ -23,10 +25,14 @@ namespace QZI.Quiz.Infra.Data.Data
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.AddQuizInfoMapping();
-            modelBuilder.AddQuizCategoryMapping();
-
             base.OnModelCreating(modelBuilder);
+        }
+
+        public IQueryable<TEntity> GetDbSetWithIncludes<TEntity, TProperty>(params Expression<Func<TEntity, TProperty>>[]? includes) where TEntity : class where TProperty : class
+        {
+            IQueryable<TEntity> dbSet = Set<TEntity>();
+
+            return !(includes?.Length > 0) ? dbSet : includes.Aggregate(dbSet, (current, include) => current.Include(include));
         }
     }
 }

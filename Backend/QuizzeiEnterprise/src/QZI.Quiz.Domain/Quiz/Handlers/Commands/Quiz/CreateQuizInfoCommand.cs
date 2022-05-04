@@ -1,20 +1,20 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using QZI.Quiz.Domain.Configuration;
-using QZI.Quiz.Domain.Quiz.Handlers.Requests;
-using QZI.Quiz.Domain.Quiz.Handlers.Response;
+using QZI.Quiz.Domain.Quiz.Handlers.Requests.Quiz;
+using QZI.Quiz.Domain.Quiz.Handlers.Response.Quiz;
 using ValidationException = QZI.Core.Exceptions.ValidationException;
 
-namespace QZI.Quiz.Domain.Quiz.Handlers.Commands
+namespace QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz
 {
-    public class CreateCategoryCommand : Command<CreateCategoryResponse>
+    public class CreateQuizInfoCommand : Command<CreateQuizInfoResponse>
     {
-        private readonly IValidator<CreateCategoryRequest> _validator;
+        private readonly IValidator<CreateQuizInfoRequest> _validator;
         private ValidationResult _validationResult;
 
-        public CreateCategoryRequest Request { get; set; }
+        public CreateQuizInfoRequest Request { get; set; }
 
-        public CreateCategoryCommand(CreateCategoryRequest request)
+        public CreateQuizInfoCommand(CreateQuizInfoRequest request)
         {
             Request = request;
 

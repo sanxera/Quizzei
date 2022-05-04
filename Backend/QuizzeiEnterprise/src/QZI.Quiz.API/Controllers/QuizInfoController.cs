@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetDevPack.Identity.Authorization;
 using QZI.Core.Controllers;
-using QZI.Quiz.Domain.Quiz.Handlers.Commands;
-using QZI.Quiz.Domain.Quiz.Handlers.Requests;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz;
+using QZI.Quiz.Domain.Quiz.Handlers.Requests.Quiz;
 
 namespace QZI.Quiz.API.Controllers
 {
