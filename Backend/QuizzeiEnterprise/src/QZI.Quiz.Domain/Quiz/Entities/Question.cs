@@ -8,8 +8,19 @@ namespace QZI.Quiz.Domain.Quiz.Entities
     {
         public Guid QuestionUuid { get; set; }
         public string Description { get; set; }
-        public Guid QuizInfoUuid { get; set; }
+        public Guid? QuizInfoUuid { get; set; }
         public QuizInfo QuizInfo { get; set; }
-        public ICollection<QuestionOption> Options { get; set; }
+        public ICollection<QuestionOption> Options { get; set; } = new List<QuestionOption>();
+
+        public static Question CreateQuestionWithOptions(string description)
+        {
+            return new Question
+            {
+                QuestionUuid = Guid.NewGuid(),
+                Description = description,
+                CreatedAt = DateTime.Now,
+                CreatedBy = "Admin"
+            };
+        }
     }
 }

@@ -10,11 +10,16 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
         {
             builder.ToTable("QUESTION");
 
-            builder.HasKey(e => e.QuestionUuid)
-                .HasName("QUESTION_UUID");
+            builder.Property(e => e.QuestionUuid)
+                .HasColumnName("QUESTION_UUID")
+                .IsRequired();
 
             builder.Property(e => e.Description)
                 .HasColumnName("DESCRIPTION")
+                .IsRequired();
+
+            builder.Property(e => e.QuizInfoUuid)
+                .HasColumnName("QUIZ_UUID")
                 .IsRequired();
 
             builder.Property(e => e.CreatedAt)
@@ -22,6 +27,9 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
 
             builder.Property(e => e.CreatedBy)
                 .HasColumnName("CREATED_BY");
+
+            builder.HasKey(e => e.QuestionUuid)
+                .HasName("QUESTION_UUID");
 
             builder
                 .HasOne(x => x.QuizInfo)

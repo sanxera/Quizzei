@@ -19,8 +19,9 @@ namespace QZI.Quiz.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateOptions([FromBody]CreateQuestionsRequest request)
+        [AllowAnonymous]
+        [HttpPost("create-questions-with-options")]
+        public async Task<IActionResult> CreateQuestionsWithOptions([FromBody]CreateQuestionsRequest request)
         {
             var command = new CreateQuestionsCommand(request);
 

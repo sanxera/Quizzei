@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using QZI.Quiz.Domain.Quiz.Entities;
@@ -23,22 +22,15 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
 
         public async Task<CreateQuizInfoResponse> Handle(CreateQuizInfoCommand command, CancellationToken cancellationToken)
         {
-            try
-            {
-                var category = await _quizCategoryRepository.GetCategoryById(command.Request.CategoryId);
+            var category = await _quizCategoryRepository.GetCategoryById(command.Request.CategoryId);
 
-                if (category == null)
-                    throw new CategoryException("Category not found.");
+            if (category == null)
+                throw new CategoryException("Category not found.");
 
-                var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, category);
-                await _quizInfoRepository.AddNewQuizInfo(quizInfo);
+            var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, category);
+            await _quizInfoRepository.AddAsync(quizInfo);
 
-                return new CreateQuizInfoResponse { Created = true };
-            }
-            catch (Exception ex)
-            {
-                throw new QuizInfoException("Error to create quiz information.", ex);
-            }
+            return new CreateQuizInfoResponse { Created = true };
         }
     }
 }

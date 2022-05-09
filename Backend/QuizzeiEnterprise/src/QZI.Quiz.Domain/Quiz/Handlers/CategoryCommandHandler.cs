@@ -27,7 +27,7 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
             {
                 var newCategory = QuizCategory.CreateQuizCategory(command.Request.Name);
 
-                await _categoryRepository.AddNewCategory(newCategory);
+                await _categoryRepository.AddAsync(newCategory);
 
                 return new CreateCategoryResponse { Created = true };
             }

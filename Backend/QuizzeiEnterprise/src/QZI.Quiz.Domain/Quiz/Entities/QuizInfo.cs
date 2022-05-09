@@ -13,7 +13,7 @@ namespace QZI.Quiz.Domain.Quiz.Entities
         public bool Active { get; set; }
         public int CategoryId { get; set; }
         public QuizCategory Category { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
 
         public static QuizInfo CreateQuizInfo(string title, string description, int points, QuizCategory category)
         {

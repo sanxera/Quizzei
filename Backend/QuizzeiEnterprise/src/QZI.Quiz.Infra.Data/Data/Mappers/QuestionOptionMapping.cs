@@ -11,16 +11,22 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
             builder.ToTable("QUESTION_OPTION");
 
             builder
-                .HasKey(e => e.QuestionOptionUuid)
-                .HasName("QUESTION_OPTION_UUID");
+                .Property(e => e.QuestionOptionUuid)
+                .HasColumnName("QUESTION_OPTIONS_UUID")
+                .IsRequired();
 
             builder
                 .Property(e => e.Description)
                 .HasColumnName("DESCRIPTION")
                 .IsRequired();
 
+            builder
+                .Property(e => e.QuestionUuid)
+                .HasColumnName("QUESTION_UUID")
+                .IsRequired();
+
             builder.Property(e => e.IsCorrect)
-                .HasColumnName("ISCORRECT")
+                .HasColumnName("IS_CORRECT")
                 .IsRequired();
 
             builder.Property(e => e.CreatedAt)
@@ -28,6 +34,10 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
 
             builder.Property(e => e.CreatedBy)
                 .HasColumnName("CREATED_BY");
+
+            builder
+                .HasKey(e => e.QuestionOptionUuid)
+                .HasName("QUESTION_OPTIONS_UUID");
         }
     }
 }
