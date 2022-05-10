@@ -23,7 +23,6 @@ namespace QZI.Quiz.Domain.Quiz.Entities
         {
             return new QuestionOption()
             {
-                QuestionOptionUuid = Guid.NewGuid(),
                 Description = request.Description,
                 IsCorrect = request.IsCorrect,
                 CreatedAt = DateTime.Now,

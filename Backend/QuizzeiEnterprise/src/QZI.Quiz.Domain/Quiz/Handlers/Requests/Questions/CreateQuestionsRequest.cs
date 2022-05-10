@@ -5,7 +5,6 @@ namespace QZI.Quiz.Domain.Quiz.Handlers.Requests.Questions
 {
     public class  CreateQuestionsRequest
     {
-        public Guid QuizUuid { get; set; }
         public IList<QuestionRequest> Questions { get; set; }
     }
 

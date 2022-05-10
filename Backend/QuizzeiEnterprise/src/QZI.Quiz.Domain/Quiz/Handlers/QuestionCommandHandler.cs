@@ -28,11 +28,9 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
 
         public async Task<CreateQuestionsResponse> Handle(CreateQuestionsCommand command, CancellationToken cancellationToken)
         {
-            var quizInfo = await GetQuizInfo(command.Request.QuizUuid);
+            var quizInfo = await GetQuizInfo(command.QuizInfoUuid);
 
             CreateNewQuestions(quizInfo, command.Request);
-
-            _quizInfoRepository.Update(quizInfo);
 
             await _unitOfWork.SaveChangesAsync();
 
@@ -40,7 +38,7 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
         }
 
         private async Task<QuizInfo> GetQuizInfo(Guid quizUuid)
-        {
+        {   
             var quizInfo = await _quizInfoRepository.GetQuizInfoById(quizUuid);
 
             if (quizInfo == null)
@@ -55,7 +53,7 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
             {
                 foreach (var questionRequest in request.Questions)
                 {
-                    var question = Question.CreateQuestionWithOptions(questionRequest.Description);
+                    var question = Question.CreateQuestion(questionRequest.Description);
                     question.Options = QuestionOption.CreateAnyOptions(questionRequest.Options.ToList());
 
                     quizInfo.Questions.Add(question);

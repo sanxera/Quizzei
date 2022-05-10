@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,9 @@ namespace QZI.Quiz.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("create-questions-with-options")]
-        public async Task<IActionResult> CreateQuestionsWithOptions([FromBody]CreateQuestionsRequest request)
+        public async Task<IActionResult> CreateQuestionsWithOptions([FromHeader] Guid quizInfoUuid, [FromBody]CreateQuestionsRequest request)
         {
-            var command = new CreateQuestionsCommand(request);
+            var command = new CreateQuestionsCommand(quizInfoUuid, request);
 
             var response = await _mediator.Send(command);
 

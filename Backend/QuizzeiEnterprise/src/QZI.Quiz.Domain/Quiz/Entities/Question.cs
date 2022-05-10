@@ -12,11 +12,10 @@ namespace QZI.Quiz.Domain.Quiz.Entities
         public QuizInfo QuizInfo { get; set; }
         public ICollection<QuestionOption> Options { get; set; } = new List<QuestionOption>();
 
-        public static Question CreateQuestionWithOptions(string description)
+        public static Question CreateQuestion(string description)
         {
             return new Question
             {
-                QuestionUuid = Guid.NewGuid(),
                 Description = description,
                 CreatedAt = DateTime.Now,
                 CreatedBy = "Admin"

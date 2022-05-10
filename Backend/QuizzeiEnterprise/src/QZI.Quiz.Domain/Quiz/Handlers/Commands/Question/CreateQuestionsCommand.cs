@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using FluentValidation.Results;
 using QZI.Quiz.Domain.Configuration;
 using QZI.Quiz.Domain.Quiz.Handlers.Requests.Questions;
@@ -11,11 +12,15 @@ namespace QZI.Quiz.Domain.Quiz.Handlers.Commands.Question
     {
         private readonly IValidator<CreateQuestionsRequest> _validator;
         private ValidationResult _validationResult;
+
+        public Guid QuizInfoUuid { get; set; }
         public CreateQuestionsRequest Request { get; set; }
 
-        public CreateQuestionsCommand(CreateQuestionsRequest request)
+        public CreateQuestionsCommand(Guid quizInfoUuid, CreateQuestionsRequest request)
         {
+            QuizInfoUuid = quizInfoUuid;
             Request = request;
+
             _validator = null;
         }
 
