@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Form } from 'antd'
+import { Typography, Button } from 'antd';
 import RegisterProfile from './RegisterProfile';
 import RegisterForm from './RegisterForm';
 import Container from '../../../components/Container';
+
+const { Title } = Typography;
 
 
 const Register = () => {
@@ -23,8 +25,12 @@ const Register = () => {
 
   return (
     <Container>
-      {registerType === 'profile' && (<RegisterProfile onSelect={onSelectProfileID} />)}
-      <div>
+      <div style={{ backgroundColor: '#6DA7EC', padding: '10px 10px 0px 10px' }}>
+        <div className='header'>
+          <Title level={2}>Quizzei</Title>
+          <Button size='large' shape='circle' ghost>LOGIN</Button>
+        </div>
+        {registerType === 'profile' && (<RegisterProfile onSelect={onSelectProfileID} />)}
         {registerType === 'registerForm' && (<RegisterForm profileID={profileID} />)}
       </div>
     </Container>

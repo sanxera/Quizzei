@@ -1,0 +1,11 @@
+.inputWrapper {
+  border: 0px;
+  border-bottom: 1px solid;
+}
+
+.inputWrapper:hover {
+  border-bottom-color: #6DA7EC;
+  -webkit-box-shadow: 0 8px 6px -6px #6DA7EC;
+  -moz-box-shadow: 0 8px 6px -6px #6DA7EC;
+  box-shadow: 0 8px 6px -6px #6DA7EC;
+}

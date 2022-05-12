@@ -13,7 +13,6 @@ const INPUT_STYLE = {
 
 const FormComponent = ({ profileID }) => {
   async function onFinish(values) {
-    console.log('chegou register ', values)
     const response = await register(values);
   };
 

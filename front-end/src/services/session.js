@@ -1,16 +1,22 @@
 import request from "../utils/request";
 
 export async function login(params) {
-  
-  if (!params) return;
-  const response = await request('api/users/login', {
-    method: 'POST',
-    data: {
-      ...params
-    },
-  });
 
-  return response;
+  if (!params) return;
+  // const response = await request('api/users/login', {
+  //   method: 'POST',
+  //   data: {
+  //     ...params
+  //   },
+  // });
+
+  let logged = false;
+
+  if (params.email === 'luiz@gmail.com' && params.password === '123456') logged = true;
+
+  return {
+    logged,
+  };
 }
 
 export async function register(params) {

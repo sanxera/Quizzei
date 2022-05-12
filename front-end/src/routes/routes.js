@@ -4,6 +4,9 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Signin from '../pages/Session/Login/index';
 import ProtectedRoutes from './protectedRoutes';
 import Register from '../pages/Session/Register/index';
+import LayoutWrapper from '../components/Layout/Layout';
+import List from '../pages/Quiz/List';
+// import CreateQuiz from '../pages/Quiz/Create';
 
 export const RoutesList = () => {
   const navigate = useNavigate();
@@ -12,9 +15,14 @@ export const RoutesList = () => {
       <Route path="/" element={<Signin navigate={navigate} />} />
       <Route path="/register" element={<Register />} />
       <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
-      <Route element={<ProtectedRoutes />}>
-        <Route path="/dashboard" element={<div>DASHBOARD</div>} />
-      </Route>
+      <Route element={< ProtectedRoutes />}>
+        <Route path="/quiz" element={
+          <LayoutWrapper>
+            <List navigate={navigate} />
+          </LayoutWrapper>
+        }
+        />
+      </Route >
 
       <Route path="*" element={
         <Result
@@ -24,6 +32,6 @@ export const RoutesList = () => {
           extra={<Button type="primary">Voltar a página inicial</Button>}
         />
       } />
-    </Routes>
+    </Routes >
   )
 }
