@@ -38,9 +38,9 @@ namespace QZI.User.API.Controllers
         }
 
         [HttpPost("get-by-email")]
-        public async Task<IActionResult> GetUserByEmail([FromHeader] ConfirmExistingEmailRequest request)
+        public async Task<IActionResult> GetUserByEmail([FromHeader] string email)
         {
-            var command = new ConfirmExistingEmailCommand(request);
+            var command = new ConfirmExistingEmailCommand(new ConfirmExistingEmailRequest{Email = email});
 
             var result = await _mediator.Send(command);
 

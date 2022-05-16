@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,9 @@ namespace QZI.Quiz.API.Controllers
         [HttpPost("create-quiz-info")]
         public async Task<IActionResult> CreateQuizInfo([FromBody] CreateQuizInfoRequest request)
         {
-            var command = new CreateQuizInfoCommand(request);
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var command = new CreateQuizInfoCommand(email, request);
 
             var response = await _mediator.Send(command);
 

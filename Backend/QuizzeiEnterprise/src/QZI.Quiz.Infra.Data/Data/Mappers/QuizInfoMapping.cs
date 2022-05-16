@@ -35,6 +35,10 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
                 .HasColumnName("POINTS")
                 .IsRequired();
 
+            builder.Property(e => e.UserOwnerId)
+                .IsRequired()
+                .HasColumnName("USER_UUID");
+
             builder.Property(e => e.CategoryId)
                 .HasColumnName("CATEGORY_ID");
 

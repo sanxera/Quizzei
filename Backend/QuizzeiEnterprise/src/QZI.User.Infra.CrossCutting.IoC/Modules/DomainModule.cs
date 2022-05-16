@@ -15,8 +15,10 @@ namespace QZI.User.Infra.CrossCutting.IoC.Modules
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpClient<IAuthUserService, AuthUserService>();
+
             services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserIdentityCommandHandler>();
             services.AddScoped<IRequestHandler<LoginUserCommand, LoginUserResponse>, UserIdentityCommandHandler>();
+            services.AddScoped<IRequestHandler<ConfirmExistingEmailCommand, ConfirmExistingEmailResponse>, UserIdentityCommandHandler>();
         }
     }
 }

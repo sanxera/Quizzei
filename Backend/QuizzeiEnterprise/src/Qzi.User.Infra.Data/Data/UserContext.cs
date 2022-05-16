@@ -11,11 +11,6 @@ namespace QZI.User.Infra.Data.Data
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<PersonalUser> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Name=DefaultConnection");
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");

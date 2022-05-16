@@ -5,10 +5,10 @@ using MediatR;
 using QZI.User.Domain.User.Entities;
 using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Commands;
-using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
 using QZI.User.Domain.User.Repositories;
 using QZI.User.Domain.User.Services.Interfaces;
+using QZI.User.Domain.User.Services.Requests;
 
 namespace QZI.User.Domain.User.Handlers
 {
@@ -59,10 +59,7 @@ namespace QZI.User.Domain.User.Handlers
 
             var user = await _userRepository.FindUserByEmail(request.Request.Email);
 
-            if (user is null)
-                return null;
-
-            return new ConfirmExistingEmailResponse { Id = user.UserUuid, Name = user.Name };
+            return user is null ? null : new ConfirmExistingEmailResponse { Id = user.UserUuid, Name = user.Name };
         }
 
         private async Task CheckIfUserAlreadyCreated(string email)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace QZI.Quiz.Domain.Quiz.Handlers.Requests.Questions
 {

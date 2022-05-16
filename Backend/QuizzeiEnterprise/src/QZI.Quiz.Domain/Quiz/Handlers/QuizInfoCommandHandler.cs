@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QZI.Quiz.Domain.Quiz.Acl.Interface;
 using QZI.Quiz.Domain.Quiz.Entities;
 using QZI.Quiz.Domain.Quiz.Exceptions;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz;
@@ -13,11 +14,13 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
     {
         private readonly IQuizInfoRepository _quizInfoRepository;
         private readonly ICategoryRepository _quizCategoryRepository;
+        private readonly IUserServiceAcl _userServiceAcl;
 
-        public QuizInfoCommandHandler(IQuizInfoRepository quizInfoRepository, ICategoryRepository quizCategoryRepository)
+        public QuizInfoCommandHandler(IQuizInfoRepository quizInfoRepository, ICategoryRepository quizCategoryRepository, IUserServiceAcl userServiceAcl)
         {
             _quizInfoRepository = quizInfoRepository;
             _quizCategoryRepository = quizCategoryRepository;
+            _userServiceAcl = userServiceAcl;
         }
 
         public async Task<CreateQuizInfoResponse> Handle(CreateQuizInfoCommand command, CancellationToken cancellationToken)
@@ -27,7 +30,9 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
             if (category == null)
                 throw new CategoryException("Category not found.");
 
-            var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, category);
+            var userResponse = await _userServiceAcl.GetUserIdByEmail(new GetUserByEmailRequest {Email = command.UserEmail});
+
+            var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, userResponse.Id, category);
             await _quizInfoRepository.AddAsync(quizInfo);
 
             return new CreateQuizInfoResponse { CreatedQuizUuid = quizInfo.QuizInfoUuid };

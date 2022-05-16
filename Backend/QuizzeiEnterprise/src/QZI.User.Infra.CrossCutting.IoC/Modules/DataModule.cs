@@ -14,7 +14,12 @@ namespace QZI.User.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<UserContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                {
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging();
+                    options.EnableDetailedErrors();
+                }
+            );
 
             services.AddScoped<UserContext>();
         }
