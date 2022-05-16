@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace QZI.Quiz.API.Controllers
 
             var response = await _mediator.Send(command);
 
-            return response.Created ? Ok(response) : BadRequest(response);
+            return response.CreatedQuizUuid == Guid.Empty ? Ok(response) : BadRequest(response);
         }
     }
 }

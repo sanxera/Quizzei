@@ -1,7 +1,9 @@
-﻿namespace QZI.Quiz.Domain.Quiz.Handlers.Response.Quiz
+﻿using System;
+
+namespace QZI.Quiz.Domain.Quiz.Handlers.Response.Quiz
 {
     public class CreateQuizInfoResponse
     {
-        public bool Created { get; set; }
+        public Guid CreatedQuizUuid { get; set; }
     }
 }

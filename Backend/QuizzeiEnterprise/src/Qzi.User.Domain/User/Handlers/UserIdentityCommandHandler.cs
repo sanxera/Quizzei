@@ -14,7 +14,8 @@ namespace QZI.User.Domain.User.Handlers
 {
     public class UserIdentityCommandHandler :
         IRequestHandler<CreateUserCommand, CreateUserResponse>,
-        IRequestHandler<LoginUserCommand, LoginUserResponse>
+        IRequestHandler<LoginUserCommand, LoginUserResponse>,
+        IRequestHandler<ConfirmExistingEmailCommand, ConfirmExistingEmailResponse>
     {
         private readonly IAuthUserService _authUserService;
         private readonly IUserRepository _userRepository;
@@ -50,6 +51,18 @@ namespace QZI.User.Domain.User.Handlers
             request.Validate();
 
             return await _authUserService.Login(request.Request);
+        }
+
+        public async Task<ConfirmExistingEmailResponse> Handle(ConfirmExistingEmailCommand request, CancellationToken cancellationToken)
+        {
+            request.Validate();
+
+            var user = await _userRepository.FindUserByEmail(request.Request.Email);
+
+            if (user is null)
+                return null;
+
+            return new ConfirmExistingEmailResponse { Id = user.UserUuid, Name = user.Name };
         }
 
         private async Task CheckIfUserAlreadyCreated(string email)

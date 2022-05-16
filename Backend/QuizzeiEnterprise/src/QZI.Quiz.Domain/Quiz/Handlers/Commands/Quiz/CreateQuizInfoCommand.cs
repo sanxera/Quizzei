@@ -12,10 +12,12 @@ namespace QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz
         private readonly IValidator<CreateQuizInfoRequest> _validator;
         private ValidationResult _validationResult;
 
+        public string UserEmail { get; set; }
         public CreateQuizInfoRequest Request { get; set; }
 
-        public CreateQuizInfoCommand(CreateQuizInfoRequest request)
+        public CreateQuizInfoCommand(string userEmail, CreateQuizInfoRequest request)
         {
+            UserEmail = userEmail;
             Request = request;
 
             _validator = null;

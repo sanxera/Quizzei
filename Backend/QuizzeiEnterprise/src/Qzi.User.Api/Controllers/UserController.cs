@@ -36,5 +36,15 @@ namespace QZI.User.API.Controllers
             
             return CustomResponse(result);
         }
+
+        [HttpPost("get-by-email")]
+        public async Task<IActionResult> GetUserByEmail([FromHeader] ConfirmExistingEmailRequest request)
+        {
+            var command = new ConfirmExistingEmailCommand(request);
+
+            var result = await _mediator.Send(command);
+
+            return CustomResponse(result);
+        }
     }
 }

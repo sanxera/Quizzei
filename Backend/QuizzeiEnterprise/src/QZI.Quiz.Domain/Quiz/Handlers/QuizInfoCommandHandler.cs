@@ -30,7 +30,7 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
             var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, category);
             await _quizInfoRepository.AddAsync(quizInfo);
 
-            return new CreateQuizInfoResponse { Created = true };
+            return new CreateQuizInfoResponse { CreatedQuizUuid = quizInfo.QuizInfoUuid };
         }
     }
 }
