@@ -9,7 +9,7 @@ using QZI.Core.Controllers;
 
 namespace QZI.Category.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/categories")]
     public class CategoryController : MainController
     {
@@ -20,7 +20,7 @@ namespace QZI.Category.API.Controllers
             _mediator = mediator;
         }
 
-        [CustomAuthorize("Category", "Create")]
+        //[CustomAuthorize("Category", "Create")]
         [HttpPost("create-category")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
@@ -31,7 +31,7 @@ namespace QZI.Category.API.Controllers
             return Ok(result);
         }
 
-        [CustomAuthorize("Category", "Get")]
+        //[CustomAuthorize("Category", "Get")]
         [HttpPost("get-by-id")]
         public async Task<IActionResult> GetCategoryById([FromHeader] int categoryId)
         {
@@ -43,7 +43,7 @@ namespace QZI.Category.API.Controllers
         }
 
 
-        [CustomAuthorize("Category", "Get")]
+        //[CustomAuthorize("Category", "Get")]
         [HttpPost("get-all")]
         public async Task<IActionResult> GetAllCategories()
         {

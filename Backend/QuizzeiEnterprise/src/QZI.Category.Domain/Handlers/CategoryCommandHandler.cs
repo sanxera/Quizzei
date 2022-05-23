@@ -60,7 +60,7 @@ namespace QZI.Category.Domain.Handlers
 
                 if (category == null)
                     throw new NotFoundException("Category not found !");
-                ;
+                
                 return new GetCategoryByIdResponse { Id = category.Id, Description = category.Description };
             }
             catch (Exception ex)

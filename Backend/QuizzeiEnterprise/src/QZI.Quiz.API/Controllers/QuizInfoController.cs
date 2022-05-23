@@ -11,7 +11,7 @@ using QZI.Quiz.Domain.Quiz.Handlers.Requests.Quiz;
 
 namespace QZI.Quiz.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/quizzes")]
     public class QuizInfoController : MainController
     {
@@ -22,7 +22,7 @@ namespace QZI.Quiz.API.Controllers
             _mediator = mediator;
         }
 
-        [CustomAuthorize("QuizInfo", "Create")]
+        //[CustomAuthorize("QuizInfo", "Create")]
         [HttpPost("create-quiz-info")]
         public async Task<IActionResult> CreateQuizInfo([FromBody] CreateQuizInfoRequest request)
         {

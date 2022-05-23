@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QZI.Core.Exceptions;
 using QZI.User.Domain.User.Entities;
 using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Commands;
@@ -15,7 +16,7 @@ namespace QZI.User.Domain.User.Handlers
     public class UserIdentityCommandHandler :
         IRequestHandler<CreateUserCommand, CreateUserResponse>,
         IRequestHandler<LoginUserCommand, LoginUserResponse>,
-        IRequestHandler<GetUserByEmailCommand, ConfirmExistingEmailResponse>
+        IRequestHandler<GetUserByEmailCommand, GetUserByEmailResponse>
     {
         private readonly IAuthUserService _authUserService;
         private readonly IUserRepository _userRepository;
@@ -53,13 +54,16 @@ namespace QZI.User.Domain.User.Handlers
             return await _authUserService.Login(request.Request);
         }
 
-        public async Task<ConfirmExistingEmailResponse> Handle(GetUserByEmailCommand request, CancellationToken cancellationToken)
+        public async Task<GetUserByEmailResponse> Handle(GetUserByEmailCommand request, CancellationToken cancellationToken)
         {
             request.Validate();
 
             var user = await _userRepository.FindUserByEmail(request.Request.Email);
 
-            return user is null ? null : new ConfirmExistingEmailResponse { Id = user.UserUuid, Name = user.Name };
+            if (user == null)
+                throw new NotFoundException("User not found");
+
+            return new GetUserByEmailResponse { Id = user.UserUuid, Name = user.Name };
         }
 
         private async Task CheckIfUserAlreadyCreated(string email)

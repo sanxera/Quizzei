@@ -18,7 +18,7 @@ namespace QZI.User.Infra.CrossCutting.IoC.Modules
 
             services.AddScoped<IRequestHandler<CreateUserCommand, CreateUserResponse>, UserIdentityCommandHandler>();
             services.AddScoped<IRequestHandler<LoginUserCommand, LoginUserResponse>, UserIdentityCommandHandler>();
-            services.AddScoped<IRequestHandler<GetUserByEmailCommand, ConfirmExistingEmailResponse>, UserIdentityCommandHandler>();
+            services.AddScoped<IRequestHandler<GetUserByEmailCommand, GetUserByEmailResponse>, UserIdentityCommandHandler>();
         }
     }
 }

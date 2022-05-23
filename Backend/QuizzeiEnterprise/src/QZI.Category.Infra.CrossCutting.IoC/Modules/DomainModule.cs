@@ -15,6 +15,7 @@ namespace QZI.Category.Infra.CrossCutting.IoC.Modules
 
             services.AddScoped<IRequestHandler<CreateCategoryCommand, CreateCategoryResponse>, CategoryCommandHandler>();
             services.AddScoped<IRequestHandler<GetAllCategoriesCommand, GetAllCategoriesResponse>, CategoryCommandHandler>();
+            services.AddScoped<IRequestHandler<GetCategoryByIdCommand, GetCategoryByIdResponse>, CategoryCommandHandler>();
         }
     }
 }

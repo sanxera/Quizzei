@@ -7,7 +7,7 @@ using QZI.User.Domain.User.Validations;
 
 namespace QZI.User.Domain.User.Handlers.Commands
 {
-    public class GetUserByEmailCommand : Command<ConfirmExistingEmailResponse>
+    public class GetUserByEmailCommand : Command<GetUserByEmailResponse>
     {
         private readonly IValidator<GetUserByEmailRequest> _validator;
         private ValidationResult _validationResult;
@@ -16,7 +16,7 @@ namespace QZI.User.Domain.User.Handlers.Commands
         {
             Request = request;
 
-            _validator = new ConfirmExistingEmailValidator();
+            _validator = new GetUserByEmailValidator();
         }
 
         public GetUserByEmailRequest Request { get; set; }

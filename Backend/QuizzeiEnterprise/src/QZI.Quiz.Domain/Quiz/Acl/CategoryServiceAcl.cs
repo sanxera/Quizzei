@@ -15,14 +15,14 @@ namespace QZI.Quiz.Domain.Quiz.Acl
 
         public CategoryServiceAcl(HttpClient httpClient)
         {
-            httpClient.BaseAddress = new Uri("https://localhost:44343");
+            httpClient.BaseAddress = new Uri("https://localhost:44308");
             _httpClient = httpClient;
         }
 
         public async Task<GetCategoryByIdResponse> GetCategoryById(int categoryId)
         {
             AddHeaders(categoryId);
-            var response = await _httpClient.PostAsync("/api/category/get-by-id", null!);
+            var response = await _httpClient.PostAsync("/api/categories/get-by-id", null!);
 
             await ResponseContainsErrors(response);
 
