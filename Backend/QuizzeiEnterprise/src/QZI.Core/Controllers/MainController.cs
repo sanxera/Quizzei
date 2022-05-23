@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -35,16 +34,6 @@ namespace QZI.Core.Controllers
             return CustomResponse();
         }
 
-        protected ActionResult CustomResponse(ValidationResult validationResult)
-        {
-            foreach (var error in validationResult.Errors)
-            {
-                AddError(error.ErrorMessage);
-            }
-
-            return CustomResponse();
-        }
-
         protected bool IsOperationValid()
         {
             return !_errors.Any();
@@ -53,11 +42,6 @@ namespace QZI.Core.Controllers
         protected void AddError(string error)
         {
             _errors.Add(error);
-        }
-
-        protected void ClearErrors()
-        {
-            _errors.Clear();
         }
     }
 }

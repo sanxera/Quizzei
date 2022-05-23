@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using QZI.Core.Exceptions.Abstract;
 
-namespace QZI.Quiz.Domain.Quiz.Exceptions
+namespace QZI.Category.Domain.Exceptions
 {
     internal class CategoryException : DomainException
     {

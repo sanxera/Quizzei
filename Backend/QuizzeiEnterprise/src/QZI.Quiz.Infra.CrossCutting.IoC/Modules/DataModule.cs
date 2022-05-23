@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using QZI.Quiz.Domain.Quiz.Acl;
-using QZI.Quiz.Domain.Quiz.Acl.Interface;
 using QZI.Quiz.Domain.Quiz.Repositories;
 using QZI.Quiz.Domain.Quiz.UnitOfWork;
 using QZI.Quiz.Infra.Data.Data;
@@ -19,7 +16,6 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IQuestionOptionRepository, QuestionOptionRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
 

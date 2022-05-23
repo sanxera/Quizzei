@@ -16,7 +16,7 @@ namespace QZI.Quiz.Domain.Quiz.Entities
         public QuizCategory Category { get; set; }
         public ICollection<Question> Questions { get; set; } = new List<Question>();
 
-        public static QuizInfo CreateQuizInfo(string title, string description, int points, Guid userOwner, QuizCategory category)
+        public static QuizInfo CreateQuizInfo(string title, string description, int points, Guid userOwner, int categoryId)
         {
             return new QuizInfo
             {
@@ -27,7 +27,7 @@ namespace QZI.Quiz.Domain.Quiz.Entities
                 Active = true,
                 CreatedAt = DateTime.Now,
                 CreatedBy = "Admin",
-                Category = category
+                CategoryId = categoryId
             };
         }
     }

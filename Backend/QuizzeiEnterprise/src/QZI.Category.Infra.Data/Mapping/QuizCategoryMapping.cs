@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using QZI.Quiz.Domain.Quiz.Entities;
 
-namespace QZI.Quiz.Infra.Data.Data.Mappers
+namespace QZI.Category.Infra.Data.Mapping
 {
-    public class QuizCategoryMapping : IEntityTypeConfiguration<QuizCategory>
+    public class QuizCategoryMapping : IEntityTypeConfiguration<Domain.Entities.Category>
     {
-        public void Configure(EntityTypeBuilder<QuizCategory> builder)
+        public void Configure(EntityTypeBuilder<Domain.Entities.Category> builder)
         {
             builder.ToTable("QUIZ_CATEGORY");
 
-            builder.Property(e => e.QuizCategoryId)
+            builder.Property(e => e.Id)
                 .HasColumnName("CATEGORY_ID");
 
             builder.Property(e => e.Description)
@@ -26,7 +25,7 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
                 .HasColumnName("CREATED_BY");
 
             builder
-                .HasKey(e => e.QuizCategoryId)
+                .HasKey(e => e.Id)
                 .HasName("CATEGORY_ID");
         }
     }

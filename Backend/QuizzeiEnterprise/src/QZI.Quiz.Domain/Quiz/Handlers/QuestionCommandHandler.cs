@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QZI.Core.Exceptions;
 using QZI.Quiz.Domain.Quiz.Entities;
 using QZI.Quiz.Domain.Quiz.Exceptions;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands.Question;
@@ -42,7 +43,7 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
             var quizInfo = await _quizInfoRepository.GetQuizInfoById(quizUuid);
 
             if (quizInfo == null)
-                throw new NotFoundQuizInfoException("Quiz Information not found !");
+                throw new NotFoundException("Quiz Information not found !");
 
             return quizInfo;
         }

@@ -15,7 +15,7 @@ namespace QZI.User.Domain.User.Handlers
     public class UserIdentityCommandHandler :
         IRequestHandler<CreateUserCommand, CreateUserResponse>,
         IRequestHandler<LoginUserCommand, LoginUserResponse>,
-        IRequestHandler<ConfirmExistingEmailCommand, ConfirmExistingEmailResponse>
+        IRequestHandler<GetUserByEmailCommand, ConfirmExistingEmailResponse>
     {
         private readonly IAuthUserService _authUserService;
         private readonly IUserRepository _userRepository;
@@ -53,7 +53,7 @@ namespace QZI.User.Domain.User.Handlers
             return await _authUserService.Login(request.Request);
         }
 
-        public async Task<ConfirmExistingEmailResponse> Handle(ConfirmExistingEmailCommand request, CancellationToken cancellationToken)
+        public async Task<ConfirmExistingEmailResponse> Handle(GetUserByEmailCommand request, CancellationToken cancellationToken)
         {
             request.Validate();
 

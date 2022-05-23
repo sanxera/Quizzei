@@ -3,11 +3,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetDevPack.Identity.Authorization;
+using QZI.Category.Domain.Handlers.Commands;
+using QZI.Category.Domain.Handlers.Requests;
 using QZI.Core.Controllers;
-using QZI.Quiz.Domain.Quiz.Handlers.Commands.Category;
-using QZI.Quiz.Domain.Quiz.Handlers.Requests.Category;
 
-namespace QZI.Quiz.API.Controllers
+namespace QZI.Category.API.Controllers
 {
     [Authorize]
     [Route("api/categories")]
@@ -30,6 +30,18 @@ namespace QZI.Quiz.API.Controllers
 
             return Ok(result);
         }
+
+        [CustomAuthorize("Category", "Get")]
+        [HttpPost("get-by-id")]
+        public async Task<IActionResult> GetCategoryById([FromHeader] int categoryId)
+        {
+            var command = new GetCategoryByIdCommand(new GetCategoryByIdRequest {Id = categoryId});
+
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
 
         [CustomAuthorize("Category", "Get")]
         [HttpPost("get-all")]

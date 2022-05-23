@@ -19,15 +19,19 @@ namespace QZI.Quiz.Domain.Quiz.Acl
             _httpClient = httpClient;
         }
 
-        public async Task<GetUserByEmailResponse> GetUserIdByEmail(GetUserByEmailRequest request)
+        public async Task<GetUserByEmailResponse> GetUserIdByEmail(string email)
         {
-            var content = GetContent(request);
-
-            var response = await _httpClient.PostAsync("/api/users/get-by-email", content);
+            AddHeaders(email);
+            var response = await _httpClient.PostAsync("/api/users/get-by-email", null!);
 
             await ResponseContainsErrors(response);
 
             return await DeserializeObjectResponse<GetUserByEmailResponse>(response);
+        }
+
+        private void AddHeaders(string email)
+        {
+            _httpClient.DefaultRequestHeaders.Add("email", email);
         }
 
         private async Task ResponseContainsErrors(HttpResponseMessage response)

@@ -5,6 +5,6 @@ namespace QZI.Quiz.Domain.Quiz.Acl.Interface
 {
     public interface IUserServiceAcl
     {
-        Task<GetUserByEmailResponse> GetUserIdByEmail(GetUserByEmailRequest request);
+        Task<GetUserByEmailResponse> GetUserIdByEmail(string email);
     }
 }
