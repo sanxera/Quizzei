@@ -6,6 +6,7 @@ using QZI.Category.Domain.Exceptions;
 using QZI.Category.Domain.Handlers.Commands;
 using QZI.Category.Domain.Handlers.Response;
 using QZI.Category.Domain.Repositories;
+using QZI.Category.Domain.UnitOfWork;
 using QZI.Core.Exceptions;
 
 namespace QZI.Category.Domain.Handlers
@@ -16,10 +17,12 @@ namespace QZI.Category.Domain.Handlers
         IRequestHandler<GetCategoryByIdCommand, GetCategoryByIdResponse>
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryCommandHandler(ICategoryRepository categoryRepository)
+        public CategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<CreateCategoryResponse> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)
@@ -29,8 +32,9 @@ namespace QZI.Category.Domain.Handlers
                 var newCategory = Entities.Category.CreateQuizCategory(command.Request.Name);
 
                 await _categoryRepository.AddAsync(newCategory);
+                await _unitOfWork.SaveChangesAsync();
 
-                return new CreateCategoryResponse { Created = true };
+                return new CreateCategoryResponse { CreatedId = newCategory.Id };
             }
             catch (Exception ex)
             {

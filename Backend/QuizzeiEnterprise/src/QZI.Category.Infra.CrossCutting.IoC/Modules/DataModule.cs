@@ -14,7 +14,6 @@ namespace QZI.Category.Infra.CrossCutting.IoC.Modules
         public static void Register(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddDbContext<CategoryContext>(options =>

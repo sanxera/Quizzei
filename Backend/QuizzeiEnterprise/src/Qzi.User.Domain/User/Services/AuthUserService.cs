@@ -45,7 +45,7 @@ namespace QZI.User.Domain.User.Services
         private async Task ResponseContainsErrors(HttpResponseMessage response)
         {
             var responseResult = await ProcessResponse(response);
-            var message = responseResult.Errors.Messages.FirstOrDefault();
+            var message = responseResult.Errors.FirstOrDefault()?.Title;
 
             if (!response.IsSuccessStatusCode)
             {

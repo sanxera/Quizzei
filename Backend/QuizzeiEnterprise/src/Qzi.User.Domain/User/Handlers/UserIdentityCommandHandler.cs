@@ -31,7 +31,7 @@ namespace QZI.User.Domain.User.Handlers
         {
             request.Validate();
             var userRegister = request.Request;
-            var newUser = PersonalUser.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
+            var newUser = PersonalUser.CreateNewUser(userRegister.Name, userRegister.Email, userRegister.Password, userRegister.ProfileId);
             var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
 
             try

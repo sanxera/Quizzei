@@ -44,7 +44,7 @@ namespace QZI.User.API.Controllers
 
             var result = await _mediator.Send(command);
 
-            return CustomResponse(result);
+            return BadRequest();
         }
     }
 }

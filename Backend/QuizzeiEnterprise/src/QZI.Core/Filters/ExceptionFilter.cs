@@ -12,9 +12,10 @@ namespace QZI.Core.Filters
         {
             var ex = context.Exception;
             var res = ResolveResponse(ex);
-
+            
             context.ExceptionHandled = true;
             context.Result = new ObjectResult(res);
+            context.HttpContext.Response.StatusCode = res.StatusCode;
         }
 
         private static Error ResolveResponse(Exception ex) => ex switch

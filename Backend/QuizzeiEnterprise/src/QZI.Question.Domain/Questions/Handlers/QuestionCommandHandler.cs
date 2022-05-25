@@ -30,7 +30,7 @@ namespace QZI.Question.Domain.Questions.Handlers
 
             await _unitOfWork.SaveChangesAsync();
 
-            return new CreateQuestionsResponse { Created = true };
+            return new CreateQuestionsResponse { QuizInfoUuid = command.QuizInfoUuid, Created = true };
         }
 
         private async Task CreateQuestions(Guid quizUuid, CreateQuestionsRequest request)

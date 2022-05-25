@@ -2,6 +2,6 @@
 {
     public class CreateCategoryResponse
     {
-        public bool Created { get; set; }
+        public int CreatedId { get; set; }
     }
 }

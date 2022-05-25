@@ -37,7 +37,7 @@ namespace QZI.Quiz.Domain.Quiz.Acl
         private async Task ResponseContainsErrors(HttpResponseMessage response)
         {
             var responseResult = await ProcessResponse(response);
-            var message = responseResult.Errors.Messages.FirstOrDefault();
+            var message = responseResult.Errors.FirstOrDefault()?.Detail;
 
             if (!response.IsSuccessStatusCode)
             {
