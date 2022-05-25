@@ -2,12 +2,10 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NetDevPack.Identity.Authorization;
 using QZI.Core.Controllers;
-using QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz;
-using QZI.Quiz.Domain.Quiz.Handlers.Requests.Quiz;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands;
+using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 
 namespace QZI.Quiz.API.Controllers
 {

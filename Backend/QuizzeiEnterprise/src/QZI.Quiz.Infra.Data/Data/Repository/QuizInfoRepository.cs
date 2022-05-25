@@ -14,9 +14,6 @@ namespace QZI.Quiz.Infra.Data.Data.Repository
         public async Task<QuizInfo> GetQuizInfoById(Guid id)
         {
             return await Context.QuizzesInfos
-                .Include(x => x.Questions)
-                    .ThenInclude(y => y.Options)
-                .Include(x => x.Category)
                 .FirstOrDefaultAsync(x => x.QuizInfoUuid == id);
         }
     }

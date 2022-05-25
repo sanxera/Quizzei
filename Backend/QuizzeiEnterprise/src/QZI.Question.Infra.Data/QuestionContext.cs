@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using QZI.Quiz.Domain.Quiz.Entities;
+using QZI.Question.Domain.Questions.Entities;
 
-namespace QZI.Quiz.Infra.Data.Data
+namespace QZI.Question.Infra.Data
 {
-    public class QuizContext : DbContext
+    public class QuestionContext : DbContext
     {
-        public QuizContext(DbContextOptions<QuizContext> options) : base(options) { }
+        public QuestionContext(DbContextOptions<QuestionContext> options) : base(options) { }
 
-        public virtual DbSet<QuizInfo> QuizzesInfos { get; set; }
+        public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
+        public virtual DbSet<Domain.Questions.Entities.Question> Questions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

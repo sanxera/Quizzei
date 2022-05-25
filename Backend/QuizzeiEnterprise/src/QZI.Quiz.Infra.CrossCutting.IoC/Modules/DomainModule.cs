@@ -4,10 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using QZI.Quiz.Domain.Quiz.Acl;
 using QZI.Quiz.Domain.Quiz.Acl.Interface;
 using QZI.Quiz.Domain.Quiz.Handlers;
-using QZI.Quiz.Domain.Quiz.Handlers.Commands.Question;
-using QZI.Quiz.Domain.Quiz.Handlers.Commands.Quiz;
-using QZI.Quiz.Domain.Quiz.Handlers.Response.Question;
-using QZI.Quiz.Domain.Quiz.Handlers.Response.Quiz;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands;
+using QZI.Quiz.Domain.Quiz.Handlers.Response;
 
 namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
 {
@@ -20,7 +18,6 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
             services.AddHttpClient<ICategoryServiceAcl, CategoryServiceAcl>();
 
             services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInfoCommandHandler>();
-            services.AddScoped<IRequestHandler<CreateQuestionsCommand, CreateQuestionsResponse>, QuestionCommandHandler>();
         }
     }
 }

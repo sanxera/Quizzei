@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using QZI.Quiz.Domain.Quiz.Entities.Base;
 
 namespace QZI.Quiz.Domain.Quiz.Entities
@@ -13,8 +12,6 @@ namespace QZI.Quiz.Domain.Quiz.Entities
         public bool Active { get; set; }
         public int CategoryId { get; set; }
         public Guid UserOwnerId { get; set; }
-        public QuizCategory Category { get; set; }
-        public ICollection<Question> Questions { get; set; } = new List<Question>();
 
         public static QuizInfo CreateQuizInfo(string title, string description, int points, Guid userOwner, int categoryId)
         {
@@ -25,6 +22,7 @@ namespace QZI.Quiz.Domain.Quiz.Entities
                 Description = description,
                 Points = points,
                 Active = true,
+                UserOwnerId = userOwner,
                 CreatedAt = DateTime.Now,
                 CreatedBy = "Admin",
                 CategoryId = categoryId

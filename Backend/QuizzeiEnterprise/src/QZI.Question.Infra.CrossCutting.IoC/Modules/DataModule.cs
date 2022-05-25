@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using QZI.Quiz.Domain.Quiz.Repositories;
-using QZI.Quiz.Domain.Quiz.UnitOfWork;
-using QZI.Quiz.Infra.Data.Data;
-using QZI.Quiz.Infra.Data.Data.Repository;
-using QZI.Quiz.Infra.Data.Data.UnitOfWork;
+using QZI.Question.Domain.Questions.Repositories;
+using QZI.Question.Domain.Questions.UnitOfWork;
+using QZI.Question.Infra.Data;
+using QZI.Question.Infra.Data.Repository;
+using QZI.Question.Infra.Data.UnitOfWork;
 
-namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
+namespace QZI.Question.Infra.CrossCutting.IoC.Modules
 {
     public static class DataModule
     {
@@ -15,9 +15,9 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
 
-            services.AddDbContext<QuizContext>(options =>
+            services.AddDbContext<QuestionContext>(options =>
                 {
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                     options.EnableSensitiveDataLogging();
@@ -25,7 +25,7 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
                 }
             );
 
-            services.AddScoped<QuizContext>();
+            services.AddScoped<QuestionContext>();
         }
     }
 }

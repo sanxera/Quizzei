@@ -18,9 +18,6 @@
 	  <None Remove="Quiz\CategoryDto\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Quiz\Dtos\" />
-	</ItemGroup>
-	<ItemGroup>
 	  <ProjectReference Include="..\QZI.Core\QZI.Core.csproj" />
 	</ItemGroup>
 </Project>

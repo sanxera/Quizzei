@@ -44,11 +44,6 @@ namespace QZI.Quiz.Infra.Data.Data.Mappers
 
             builder.HasKey(e => e.QuizInfoUuid)
                 .HasName("QUIZ_UUID");
-
-            builder
-                .HasOne(x => x.Category)
-                .WithMany(y => y.QuizInfo)
-                .HasForeignKey(t => t.CategoryId);
         }
     }
 }
