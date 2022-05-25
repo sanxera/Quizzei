@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Identity;
 using NetDevPack.Identity.Jwt;
 
-namespace QZI.Category.API.Configuration
+namespace QZI.Question.API.Configuration
 {
     public static class IdentityConfig
     {
@@ -12,7 +12,7 @@ namespace QZI.Category.API.Configuration
         {
             services.AddIdentityEntityFrameworkContextConfiguration(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
-                    b=>b.MigrationsAssembly("Qzi.Category.Api")));
+                    b=>b.MigrationsAssembly("Qzi.Question.Api")));
 
             services.AddIdentityConfiguration();
             services.AddJwtConfiguration(configuration, "AppSettings");
