@@ -30,7 +30,7 @@ namespace QZI.Category.API.Controllers
         }
 
         //[CustomAuthorize("Category", "Get")]
-        [HttpPost("get-by-id")]
+        [HttpGet("get-by-id")]
         public async Task<IActionResult> GetCategoryById([FromHeader] int categoryId)
         {
             var command = new GetCategoryByIdCommand(new GetCategoryByIdRequest {Id = categoryId});
@@ -42,7 +42,7 @@ namespace QZI.Category.API.Controllers
 
 
         //[CustomAuthorize("Category", "Get")]
-        [HttpPost("get-all")]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAllCategories()
         {
             var command = new GetAllCategoriesCommand(new GetAllCategoriesRequest());

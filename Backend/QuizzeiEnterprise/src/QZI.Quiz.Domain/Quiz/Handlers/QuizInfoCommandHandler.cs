@@ -10,7 +10,9 @@ using QZI.Quiz.Domain.Quiz.UnitOfWork;
 
 namespace QZI.Quiz.Domain.Quiz.Handlers
 {
-    public class QuizInfoCommandHandler : IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>
+    public class QuizInfoCommandHandler : 
+        IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>,
+        IRequestHandler<GetQuizzesInfoByUserCommand, GetQuizzesInfoByUserResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IQuizInfoRepository _quizInfoRepository;
@@ -28,7 +30,6 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
         public async Task<CreateQuizInfoResponse> Handle(CreateQuizInfoCommand command, CancellationToken cancellationToken)
         {
             var category = await _categoryServiceAcl.GetCategoryById(command.Request.CategoryId);
-
             var userResponse = await _userServiceAcl.GetUserIdByEmail(command.UserEmail);
 
             var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, userResponse.Id, category.Id);
@@ -37,6 +38,29 @@ namespace QZI.Quiz.Domain.Quiz.Handlers
             await _unitOfWork.SaveChangesAsync();
 
             return new CreateQuizInfoResponse { CreatedQuizUuid = quizInfo.QuizInfoUuid };
+        }
+
+        public async Task<GetQuizzesInfoByUserResponse> Handle(GetQuizzesInfoByUserCommand byUserCommand, CancellationToken cancellationToken)
+        {
+            var userResponse = await _userServiceAcl.GetUserIdByEmail(byUserCommand.Request.Email);
+            var quizzes = await _quizInfoRepository.GetQuizInfoByUserUuid(userResponse.Id);
+
+            var response = new GetQuizzesInfoByUserResponse();
+
+            foreach (var quiz in quizzes)
+            {
+                var category = await _categoryServiceAcl.GetCategoryById(quiz.CategoryId);
+
+                response.QuizzesInfoDto.Add(new QuizInfoResponse
+                {
+                    Title = quiz.Title,
+                    Description = quiz.Description,
+                    CategoryDescription = category.Description,
+                    QuizInfoUuid = quiz.QuizInfoUuid
+                });
+            }
+
+            return response;
         }
     }
 }

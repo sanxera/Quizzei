@@ -30,7 +30,18 @@ namespace QZI.Quiz.API.Controllers
 
             var response = await _mediator.Send(command);
 
-            return response.CreatedQuizUuid == Guid.Empty ? Ok(response) : BadRequest(response);
+            return response.CreatedQuizUuid != Guid.Empty ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpGet("get-all-by-user")]
+        public async Task<IActionResult> GetQuizzesInfoByUser()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var command = new GetQuizzesInfoByUserCommand(new GetQuizzesInfoByUserRequest {Email = email});
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
         }
     }
 }

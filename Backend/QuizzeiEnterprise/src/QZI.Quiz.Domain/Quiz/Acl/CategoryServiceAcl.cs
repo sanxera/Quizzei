@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using QZI.Core.Exceptions;
 using QZI.Core.Services;
@@ -21,12 +22,15 @@ namespace QZI.Quiz.Domain.Quiz.Acl
 
         public async Task<GetCategoryByIdResponse> GetCategoryById(int categoryId)
         {
-            AddHeaders(categoryId);
-            var response = await _httpClient.PostAsync("/api/categories/get-by-id", null!);
+            using var request = new HttpRequestMessage(HttpMethod.Get, "/api/categories/get-by-id");
+            {
+                request.Headers.Add("categoryId", categoryId.ToString());
+                var response = await _httpClient.SendAsync(request);
 
-            await ResponseContainsErrors(response);
+                await ResponseContainsErrors(response);
 
-            return await DeserializeObjectResponse<GetCategoryByIdResponse>(response);
+                return await DeserializeObjectResponse<GetCategoryByIdResponse>(response);
+            }
         }
 
         private void AddHeaders(int categoryId)

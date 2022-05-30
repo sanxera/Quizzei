@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace QZI.Core.Communication
+﻿namespace QZI.Core.Communication
 {
     public class ResponseErrorMessages
     {
