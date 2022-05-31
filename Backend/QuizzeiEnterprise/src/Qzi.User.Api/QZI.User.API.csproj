@@ -7,6 +7,7 @@
 		<DockerfileContext>..\..</DockerfileContext>
 	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Qzi.User.Api' " />
 	<ItemGroup>
 		<PackageReference Include="NetDevPack" Version="5.0.2" />
 		<PackageReference Include="MediatR" Version="9.0.0" />
@@ -23,7 +24,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\QZI.Core\QZI.Core.csproj" />
 		<ProjectReference Include="..\Qzi.User.Domain\QZI.User.Domain.csproj" />
-		<ProjectReference Include="..\Qzi.User.Infra\QZI.User.Infra.csproj" />
+		<ProjectReference Include="..\QZI.User.Infra.CrossCutting.IoC\QZI.User.Infra.CrossCutting.IoC.csproj" />
 	</ItemGroup>
 
 </Project>

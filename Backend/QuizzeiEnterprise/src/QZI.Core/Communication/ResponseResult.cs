@@ -1,15 +1,11 @@
-﻿namespace QZI.Core.Communication
+﻿using System.Collections.Generic;
+
+namespace QZI.Core.Communication
 {
     public class ResponseResult
     {
-        public ResponseResult()
-        {
-            Errors = new ResponseErrorMessages();
-        }
-        public string Title { get; set; }
+        public int StatusCode { get; set; }
 
-        public int Status { get; set; }
-
-        public ResponseErrorMessages Errors { get; set; }
+        public List<ResponseErrorMessages> Errors { get; set; } = new List<ResponseErrorMessages>();
     }
 }

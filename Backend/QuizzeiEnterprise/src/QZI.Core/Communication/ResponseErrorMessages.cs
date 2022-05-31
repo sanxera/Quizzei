@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace QZI.Core.Communication
+﻿namespace QZI.Core.Communication
 {
     public class ResponseErrorMessages
     {
-        public ResponseErrorMessages()
-        {
-            Messages = new List<string>();
-        }
-
-        public List<string> Messages { get; set; }
+        public string Title { get; set; }
+        public string Detail { get; set; }
+        public string Status { get; set; }
     }
 }
