@@ -8,7 +8,7 @@ namespace QZI.Core.Services
 {
     public abstract class Service
     {
-        protected StringContent GetContent(object data)
+        protected static StringContent GetContent(object data)
         {
             return new StringContent(JsonSerializer.Serialize(data),
                 Encoding.UTF8,

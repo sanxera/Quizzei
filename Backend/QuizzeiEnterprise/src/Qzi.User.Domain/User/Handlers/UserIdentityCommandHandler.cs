@@ -2,19 +2,21 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QZI.Core.Exceptions;
 using QZI.User.Domain.User.Entities;
 using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Commands;
-using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
 using QZI.User.Domain.User.Repositories;
 using QZI.User.Domain.User.Services.Interfaces;
+using QZI.User.Domain.User.Services.Requests;
 
 namespace QZI.User.Domain.User.Handlers
 {
     public class UserIdentityCommandHandler :
         IRequestHandler<CreateUserCommand, CreateUserResponse>,
-        IRequestHandler<LoginUserCommand, LoginUserResponse>
+        IRequestHandler<LoginUserCommand, LoginUserResponse>,
+        IRequestHandler<GetUserByEmailCommand, GetUserByEmailResponse>
     {
         private readonly IAuthUserService _authUserService;
         private readonly IUserRepository _userRepository;
@@ -29,7 +31,7 @@ namespace QZI.User.Domain.User.Handlers
         {
             request.Validate();
             var userRegister = request.Request;
-            var newUser = PersonalUser.CreateNewUser(userRegister.Name, userRegister.Password, userRegister.Email, userRegister.ProfileId);
+            var newUser = PersonalUser.CreateNewUser(userRegister.Name, userRegister.Email, userRegister.Password, userRegister.ProfileId);
             var identityNewUser = CreateIdentityUserRequest.Create(userRegister.Email, userRegister.Password);
 
             try
@@ -50,6 +52,18 @@ namespace QZI.User.Domain.User.Handlers
             request.Validate();
 
             return await _authUserService.Login(request.Request);
+        }
+
+        public async Task<GetUserByEmailResponse> Handle(GetUserByEmailCommand request, CancellationToken cancellationToken)
+        {
+            request.Validate();
+
+            var user = await _userRepository.FindUserByEmail(request.Request.Email);
+
+            if (user == null)
+                throw new NotFoundException("User not found");
+
+            return new GetUserByEmailResponse { Id = user.UserUuid, Name = user.Name };
         }
 
         private async Task CheckIfUserAlreadyCreated(string email)
