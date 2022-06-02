@@ -45,13 +45,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Category.Infra.Data", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Question", "Question", "{F74BF63D-9C1A-4A67-8AC6-B09E8B8B6B3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QZI.Question.API", "src\QZI.Question.API\QZI.Question.API.csproj", "{24DB689F-B4E8-40C6-89C9-559B00916A6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Question.API", "src\QZI.Question.API\QZI.Question.API.csproj", "{24DB689F-B4E8-40C6-89C9-559B00916A6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QZI.Question.Domain", "src\QZI.Question.Domain\QZI.Question.Domain.csproj", "{7A77E878-AD4B-4856-8942-FF759CB9EFE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Question.Domain", "src\QZI.Question.Domain\QZI.Question.Domain.csproj", "{7A77E878-AD4B-4856-8942-FF759CB9EFE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QZI.Question.Infra.CrossCutting.IoC", "src\QZI.Question.Infra.CrossCutting.IoC\QZI.Question.Infra.CrossCutting.IoC.csproj", "{119E47A7-CCA1-457F-ADE1-A0FD6FAC28F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Question.Infra.CrossCutting.IoC", "src\QZI.Question.Infra.CrossCutting.IoC\QZI.Question.Infra.CrossCutting.IoC.csproj", "{119E47A7-CCA1-457F-ADE1-A0FD6FAC28F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QZI.Question.Infra.Data", "src\QZI.Question.Infra.Data\QZI.Question.Infra.Data.csproj", "{A62556EA-A037-484D-B191-CB1874B2AC3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QZI.Question.Infra.Data", "src\QZI.Question.Infra.Data\QZI.Question.Infra.Data.csproj", "{A62556EA-A037-484D-B191-CB1874B2AC3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
