@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 using QZI.User.Domain.Configuration;
 using QZI.User.Domain.User.Handlers.Requests;

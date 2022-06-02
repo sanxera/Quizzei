@@ -7,6 +7,7 @@ using QZI.User.Domain.User.Exceptions;
 using QZI.User.Domain.User.Handlers.Requests;
 using QZI.User.Domain.User.Handlers.Responses;
 using QZI.User.Domain.User.Services.Interfaces;
+using QZI.User.Domain.User.Services.Requests;
 
 namespace QZI.User.Domain.User.Services
 {
@@ -44,7 +45,7 @@ namespace QZI.User.Domain.User.Services
         private async Task ResponseContainsErrors(HttpResponseMessage response)
         {
             var responseResult = await ProcessResponse(response);
-            var message = responseResult.Errors.Messages.FirstOrDefault();
+            var message = responseResult.Errors.FirstOrDefault()?.Title;
 
             if (!response.IsSuccessStatusCode)
             {

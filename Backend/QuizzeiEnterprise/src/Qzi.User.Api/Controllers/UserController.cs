@@ -36,5 +36,15 @@ namespace QZI.User.API.Controllers
             
             return CustomResponse(result);
         }
+
+        [HttpPost("get-by-email")]
+        public async Task<IActionResult> GetUserByEmail([FromHeader] string email)
+        {
+            var command = new GetUserByEmailCommand(new GetUserByEmailRequest{Email = email});
+
+            var result = await _mediator.Send(command);
+
+            return CustomResponse(result);
+        }
     }
 }

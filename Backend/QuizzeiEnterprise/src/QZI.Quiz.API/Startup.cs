@@ -1,10 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using QZI.Quiz.API.Configuration;
+using QZI.Quiz.Infra.CrossCutting.IoC;
 
 namespace QZI.Quiz.API
 {
@@ -30,10 +33,16 @@ namespace QZI.Quiz.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApiConfiguration();
+            services.AddApiConfiguration(Configuration);
             services.AddSwaggerConfiguration();
-            services.AddDependencyInjectionConfiguration(Configuration);
+            services.RegisterModules(Configuration);
             services.AddMediatR(typeof(Startup));
+
+            services.AddLogging(loggingBuilder => {
+                loggingBuilder.AddConsole()
+                    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information);
+                loggingBuilder.AddDebug();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

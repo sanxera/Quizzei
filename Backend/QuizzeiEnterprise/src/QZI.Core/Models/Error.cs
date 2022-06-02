@@ -48,10 +48,9 @@ namespace QZI.Core.Models
             public IEnumerable<InnerError> Errors { get; set; }
 
             public static Error FromDefault(Exception ex) =>
-                new Error(InnerError.FromDefault(ex, HttpStatusCode.InternalServerError));
+                new(InnerError.FromDefault(ex, HttpStatusCode.InternalServerError));
 
-            public static Error FromValidation(ValidationException vex) =>
-                new Error(vex.GetErrors());
+            public static Error FromValidation(ValidationException vex) => new(vex.GetErrors());
         }
     }
 }

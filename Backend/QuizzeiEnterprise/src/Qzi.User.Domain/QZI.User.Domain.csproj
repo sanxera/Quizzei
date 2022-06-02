@@ -18,4 +18,10 @@
     <ProjectReference Include="..\QZI.Core\QZI.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="User\Services\Requests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="User\Services\Requests\" />
+  </ItemGroup>
 </Project>
