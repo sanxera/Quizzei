@@ -17,8 +17,8 @@ export const RoutesList = () => {
       <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
       <Route element={< ProtectedRoutes />}>
         <Route path="/quiz" element={
-          <LayoutWrapper>
-            <List navigate={navigate} />
+          <LayoutWrapper navigate={navigate}>
+            <List />
           </LayoutWrapper>
         }
         />

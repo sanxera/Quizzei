@@ -6,9 +6,9 @@ import {
 
 const { Header } = Layout;
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ navigate }) => {
   return (
-    <Header style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'white' }} trigger={null}>
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'white', backgroundColor: '#40a9ff' }} trigger={null}>
       <span>Quizzei</span>
       <div>
         <span style={{ textDecoration: 'underline' }}>Quizzes</span> / Conteúdos

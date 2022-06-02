@@ -36,7 +36,7 @@ const FormComponent = ({ onSubmit }) => {
       </div>
 
       <Form.Item wrapperCol={{ span: 24, offset: 3 }}>
-        <Button style={{ width: '90%' }} type="primary" htmlType="submit">
+        <Button style={{ width: '90%' }} type="primary" shape='round' size='middle' htmlType="submit">
           ENTRAR
         </Button>
       </Form.Item>

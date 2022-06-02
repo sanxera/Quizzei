@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Divider, Row, Col, Button, Input, Affix, PageHeader } from 'antd';
+import { Row, Col, Typography, Input, Button } from 'antd';
+import { RightOutlined } from '@ant-design/icons'
 import ModalQuiz from './Modal';
-import {
-  SearchOutlined
-} from '@ant-design/icons';
+
 import CardWrapper from '../../components/CardWrapper';
 import StartQuiz from './StartQuiz';
 
-const List = ({ navigate }) => {
+const { Title, Text } = Typography;
+
+const List = () => {
   const [visible, setVisible] = useState(false);
   const [infoVisible, setInfoVisible] = useState(false);
   const [rowData, setRowData] = useState({});
@@ -26,72 +27,126 @@ const List = ({ navigate }) => {
     {
       title: 'Programação em javascript',
       description: 'Este quiz esta denominado para programadores com experiencia em javascript',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png'
+      image: 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
     },
     {
       title: 'Programação em javascript',
       description: 'Este quiz esta denominado para programadores com experiencia em javascript',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png'
+      image: 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
     },
     {
       title: 'Programação em javascript',
       description: 'Este quiz esta denominado para programadores com experiencia em javascript',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png'
+      image: 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
     },
     {
       title: 'Programação em javascript',
       description: 'Este quiz esta denominado para programadores com experiencia em javascript',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png'
+      image: 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
     },
     {
       title: 'Programação em javascript',
       description: 'Este quiz esta denominado para programadores com experiencia em javascript',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png'
+      image: 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
     },
     {
       title: 'Programação em javascript',
       description: 'Este quiz esta denominado para programadores com experiencia em javascript',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png'
+      image: 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
+    },
+  ]
+
+
+  const arrFilter = [
+    {
+      description: 'Programação',
+      logo: 'https://i.pinimg.com/originals/0f/8b/28/0f8b2870896edcde8f6149fe2733faaf.jpg',
+    },
+    {
+      description: 'Matematica',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png',
+    },
+    {
+      description: 'Geografia',
+      logo: 'https://thumbs.dreamstime.com/b/icon-regional-territorial-regional-175491126.jpg',
+    },
+    {
+      description: 'Portugues',
+      logo: 'https://static.thenounproject.com/png/2053718-200.png',
+    },
+    {
+      description: 'Ciencia',
+      logo: 'https://cdn-icons-png.flaticon.com/512/1046/1046269.png',
+    },
+    {
+      description: 'Fisíca',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png',
+    },
+    {
+      description: 'Matematica',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png',
+    },
+    {
+      description: 'Matematica',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png',
+    },
+    {
+      description: 'Matematica',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Circle-icons-calculator.svg/1200px-Circle-icons-calculator.svg.png',
     },
   ]
 
   return (
-    <Row gutter={10}>
-      <Col span={16}>
-        <Input />
-      </Col>
+    <div>
+      {/* Criar componente de filtro */}
+      <Row>
+        <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Title level={3}>Que tipo de quiz você está buscando?</Title>
+        </Col>
+        <Col span={24}>
+          <Input style={{ backgroundColor: '#FFFF', borderRadius: 20, height: 50 }} suffix={<RightOutlined />} />
+        </Col>
+        <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+          {arrFilter.map(item => (
+            <Row>
+              <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button type="link" shape='circle'>
+                  <img style={{ width: '100%', height: 50, borderRadius: '20px 20px 20px 20px' }} alt="example" src={item.logo} />
+                </Button>
+              </Col>
+              <Col span={24} style={{ marginTop: 30, display: 'flex', justifyContent: 'center' }}>
+                <Text>{item.description}</Text>
+              </Col>
+            </Row>
+          ))}
+        </Col>
+      </Row>
 
-      <Col span={3}>
-        <Button shape='round' type='primary' icon={<SearchOutlined />} />
-      </Col>
-      <Col span={5} style={{ marginBottom: 30, display: 'flex', justifyContent: 'end' }}>
-        <Button shape='round' type="primary" onClick={() => handleModal()} >Criar Quiz</Button>
-      </Col>
+      <div style={{ display: 'flex', marginTop: 100 }}>
+        <Row justify='center'>
+          <Col span={24} style={{ marginBottom: 20, paddingLeft: 75 }}>
+            <Title level={3} >Meus Quizzes</Title>
+          </Col>
+          <Col style={{ display: 'flex' }}>
+            {arrQuizzes.map((item, index) => (
+              <CardWrapper key={`my-quizzes-${index}`} logo={item.image} title={item.title} description={item.description} onClick={() => handleModal(item)} style={{ marginRight: 30, padding: 0 }} />
+            ))}
+          </Col>
 
-      <Divider style={{ color: 'black' }} orientation="left">Meus Quizzes</Divider>
-      <Col span={24} style={{ display: 'flex' }}>
-        {arrQuizzes.map(item => (
-          <CardWrapper logo={item.image} title={item.title} description={item.description} onClickCard={() => handleModal(item)} style={{ marginRight: 10, padding: 0 }} />
-        ))}
-      </Col>
-
-      <Divider style={{ color: 'black' }} orientation="left">Quizzes</Divider>
-      <Col>
-        <Row justify='space-between'>
-          <Col span={15} style={{ display: 'flex' }}>
-            {arrQuizzes.map(item => (
-              <CardWrapper logo={item.image} title={item.title} description={item.description} onClickCard={() => openInfoQuizzes(item)} style={{ marginRight: 10, padding: 0 }} />
+          <Col span={24} style={{ marginTop: 50, marginBottom: 20, paddingLeft: 75 }}>
+            <Title level={3} >Quizzes</Title>
+          </Col>
+          <Col style={{ display: 'flex' }}>
+            {arrQuizzes.map((item, index) => (
+              <CardWrapper key={`quizzes-${index}`} isQuiz logo={item.image} title={item.title} description={item.description} onClick={() => openInfoQuizzes(item)} style={{ marginRight: 30, padding: 0 }} />
             ))}
           </Col>
         </Row>
-      </Col>
 
-      <Col>
+        <ModalQuiz data={rowData} onClose={handleModal} visible={visible} />
         <StartQuiz data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />
-      </Col>
-
-      <ModalQuiz data={rowData} onClose={handleModal} visible={visible} />
-    </Row>
+      </div>
+    </div>
   )
 }
 

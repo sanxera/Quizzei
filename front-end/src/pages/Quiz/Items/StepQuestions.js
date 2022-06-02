@@ -4,7 +4,7 @@ import {
   DeleteOutlined
 } from '@ant-design/icons';
 
-const StepQuestion = ({ form }) => {
+const StepQuestion = ({ data }) => {
   const [arrQuestions, setArrQuestion] = useState([{}]);
   const [arrAnswers, setArrAnswers] = useState([]);
 
@@ -12,7 +12,7 @@ const StepQuestion = ({ form }) => {
     <>
       <Divider>Questões</Divider>
       {arrQuestions.map((item, index) => (
-        <Row style={{ marginBottom: 20, borderBottom: '1px solid', padding: 10 }}>
+        <Row key={`questions-${index}`} style={{ marginBottom: 20, borderBottom: '1px solid', padding: 10 }} justify='center'>
           <Col span={24} style={{ display: 'flex', justifyContent: 'end' }}>
             <Tooltip title="Deletar questão">
               <Button
@@ -33,10 +33,10 @@ const StepQuestion = ({ form }) => {
               console.log(text, item, index)
             }} placeholder='Digite a questão aqui!' />
           </Col>
-          <Col span={24}>
+          <Col span={22}>
             <Divider>Respostas</Divider>
-          </Col>
-          <Col span={24}>
+
+            {/* {item.answers && item.answers.map((item, index) => ( */}
             {arrAnswers.map((item, index) => (
               <Row style={{ marginBottom: 20 }}>
                 <Col span={22}>

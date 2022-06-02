@@ -37,10 +37,11 @@ const ModalQuiz = ({ data, onClose, visible }) => {
       width={1000}
       closable={false}
       footer={[
-        <Button type="primary" danger onClick={() => onCloseModal()}>Cancelar</Button>,
-        <Button type="primary" onClick={onSubmit}>{textButton}</Button>
+        <Button type="primary" shape='round' danger onClick={() => onCloseModal()}>Cancelar</Button>,
+        <Button type="primary" shape='round' onClick={onSubmit}>{textButton}</Button>
       ]}
       destroyOnClose={true}
+      style={{ borderRadius: 20 }}
     >
       <Tabs
         activeKey={activeKey}

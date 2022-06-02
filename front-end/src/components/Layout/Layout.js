@@ -4,19 +4,13 @@ import HeaderMenu from './HeaderMenu';
 
 const { Content, Footer } = Layout;
 
-const LayoutWrapper = ({ children }) => {
+const LayoutWrapper = ({ navigate, children }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <HeaderMenu />
+      <HeaderMenu navigate={navigate} />
 
-      <Content
-        style={{ backgroundColor: '##F0F8FF', padding: 20, marginTop: 64 }}
-      >
-        <div
-          style={{ backgroundColor: '#FFFF', borderRadius: 5, padding: 15, minHeight: '100vh' }}
-        >
-          {children}
-        </div>
+      <Content style={{ backgroundColor: '#FFFF', padding: 50, marginTop: 64 }}>
+        {children}
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         Quizzei ©2022 Created by Quizzei Devs
