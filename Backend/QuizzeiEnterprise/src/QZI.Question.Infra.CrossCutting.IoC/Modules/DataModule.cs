@@ -16,6 +16,7 @@ namespace QZI.Question.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
 
             services.AddDbContext<QuestionContext>(options =>
                 {

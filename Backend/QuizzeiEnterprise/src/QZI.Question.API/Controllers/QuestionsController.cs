@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +30,19 @@ namespace QZI.Question.API.Controllers
             var response = await _mediator.Send(command);
 
             return response.Created ? Ok(response) : BadRequest(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("answer-questions")]
+        public async Task<IActionResult> AnswerQuestions(AnswerQuestionRequest request)
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var command = new AnswerQuestionCommand(email, request);
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
         }
     }
 }
