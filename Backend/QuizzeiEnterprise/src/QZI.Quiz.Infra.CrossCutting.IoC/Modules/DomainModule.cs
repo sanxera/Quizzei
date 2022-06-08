@@ -5,7 +5,9 @@ using QZI.Quiz.Domain.Quiz.Acl;
 using QZI.Quiz.Domain.Quiz.Acl.Interface;
 using QZI.Quiz.Domain.Quiz.Handlers;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands;
+using QZI.Quiz.Domain.Quiz.Handlers.Commands.Process;
 using QZI.Quiz.Domain.Quiz.Handlers.Response;
+using QZI.Quiz.Domain.Quiz.Handlers.Response.Process;
 
 namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
 {
@@ -19,6 +21,8 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
 
             services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInfoCommandHandler>();
             services.AddScoped<IRequestHandler<GetQuizzesInfoByUserCommand, GetQuizzesInfoByUserResponse>, QuizInfoCommandHandler>();
+            services.AddScoped<IRequestHandler<GetQuizzesInfoByDifferentUsersCommand, GetQuizzesInfoByDifferentUsersResponse>, QuizInfoCommandHandler>();
+            services.AddScoped<IRequestHandler<StartQuizProcessCommand, StartQuizProcessResponse>, QuizProcessCommandHandler>();
         }
     }
 }

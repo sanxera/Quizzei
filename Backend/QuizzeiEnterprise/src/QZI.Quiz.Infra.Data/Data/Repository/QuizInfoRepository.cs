@@ -23,5 +23,10 @@ namespace QZI.Quiz.Infra.Data.Data.Repository
         {
             return await Context.QuizzesInfos.Where(x => x.UserOwnerId == userUuid).ToListAsync();
         }
+
+        public async Task<IEnumerable<QuizInfo>> GetQuizInfoByDifferentUsers(Guid userUuid)
+        {
+            return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid).ToListAsync();
+        }
     }
 }

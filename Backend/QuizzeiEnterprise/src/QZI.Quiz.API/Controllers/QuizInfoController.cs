@@ -10,7 +10,7 @@ using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 namespace QZI.Quiz.API.Controllers
 {
     //[Authorize]
-    [Route("api/quizzes")]
+    [Route("api/quizzes-info")]
     public class QuizInfoController : MainController
     {
         private readonly IMediator _mediator;
@@ -37,7 +37,18 @@ namespace QZI.Quiz.API.Controllers
         public async Task<IActionResult> GetQuizzesInfoByUser()
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            var command = new GetQuizzesInfoByUserCommand(new GetQuizzesInfoByUserRequest {Email = email});
+            var command = new GetQuizzesInfoByUserCommand(new GetQuizzesInfoByUserRequest {UserEmail = email});
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [HttpGet("get-all-by-different-users")]
+        public async Task<IActionResult> GetQuizzesInfo()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var command = new GetQuizzesInfoByDifferentUsersCommand(new GetQuizzesInfoByDifferentUsersRequest{ UserEmail = email });
 
             var response = await _mediator.Send(command);
 

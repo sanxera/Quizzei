@@ -2,6 +2,6 @@
 {
     public class GetQuizzesInfoByUserRequest
     {
-        public string Email { get; set; }
+        public string UserEmail { get; set; }
     }
 }
