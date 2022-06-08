@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Tabs, Button, Form, Modal } from 'antd';
-import { useDispatch } from 'react-redux';
 import StepForm from './Items/StepForm';
 import StepQuestion from './Items/StepQuestions';
 import StepContent from './Items/StepContent';
@@ -9,11 +8,65 @@ import {
   QuestionCircleOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
+import { create, createQuestions } from '../../services/quiz';
+import { notification } from '../../utils/notification';
 
 const { TabPane } = Tabs;
 
-const ModalQuiz = ({ data, onClose, visible }) => {
-  const dispatch = useDispatch();
+const fakeData = [
+  {
+    description: 'Questão 1',
+    answers: [
+      {
+        description: 'Resposta 1',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 2',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 3',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 4',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 5',
+        isCorrect: true
+      },
+    ]
+  },
+  {
+    description: 'Questão 2',
+    answers: [
+      {
+        description: 'Resposta 1',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 2',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 3',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 4',
+        isCorrect: false
+      },
+      {
+        description: 'Resposta 5',
+        isCorrect: true
+      },
+    ]
+  },
+]
+
+const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
   const [form] = Form.useForm();
   const [activeKey, setActiveKey] = useState('1');
 
@@ -25,9 +78,25 @@ const ModalQuiz = ({ data, onClose, visible }) => {
     onClose();
   }
 
-  function onSubmit() {
-    console.log(form.getFieldsValue())
-    dispatch({ type: 'quiz/create' })
+  async function onSubmit() {
+    try {
+      const { questions, ...data } = await form.validateFields();
+      if (!data) return;
+      const { createdQuizUuid } = await create(data);
+      if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
+
+      if (questions && questions.length > 0) {
+        await createQuestions(createdQuizUuid, { questions });
+      }
+
+      setTimeout(async () => {
+        notification({ status: 'success', message: 'Quiz criado com sucesso!' });
+        await onCallback();
+        await onCloseModal();
+      }, 2000)
+    } catch (error) {
+      if (error) notification({ status: 'error', message: 'Preencha as informações do quiz!' });
+    }
   }
 
   return (
@@ -38,7 +107,7 @@ const ModalQuiz = ({ data, onClose, visible }) => {
       closable={false}
       footer={[
         <Button type="primary" shape='round' danger onClick={() => onCloseModal()}>Cancelar</Button>,
-        <Button type="primary" shape='round' onClick={onSubmit}>{textButton}</Button>
+        <Button className='btn-main' type="primary" shape='round' onClick={onSubmit}>{textButton}</Button>
       ]}
       destroyOnClose={true}
       style={{ borderRadius: 20 }}
@@ -66,7 +135,7 @@ const ModalQuiz = ({ data, onClose, visible }) => {
             </>
           }
           key="2" >
-          <StepQuestion form={form} />
+          <StepQuestion data={fakeData} form={form} />
         </TabPane>
 
         <TabPane

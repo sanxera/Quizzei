@@ -4,19 +4,21 @@ import HeaderMenu from './HeaderMenu';
 
 const { Content, Footer } = Layout;
 
-const LayoutWrapper = ({ navigate, children }) => {
+const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children, header, ...rest }) => {
+  const headerElement = header ? header : <HeaderMenu navigate={navigate} />;
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <HeaderMenu navigate={navigate} />
+    <Layout style={{ minHeight: '100vh' }} {...rest}>
+      {hasHeader && headerElement}
 
       <Content style={{ backgroundColor: '#FFFF', padding: 50, marginTop: 64 }}>
         {children}
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        Quizzei ©2022 Created by Quizzei Devs
-      </Footer>
-
-
+      {hasFooter && (
+        <Footer style={{ textAlign: 'center' }}>
+          Quizzei ©2022 Created by Quizzei Devs
+        </Footer>
+      )}
     </Layout>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Divider, Row, Col, Typography } from 'antd'
+import { Card, Row, Col, Typography } from 'antd'
 import { UserOutlined, FileTextOutlined } from '@ant-design/icons'
 import './index.css';
 
@@ -22,19 +22,19 @@ const CardWrapper = ({ logo, title, description = '', onClick, isQuiz = false, .
           <Title style={{ marginTop: 10 }} level={5}>{title}</Title>
         }
         description={
-          <>
+          <div style={{ width: 200 }}>
             <Text>{description}</Text>
             {isQuiz && (
               <Row style={{ marginTop: 20, marginBottom: 20 }} justify='center'>
-                <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} span={15}>
+                <Col span={15}>
                   <UserOutlined /> Luiz Eduardo
                 </Col>
-                <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} span={9}>
+                <Col span={9}>
                   <FileTextOutlined /> 10
                 </Col>
               </Row>
             )}
-          </>
+          </div>
         }
       />
     </Card>

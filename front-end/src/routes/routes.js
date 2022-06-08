@@ -13,7 +13,7 @@ export const RoutesList = () => {
   return (
     <Routes>
       <Route path="/" element={<Signin navigate={navigate} />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/register" element={<Register navigate={navigate} />} />
       <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
       <Route element={< ProtectedRoutes />}>
         <Route path="/quiz" element={
@@ -25,12 +25,14 @@ export const RoutesList = () => {
       </Route >
 
       <Route path="*" element={
-        <Result
-          status="404"
-          title="404"
-          subTitle="Deculpe, esta pagina nao existe."
-          extra={<Button type="primary">Voltar a página inicial</Button>}
-        />
+        <div style={{ height: '100vh', width: '100%' }}>
+          <Result
+            status="404"
+            title="404"
+            subTitle="Deculpe, esta pagina nao existe."
+            extra={<Button type="primary" onClick={() => navigate('/')}>Voltar a página inicial</Button>}
+          />
+        </div>
       } />
     </Routes >
   )

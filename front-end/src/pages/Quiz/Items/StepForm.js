@@ -36,13 +36,13 @@ const StepForm = ({ data, form }) => {
             }
             initialValue={data?.points}
           >
-            <InputWrapper placeHolder="Pontos" />
+            <InputWrapper type={'number'} placeHolder="Pontos" />
           </Form.Item>
         </Col>
 
         <Col span={24}>
           <Form.Item
-            name="category"
+            name="categoryId"
             rules={
               [{
                 required: true,

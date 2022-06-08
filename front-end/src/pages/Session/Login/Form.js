@@ -17,32 +17,33 @@ const FormComponent = ({ onSubmit }) => {
       onFinish={onSubmit}
     >
       <Form.Item
+        style={{ height: 56 }}
         name="email"
         rules={
           [{
             type: 'email',
-            message: 'Email informado inválido'
+            message: 'Email informado inválido.'
           }]
         }>
-        <Input bordered={false} style={{ ...INPUT_STYLE }} placeholder="Email" suffix={<UserOutlined />} />
+        <Input className='inputWrapper' bordered={false} style={{ ...INPUT_STYLE }} placeholder="Email" suffix={<UserOutlined />} />
       </Form.Item>
 
-      <Form.Item name="password">
-        <Input.Password bordered={false} style={{ ...INPUT_STYLE }} placeholder="Senha" />
+      <Form.Item name="password" style={{ marginTop: 30 }}>
+        <Input.Password className='inputWrapper' type={"password"} bordered={false} style={{ ...INPUT_STYLE }} placeholder="Senha" />
       </Form.Item>
 
       <div style={{ width: '100%', textAlign: 'right', marginBottom: 50 }}>
-        <Link to="/recovery-password">Esqueceu a senha?</Link>
+        <Link className='btn-text' to="/recovery-password">Esqueceu a senha?</Link>
       </div>
 
       <Form.Item wrapperCol={{ span: 24, offset: 3 }}>
-        <Button style={{ width: '90%' }} type="primary" shape='round' size='middle' htmlType="submit">
+        <Button className='btn-main' style={{ width: '90%' }} type="primary" shape='round' size='middle' htmlType="submit">
           ENTRAR
         </Button>
       </Form.Item>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Text>Não possui conta? <Link to="/register" style={{ margin: 0, padding: 0 }} >Cadastre-se</Link></Text>
+        <Text>Não possui conta? <Link className='btn-text' to="/register" style={{ margin: 0, padding: 0 }} >Cadastre-se</Link></Text>
       </div>
     </Form>
   )

@@ -4,8 +4,15 @@
 }
 
 .inputWrapper:hover {
-  border-bottom-color: #6DA7EC;
-  -webkit-box-shadow: 0 8px 6px -6px #6DA7EC;
-  -moz-box-shadow: 0 8px 6px -6px #6DA7EC;
-  box-shadow: 0 8px 6px -6px #6DA7EC;
+  border-bottom-color: #06a7c3;
+  -webkit-box-shadow: 0 8px 6px -6px #06a7c3;
+  -moz-box-shadow: 0 8px 6px -6px #06a7c3;
+  box-shadow: 0 8px 6px -6px #06a7c3;
+}
+
+/* .inputWrapper:focus>.ant-input-suffix {
+  color: #06a7c3;
+} */
+.inputWrapper:focus {
+  background-color: #06a7c3;
 }

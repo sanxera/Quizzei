@@ -1,43 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Typography } from 'antd'
 import FormComponent from './Form';
-import { getAuthority, setAuthority } from '../../../utils/auth';
+import loginImage from '../../../image/login.jpg'
 import { login } from '../../../services/session';
-import { ToastContainer, toast } from 'react-toastify';
+import LayoutWrapper from '../../../components/Layout/Layout';
+import { notification } from '../../../utils/notification';
+
 const { Title } = Typography;
 
 const Signin = ({ navigate }) => {
-  async function onSubmit(values) {
-    const response = await login(values);
-    if (response && !response.logged) {
-      toast.error("Email ou senha inválidos!", {
-        position: "top-right",
-        autoClose: 2000,
-        theme: 'colored',
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        progress: undefined,
-        // onClose: () => setToastVisible(false),
-      })
-      return;
-    }
+  async function onSubmit(data) {
+    if (!data || !data.email || !data.password) return notification({ status: 'error', message: 'Informe email e senha.' });
 
-    await setAuthority(response);
-    const authData = await getAuthority();
-    if (authData) await navigate('/quiz');
+    const isLogged = await login(data);
+    const status = isLogged ? 'success' : 'error';
+    const position = isLogged ? 'bottom-center' : 'top-right';
+    const message = isLogged ? 'Bem vindo!' : 'Email ou senha inválidos!';
+    notification({ status, position, message });
+
+    setTimeout(async () => {
+      if (isLogged) {
+        await navigate('/quiz');
+        return;
+      }
+    }, 1000)
   };
 
   return (
-    <Row>
-      <Col span={16}>
-        <div style={{ height: '100%', backgroundColor: '#6DA7EC', borderRight: '0.5px solid' }} />
-      </Col>
-      <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginBottom: 150 }} span={8}>
-        <Title style={{ textAlign: 'center', marginBottom: 50 }} level={2} >Quizzei</Title>
-        <FormComponent onSubmit={onSubmit} />
-      </Col>
-    </Row>
+    <LayoutWrapper hasHeader={false} hasFooter={false} style={{ backgroundColor: '#FFFF', }}>
+      <Row>
+        <Col span={16} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img alt="logo" src={loginImage} style={{ width: '90%', height: 'auto', marginBottom: 50 }} />
+        </Col>
+        <Col style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center', marginBottom: 70 }} span={8}>
+          <Title style={{ textAlign: 'center', marginBottom: 50, color: '#06a7c3' }} level={2} >Quizzei</Title>
+          <FormComponent onSubmit={onSubmit} />
+        </Col>
+      </Row>
+    </LayoutWrapper>
   )
 }
 
