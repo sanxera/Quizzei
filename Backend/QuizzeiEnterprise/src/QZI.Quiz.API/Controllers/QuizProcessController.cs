@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,10 @@ namespace QZI.Quiz.API.Controllers
         }
 
         [HttpPost("start-quiz")]
-        public async Task<IActionResult> StartQuizProcess([FromBody] StartQuizProcessRequest request)
+        public async Task<IActionResult> StartQuizProcess([FromHeader] Guid quizInfo)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            var command = new StartQuizProcessCommand(email, request);
+            var command = new StartQuizProcessCommand(email, new StartQuizProcessRequest{QuizUuid = quizInfo});
 
             var result = await _mediator.Send(command);
 

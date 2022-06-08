@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QZI.Question.Domain.Questions.Repositories;
@@ -15,6 +17,13 @@ namespace QZI.Question.Infra.Data.Repository
             return await Context.Questions
                 .Include(x => x.Options)
                 .FirstOrDefaultAsync(x => x.QuestionUuid == id);
+        }
+
+        public async Task<IList<Domain.Questions.Entities.Question>> GetQuestionsByQuizInfo(Guid quizInfoUuid)
+        {
+            return await Context.Questions
+                .Include(x => x.Options)
+                .Where(x => x.QuizInfoUuid == quizInfoUuid).ToListAsync();
         }
     }
 }

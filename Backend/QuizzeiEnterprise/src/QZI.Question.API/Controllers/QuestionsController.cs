@@ -33,6 +33,17 @@ namespace QZI.Question.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("get-questions-by-quiz")]
+        public async Task<IActionResult> GetQuestionsWithOptionsByQuiz([FromHeader] Guid quizInfoUuid)
+        {
+            var command = new GetQuestionsWithOptionsByQuizCommand(new GetQuestionsWithOptionsByQuizRequest {QuizInfoUuid = quizInfoUuid});
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
         [HttpPost("answer-questions")]
         public async Task<IActionResult> AnswerQuestions(AnswerQuestionRequest request)
         {

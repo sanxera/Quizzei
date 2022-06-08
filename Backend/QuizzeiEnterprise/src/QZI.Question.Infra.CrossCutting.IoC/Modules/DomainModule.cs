@@ -5,7 +5,6 @@ using QZI.Question.Domain.Questions.Acl;
 using QZI.Question.Domain.Questions.Acl.Interface;
 using QZI.Question.Domain.Questions.Handlers;
 using QZI.Question.Domain.Questions.Handlers.Commands;
-using QZI.Question.Domain.Questions.Handlers.Requests;
 using QZI.Question.Domain.Questions.Handlers.Responses;
 
 namespace QZI.Question.Infra.CrossCutting.IoC.Modules
@@ -19,6 +18,7 @@ namespace QZI.Question.Infra.CrossCutting.IoC.Modules
             services.AddHttpClient<IUserServiceAcl, UserServiceAcl>();
 
             services.AddScoped<IRequestHandler<CreateQuestionsCommand, CreateQuestionsResponse>, QuestionCommandHandler>();
+            services.AddScoped<IRequestHandler<GetQuestionsWithOptionsByQuizCommand, GetQuestionsWithOptionsByQuizResponse>, QuestionCommandHandler>();
             services.AddScoped<IRequestHandler<AnswerQuestionCommand, AnswerQuestionResponse>, AnswerCommandHandler>();
         }
     }
