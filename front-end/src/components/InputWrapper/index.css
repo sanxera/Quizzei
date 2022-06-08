@@ -9,10 +9,3 @@
   -moz-box-shadow: 0 8px 6px -6px #06a7c3;
   box-shadow: 0 8px 6px -6px #06a7c3;
 }
-
-/* .inputWrapper:focus>.ant-input-suffix {
-  color: #06a7c3;
-} */
-.inputWrapper:focus {
-  background-color: #06a7c3;
-}

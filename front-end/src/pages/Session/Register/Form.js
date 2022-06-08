@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Input, Typography, Select } from 'antd';
+import { Form, Button, Input, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 import { register } from '../../../services/session';
 
@@ -7,7 +7,6 @@ import './index.css';
 import { notification } from '../../../utils/notification';
 
 const { Option } = Select;
-const { Text } = Typography;
 
 const INPUT_STYLE = {
   borderBottom: '1px solid',
