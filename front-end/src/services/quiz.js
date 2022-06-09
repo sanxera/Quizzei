@@ -78,7 +78,8 @@ export async function listMyQuizzes() {
   //       quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
   //       title: "Quiz do Luiz",
   //       description: "Quiz sobre a vida do luiz",
-  //       categoryDescription: "Categoria do Luiz"
+  //       categoryDescription: "Categoria do Luiz",
+  //       points: 5
   //     },
   //     {
   //       quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",

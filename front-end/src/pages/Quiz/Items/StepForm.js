@@ -1,8 +1,30 @@
-import React from 'react';
-import { Form, Input, Row, Col } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Row, Col, Select } from 'antd';
 import { InputWrapper } from '../../../components/InputWrapper';
+import { list as listCategoies } from '../../../services/categories';
+
+const { Option } = Select;
 
 const StepForm = ({ data, form }) => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  async function loadCategories() {
+    const data = await listCategoies();
+    await setCategories(data.categories);
+  }
+
+  async function onSelect(value) {
+    if (!value) return;
+    await form.setFieldsValue({ categoryId: value })
+  }
+
+  const options = categories && categories.map(item => <Option key={item.idCategory} value={item.idCategory}>{item.name}</Option>)
+  const category = categories ? categories.filter(item => item.name === data.categoryDescription) : [{ idCategory: 1 }];
+
   return (
     <Form
       form={form}
@@ -40,19 +62,21 @@ const StepForm = ({ data, form }) => {
           </Form.Item>
         </Col>
 
+        <Form.Item
+          name="categoryId"
+          initialValue={category[0]?.idCategory}
+          hidden
+        />
+
         <Col span={24}>
-          <Form.Item
-            name="categoryId"
-            rules={
-              [{
-                required: true,
-                message: 'Por favor, insira uma categoria.'
-              }]
-            }
-            initialValue={data?.category}
+          <Select
+            bordered={false}
+            style={{ width: '100%', marginBottom: 30, borderBottom: '1px solid' }}
+            defaultValue={data.categoryDescription}
+            onChange={item => onSelect(item)}
           >
-            <InputWrapper type={'number'} placeHolder="Categoria" />
-          </Form.Item>
+            {options}
+          </Select>
         </Col>
 
         <Col span={24}>
