@@ -6,13 +6,13 @@ const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env
 export async function login(params) {
   if (!params) return;
 
-  // const response = await request(`${REACT_APP_QUIZZEI_BACKEND_URL}/api/users/login`, {
-  //   method: 'POST',
-  //   data: {
-  //     ...params
-  //   },
-  // });
-  const response = { data: { token: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZDk1NzRhMC01MTkyLTQ3MmMtYWM1NS05ZDc4ZmU2NDExYzgiLCJlbWFpbCI6Imx1aXppbjEyM0BnbWFpbC5jb20iLCJqdGkiOiIyMjU5M2VjMy0xZTlmLTQwYTctODUwYi02NzY0ZGYyZGM5YzUiLCJuYmYiOjE2NTQ2Mzg5MDgsImlhdCI6MTY1NDYzODkwOCwiZXhwIjoxNjU0NjQ2MTA4LCJpc3MiOiJRdWl6emVpSWRlbnRpdHkiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.EV4rYiA8j16BePL3iUtqyTeQG4yMf7vPCWuMinsz6zI' } }
+  const response = await request(`${REACT_APP_QUIZZEI_BACKEND_URL}/api/users/login`, {
+    method: 'POST',
+    data: {
+      ...params
+    },
+  });
+  // const response = { data: { token: '"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZDk1NzRhMC01MTkyLTQ3MmMtYWM1NS05ZDc4ZmU2NDExYzgiLCJlbWFpbCI6Imx1aXppbjEyM0BnbWFpbC5jb20iLCJqdGkiOiIyMjU5M2VjMy0xZTlmLTQwYTctODUwYi02NzY0ZGYyZGM5YzUiLCJuYmYiOjE2NTQ2Mzg5MDgsImlhdCI6MTY1NDYzODkwOCwiZXhwIjoxNjU0NjQ2MTA4LCJpc3MiOiJRdWl6emVpSWRlbnRpdHkiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.EV4rYiA8j16BePL3iUtqyTeQG4yMf7vPCWuMinsz6zI' } }
   if (!response.data || !response.data.token) return false;
   await setAuthority(response.data);
   return true;
