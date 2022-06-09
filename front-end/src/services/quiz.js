@@ -1,9 +1,13 @@
 import { getAuthority } from "../utils/auth";
 import request from "../utils/request";
 
+const { REACT_APP_QUIZZEI_API_PORT } = process.env
+
 export function create(params) {
   const auth = getAuthority();
-  return request('api/quizzes-info/create-quiz-info', {
+
+  console.log(REACT_APP_QUIZZEI_API_PORT)
+  return request(`${REACT_APP_QUIZZEI_API_PORT}/api/quizzes-info/create-quiz-info`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${auth.token}`
@@ -19,7 +23,7 @@ export function create(params) {
 
 export function createQuestions(quizInfoUuid, params) {
   const auth = getAuthority();
-  return request('api/questions/create-questions-with-options', {
+  return request(`${REACT_APP_QUIZZEI_API_PORT}/api/questions/create-questions-with-options`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${auth.token}`,
@@ -36,7 +40,8 @@ export function createQuestions(quizInfoUuid, params) {
 
 export function listMyQuizzes() {
   const auth = getAuthority();
-  return request('api/quizzes-info/get-all-by-user', {
+  console.log(REACT_APP_QUIZZEI_API_PORT)
+  return request(`${REACT_APP_QUIZZEI_API_PORT}/api/quizzes-info/get-all-by-user`, {
     headers: {
       Authorization: `Bearer ${auth.token}`
     }
@@ -69,7 +74,7 @@ export function listMyQuizzes() {
 
 export function listPublicQuizzes() {
   const auth = getAuthority();
-  return request('api/quizzes-info/get-all-by-different-users', {
+  return request(`${REACT_APP_QUIZZEI_API_PORT}/api/quizzes-info/get-all-by-different-users`, {
     headers: {
       Authorization: `Bearer ${auth.token}`
     }
