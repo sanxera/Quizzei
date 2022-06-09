@@ -51,7 +51,7 @@ const StepForm = ({ data, form }) => {
             }
             initialValue={data?.category}
           >
-            <InputWrapper placeHolder="Categoria" />
+            <InputWrapper type={'number'} placeHolder="Categoria" />
           </Form.Item>
         </Col>
 

@@ -4,9 +4,9 @@ import {
   DeleteOutlined
 } from '@ant-design/icons';
 
-const StepQuestion = ({ data: fakeData, form }) => {
+const StepQuestion = ({ data, form }) => {
   return (
-    <Form form={form} initialValues={{ questions: fakeData }} style={{ width: '100%' }}>
+    <Form form={form} initialValues={{ questions: data }} style={{ width: '100%' }}>
       <Form.List name="questions">
         {(questions, { add, remove }) => {
           return (
@@ -32,7 +32,7 @@ const StepQuestion = ({ data: fakeData, form }) => {
                     </Form.Item>
                   </Col>
                   <Col span={22}>
-                    <Form.List name={[item.answers, 'options']}>
+                    <Form.List name={[item.options, 'options']}>
                       {(options, { add: addOptions, remove: removeOptions }) => {
                         return (
                           <>
@@ -40,12 +40,12 @@ const StepQuestion = ({ data: fakeData, form }) => {
                             {options.map((item) => (
                               <Row key={item.key} style={{ marginBottom: 20 }}>
                                 <Col span={22}>
-                                  <Form.Item fieldKey={[item.fieldKey, 'answer']} name={[item.description, "description"]}>
+                                  <Form.Item fieldKey={[item.fieldKey, 'question']} name={[item.description, "description"]}>
                                     <Input placeholder='Digite a opção aqui!' />
                                   </Form.Item>
                                 </Col>
-                                <Col span={1}>
-                                  <Form.Item name={[item.isCorrect, 'isCorrect']}>
+                                <Col style={{ height: 50 }} span={1}>
+                                  <Form.Item fieldKey={[item.isCorrect, 'isCorrect']} name={[item.isCorrect, 'isCorrect']}>
                                     <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#32CD80', height: '100%', alignItems: 'center' }}>
                                       <Checkbox defaultChecked={item.isCorrect} />
                                     </div>

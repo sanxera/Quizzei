@@ -68,7 +68,7 @@ const List = () => {
   return (
     <>
       {/* Criar componente de filtro */}
-      <Row>
+      <Row style={{ width: '100%' }}>
         <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
         </Col>
@@ -92,7 +92,7 @@ const List = () => {
       </Row>
 
       <div style={{ display: 'flex', marginTop: 100 }}>
-        <Row>
+        <Row style={{ width: '100%' }}>
           <Col span={20} style={{ marginBottom: 20, paddingLeft: 75 }}>
             <Title level={3} >Meus Quizzes</Title>
           </Col>

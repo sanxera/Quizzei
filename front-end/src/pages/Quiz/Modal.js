@@ -13,58 +13,58 @@ import { notification } from '../../utils/notification';
 
 const { TabPane } = Tabs;
 
-const fakeData = [
-  {
-    description: 'Questão 1',
-    answers: [
-      {
-        description: 'Resposta 1',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 2',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 3',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 4',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 5',
-        isCorrect: true
-      },
-    ]
-  },
-  {
-    description: 'Questão 2',
-    answers: [
-      {
-        description: 'Resposta 1',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 2',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 3',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 4',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 5',
-        isCorrect: true
-      },
-    ]
-  },
-]
+// const fakeData = [
+//   {
+//     description: 'Questão 1',
+//     options: [
+//       {
+//         description: 'Resposta 1',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 2',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 3',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 4',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 5',
+//         isCorrect: true
+//       },
+//     ]
+//   },
+//   {
+//     description: 'Questão 2',
+//     options: [
+//       {
+//         description: 'Resposta 1',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 2',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 3',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 4',
+//         isCorrect: false
+//       },
+//       {
+//         description: 'Resposta 5',
+//         isCorrect: true
+//       },
+//     ]
+//   },
+// ]
 
 const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
   const [form] = Form.useForm();
@@ -81,6 +81,7 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
   async function onSubmit() {
     try {
       const { questions, ...data } = await form.validateFields();
+      console.log(data , questions)
       if (!data) return;
       const { createdQuizUuid } = await create(data);
       if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
@@ -95,6 +96,7 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
         await onCloseModal();
       }, 2000)
     } catch (error) {
+      console.log('error form ', error)
       if (error) notification({ status: 'error', message: 'Preencha as informações do quiz!' });
     }
   }
@@ -135,7 +137,7 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
             </>
           }
           key="2" >
-          <StepQuestion data={fakeData} form={form} />
+          <StepQuestion data={[]} form={form} />
         </TabPane>
 
         <TabPane
