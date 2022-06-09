@@ -1,12 +1,21 @@
-import request from "../utils/request";
+import axios from "axios";
 import { setAuthority } from "../utils/auth";
 
 const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env
 
 export async function login(params) {
   if (!params) return;
+  const request = axios.create({
+    baseURL: 'https://localhost:44343',
+    headers: {
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'x-requested-with',
+    }
+  });
 
-  const response = await request(`${REACT_APP_QUIZZEI_BACKEND_URL}/api/users/login`, {
+  const response = await request('api/users/login', {
     method: 'POST',
     data: {
       ...params
@@ -20,7 +29,16 @@ export async function login(params) {
 
 export async function register(params) {
   if (!params) return;
-  const response = await request(`${REACT_APP_QUIZZEI_BACKEND_URL}/api/users/create-user`, {
+  const request = axios.create({
+    baseURL: 'https://localhost:44343',
+    headers: {
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'x-requested-with',
+    }
+  });
+  const response = await request('api/users/create-user', {
     method: 'POST',
     data: {
       ...params
