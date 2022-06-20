@@ -1,31 +1,57 @@
 import React from 'react';
-import { Divider, Row, Col, Button, Typography } from 'antd';
+import { Divider, Row, Col, Button, Typography, Modal } from 'antd';
+import {
+  UserOutlined,
+  FileSearchOutlined
+} from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
-const StartQuiz = ({ visible, data, onClose }) => {
+const StartQuiz = ({ navigate, visible, data, onClose }) => {
   if (!visible || !data) return <div />;
 
   return (
-    <Row justify='center' style={{ padding: 30, height: '40%', borderRadius: 30, backgroundColor: '#F7F7F7', color: '#0000', marginTop: 150 }}>
-      <Col span={24}>
-        <Title level={5}>{data.title}</Title>
-      </Col>
+    <Modal
+      onCancel={onClose}
+      destroyOnClose
+      closable={false}
+      footer={[]}
+      visible
+    >
+      <Row justify='center' style={{ width: '100%', padding: 0, margin: 0 }}>
+        <Col span={24} style={{ marginBottom: 30, width: '100%' }}>
+          <img alt="example" style={{ width: '100%' }} src='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg' />
+        </Col>
 
-      <Col span={24}>
-        <img alt="example" style={{ width: 200, height: 200 }} src={data.image} />
-      </Col>
+        <Col span={24} style={{ display: 'flex', justifyContent: 'center' }} >
+          <Title level={5}>{data.title}</Title>
+        </Col>
 
-      <Divider />
 
-      <Col span={24}>
-        <Text>{data.description}</Text>
-      </Col>
+        <Col span={24}>
+          <Text>{data.description}</Text>
+        </Col>
 
-      <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 30 }}>
-        <Button type='primary' shape='round'>Iniciar Quiz</Button>
-      </Col>
-    </Row>
+        <Divider />
+
+        <Col span={12} style={{ marginTop: 30 }}>
+          <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', marginRight: 50, alignItems: 'center' }}>
+              <UserOutlined /> Luiz Eduardo
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <FileSearchOutlined /> 10
+            </div>
+          </div>
+        </Col>
+
+        <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+          <Button className='btn-main' type='primary' shape='round' onClick={() => {
+            navigate('/quiz-answer')
+          }}>Iniciar Quiz</Button>
+        </Col>
+      </Row>
+    </Modal>
   )
 }
 

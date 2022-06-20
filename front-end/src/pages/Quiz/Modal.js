@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, Button, Form, Modal } from 'antd';
 import StepForm from './Items/StepForm';
 import StepQuestion from './Items/StepQuestions';
@@ -8,70 +8,31 @@ import {
   QuestionCircleOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
-import { create, createQuestions } from '../../services/quiz';
+import { create, createQuestions, listQuestions } from '../../services/quiz';
 import { notification } from '../../utils/notification';
 
 const { TabPane } = Tabs;
 
-const fakeData = [
-  {
-    description: 'Questão 1',
-    answers: [
-      {
-        description: 'Resposta 1',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 2',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 3',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 4',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 5',
-        isCorrect: true
-      },
-    ]
-  },
-  {
-    description: 'Questão 2',
-    answers: [
-      {
-        description: 'Resposta 1',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 2',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 3',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 4',
-        isCorrect: false
-      },
-      {
-        description: 'Resposta 5',
-        isCorrect: true
-      },
-    ]
-  },
-]
 
-const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
+const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   const [form] = Form.useForm();
   const [activeKey, setActiveKey] = useState('1');
+  const [questions, setQuestions] = useState([]);
 
-  const textButton = data ? 'Atualizar' : 'Criar';
-  const titleModal = data ? 'Editar quiz' : 'Criar novo quiz';
+  const textButton = data && data.quizInfoUuid ? 'Atualizar' : 'Criar';
+  const titleModal = data && data.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
+
+  useEffect(() => {
+    handleQuestions();
+  }, [])
+
+  async function handleQuestions() {
+    const { quizInfoUuid } = data;
+    if (!quizInfoUuid) return;
+
+    const response = await listQuestions(quizInfoUuid);
+    setQuestions(response.questions);
+  }
 
   function onCloseModal() {
     form.resetFields();
@@ -80,9 +41,9 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
 
   async function onSubmit() {
     try {
-      const { questions, ...data } = await form.validateFields();
-      if (!data) return;
-      const { createdQuizUuid } = await create(data);
+      const { questions, ...restData } = await form.validateFields();
+      if (!restData) return;
+      const { createdQuizUuid } = await create(restData);
       if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
 
       if (questions && questions.length > 0) {
@@ -90,11 +51,12 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
       }
 
       setTimeout(async () => {
-        notification({ status: 'success', message: 'Quiz criado com sucesso!' });
+        notification({ status: 'success', message: data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
         await onCallback();
         await onCloseModal();
       }, 2000)
     } catch (error) {
+      console.log('error form ', error)
       if (error) notification({ status: 'error', message: 'Preencha as informações do quiz!' });
     }
   }
@@ -106,13 +68,19 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
       width={1000}
       closable={false}
       footer={[
-        <Button type="primary" shape='round' danger onClick={() => onCloseModal()}>Cancelar</Button>,
+        <Button type="primary" shape='round' danger onClick={async () => {
+          await form.resetFields();
+          setTimeout(async () => {
+            await onCloseModal()
+          }, 500)
+        }}>Cancelar</Button>,
         <Button className='btn-main' type="primary" shape='round' onClick={onSubmit}>{textButton}</Button>
       ]}
-      destroyOnClose={true}
+      destroyOnClose
       style={{ borderRadius: 20 }}
     >
       <Tabs
+        defaultActiveKey={1}
         activeKey={activeKey}
         onTabClick={key => setActiveKey(key)}
       >
@@ -135,7 +103,7 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
             </>
           }
           key="2" >
-          <StepQuestion data={fakeData} form={form} />
+          <StepQuestion data={questions || []} form={form} />
         </TabPane>
 
         <TabPane

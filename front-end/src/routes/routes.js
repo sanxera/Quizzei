@@ -6,7 +6,8 @@ import ProtectedRoutes from './protectedRoutes';
 import Register from '../pages/Session/Register/index';
 import LayoutWrapper from '../components/Layout/Layout';
 import List from '../pages/Quiz/List';
-// import CreateQuiz from '../pages/Quiz/Create';
+import UserList from '../pages/User/List';
+import Quiz from '../pages/QuizAnswer/Quiz';
 
 export const RoutesList = () => {
   const navigate = useNavigate();
@@ -18,7 +19,20 @@ export const RoutesList = () => {
       <Route element={< ProtectedRoutes />}>
         <Route path="/quiz" element={
           <LayoutWrapper navigate={navigate}>
-            <List />
+            <List navigate={navigate} />
+          </LayoutWrapper>
+        }
+        />
+        <Route path="/user" element={
+          <LayoutWrapper navigate={navigate}>
+            <UserList />
+          </LayoutWrapper>
+        }
+        />
+
+        <Route path="/quiz-answer" element={
+          <LayoutWrapper navigate={navigate}>
+            <Quiz navigate={navigate} />
           </LayoutWrapper>
         }
         />

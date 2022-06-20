@@ -9,7 +9,7 @@ import { listMyQuizzes, listPublicQuizzes } from '../../services/quiz';
 
 const { Title, Text } = Typography;
 
-const List = () => {
+const List = ({ navigate }) => {
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
 
@@ -29,7 +29,13 @@ const List = () => {
   }
 
   async function handleModal(data) {
+    console.log('criar quiz ', rowData)
     if (data) await setRowData(data);
+    await setVisible(!visible);
+  }
+
+  async function onCloseModal() {
+    await setRowData({});
     await setVisible(!visible);
   }
 
@@ -63,12 +69,14 @@ const List = () => {
       description: 'Fisíca',
       logo: 'https://previews.123rf.com/images/stockgiu/stockgiu1709/stockgiu170905590/86637891-f%C3%ADsica-%C3%B3rbita-qu%C3%ADmica-ciencia-educaci%C3%B3n-vector-ilustraci%C3%B3n.jpg',
     },
-  ]
+  ];
+
+  console.log(userQuizzes)
 
   return (
     <>
       {/* Criar componente de filtro */}
-      <Row>
+      <Row style={{ width: '100%' }}>
         <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
         </Col>
@@ -92,7 +100,7 @@ const List = () => {
       </Row>
 
       <div style={{ display: 'flex', marginTop: 100 }}>
-        <Row>
+        <Row style={{ width: '100%' }}>
           <Col span={20} style={{ marginBottom: 20, paddingLeft: 75 }}>
             <Title level={3} >Meus Quizzes</Title>
           </Col>
@@ -100,11 +108,15 @@ const List = () => {
             <Button
               className='btn-main'
               shape='round'
-              onClick={handleModal}>
+              onClick={() => handleModal()}>
               <PlusCircleOutlined /> Criar quiz
             </Button>
           </Col>
+
           <Col style={{ display: 'flex', marginLeft: 100 }}>
+            {(!userQuizzes.quizzesInfoDto || userQuizzes.quizzesInfoDto.length === 0) && (
+              <Button style={{ width: '115rem', minHeight: 100 }} type='dashed'>Não há quizzes</Button>
+            )}
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.map((item, index) => (
               <CardWrapper
                 key={`my-quizzes-${index}`}
@@ -120,6 +132,9 @@ const List = () => {
             <Title level={3} >Quizzes</Title>
           </Col>
           <Col style={{ display: 'flex', marginLeft: 100 }}>
+            {(!publicQuizzes.quizzesInfoDto || publicQuizzes.quizzesInfoDto.length === 0) && (
+              <Button style={{ width: '115rem', minHeight: 100 }} type='dashed'>Não há quizzes</Button>
+            )}
             {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.map((item, index) => (
               <CardWrapper
                 key={`quizzes-${index}`}
@@ -133,8 +148,8 @@ const List = () => {
           </Col>
         </Row>
 
-        <ModalQuiz data={rowData} onClose={handleModal} onCallback={init} visible={visible} />
-        <StartQuiz data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />
+        <ModalQuiz data={rowData} onClose={onCloseModal} onCallback={init} visible={visible} />
+        <StartQuiz navigate={navigate} data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />
       </div>
     </>
   )
