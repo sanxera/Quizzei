@@ -9,7 +9,7 @@ import { listMyQuizzes, listPublicQuizzes } from '../../services/quiz';
 
 const { Title, Text } = Typography;
 
-const List = () => {
+const List = ({ navigate }) => {
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
 
@@ -149,7 +149,7 @@ const List = () => {
         </Row>
 
         <ModalQuiz data={rowData} onClose={onCloseModal} onCallback={init} visible={visible} />
-        <StartQuiz data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />
+        <StartQuiz navigate={navigate} data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />
       </div>
     </>
   )

@@ -138,3 +138,64 @@ export async function listPublicQuizzes() {
   //   ]
   // }
 };
+
+export async function listQuestions(quizInfoUuid) {
+  if (!quizInfoUuid) return;
+
+  const auth = getAuthority();
+  const request = axios.create({
+    baseURL: 'https://localhost:44331',
+    headers: {
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'x-requested-with',
+    }
+  });
+  const response = await request(`api/questions/get-questions-by-quiz`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+      quizInfoUuid
+    }
+  })
+
+  // const response = {
+  //   questions: [
+  //     {
+  //       questionUuid: 'xxxx',
+  //       questionDescription: 'Questão 1',
+  //       options: [
+  //         {
+  //           optionUuid: 'xxxxx',
+  //           optionDescription: 'Descricao 1',
+  //         },
+  //         {
+  //           optionUuid: 'xxxxx',
+  //           optionDescription: 'Descricao 2',
+  //         },
+  //         {
+  //           optionUuid: 'xxxxx',
+  //           optionDescription: 'Descricao 3',
+  //         },
+  //       ]
+  //     }
+  //   ]
+  // };
+
+  const questions = [];
+
+  await response.data.questions.forEach(async question => {
+    await questions.push({
+      questionUuid: question.questionUuid,
+      description: question.questionDescription,
+      options: question.options.map(option => {
+        return {
+          optionUuid: option.optionUuid,
+          description: option.optionDescription
+        }
+      })
+    })
+  })
+
+  return { questions };
+}

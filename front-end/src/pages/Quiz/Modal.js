@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, Button, Form, Modal } from 'antd';
 import StepForm from './Items/StepForm';
 import StepQuestion from './Items/StepQuestions';
@@ -8,70 +8,31 @@ import {
   QuestionCircleOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
-import { create, createQuestions } from '../../services/quiz';
+import { create, createQuestions, listQuestions } from '../../services/quiz';
 import { notification } from '../../utils/notification';
 
 const { TabPane } = Tabs;
 
-// const fakeData = [
-//   {
-//     description: 'Questão 1',
-//     options: [
-//       {
-//         description: 'Resposta 1',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 2',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 3',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 4',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 5',
-//         isCorrect: true
-//       },
-//     ]
-//   },
-//   {
-//     description: 'Questão 2',
-//     options: [
-//       {
-//         description: 'Resposta 1',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 2',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 3',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 4',
-//         isCorrect: false
-//       },
-//       {
-//         description: 'Resposta 5',
-//         isCorrect: true
-//       },
-//     ]
-//   },
-// ]
 
-const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
+const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   const [form] = Form.useForm();
   const [activeKey, setActiveKey] = useState('1');
+  const [questions, setQuestions] = useState([]);
 
   const textButton = data && data.quizInfoUuid ? 'Atualizar' : 'Criar';
   const titleModal = data && data.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
+
+  useEffect(() => {
+    handleQuestions();
+  }, [])
+
+  async function handleQuestions() {
+    const { quizInfoUuid } = data;
+    if (!quizInfoUuid) return;
+
+    const response = await listQuestions(quizInfoUuid);
+    setQuestions(response.questions);
+  }
 
   function onCloseModal() {
     form.resetFields();
@@ -81,7 +42,6 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
   async function onSubmit() {
     try {
       const { questions, ...restData } = await form.validateFields();
-      console.log(restData, questions)
       if (!restData) return;
       const { createdQuizUuid } = await create(restData);
       if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
@@ -143,7 +103,7 @@ const ModalQuiz = ({ data, onClose, onCallback, visible }) => {
             </>
           }
           key="2" >
-          <StepQuestion data={[]} form={form} />
+          <StepQuestion data={questions || []} form={form} />
         </TabPane>
 
         <TabPane

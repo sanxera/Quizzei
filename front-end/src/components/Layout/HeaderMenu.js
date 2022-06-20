@@ -78,7 +78,7 @@ const HeaderMenu = ({ navigate }) => {
                 >L</Avatar>
               }
             >
-              <Menu.Item key="two" icon={<SettingOutlined />}>
+              <Menu.Item key="two" icon={<SettingOutlined />} onClick={() => navigate('/user')}>
                 Configurações
               </Menu.Item>
               <Menu.Item
