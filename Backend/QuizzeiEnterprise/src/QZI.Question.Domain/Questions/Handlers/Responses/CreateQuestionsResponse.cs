@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QZI.Question.Domain.Questions.Handlers.Responses
+﻿namespace QZI.Question.Domain.Questions.Handlers.Responses
 {
     public class CreateQuestionsResponse
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 using QZI.Question.Domain.Configuration;
 using QZI.Question.Domain.Questions.Handlers.Requests;

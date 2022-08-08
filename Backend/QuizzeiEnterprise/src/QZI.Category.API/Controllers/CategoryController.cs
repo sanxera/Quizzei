@@ -3,13 +3,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using QZI.Category.Domain.Handlers.Commands;
 using QZI.Category.Domain.Handlers.Requests;
-using QZI.Core.Controllers;
 
 namespace QZI.Category.API.Controllers
 {
     //[Authorize]
     [Route("api/categories")]
-    public class CategoryController : MainController
+    public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
 

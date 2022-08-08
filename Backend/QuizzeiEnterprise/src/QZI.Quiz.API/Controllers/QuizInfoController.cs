@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Core.Controllers;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands;
 using QZI.Quiz.Domain.Quiz.Handlers.Requests;
 
@@ -11,7 +10,7 @@ namespace QZI.Quiz.API.Controllers
 {
     //[Authorize]
     [Route("api/quizzes-info")]
-    public class QuizInfoController : MainController
+    public class QuizInfoController : Controller
     {
         private readonly IMediator _mediator;
 

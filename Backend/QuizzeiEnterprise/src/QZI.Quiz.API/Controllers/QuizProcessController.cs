@@ -3,14 +3,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Core.Controllers;
 using QZI.Quiz.Domain.Quiz.Handlers.Commands.Process;
 using QZI.Quiz.Domain.Quiz.Handlers.Requests.Process;
 
 namespace QZI.Quiz.API.Controllers
 {
     [Route("api/quizzes-process")]
-    public class QuizProcessController : MainController
+    public class QuizProcessController : Controller
     {
         private readonly IMediator _mediator;
 

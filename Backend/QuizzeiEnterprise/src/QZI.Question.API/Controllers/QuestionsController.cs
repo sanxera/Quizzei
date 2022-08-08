@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Core.Controllers;
 using QZI.Question.Domain.Questions.Handlers.Commands;
 using QZI.Question.Domain.Questions.Handlers.Requests;
 
@@ -12,7 +11,7 @@ namespace QZI.Question.API.Controllers
 {
     [Authorize]
     [Route("api/questions")]
-    public class QuestionsController : MainController
+    public class QuestionsController : Controller
     {
         private readonly IMediator _mediator;
 

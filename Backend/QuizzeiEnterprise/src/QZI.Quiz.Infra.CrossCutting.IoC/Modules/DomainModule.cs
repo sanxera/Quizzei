@@ -19,10 +19,6 @@ namespace QZI.Quiz.Infra.CrossCutting.IoC.Modules
             services.AddHttpClient<IUserServiceAcl, UserServiceAcl>();
             services.AddHttpClient<ICategoryServiceAcl, CategoryServiceAcl>();
 
-            services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInfoCommandHandler>();
-            services.AddScoped<IRequestHandler<GetQuizzesInfoByUserCommand, GetQuizzesInfoByUserResponse>, QuizInfoCommandHandler>();
-            services.AddScoped<IRequestHandler<GetQuizzesInfoByDifferentUsersCommand, GetQuizzesInfoByDifferentUsersResponse>, QuizInfoCommandHandler>();
-            services.AddScoped<IRequestHandler<StartQuizProcessCommand, StartQuizProcessResponse>, QuizProcessCommandHandler>();
         }
     }
 }
