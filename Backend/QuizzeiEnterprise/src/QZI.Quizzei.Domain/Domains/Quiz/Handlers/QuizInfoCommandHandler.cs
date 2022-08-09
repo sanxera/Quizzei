@@ -34,7 +34,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
             var category = await _categoryRepository.GetCategoryById(command.Request.CategoryId);
             var userResponse = await _userService.GetUserByEmail(command.UserEmail);
 
-            var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, userResponse.UserUuid, category.Id);
+            var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, userResponse.Id, category.Id);
             await _quizInfoRepository.AddAsync(quizInfo);
 
             await _unitOfWork.SaveChangesAsync();
@@ -45,7 +45,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
         public async Task<GetQuizzesInfoByUserResponse> Handle(GetQuizzesInfoByUserCommand command, CancellationToken cancellationToken)
         {
             var userResponse = await _userService.GetUserByEmail(command.Request.UserEmail);
-            var quizzes = await _quizInfoRepository.GetQuizInfoByUserUuid(userResponse.UserUuid);
+            var quizzes = await _quizInfoRepository.GetQuizInfoByUserUuid(userResponse.Id);
 
             var response = new GetQuizzesInfoByUserResponse();
 
@@ -68,7 +68,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
         public async Task<GetQuizzesInfoByDifferentUsersResponse> Handle(GetQuizzesInfoByDifferentUsersCommand request, CancellationToken cancellationToken)
         {
             var userResponse = await _userService.GetUserByEmail(request.ByDifferentUsersRequest.UserEmail);
-            var quizzes = await _quizInfoRepository.GetQuizInfoByDifferentUsers(userResponse.UserUuid);
+            var quizzes = await _quizInfoRepository.GetQuizInfoByDifferentUsers(userResponse.Id);
 
             var response = new GetQuizzesInfoByDifferentUsersResponse();
 

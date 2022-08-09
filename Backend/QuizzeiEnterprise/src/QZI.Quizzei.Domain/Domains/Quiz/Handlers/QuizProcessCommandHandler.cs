@@ -30,7 +30,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
             var userResponse = await _userService.GetUserByEmail(request.UserEmail);
             var quizInfo = await _quizInfoRepository.GetQuizInfoById(request.Request.QuizUuid);
 
-            var quizProcess = QuizProcess.CreateQuizProcess(quizInfo.QuizInfoUuid, userResponse.UserUuid);
+            var quizProcess = QuizProcess.CreateQuizProcess(quizInfo.QuizInfoUuid, userResponse.Id);
             await _quizProcessRepository.AddAsync(quizProcess);
 
             await _unitOfWork.SaveChangesAsync();

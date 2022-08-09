@@ -31,7 +31,7 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Handlers
 
             var selectedOption = question.Options.FirstOrDefault(x => x.QuestionOptionUuid == request.Request.OptionUuid);
 
-            var newAnswer = Answer.CreateAnswer(selectedOption, user.UserUuid);
+            var newAnswer = Answer.CreateAnswer(selectedOption, user.Id);
 
             await _answerRepository.AddAsync(newAnswer);
 
