@@ -3,7 +3,7 @@ using QZI.Quizzei.Domain.Abstractions;
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Entities
 {
-    public class QuizInfo : Entity
+    public class QuizInformation : Entity
     {
         public Guid QuizInfoUuid { get; set; }
         public string Title { get; set; }
@@ -13,9 +13,9 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Entities
         public int CategoryId { get; set; }
         public Guid UserOwnerId { get; set; }
 
-        public static QuizInfo CreateQuizInfo(string title, string description, int points, Guid userOwner, int categoryId)
+        public static QuizInformation CreateQuizInfo(string title, string description, int points, Guid userOwner, int categoryId)
         {
-            return new QuizInfo
+            return new QuizInformation
             {
                 QuizInfoUuid = Guid.NewGuid(),
                 Title = title,

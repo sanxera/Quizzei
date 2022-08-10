@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using MediatR;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
 using QZI.Quizzei.Domain.Domains.Category.Repositories;
+using QZI.Quizzei.Domain.Domains.Questions.Repositories;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands.Information;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response.Information;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
 {
-    public class QuizInfoCommandHandler : 
+    public class QuizInformationCommandHandler : 
         IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>,
         IRequestHandler<GetQuizzesInfoByUserCommand, GetQuizzesInfoByUserResponse>,
         IRequestHandler<GetQuizzesInfoByDifferentUsersCommand, GetQuizzesInfoByDifferentUsersResponse>
@@ -19,14 +20,16 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IQuizInfoRepository _quizInfoRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IQuestionRepository _questionRepository;
         private readonly IUserService _userService;
 
-        public QuizInfoCommandHandler(IQuizInfoRepository quizInfoRepository, IUserService userService, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public QuizInformationCommandHandler(IQuizInfoRepository quizInfoRepository, IUserService userService, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IQuestionRepository questionRepository)
         {
             _quizInfoRepository = quizInfoRepository;
             _userService = userService;
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
+            _questionRepository = questionRepository;
         }
 
         public async Task<CreateQuizInfoResponse> Handle(CreateQuizInfoCommand command, CancellationToken cancellationToken)
@@ -34,7 +37,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
             var category = await _categoryRepository.GetCategoryById(command.Request.CategoryId);
             var userResponse = await _userService.GetUserByEmail(command.UserEmail);
 
-            var quizInfo = QuizInfo.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, userResponse.Id, category.Id);
+            var quizInfo = QuizInformation.CreateQuizInfo(command.Request.Title, command.Request.Description, command.Request.Points, userResponse.Id, category.Id);
             await _quizInfoRepository.AddAsync(quizInfo);
 
             await _unitOfWork.SaveChangesAsync();
@@ -52,13 +55,15 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
             foreach (var quiz in quizzes)
             {
                 var category = await _categoryRepository.GetCategoryById(quiz.CategoryId);
+                var questions = await _questionRepository.GetQuestionsByQuizInfo(quiz.QuizInfoUuid);
 
                 response.QuizzesInfoDto.Add(new QuizInfoResponse
                 {
                     Title = quiz.Title,
                     Description = quiz.Description,
                     CategoryDescription = category.Description,
-                    QuizInfoUuid = quiz.QuizInfoUuid
+                    QuizInfoUuid = quiz.QuizInfoUuid,
+                    NumberOfQuestions = questions.Count
                 });
             }
 
@@ -75,13 +80,15 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
             foreach (var quiz in quizzes)
             {
                 var category = await _categoryRepository.GetCategoryById(quiz.CategoryId);
+                var questions = await _questionRepository.GetQuestionsByQuizInfo(quiz.QuizInfoUuid);
 
                 response.QuizzesInfoDto.Add(new QuizInfoResponse
                 {
                     Title = quiz.Title,
                     Description = quiz.Description,
                     CategoryDescription = category.Description,
-                    QuizInfoUuid = quiz.QuizInfoUuid
+                    QuizInfoUuid = quiz.QuizInfoUuid,
+                    NumberOfQuestions = questions.Count
                 });
             }
 

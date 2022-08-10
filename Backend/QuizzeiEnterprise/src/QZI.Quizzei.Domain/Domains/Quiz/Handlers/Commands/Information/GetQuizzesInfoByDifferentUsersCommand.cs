@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using QZI.Quizzei.Domain.Configuration;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests.Information;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response.Information;
 using QZI.Quizzei.Domain.Exceptions;
 
-namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands
+namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands.Information
 {
     public class GetQuizzesInfoByDifferentUsersCommand : Command<GetQuizzesInfoByDifferentUsersResponse>
     {

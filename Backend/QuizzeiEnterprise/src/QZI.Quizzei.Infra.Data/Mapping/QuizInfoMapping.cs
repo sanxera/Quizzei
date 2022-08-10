@@ -4,9 +4,9 @@ using QZI.Quizzei.Domain.Domains.Quiz.Entities;
 
 namespace QZI.Quizzei.Infra.Data.Mapping
 {
-    public class QuizInfoMapping : IEntityTypeConfiguration<QuizInfo>
+    public class QuizInfoMapping : IEntityTypeConfiguration<QuizInformation>
     {
-        public void Configure(EntityTypeBuilder<QuizInfo> builder)
+        public void Configure(EntityTypeBuilder<QuizInformation> builder)
         {
             builder.ToTable("QUIZ_INFO");
 

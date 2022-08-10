@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetDevPack.Identity.Jwt;
-using NetDevPack.Identity.Jwt.Model;
 using NetDevPack.Identity.Model;
-using QZI.Quizzei.Domain.Domains.User.Entities;
 using QZI.Quizzei.Domain.Domains.User.Request;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
 
@@ -61,10 +58,10 @@ namespace QZI.Quizzei.API.Controllers
 
             if (result.IsLockedOut)
             {
-                return BadRequest("This user is blocked");
+                return BadRequest(new { Message = "This user is blocked"});
             }
 
-            return Ok("Incorrect user or password");
+            return BadRequest(new {Message = "Incorrect user or password"});
         }
 
         private string GetFullJwt(string email)

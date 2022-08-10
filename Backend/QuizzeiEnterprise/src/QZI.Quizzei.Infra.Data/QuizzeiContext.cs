@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using QZI.Quizzei.Domain.Domains.Category.Entities;
 using QZI.Quizzei.Domain.Domains.Questions.Entities;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
+using QZI.Quizzei.Domain.Domains.User.Entities;
 
 namespace QZI.Quizzei.Infra.Data
 {
@@ -12,7 +14,7 @@ namespace QZI.Quizzei.Infra.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<QuestionOption> Options { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<QuizInfo> QuizzesInfos { get; set; }
+        public virtual DbSet<QuizInformation> QuizzesInfos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

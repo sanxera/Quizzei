@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands.Information;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests.Information;
 
 namespace QZI.Quizzei.API.Controllers
 {
@@ -19,7 +19,7 @@ namespace QZI.Quizzei.API.Controllers
             _mediator = mediator;
         }
 
-        //[CustomAuthorize("QuizInfo", "Create")]
+        //[CustomAuthorize("QuizInformation", "Create")]
         [HttpPost("create-quiz-info")]
         public async Task<IActionResult> CreateQuizInfo([FromBody] CreateQuizInfoRequest request)
         {

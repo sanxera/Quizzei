@@ -8,9 +8,9 @@ using QZI.Quizzei.Domain.Domains.Questions.Handlers;
 using QZI.Quizzei.Domain.Domains.Questions.Handlers.Commands;
 using QZI.Quizzei.Domain.Domains.Questions.Handlers.Responses;
 using QZI.Quizzei.Domain.Domains.Quiz.Handlers;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands.Information;
 using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands.Process;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response;
+using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response.Information;
 using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response.Process;
 using QZI.Quizzei.Domain.Domains.User.Service;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
@@ -33,9 +33,9 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IRequestHandler<GetQuestionsWithOptionsByQuizCommand, GetQuestionsWithOptionsByQuizResponse>, QuestionCommandHandler>();
             services.AddScoped<IRequestHandler<AnswerQuestionCommand, AnswerQuestionResponse>, AnswerCommandHandler>();
 
-            services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInfoCommandHandler>();
-            services.AddScoped<IRequestHandler<GetQuizzesInfoByUserCommand, GetQuizzesInfoByUserResponse>, QuizInfoCommandHandler>();
-            services.AddScoped<IRequestHandler<GetQuizzesInfoByDifferentUsersCommand, GetQuizzesInfoByDifferentUsersResponse>, QuizInfoCommandHandler>();
+            services.AddScoped<IRequestHandler<CreateQuizInfoCommand, CreateQuizInfoResponse>, QuizInformationCommandHandler>();
+            services.AddScoped<IRequestHandler<GetQuizzesInfoByUserCommand, GetQuizzesInfoByUserResponse>, QuizInformationCommandHandler>();
+            services.AddScoped<IRequestHandler<GetQuizzesInfoByDifferentUsersCommand, GetQuizzesInfoByDifferentUsersResponse>, QuizInformationCommandHandler>();
             services.AddScoped<IRequestHandler<StartQuizProcessCommand, StartQuizProcessResponse>, QuizProcessCommandHandler>();
         }
     }

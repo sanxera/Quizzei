@@ -9,22 +9,22 @@ using QZI.Quizzei.Infra.Data.Repository.Base;
 
 namespace QZI.Quizzei.Infra.Data.Repository
 {
-    public class QuizInfoRepository : RepositoryBase<QuizInfo>, IQuizInfoRepository
+    public class QuizInfoRepository : RepositoryBase<QuizInformation>, IQuizInfoRepository
     {
         public QuizInfoRepository(QuizzeiContext context) : base(context) { }
 
-        public async Task<QuizInfo> GetQuizInfoById(Guid id)
+        public async Task<QuizInformation> GetQuizInfoById(Guid id)
         {
             return await Context.QuizzesInfos
                 .FirstOrDefaultAsync(x => x.QuizInfoUuid == id);
         }
 
-        public async Task<IEnumerable<QuizInfo>> GetQuizInfoByUserUuid(Guid userUuid)
+        public async Task<IEnumerable<QuizInformation>> GetQuizInfoByUserUuid(Guid userUuid)
         {
             return await Context.QuizzesInfos.Where(x => x.UserOwnerId == userUuid).ToListAsync();
         }
 
-        public async Task<IEnumerable<QuizInfo>> GetQuizInfoByDifferentUsers(Guid userUuid)
+        public async Task<IEnumerable<QuizInformation>> GetQuizInfoByDifferentUsers(Guid userUuid)
         {
             return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid).ToListAsync();
         }

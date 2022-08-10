@@ -6,10 +6,10 @@ using QZI.Quizzei.Domain.Domains.Quiz.Repositories.Base;
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Repositories
 {
-    public interface IQuizInfoRepository : IRepository<QuizInfo>
+    public interface IQuizInfoRepository : IRepository<QuizInformation>
     {
-        Task<QuizInfo> GetQuizInfoById(Guid id);
-        Task<IEnumerable<QuizInfo>> GetQuizInfoByUserUuid(Guid userUuid);
-        Task<IEnumerable<QuizInfo>> GetQuizInfoByDifferentUsers(Guid userUuid);
+        Task<QuizInformation> GetQuizInfoById(Guid id);
+        Task<IEnumerable<QuizInformation>> GetQuizInfoByUserUuid(Guid userUuid);
+        Task<IEnumerable<QuizInformation>> GetQuizInfoByDifferentUsers(Guid userUuid);
     }
 }

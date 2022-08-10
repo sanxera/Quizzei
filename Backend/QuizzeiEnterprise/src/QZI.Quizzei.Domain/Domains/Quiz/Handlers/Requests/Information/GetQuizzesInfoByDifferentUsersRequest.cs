@@ -1,4 +1,4 @@
-﻿namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests
+﻿namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests.Information
 {
     public class GetQuizzesInfoByDifferentUsersRequest
     {

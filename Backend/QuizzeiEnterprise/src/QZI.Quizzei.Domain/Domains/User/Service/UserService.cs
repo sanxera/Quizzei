@@ -23,22 +23,24 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
         public async Task<Guid> CreateUser(CreateUserRequest request)
         {
             var userAlreadyCreated = await _userManager.Users.FirstOrDefaultAsync
-                (x => x.Email == request.Email || x.UserName == request.UserName);
+                (x => x.Email == request.Email);
 
             if (userAlreadyCreated != null)
                 throw new GenericException("Email/UserName already exists");
 
-            var newUser = new IdentityUser
+            var newUser = new ApplicationUser
             {
-                UserName = request.UserName,
+                UserName = request.Email,
                 Email = request.Email,
                 EmailConfirmed = true,
-                PasswordHash = request.Password
+                Name = request.Name,
+                NickName = request.NickName
             };
 
-            var result = await _userManager.CreateAsync(newUser);
+            var result = await _userManager.CreateAsync(newUser, request.Password);
 
             ValidateResult(result);
+            await AssignRoleToUser(newUser, request.RoleId);
 
             return Guid.Parse(newUser.Id);
         }
@@ -69,6 +71,16 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == email);
 
             return new BaseUser { Email = user.Email, Id = Guid.Parse(user.Id) };
+        }
+
+        private async Task AssignRoleToUser(IdentityUser user, Guid roleGuid)
+        {
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == roleGuid.ToString());
+
+            if (role is null)
+                throw new GenericException("Role with this name already created");
+
+            await _userManager.AddToRoleAsync(user, role.Name);
         }
 
         private static void ValidateResult(IdentityResult result)
