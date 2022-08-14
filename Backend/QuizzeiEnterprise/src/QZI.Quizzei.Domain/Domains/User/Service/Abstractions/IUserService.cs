@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Domains.User.Entities;
 using QZI.Quizzei.Domain.Domains.User.Request;
+using QZI.Quizzei.Domain.Domains.User.Response;
 
 namespace QZI.Quizzei.Domain.Domains.User.Service.Abstractions
 {
@@ -9,6 +9,6 @@ namespace QZI.Quizzei.Domain.Domains.User.Service.Abstractions
     {
         Task<Guid> CreateUser(CreateUserRequest request);
         Task<Guid> CreateRole(CreateRoleRequest request);
-        Task<BaseUser> GetUserByEmail(string email);
+        Task<UserBaseResponse> GetUserByEmail(string email);
     }
 }

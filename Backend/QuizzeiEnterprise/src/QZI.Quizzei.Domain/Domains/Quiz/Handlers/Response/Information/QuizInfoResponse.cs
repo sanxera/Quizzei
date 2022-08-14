@@ -9,6 +9,6 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers.Response.Information
         public string Description { get; set; }
         public string CategoryDescription { get; set; }
         public int NumberOfQuestions { get; set; }
-        public string OwnerEmail { get; set; }
+        public string OwnerNickName { get; set; }
     }
 }

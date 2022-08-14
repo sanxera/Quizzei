@@ -6,10 +6,11 @@ using NetDevPack.Identity.Jwt;
 using NetDevPack.Identity.Model;
 using QZI.Quizzei.Domain.Domains.User.Request;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
+using QZI.Quizzei.Domain.Exceptions;
 
 namespace QZI.Quizzei.API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/users")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -44,7 +45,7 @@ namespace QZI.Quizzei.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(LoginUser loginUser)
+        public async Task<ActionResult> Login([FromBody] LoginUser loginUser)
         {
             if (!ModelState.IsValid) return Ok(ModelState);
 
@@ -58,10 +59,16 @@ namespace QZI.Quizzei.API.Controllers
 
             if (result.IsLockedOut)
             {
-                return BadRequest(new { Message = "This user is blocked"});
+                throw new GenericException("User is locked out !");
             }
 
-            return BadRequest(new {Message = "Incorrect user or password"});
+            throw new GenericException("Email or password is wrong !");
+        }
+
+        [HttpPost("verify-user")]
+        public async Task<IActionResult> VerifyUser()
+        {
+            return Ok(new { Verified = true });
         }
 
         private string GetFullJwt(string email)

@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
 using QZI.Quizzei.Domain.Domains.Category.Repositories;
 using QZI.Quizzei.Domain.Domains.Questions.Repositories;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
+using QZI.Quizzei.Domain.Domains.User.Entities;
 using QZI.Quizzei.Infra.Data;
 using QZI.Quizzei.Infra.Data.Repository;
 using QZI.Quizzei.Infra.Data.UnitOfWork;
@@ -29,6 +31,10 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
                     options.EnableDetailedErrors();
                 }
             );
+
+            services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<QuizzeiContext>();
 
             services.AddScoped<QuizzeiContext>();
         }

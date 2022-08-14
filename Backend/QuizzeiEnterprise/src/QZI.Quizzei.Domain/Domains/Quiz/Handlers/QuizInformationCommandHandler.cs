@@ -47,8 +47,8 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
 
         public async Task<GetQuizzesInfoByUserResponse> Handle(GetQuizzesInfoByUserCommand command, CancellationToken cancellationToken)
         {
-            var userResponse = await _userService.GetUserByEmail(command.Request.UserEmail);
-            var quizzes = await _quizInfoRepository.GetQuizInfoByUserUuid(userResponse.Id);
+            var user = await _userService.GetUserByEmail(command.Request.UserEmail);
+            var quizzes = await _quizInfoRepository.GetQuizInfoByUserUuid(user.Id);
 
             var response = new GetQuizzesInfoByUserResponse();
 
@@ -57,13 +57,15 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
                 var category = await _categoryRepository.GetCategoryById(quiz.CategoryId);
                 var questions = await _questionRepository.GetQuestionsByQuizInfo(quiz.QuizInfoUuid);
 
+
                 response.QuizzesInfoDto.Add(new QuizInfoResponse
                 {
                     Title = quiz.Title,
                     Description = quiz.Description,
                     CategoryDescription = category.Description,
                     QuizInfoUuid = quiz.QuizInfoUuid,
-                    NumberOfQuestions = questions.Count
+                    NumberOfQuestions = questions.Count,
+                    OwnerNickName = user.NickName
                 });
             }
 
@@ -72,8 +74,8 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
 
         public async Task<GetQuizzesInfoByDifferentUsersResponse> Handle(GetQuizzesInfoByDifferentUsersCommand request, CancellationToken cancellationToken)
         {
-            var userResponse = await _userService.GetUserByEmail(request.ByDifferentUsersRequest.UserEmail);
-            var quizzes = await _quizInfoRepository.GetQuizInfoByDifferentUsers(userResponse.Id);
+            var user = await _userService.GetUserByEmail(request.ByDifferentUsersRequest.UserEmail);
+            var quizzes = await _quizInfoRepository.GetQuizInfoByDifferentUsers(user.Id);
 
             var response = new GetQuizzesInfoByDifferentUsersResponse();
 
@@ -88,7 +90,8 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Handlers
                     Description = quiz.Description,
                     CategoryDescription = category.Description,
                     QuizInfoUuid = quiz.QuizInfoUuid,
-                    NumberOfQuestions = questions.Count
+                    NumberOfQuestions = questions.Count,
+                    OwnerNickName = user.NickName
                 });
             }
 

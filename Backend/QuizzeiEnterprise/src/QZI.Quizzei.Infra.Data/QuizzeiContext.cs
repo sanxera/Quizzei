@@ -8,7 +8,7 @@ using QZI.Quizzei.Domain.Domains.User.Entities;
 
 namespace QZI.Quizzei.Infra.Data
 {
-    public class QuizzeiContext : DbContext
+    public class QuizzeiContext : IdentityDbContext<ApplicationUser>
     {
         public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options) { }
         public virtual DbSet<Category> Categories { get; set; }

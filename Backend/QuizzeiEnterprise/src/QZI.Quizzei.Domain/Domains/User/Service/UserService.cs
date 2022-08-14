@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QZI.Quizzei.Domain.Domains.User.Entities;
 using QZI.Quizzei.Domain.Domains.User.Request;
+using QZI.Quizzei.Domain.Domains.User.Response;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
 using QZI.Quizzei.Domain.Exceptions;
 
@@ -11,10 +12,10 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -66,14 +67,14 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
         }
 
 
-        public async Task<BaseUser> GetUserByEmail(string email)
+        public async Task<UserBaseResponse> GetUserByEmail(string email)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-            return new BaseUser { Email = user.Email, Id = Guid.Parse(user.Id) };
+            return new UserBaseResponse { Email = user.Email, Id = Guid.Parse(user.Id), NickName = user.NickName };
         }
 
-        private async Task AssignRoleToUser(IdentityUser user, Guid roleGuid)
+        private async Task AssignRoleToUser(ApplicationUser user, Guid roleGuid)
         {
             var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == roleGuid.ToString());
 
