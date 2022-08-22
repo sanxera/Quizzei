@@ -15,6 +15,7 @@ namespace QZI.Quizzei.Infra.Data
         public virtual DbSet<QuestionOption> Options { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuizInformation> QuizzesInfos { get; set; }
+        public virtual DbSet<QuizProcess> QuizProcesses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

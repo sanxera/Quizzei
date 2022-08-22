@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -69,6 +70,17 @@ namespace QZI.Quizzei.API.Controllers
         public async Task<IActionResult> VerifyUser()
         {
             return Ok(new { Verified = true });
+        }
+
+        [HttpGet("get-user-details")]
+        public async Task<IActionResult> GetUserDetails(Guid userUuid)
+        {
+            var user = await _userService.GetUserDetails(new GetUserDetailsRequest { UserUuid = userUuid });
+
+            if (user is null)
+                return NotFound();
+
+            return Ok(user);
         }
 
         private string GetFullJwt(string email)

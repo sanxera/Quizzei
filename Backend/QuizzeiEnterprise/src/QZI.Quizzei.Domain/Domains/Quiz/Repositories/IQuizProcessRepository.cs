@@ -1,7 +1,12 @@
-﻿using QZI.Quizzei.Domain.Domains.Quiz.Entities;
+﻿using System;
+using System.Threading.Tasks;
+using QZI.Quizzei.Domain.Domains.Quiz.Entities;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories.Base;
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Repositories
 {
-    public interface IQuizProcessRepository : IRepository<QuizProcess> { }
+    public interface IQuizProcessRepository : IRepository<QuizProcess>
+    {
+        Task<QuizProcess> GetQuizInfoById(Guid id);
+    }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -71,7 +73,28 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-            return new UserBaseResponse { Email = user.Email, Id = Guid.Parse(user.Id), NickName = user.NickName };
+            return (user is null ? null :
+                new UserBaseResponse { Email = user.Email, Id = Guid.Parse(user.Id), NickName = user.NickName })!;
+        }
+
+        public async Task<GetUserDetailsResponse?> GetUserDetails(GetUserDetailsRequest request)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == request.UserUuid.ToString());
+
+            if (user is null)
+                return null;
+
+            var role = await _userManager.GetRolesAsync(user);
+            var roleMain = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Name == role.FirstOrDefault());
+
+            return new GetUserDetailsResponse 
+                { 
+                    Email = user.Email,
+                    UserUuid = Guid.Parse(user.Id),
+                    NickName = user.NickName, 
+                    RoleUuid = Guid.Parse(roleMain.Id),
+                    RoleName = roleMain.Name
+                };
         }
 
         private async Task AssignRoleToUser(ApplicationUser user, Guid roleGuid)

@@ -8,13 +8,22 @@ namespace QZI.Quizzei.Infra.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<Answer> builder)
         {
-            builder.ToTable("QUESTION_ANSWER");
+            builder.ToTable("ANSWER");
 
             builder.Property(x => x.AnswerUuid)
-                .HasColumnName("QUESTION_ANSWER_UUID");
+                .HasColumnName("ANSWER_UUID");
 
             builder.Property(e => e.UserUuid)
                 .HasColumnName("USER_UUID");
+
+            builder.Property(e => e.QuestionOptionUuid)
+                .HasColumnName("QUESTION_OPTION_UUID");
+
+            builder.Property(e => e.QuizProcessUuid)
+                .HasColumnName("QUIZ_PROCESS_UUID");
+
+            builder.Property(e => e.CorrectAnswer)
+                .HasColumnName("CORRECT_ANSWER");
 
             builder.Property(e => e.CreatedAt)
                 .HasColumnName("CREATED_AT");
@@ -23,9 +32,7 @@ namespace QZI.Quizzei.Infra.Data.Mapping
                 .HasColumnName("CREATED_BY");
 
             builder.HasKey(x => x.AnswerUuid)
-                .HasName("QUESTION_ANSWER_UUID");
-
-            builder.HasOne(x => x.QuestionOption);
+                .HasName("ANSWER_UUID");
         }
     }
 }

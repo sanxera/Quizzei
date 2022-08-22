@@ -44,11 +44,11 @@ namespace QZI.Quizzei.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("answer-questions")]
-        public async Task<IActionResult> AnswerQuestions(AnswerQuestionRequest request)
+        public async Task<IActionResult> AnswerQuestions([FromHeader] Guid questionUuid, [FromHeader] Guid optionUuid, [FromHeader] Guid quizProcessUuid)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
-            var command = new AnswerQuestionCommand(email, request);
+            var command = new AnswerQuestionCommand(email, new AnswerQuestionRequest {OptionUuid = optionUuid, QuestionUuid = questionUuid, QuizProcessUuid = quizProcessUuid});
 
             var response = await _mediator.Send(command);
 

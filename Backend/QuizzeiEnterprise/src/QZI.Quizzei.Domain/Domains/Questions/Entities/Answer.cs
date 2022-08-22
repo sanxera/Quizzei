@@ -6,17 +6,21 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Entities
     public class Answer : Entity
     {
         public Guid AnswerUuid { get; set; }
-        public QuestionOption QuestionOption { get; set; }
+        public Guid QuizProcessUuid { get; set; }
+        public Guid QuestionOptionUuid { get; set; }
         public Guid UserUuid { get; set; }
         public bool CorrectAnswer{ get; set; }
 
-        public static Answer CreateAnswer(QuestionOption option, Guid userUuid)
+        public static Answer CreateAnswer(Guid option, Guid quizProcess, Guid userUuid, bool correctAnswer)
         {
             return new Answer
             {
-                QuestionOption = option,
+                QuizProcessUuid = quizProcess,
+                QuestionOptionUuid = option,
                 UserUuid = userUuid,
-                CorrectAnswer = option.IsCorrect
+                CorrectAnswer = correctAnswer,
+                CreatedAt = DateTime.Now,
+                CreatedBy = "Admin"
             };
         }
     }
