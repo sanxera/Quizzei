@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Layout, Menu, Avatar, Row, Col, Button } from 'antd';
 import {
   LogoutOutlined,
-  SettingOutlined
+  SettingOutlined,
+  MailOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons';
 import { setAuthority } from '../../utils/auth';
 
@@ -18,7 +20,6 @@ const HeaderMenu = ({ navigate }) => {
 
 
   const onClick = (e) => {
-    console.log('click ', e);
     setCurrent(e.key);
   };
 
@@ -26,12 +27,12 @@ const HeaderMenu = ({ navigate }) => {
     {
       label: 'Quizzes',
       key: 'quiz',
-      // icon: <MailOutlined />,
+      icon: <MailOutlined />,
     },
     {
       label: 'Conteúdo',
       key: 'content',
-      // icon: <AppstoreOutlined />,
+      icon: <AppstoreOutlined />,
     },
   ];
 

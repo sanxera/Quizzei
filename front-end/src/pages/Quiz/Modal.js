@@ -24,7 +24,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
 
   useEffect(() => {
     handleQuestions();
-  }, [])
+  }, []);
 
   async function handleQuestions() {
     const { quizInfoUuid } = data;
@@ -46,7 +46,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
       const { createdQuizUuid } = await create(restData);
       if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
 
-      if (questions && questions.length > 0) {
+      if (!data.quizInfoUuid && questions && questions.length > 0) {
         await createQuestions(createdQuizUuid, { questions });
       }
 
@@ -54,9 +54,9 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
         notification({ status: 'success', message: data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
         await onCallback();
         await onCloseModal();
-      }, 2000)
+      }, 1000)
     } catch (error) {
-      console.log('error form ', error)
+      console.log('error submit => ', error)
       if (error) notification({ status: 'error', message: 'Preencha as informações do quiz!' });
     }
   }
@@ -66,7 +66,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
       title={titleModal}
       visible={visible}
       width={1000}
-      closable={false}
+      closable
       footer={[
         <Button type="primary" shape='round' danger onClick={async () => {
           await form.resetFields();
