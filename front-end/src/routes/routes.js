@@ -10,7 +10,7 @@ import UserList from '../pages/User/List';
 import Quiz from '../pages/QuizAnswer/Quiz';
 
 export const RoutesList = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // TODO colocar o navigate em um redux global 
   return (
     <Routes>
       <Route path="/" element={<Signin navigate={navigate} />} />
@@ -43,7 +43,7 @@ export const RoutesList = () => {
           <Result
             status="404"
             title="404"
-            subTitle="Deculpe, esta pagina nao existe."
+            subTitle="Desculpe, esta pagina nao existe."
             extra={<Button type="primary" onClick={() => navigate('/')}>Voltar a página inicial</Button>}
           />
         </div>

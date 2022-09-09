@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Typography, Input, Button } from 'antd';
-import { RightOutlined, PlusCircleOutlined } from '@ant-design/icons'
+import { RightOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 import ModalQuiz from './Modal';
 
 import CardWrapper from '../../components/CardWrapper';
@@ -9,7 +10,7 @@ import { listMyQuizzes, listPublicQuizzes } from '../../services/quiz';
 
 const { Title, Text } = Typography;
 
-const List = ({ navigate }) => {
+const List = ({ navigate, status, dispatch }) => {
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
 
@@ -29,7 +30,6 @@ const List = ({ navigate }) => {
   }
 
   async function handleModal(data) {
-    console.log('criar quiz ', rowData)
     if (data) await setRowData(data);
     await setVisible(!visible);
   }
@@ -70,8 +70,6 @@ const List = ({ navigate }) => {
       logo: 'https://previews.123rf.com/images/stockgiu/stockgiu1709/stockgiu170905590/86637891-f%C3%ADsica-%C3%B3rbita-qu%C3%ADmica-ciencia-educaci%C3%B3n-vector-ilustraci%C3%B3n.jpg',
     },
   ];
-
-  console.log(userQuizzes)
 
   return (
     <>
@@ -148,11 +146,12 @@ const List = ({ navigate }) => {
           </Col>
         </Row>
 
-        <ModalQuiz data={rowData} onClose={onCloseModal} onCallback={init} visible={visible} />
-        <StartQuiz navigate={navigate} data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />
+        {visible && (<ModalQuiz data={rowData} onClose={onCloseModal} onCallback={init} visible={visible} />)}
+        {infoVisible && (<StartQuiz navigate={navigate} data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />)}
+
       </div>
     </>
   )
 }
 
-export default List;
+export default connect(state => ({ status: state.status }))(List);

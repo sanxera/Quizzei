@@ -1,9 +1,13 @@
 import { createStore } from 'redux';
 
-function reducer() {
-  return {
-    status: true
+function reducer(state = {}, action) {
+  if (action.type === 'INIT_QUIZ') {
+    return { ...state, data: action.data }
   }
+
+  return state
 }
 
-export default createStore(reducer)
+const store = createStore(reducer)
+
+export default store;

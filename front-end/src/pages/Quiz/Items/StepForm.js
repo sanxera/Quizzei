@@ -64,7 +64,7 @@ const StepForm = ({ data, form }) => {
 
         <Form.Item
           name="categoryId"
-          initialValue={category[0]?.idCategory}
+          initialValue={category[0]?.idCategory || 1}
           hidden
         />
 

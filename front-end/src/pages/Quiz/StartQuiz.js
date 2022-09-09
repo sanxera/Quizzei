@@ -1,14 +1,33 @@
 import React from 'react';
 import { Divider, Row, Col, Button, Typography, Modal } from 'antd';
+import { connect } from 'react-redux';
 import {
   UserOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
+import { listQuestions, startQuiz } from '../../services/quiz';
 
 const { Title, Text } = Typography;
 
-const StartQuiz = ({ navigate, visible, data, onClose }) => {
+const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
   if (!visible || !data) return <div />;
+
+  async function onClickStartQuiz() {
+    const { quizInfoUuid } = data;
+    if (!quizInfoUuid) return;
+    const { quizProcessUuid } = await startQuiz(quizInfoUuid);
+    const { questions } = await listQuestions(quizInfoUuid);
+
+    await dispatch({
+      type: 'INIT_QUIZ',
+      data: {
+        quizProcessUuid,
+        questions
+      },
+    });
+
+    await navigate('/quiz-answer')
+  }
 
   return (
     <Modal
@@ -46,13 +65,11 @@ const StartQuiz = ({ navigate, visible, data, onClose }) => {
         </Col>
 
         <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
-          <Button className='btn-main' type='primary' shape='round' onClick={() => {
-            navigate('/quiz-answer')
-          }}>Iniciar Quiz</Button>
+          <Button className='btn-main' type='primary' shape='round' onClick={() => onClickStartQuiz()}>Iniciar Quiz</Button>
         </Col>
       </Row>
     </Modal>
   )
 }
 
-export default StartQuiz;
+export default connect(state => ({ ...state }))(StartQuiz);

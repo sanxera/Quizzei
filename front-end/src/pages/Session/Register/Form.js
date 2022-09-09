@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Input, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 import { register } from '../../../services/session';
@@ -13,7 +13,9 @@ const INPUT_STYLE = {
 }
 
 
-const FormComponent = ({ navigate, profileID }) => {
+const FormComponent = ({ navigate }) => {
+  const [password, setPassword] = useState(null);
+  const [disable, setDisable] = useState(false);
   async function onFinish(data) {
     const { created } = await register(data);
     const status = created ? 'success' : 'error';
@@ -25,6 +27,15 @@ const FormComponent = ({ navigate, profileID }) => {
     }, 1000)
   };
 
+  function validationPassword(confirmPassword) {
+    console.log(confirmPassword, password)
+    if (confirmPassword === password) {
+      setDisable(false);
+      return;
+    }
+    setDisable(true);
+  }
+
   return (
     <Form
       layout="vertical"
@@ -32,19 +43,21 @@ const FormComponent = ({ navigate, profileID }) => {
       onFinish={onFinish}
     >
       <Form.Item
-        name="profileId"
+        name="roleId"
         rules={
           [{
             required: true,
-            type: 'number',
+            type: 'string',
           }]}
       >
-        <Select defaultValue={null} placeholder='Escolha o perfil' style={{ width: '100%' }}
-        // onChange={handleChange}
-        >
-          <Option value={1}>Perfil Pessoal</Option>
-          <Option value={2}>Perfil Governamental</Option>
-          <Option value={3}>Instituição de Ensino</Option>
+        <Select defaultValue={null} placeholder='Escolha o perfil' style={{ width: '100%' }}>
+          {[
+            { roleId: '0bd3463c-95dd-4dce-ae51-7c2c62609860', name: 'Aluno' },
+            { roleId: 'e8ef779f-015d-4b30-808d-5ba36c7aef2b', name: 'Professor' },
+            { roleId: 'ba1424f4-633a-4206-9e73-cdd92a283282', name: 'Perfil Institucional' },
+          ].map(item => (
+            <Option value={item.roleId}>{item.name}</Option>
+          ))}
         </Select>
       </Form.Item>
 
@@ -60,6 +73,19 @@ const FormComponent = ({ navigate, profileID }) => {
           }]}
       >
         <Input bordered={false} style={{ ...INPUT_STYLE }} placeholder="Nome" />
+      </Form.Item>
+
+      <Form.Item
+        className='formItem'
+        name="nickName"
+        rules={
+          [{
+            required: true,
+            type: 'string',
+            message: 'Por favor, informe um nome de usuario.'
+          }]}
+      >
+        <Input bordered={false} style={{ ...INPUT_STYLE }} placeholder="Usuario" />
       </Form.Item>
 
       <Form.Item
@@ -84,19 +110,39 @@ const FormComponent = ({ navigate, profileID }) => {
             type: 'string',
             message: 'Por favor, digite uma senha.'
           }]}
+        validateStatus={disable ? 'error' : undefined}
+        hasFeedback
       >
-        <Input.Password bordered={false} style={{ ...INPUT_STYLE }} placeholder="Senha" />
+        <Input.Password
+          bordered={false}
+          style={{ ...INPUT_STYLE }}
+          placeholder="Senha"
+        // onChange={item => setPassword(item.target.value)} 
+        />
       </Form.Item>
 
       <Form.Item
         className='formItem'
         name="confirmPassword"
+        validateStatus={disable ? 'error' : undefined}
+        hasFeedback
       >
-        <Input.Password bordered={false} style={{ ...INPUT_STYLE }} placeholder="Confirmar senha" />
+        <Input.Password
+          bordered={false} style={{ ...INPUT_STYLE }}
+          placeholder="Confirmar senha"
+        // onChange={item => validationPassword(item.target.value)}
+        />
       </Form.Item>
 
       <Form.Item wrapperCol={{ span: 24, offset: 3 }}>
-        <Button className='btn-main' style={{ width: '90%' }} shape="round" type="primary" htmlType="submit">
+        <Button
+          className='btn-main'
+          style={{ width: '90%' }}
+          disabled={disable}
+          shape="round"
+          type="primary"
+          htmlType="submit"
+        >
           CADASTRAR-SE
         </Button>
       </Form.Item>
