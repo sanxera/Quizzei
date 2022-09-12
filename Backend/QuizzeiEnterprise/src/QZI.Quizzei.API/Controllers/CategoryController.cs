@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Domain.Domains.Category.Handlers.Commands;
-using QZI.Quizzei.Domain.Domains.Category.Handlers.Requests;
+using QZI.Quizzei.Domain.Domains.Category.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.Category.Service.Requests;
 
 namespace QZI.Quizzei.API.Controllers
 {
@@ -10,31 +9,27 @@ namespace QZI.Quizzei.API.Controllers
     [Route("api/categories")]
     public class CategoryController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(IMediator mediator)
+        public CategoryController(ICategoryService categoryService)
         {
-            _mediator = mediator;
+            _categoryService = categoryService;
         }
 
         //[CustomAuthorize("Category", "Create")]
         [HttpPost("create-category")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
-            var command = new CreateCategoryCommand(request);
-
-            var result = await _mediator.Send(command);
+            var result = await _categoryService.CreateCategory(request);
 
             return Ok(result);
         }
 
         //[CustomAuthorize("Category", "Get")]
-        [HttpGet("get-by-id")]
-        public async Task<IActionResult> GetCategoryById([FromHeader] int categoryId)
+        [HttpGet("get-by-id/{categoryId:int}")]
+        public async Task<IActionResult> GetCategoryById(int categoryId)
         {
-            var command = new GetCategoryByIdCommand(new GetCategoryByIdRequest {Id = categoryId});
-
-            var result = await _mediator.Send(command);
+            var result = await _categoryService.GetCategoryById(categoryId);
 
             return Ok(result);
         }
@@ -44,9 +39,7 @@ namespace QZI.Quizzei.API.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetAllCategories()
         {
-            var command = new GetAllCategoriesCommand(new GetAllCategoriesRequest());
-
-            var result = await _mediator.Send(command);
+            var result = await _categoryService.GetAllCategories();
 
             return Ok(result);
         }

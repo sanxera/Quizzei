@@ -1,30 +1,26 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Commands.Process;
-using QZI.Quizzei.Domain.Domains.Quiz.Handlers.Requests.Process;
+using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
 
 namespace QZI.Quizzei.API.Controllers
 {
     [Route("api/quizzes-process")]
     public class QuizProcessController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IQuizProcessService _quizProcessService;
 
-        public QuizProcessController(IMediator mediator)
+        public QuizProcessController(IQuizProcessService quizProcessService)
         {
-            _mediator = mediator;
+            _quizProcessService = quizProcessService;
         }
 
-        [HttpPost("start-quiz")]
-        public async Task<IActionResult> StartQuizProcess([FromHeader] Guid quizInfo)
+        [HttpPost("start-quiz/{quizInfo:guid}")]
+        public async Task<IActionResult> StartQuizProcess(Guid quizInfo)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            var command = new StartQuizProcessCommand(email, new StartQuizProcessRequest{QuizUuid = quizInfo});
-
-            var result = await _mediator.Send(command);
+            var result = await _quizProcessService.StartQuizProcess(email, quizInfo);
 
             return Ok(result);
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using QZI.Quizzei.Domain.Abstractions;
-using QZI.Quizzei.Domain.Domains.Questions.Handlers.Requests;
+using QZI.Quizzei.Domain.Domains.Questions.Services.Requests;
 
 namespace QZI.Quizzei.Domain.Domains.Questions.Entities
 {

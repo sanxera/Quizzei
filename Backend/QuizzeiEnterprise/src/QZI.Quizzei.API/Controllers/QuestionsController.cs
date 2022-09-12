@@ -1,56 +1,34 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Domain.Domains.Questions.Handlers.Commands;
-using QZI.Quizzei.Domain.Domains.Questions.Handlers.Requests;
+using QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions;
+using QZI.Quizzei.Domain.Domains.Questions.Services.Requests;
 
 namespace QZI.Quizzei.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/questions")]
     public class QuestionsController : Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IQuestionService _questionService;
 
-        public QuestionsController(IMediator mediator)
+        public QuestionsController(IQuestionService questionService)
         {
-            _mediator = mediator;
+            _questionService = questionService;
         }
 
-        [AllowAnonymous]
-        [HttpPost("create-questions-with-options")]
-        public async Task<IActionResult> CreateQuestionsWithOptions([FromHeader] Guid quizInfoUuid, [FromBody] CreateQuestionsRequest request)
+        [HttpPost("create-questions-with-options/{quizInfoUuid:guid}")]
+        public async Task<IActionResult> CreateQuestionsWithOptions(Guid quizInfoUuid, [FromBody] CreateQuestionsRequest request)
         {
-            var command = new CreateQuestionsCommand(quizInfoUuid, request);
-
-            var response = await _mediator.Send(command);
-
-            return response.Created ? Ok(response) : BadRequest(response);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("get-questions-by-quiz")]
-        public async Task<IActionResult> GetQuestionsWithOptionsByQuiz([FromHeader] Guid quizInfoUuid)
-        {
-            var command = new GetQuestionsWithOptionsByQuizCommand(new GetQuestionsWithOptionsByQuizRequest {QuizInfoUuid = quizInfoUuid});
-
-            var response = await _mediator.Send(command);
+            var response = await _questionService.CreateQuestions(quizInfoUuid, request);
 
             return Ok(response);
         }
 
-        [AllowAnonymous]
-        [HttpPost("answer-questions")]
-        public async Task<IActionResult> AnswerQuestions([FromHeader] Guid questionUuid, [FromHeader] Guid optionUuid, [FromHeader] Guid quizProcessUuid)
+        [HttpGet("get-questions-by-quiz/{quizInfoUuid:guid}")]
+        public async Task<IActionResult> GetQuestionsWithOptionsByQuiz(Guid quizInfoUuid)
         {
-            var email = User.FindFirst(ClaimTypes.Email)?.Value;
-
-            var command = new AnswerQuestionCommand(email, new AnswerQuestionRequest {OptionUuid = optionUuid, QuestionUuid = questionUuid, QuizProcessUuid = quizProcessUuid});
-
-            var response = await _mediator.Send(command);
+            var response = await _questionService.GetQuestionWithOptionsByQuizInfo(quizInfoUuid);
 
             return Ok(response);
         }

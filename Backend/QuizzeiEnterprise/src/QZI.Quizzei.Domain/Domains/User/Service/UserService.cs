@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QZI.Quizzei.Domain.Domains.User.Entities;
-using QZI.Quizzei.Domain.Domains.User.Request;
-using QZI.Quizzei.Domain.Domains.User.Response;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.User.Service.Request;
+using QZI.Quizzei.Domain.Domains.User.Service.Response;
 using QZI.Quizzei.Domain.Exceptions;
 
 namespace QZI.Quizzei.Domain.Domains.User.Service

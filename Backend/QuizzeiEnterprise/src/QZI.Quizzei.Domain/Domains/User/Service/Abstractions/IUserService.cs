@@ -1,8 +1,8 @@
 ﻿#nullable enable
 using System;
 using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Domains.User.Request;
-using QZI.Quizzei.Domain.Domains.User.Response;
+using QZI.Quizzei.Domain.Domains.User.Service.Request;
+using QZI.Quizzei.Domain.Domains.User.Service.Response;
 
 namespace QZI.Quizzei.Domain.Domains.User.Service.Abstractions
 {

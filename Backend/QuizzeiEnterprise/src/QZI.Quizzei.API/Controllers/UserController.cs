@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetDevPack.Identity.Jwt;
 using NetDevPack.Identity.Model;
-using QZI.Quizzei.Domain.Domains.User.Request;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.User.Service.Request;
 using QZI.Quizzei.Domain.Exceptions;
 
 namespace QZI.Quizzei.API.Controllers
