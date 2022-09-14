@@ -34,7 +34,7 @@ namespace QZI.Quizzei.API.Controllers
         {
             var result = await _userService.CreateUser(request);
 
-            return Ok(new { CreatedUserUuid = result });
+            return Ok(new { Created = true, CreatedUserUuid = result });
         }
 
         [HttpPost("create-role")]

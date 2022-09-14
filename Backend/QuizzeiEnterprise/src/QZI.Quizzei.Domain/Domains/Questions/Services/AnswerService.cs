@@ -46,7 +46,7 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Services
 
                 var selectedOption = question.Options.FirstOrDefault(x => x.QuestionOptionUuid == answer.OptionUuid);
 
-                var newAnswer = Answer.CreateAnswer(selectedOption!.QuestionOptionUuid, quizProcess.QuizProcessUuid, user.Id, selectedOption.IsCorrect);
+                var newAnswer = Answer.CreateAnswer(selectedOption!.QuestionOptionUuid, question.QuestionUuid, quizProcess.QuizProcessUuid, user.Id, selectedOption.IsCorrect);
 
                 await _answerRepository.AddAsync(newAnswer);
 

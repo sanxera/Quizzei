@@ -16,6 +16,9 @@ namespace QZI.Quizzei.Infra.Data.Mapping
             builder.Property(e => e.UserUuid)
                 .HasColumnName("USER_UUID");
 
+            builder.Property(e => e.QuestionUuid)
+                .HasColumnName("QUESTION_UUID");
+
             builder.Property(e => e.QuestionOptionUuid)
                 .HasColumnName("QUESTION_OPTION_UUID");
 
