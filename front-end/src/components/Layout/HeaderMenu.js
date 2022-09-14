@@ -8,6 +8,8 @@ import {
 } from '@ant-design/icons';
 import { setAuthority } from '../../utils/auth';
 
+import logoQuizzei from '../../image/logo-quizzei.png';
+
 const { Header } = Layout;
 
 const HeaderMenu = ({ navigate }) => {
@@ -53,9 +55,9 @@ const HeaderMenu = ({ navigate }) => {
       }}
       trigger={null}>
       <Row justify='space-between' style={{ margin: 0, padding: 0 }}>
-        <Col style={{ padding: '0px 10px 0px 10px', display: 'flex', justifyContent: 'start' }} span={5}>
-          <Button type='link' size="large" style={{ backgroundColor: '#258a9c', color: '#FFF', height: '100%', width: 150 }}>Quizzei</Button>
-        </Col>
+        {/* <Col style={{ padding: '0px 10px 0px 10px', display: 'flex', justifyContent: 'start' }} span={5}> */}
+        <img style={{ height: 63 }} src={logoQuizzei} />
+        {/* </Col> */}
         <Col style={{ display: 'flex', justifyContent: 'center' }} span={11}>
           <Menu onClick={onClick}
             selectedKeys={[current]}
@@ -66,7 +68,7 @@ const HeaderMenu = ({ navigate }) => {
         </Col>
 
         <Col style={{ display: 'flex', justifyContent: 'end' }} span={8}>
-          <Menu mode="horizontal" defaultSelectedKeys={['mail']} style={{ display: 'flex', width: '30%', border: 'none', justifyContent: 'end', backgroundColor: '#06a7c3', color: '#FFF' }}>
+          <Menu mode="horizontal" defaultSelectedKeys={['mail']} style={{ display: 'flex', minWidth: '40%', border: 'none', justifyContent: 'end', backgroundColor: '#06a7c3', color: '#FFF' }}>
             <Menu.SubMenu key="SubMenu" title="Luiz Eduardo"
               icon={
                 <Avatar

@@ -115,44 +115,46 @@ export async function listQuestions(quizInfoUuid) {
   switch (isEnvironmentDevelopment) {
     case true:
       response = {
-        questions: [
-          {
-            questionUuid: 'xxxx',
-            questionDescription: 'Questão 1',
-            options: [
-              {
-                optionUuid: 'xxxxx',
-                optionDescription: 'Descricao 1',
-              },
-              {
-                optionUuid: 'xxxxx',
-                optionDescription: 'Descricao 2',
-              },
-              {
-                optionUuid: 'xxxxx',
-                optionDescription: 'Descricao 3',
-              },
-            ]
-          },
-          {
-            questionUuid: 'xxxx',
-            questionDescription: 'Questão 2',
-            options: [
-              {
-                optionUuid: 'xxxxx',
-                optionDescription: 'Descricao 1',
-              },
-              {
-                optionUuid: 'xxxxx',
-                optionDescription: 'Descricao 2',
-              },
-              {
-                optionUuid: 'xxxxx',
-                optionDescription: 'Descricao 3',
-              },
-            ]
-          }
-        ]
+        data: {
+          questions: [
+            {
+              questionUuid: 'xxxx',
+              questionDescription: 'Questão 1',
+              options: [
+                {
+                  optionUuid: 'xxxxx',
+                  optionDescription: 'Descricao 1',
+                },
+                {
+                  optionUuid: 'xxxxx',
+                  optionDescription: 'Descricao 2',
+                },
+                {
+                  optionUuid: 'xxxxx',
+                  optionDescription: 'Descricao 3',
+                },
+              ]
+            },
+            {
+              questionUuid: 'xxxx',
+              questionDescription: 'Questão 2',
+              options: [
+                {
+                  optionUuid: 'xxxxx',
+                  optionDescription: 'Descricao 1',
+                },
+                {
+                  optionUuid: 'xxxxx',
+                  optionDescription: 'Descricao 2',
+                },
+                {
+                  optionUuid: 'xxxxx',
+                  optionDescription: 'Descricao 3',
+                },
+              ]
+            }
+          ]
+        }
       };
       break;
 
@@ -200,6 +202,7 @@ export async function startQuiz(quizInfoUuid) {
 }
 
 export async function answerQuestions(params = {}) {
+  console.log('paramssss > ', params)
   if (isEnvironmentDevelopment) return { totalQuestions: 10, correctAnswers: 5 };
   const { quizProcessUuid, ...rest } = params;
   if (!quizProcessUuid) return;

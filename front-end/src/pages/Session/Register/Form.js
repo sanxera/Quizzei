@@ -139,7 +139,6 @@ const FormComponent = ({ navigate }) => {
           className='btn-main'
           style={{ width: '90%' }}
           disabled={disable}
-          shape="round"
           type="primary"
           htmlType="submit"
         >

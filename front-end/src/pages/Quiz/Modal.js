@@ -68,13 +68,13 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
       width={1000}
       closable
       footer={[
-        <Button type="primary" shape='round' danger onClick={async () => {
+        <Button type="primary" danger onClick={async () => {
           await form.resetFields();
           setTimeout(async () => {
             await onCloseModal()
           }, 500)
         }}>Cancelar</Button>,
-        <Button className='btn-main' type="primary" shape='round' onClick={onSubmit}>{textButton}</Button>
+        <Button className='btn-main' type="primary" onClick={onSubmit}>{textButton}</Button>
       ]}
       destroyOnClose
       style={{ borderRadius: 20 }}

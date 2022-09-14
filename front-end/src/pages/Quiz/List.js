@@ -105,7 +105,6 @@ const List = ({ navigate, status, dispatch }) => {
           <Col span={4} style={{ marginBottom: 20, paddingLeft: 75 }}>
             <Button
               className='btn-main'
-              shape='round'
               onClick={() => handleModal()}>
               <PlusCircleOutlined /> Criar quiz
             </Button>

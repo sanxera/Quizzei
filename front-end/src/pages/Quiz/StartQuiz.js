@@ -15,13 +15,13 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
   async function onClickStartQuiz() {
     const { quizInfoUuid } = data;
     if (!quizInfoUuid) return;
-    const { quizProcessUuid } = await startQuiz(quizInfoUuid);
+    const { quizProcessCreatedUuid } = await startQuiz(quizInfoUuid);
     const { questions } = await listQuestions(quizInfoUuid);
 
     await dispatch({
       type: 'INIT_QUIZ',
       data: {
-        quizProcessUuid,
+        quizProcessCreatedUuid,
         questions
       },
     });
@@ -65,7 +65,7 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
         </Col>
 
         <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
-          <Button className='btn-main' type='primary' shape='round' onClick={() => onClickStartQuiz()}>Iniciar Quiz</Button>
+          <Button className='btn-main' type='primary' onClick={() => onClickStartQuiz()}>Iniciar Quiz</Button>
         </Col>
       </Row>
     </Modal>

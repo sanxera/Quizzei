@@ -31,7 +31,6 @@ const ContentQuestions = ({ data, onClick }) => {
               justifyContent: 'flex-start',
               alignItems: 'center'
             }}
-            shape='round'
             onClick={() => onClick(index, { questionUuid: data?.questionUuid, optionUuid: item?.optionUuid })}
           >
             {index}. {item.description}
