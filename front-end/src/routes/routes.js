@@ -5,37 +5,22 @@ import Signin from '../pages/Session/Login/index';
 import ProtectedRoutes from './protectedRoutes';
 import Register from '../pages/Session/Register/index';
 import LayoutWrapper from '../components/Layout/Layout';
-import List from '../pages/Quiz/List';
-import UserList from '../pages/User/List';
-import Quiz from '../pages/QuizAnswer/Quiz';
+import routes from './router.config';
 
 export const RoutesList = () => {
-  const navigate = useNavigate(); // TODO colocar o navigate em um redux global 
+  const navigate = useNavigate();
   return (
-    <Routes>
-      <Route path="/" element={<Signin navigate={navigate} />} />
-      <Route path="/register" element={<Register navigate={navigate} />} />
-      <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
-      <Route element={< ProtectedRoutes />}>
-        <Route path="/quiz" element={
-          <LayoutWrapper navigate={navigate}>
-            <List navigate={navigate} />
-          </LayoutWrapper>
-        }
-        />
-        <Route path="/user" element={
-          <LayoutWrapper navigate={navigate}>
-            <UserList />
-          </LayoutWrapper>
-        }
-        />
 
-        <Route path="/quiz-answer" element={
-          <LayoutWrapper navigate={navigate}>
-            <Quiz navigate={navigate} />
-          </LayoutWrapper>
-        }
-        />
+    <Routes>
+      <Route path="/" element={<Signin />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
+      <Route element={<ProtectedRoutes />}>
+        {routes.map(route => <Route path={route.path} element={
+          <LayoutWrapper>
+            {route.element}
+          </LayoutWrapper >
+        } />)}
       </Route >
 
       <Route path="*" element={
@@ -48,6 +33,6 @@ export const RoutesList = () => {
           />
         </div>
       } />
-    </Routes >
+    </Routes>
   )
 }

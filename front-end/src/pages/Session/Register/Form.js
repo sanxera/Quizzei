@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Button, Input, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
+import { Button } from '../../../components/Button';
 import { register } from '../../../services/session';
 
 import './index.css';
@@ -56,7 +57,7 @@ const FormComponent = ({ navigate }) => {
             { roleId: 'e8ef779f-015d-4b30-808d-5ba36c7aef2b', name: 'Professor' },
             { roleId: 'ba1424f4-633a-4206-9e73-cdd92a283282', name: 'Perfil Institucional' },
           ].map(item => (
-            <Option value={item.roleId}>{item.name}</Option>
+            <Option key={item.roleId} value={item.roleId}>{item.name}</Option>
           ))}
         </Select>
       </Form.Item>
@@ -136,15 +137,12 @@ const FormComponent = ({ navigate }) => {
 
       <Form.Item wrapperCol={{ span: 24, offset: 3 }}>
         <Button
-          className='btn-main'
+          title="CADASTRAR-SE"
           style={{ width: '90%' }}
           disabled={disable}
-          shape="round"
           type="primary"
           htmlType="submit"
-        >
-          CADASTRAR-SE
-        </Button>
+        />
       </Form.Item>
     </Form >
   )

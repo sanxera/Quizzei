@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { RoutesList } from './routes/routes';
 import { Provider } from 'react-redux'
 import store from './models/store'
-import Container from './components/Container';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -15,11 +14,9 @@ const App = () => {
   return (
     <>
       <Provider store={store}>
-        <Container>
-          <Router>
-            <RoutesList />
-          </Router>
-        </Container>
+        <Router>
+          <RoutesList />
+        </Router>
       </Provider>
 
       <ToastContainer />

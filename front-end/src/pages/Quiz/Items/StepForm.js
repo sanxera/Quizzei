@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Row, Col, Select } from 'antd';
+import { Form, Input, Row, Col, Select, Divider, Space } from 'antd';
+import { Button } from '../../../components/Button';
 import { InputWrapper } from '../../../components/InputWrapper';
-import { list as listCategoies } from '../../../services/categories';
+import { TagOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
-const StepForm = ({ data, form }) => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    loadCategories();
-  }, []);
-
-  async function loadCategories() {
-    const data = await listCategoies();
-    await setCategories(data.categories);
-  }
-
+const StepForm = ({ data, form, showModalCategory, categories }) => {
   async function onSelect(value) {
     if (!value) return;
     await form.setFieldsValue({ categoryId: value })
@@ -33,7 +23,7 @@ const StepForm = ({ data, form }) => {
       style={{ padding: 40, width: '100%' }}
     >
       <Row gutter={20}>
-        <Col span={16}>
+        <Col span={24}>
           <Form.Item
             name="title"
             rules={
@@ -44,21 +34,7 @@ const StepForm = ({ data, form }) => {
             }
             initialValue={data?.title}
           >
-            <InputWrapper placeHolder="Titulo" />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            name="points"
-            rules={
-              [{
-                required: true,
-                message: 'Por favor, insira a pontuação.'
-              }]
-            }
-            initialValue={data?.points}
-          >
-            <InputWrapper type={'number'} placeHolder="Pontos" />
+            <InputWrapper placeholder="Titulo" />
           </Form.Item>
         </Col>
 
@@ -74,6 +50,16 @@ const StepForm = ({ data, form }) => {
             style={{ width: '100%', marginBottom: 30, borderBottom: '1px solid' }}
             defaultValue={data.categoryDescription}
             onChange={item => onSelect(item)}
+            placeholder="Categoria"
+            dropdownRender={menu => (
+              <>
+                {menu}
+                <Divider style={{ margin: '8px 0' }} />
+                <Space style={{ padding: '0 8px 4px' }}>
+                  <Button icon={<TagOutlined />} title="Nova categoria" onClick={() => showModalCategory()} />
+                </Space>
+              </>
+            )}
           >
             {options}
           </Select>

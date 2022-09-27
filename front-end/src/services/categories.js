@@ -22,3 +22,18 @@ export async function list() {
   const response = await request(`api/categories/get-all`);
   return response.data;
 }
+
+export async function create(params) {
+  if (isEnvironmentDevelopment) {
+    return { createdId: 'c550778a-865d-47d7-b4ee-ce2f370fef81' };
+  };
+
+  const response = await request(`api/categories/create-category`, {
+    method: 'POST',
+    data: {
+      ...params
+    }
+  });
+
+  return response.data;
+}
