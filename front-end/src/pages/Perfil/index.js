@@ -22,11 +22,10 @@ export function Perfil() {
     setArrQuizzes(quizzes);
   }
 
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   return (
     <Row justify='center'>
-      <Col style={{ display: 'flex', marginTop: 150 }} span={10}>
-        <Card className={styles.card} style={{ width: '30rem', height: '30rem', }}>
+      <Col style={{ display: 'flex', marginTop: 50 }} span={10}>
+        <Card className={styles.card} style={{ width: '30rem', height: '25rem', }}>
           <Row style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} justify='center'>
             <Col>
               <Avatar
@@ -44,7 +43,7 @@ export function Perfil() {
               <Text className={styles.text}>{perfil.description}</Text>
             </Col>
 
-            <Col style={{ marginTop: '8rem' }}>
+            <Col style={{ marginTop: '5rem' }}>
               <Rate disabled defaultValue={perfil.rating} />
             </Col>
           </Row>

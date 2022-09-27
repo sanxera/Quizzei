@@ -49,6 +49,8 @@ const StepForm = ({ data, form, showModalCategory, categories }) => {
             bordered={false}
             style={{ width: '100%', marginBottom: 30, borderBottom: '1px solid' }}
             defaultValue={data.categoryDescription}
+            showSearch
+            filterOption={(input, option) => (option.children || "").toString().toLowerCase().includes((input || "").toLowerCase())}
             onChange={item => onSelect(item)}
             placeholder="Categoria"
             dropdownRender={menu => (

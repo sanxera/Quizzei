@@ -21,7 +21,7 @@ const ContentQuestions = ({ data, onClick }) => {
               className={selectedOption && selectedOption === index ? styles.btnOptionsLinked : styles.btnOptions}
               onClick={() => onClick(index, { questionUuid: data?.questionUuid, optionUuid: item?.optionUuid })}
             >
-              {index}. {item.description}
+              {index + 1}. {item.description}
             </Button>
           </>
         ))}

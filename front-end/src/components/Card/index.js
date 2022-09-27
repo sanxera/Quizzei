@@ -22,17 +22,17 @@ const Card = ({ logo, title, description = '', onClick, isQuiz = false, children
           <Meta
             style={{ display: 'flex', justifyContent: 'center' }}
             title={
-              <Title style={{ marginTop: 10 }} level={5}>{title}</Title>
+              <Title className={styles.text} style={{ marginTop: 10 }} level={5}>{title}</Title>
             }
             description={
               <div style={{ width: 200 }}>
-                <Text>{description}</Text>
+                <Text className={styles.text}>{description}</Text>
                 {isQuiz && (
                   <Row style={{ marginTop: 20, marginBottom: 20 }} justify='center'>
-                    <Col span={15}>
+                    <Col className={styles.text} span={15}>
                       <UserOutlined /> Luiz Eduardo
                     </Col>
-                    <Col span={9}>
+                    <Col className={styles.text} span={9}>
                       <FileTextOutlined /> 10
                     </Col>
                   </Row>

@@ -8,23 +8,23 @@ import { notification } from '../../utils/notification';
 import { answerQuestions } from '../../services/quiz';
 
 import styles from './index.less';
+import { FinishedModal } from './FinishedModal';
 
 const { Step } = Steps;
 
 const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
+  console.log(quizProcessUuid, '<<< quizppp')
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [steps, setSteps] = useState([]);
+  const [finallyData, setFinallyData] = useState({});
+  const [showFinallyModal, setShowFinallyModal] = useState(false);
   const [answerQuestionsData, setAnswerQuestions] = useState({ quizProcessUuid, answers: [] })
 
   useEffect(() => {
     init();
   }, [])
-
-  // useEffect(() => {
-  //   setLoading(false);
-  // }, [steps])
 
   function init() {
     let arrSteps = [];
@@ -38,12 +38,24 @@ const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
     steps[current].content.selectedOption = indexOption;
     await setAnswerQuestions(answerQuestionsData);
     await setSteps(steps)
-
-    // setTimeout(() => {
-      setLoading(false);
-    // }, 500);
+    setLoading(false);
   }
-  console.log(steps)
+
+  async function onFinishQuiz() {
+    const response = await answerQuestions(answerQuestionsData);
+    const { totalQuestions, correctAnswers } = response;
+    if (!totalQuestions || !correctAnswers) {
+      notification({ status: 'error', message: 'Ocorreu um erro ao finalizar o quiz' });
+      return;
+    }
+
+    await setFinallyData({ totalQuestions, correctAnswers });
+    await setShowFinallyModal(true);
+  }
+
+  function onClickModal() {
+    navigate('/quiz')
+  }
 
   if (steps.length === 0 || loading) return <Skeleton />;
 
@@ -85,13 +97,7 @@ const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
             <Button
               className={styles.btnNext}
               title="Finalizar Quiz"
-              onClick={async () => {
-                await answerQuestions(answerQuestionsData);
-                notification({ status: 'success', message: 'Quiz enviado!' });
-                setTimeout(() => {
-                  navigate('/quiz');
-                }, 1000)
-              }} />
+              onClick={onFinishQuiz} />
           )}
 
           {current < steps.length - 1 && (
@@ -99,6 +105,8 @@ const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
           )}
         </div>
       </>
+
+      <FinishedModal visible={showFinallyModal} data={finallyData} onClick={onClickModal} />
     </div >
   )
 }
