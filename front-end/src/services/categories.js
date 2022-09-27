@@ -24,6 +24,7 @@ export async function list() {
 }
 
 export async function create(params) {
+  console.log('params ', params)
   if (isEnvironmentDevelopment) {
     return { createdId: 'c550778a-865d-47d7-b4ee-ce2f370fef81' };
   };
@@ -31,7 +32,7 @@ export async function create(params) {
   const response = await request(`api/categories/create-category`, {
     method: 'POST',
     data: {
-      ...params
+      name: params
     }
   });
 

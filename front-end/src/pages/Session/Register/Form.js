@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Input, Select } from 'antd';
+import { Link } from 'react-router-dom';
+import { Form, Input, Select, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 import { Button } from '../../../components/Button';
 import { register } from '../../../services/session';
@@ -8,6 +9,7 @@ import './index.css';
 import { notification } from '../../../utils/notification';
 
 const { Option } = Select;
+const { Text } = Typography;
 
 const INPUT_STYLE = {
   borderBottom: '1px solid',
@@ -135,7 +137,7 @@ const FormComponent = ({ navigate }) => {
         />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ span: 24, offset: 3 }}>
+      <Form.Item style={{ marginBottom: 10 }} wrapperCol={{ span: 24, offset: 3 }}>
         <Button
           title="CADASTRAR-SE"
           style={{ width: '90%' }}
@@ -144,6 +146,9 @@ const FormComponent = ({ navigate }) => {
           htmlType="submit"
         />
       </Form.Item>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Link className='btn-text' to="/" style={{ margin: 0, padding: 0 }} >LOGIN</Link>
+      </div>
     </Form >
   )
 }

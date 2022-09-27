@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Input, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 
 import './styles.css'
 import { Button } from '../../../components/Button';
-import { Link } from '../../../components/Button/Link';
 
 const { Text } = Typography;
 

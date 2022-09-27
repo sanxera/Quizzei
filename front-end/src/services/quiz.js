@@ -41,21 +41,21 @@ export async function listMyQuizzes() {
     return {
       quizzesInfoDto: [
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
-          title: "Quiz do Luiz",
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da1",
+          title: "Meu Quiz 1",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz",
           points: 5
         },
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
-          title: "Quiz do Luiz",
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da2",
+          title: "Meu Quiz 2",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz"
         },
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
-          title: "Quiz do Luiz",
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da3",
+          title: "Meu Quiz 3",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz"
         },
@@ -78,20 +78,50 @@ export async function listPublicQuizzes() {
     return {
       quizzesInfoDto: [
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
-          title: "Quiz do Luiz",
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d1",
+          title: "Public Quiz 1",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz"
         },
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
-          title: "Quiz do Luiz",
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf912",
+          title: "Public Quiz 2",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz"
         },
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d",
-          title: "Quiz do Luiz",
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf913",
+          title: "Public Quiz 3",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf914",
+          title: "Public Quiz 4",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf915",
+          title: "Public Quiz 5",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d6",
+          title: "Public Quiz 6",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d7",
+          title: "Public Quiz 7",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d8",
+          title: "Public Quiz 8",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz"
         },
@@ -187,14 +217,13 @@ export async function listQuestions(quizInfoUuid) {
 }
 
 export async function startQuiz(quizInfoUuid) {
-  if (isEnvironmentDevelopment) return { quizProcessUuid: '239210-3912-93-1293-12' };
+  if (isEnvironmentDevelopment) return { quizProcessCreatedUuid: '239210-3912-93-1293-12' };
   if (!quizInfoUuid) return;
   const auth = getAuthority();
-  const response = await request(`api/quizzes-process/start-quiz`, {
+  const response = await request(`api/quizzes-process/start-quiz/${quizInfoUuid}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${auth.token}`,
-      quizInfo: quizInfoUuid
     },
   });
 
@@ -207,7 +236,7 @@ export async function answerQuestions(params = {}) {
   if (!quizProcessUuid) return;
 
   const auth = getAuthority();
-  const response = await request(`api/questions/answer-questions/${quizProcessUuid}`, {
+  const response = await request(`api/answer/answer-questions-by-process/${quizProcessUuid}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${auth.token}`,
