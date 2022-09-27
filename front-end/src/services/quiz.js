@@ -202,7 +202,6 @@ export async function startQuiz(quizInfoUuid) {
 }
 
 export async function answerQuestions(params = {}) {
-  console.log('paramssss > ', params)
   if (isEnvironmentDevelopment) return { totalQuestions: 10, correctAnswers: 5 };
   const { quizProcessUuid, ...rest } = params;
   if (!quizProcessUuid) return;

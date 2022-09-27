@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Button, Form, Modal } from 'antd';
+import { Tabs, Form, Modal, Typography } from 'antd';
 import StepForm from './Items/StepForm';
 import StepQuestion from './Items/StepQuestions';
 import StepContent from './Items/StepContent';
@@ -8,23 +8,36 @@ import {
   QuestionCircleOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
-import { create, createQuestions, listQuestions } from '../../services/quiz';
+import { Button } from '../../components/Button'
+import { createQuestions, listQuestions } from '../../services/quiz';
+import { create, list as listCategories } from '../../services/categories';
 import { notification } from '../../utils/notification';
+import { ModalCategory } from './ModalCategory';
 
 const { TabPane } = Tabs;
+const { Text } = Typography;
 
 
 const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   const [form] = Form.useForm();
   const [activeKey, setActiveKey] = useState('1');
+  const [categories, setCategories] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
   const textButton = data && data.quizInfoUuid ? 'Atualizar' : 'Criar';
   const titleModal = data && data.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
 
   useEffect(() => {
     handleQuestions();
+    loadCategories();
   }, []);
+
+
+  async function loadCategories() {
+    const data = await listCategories();
+    await setCategories(data.categories);
+  }
 
   async function handleQuestions() {
     const { quizInfoUuid } = data;
@@ -61,23 +74,44 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
     }
   }
 
+  function showModalCategory() {
+    setModalCategoryVisible(true);
+  }
+
+  async function onAddCategory(categoryName) {
+    if (!categoryName || (categoryName || "").length === 0) return;
+    const response = await create(categoryName);
+    if (!response.createdId) return;
+
+    await loadCategories();
+    setModalCategoryVisible(false);
+  }
+
   return (
     <Modal
-      title={titleModal}
+      title={<Text strong>{titleModal}</Text>}
       visible={visible}
       width={1000}
-      closable
+      bodyStyle={{ minHeight: 500 }}
+      closable={false}
       footer={[
-        <Button type="primary" danger onClick={async () => {
-          await form.resetFields();
-          setTimeout(async () => {
-            await onCloseModal()
-          }, 500)
-        }}>Cancelar</Button>,
-        <Button className='btn-main' type="primary" onClick={onSubmit}>{textButton}</Button>
+        <Button
+          title="Cancelar"
+          danger
+          onClick={async () => {
+            await form.resetFields();
+            setTimeout(async () => {
+              await onCloseModal()
+            }, 500)
+          }}
+        />,
+        <Button
+          title={textButton}
+          type="primary"
+          onClick={onSubmit}
+        />
       ]}
       destroyOnClose
-      style={{ borderRadius: 20 }}
     >
       <Tabs
         defaultActiveKey={1}
@@ -92,7 +126,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
             </>
           }
           key="1">
-          <StepForm form={form} data={data} />
+          <StepForm form={form} data={data} showModalCategory={showModalCategory} categories={categories} />
         </TabPane>
 
         <TabPane
@@ -117,6 +151,9 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           <StepContent form={form} />
         </TabPane>
       </Tabs>
+
+      {modalCategoryVisible && <ModalCategory visible={modalCategoryVisible} onAdd={onAddCategory} onClose={() => setModalCategoryVisible(false)} />}
+
     </Modal>
   )
 }

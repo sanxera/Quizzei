@@ -1,11 +1,14 @@
 import React from 'react';
-import { Divider, Row, Col, Button, Typography, Modal } from 'antd';
 import { connect } from 'react-redux';
+import { Divider, Row, Col, Typography, Modal } from 'antd';
 import {
   UserOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
+import { Button } from '../../components/Button';
 import { listQuestions, startQuiz } from '../../services/quiz';
+
+import styles from './styles.less';
 
 const { Title, Text } = Typography;
 
@@ -26,18 +29,21 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
       },
     });
 
-    await navigate('/quiz-answer')
+    await navigate('/quiz-answer');
   }
 
   return (
     <Modal
+      className={styles.startQuizModal}
       onCancel={onClose}
       destroyOnClose
       closable={false}
-      footer={[]}
+      footer={null}
       visible
+      width={400}
+      bodyStyle={{ margin: 0, padding: 0 }}
     >
-      <Row justify='center' style={{ width: '100%', padding: 0, margin: 0 }}>
+      <Row justify='center' style={{ width: '100%', padding: 20, textAlign: 'center' }}>
         <Col span={24} style={{ marginBottom: 30, width: '100%' }}>
           <img alt="example" style={{ width: '100%' }} src='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg' />
         </Col>
@@ -53,9 +59,9 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
 
         <Divider />
 
-        <Col span={12} style={{ marginTop: 30 }}>
-          <div style={{ display: 'flex' }}>
-            <div style={{ display: 'flex', marginRight: 50, alignItems: 'center' }}>
+        <Col span={12}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <UserOutlined /> Luiz Eduardo
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -64,8 +70,8 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
           </div>
         </Col>
 
-        <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
-          <Button className='btn-main' type='primary' onClick={() => onClickStartQuiz()}>Iniciar Quiz</Button>
+        <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 30 }}>
+          <Button title="Iniciar quiz" onClick={() => onClickStartQuiz()} />
         </Col>
       </Row>
     </Modal>

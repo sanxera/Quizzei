@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Steps, Button, Skeleton } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Steps, Skeleton } from 'antd';
 import { connect } from 'react-redux';
 import ContentQuestions from './Content';
+import { Button } from '../../components/Button'
 import { notification } from '../../utils/notification';
 import { answerQuestions } from '../../services/quiz';
 
+import styles from './index.less';
+
 const { Step } = Steps;
 
-const Quiz = ({ navigate, data: { quizProcessUuid, questions: data } }) => {
+const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [steps, setSteps] = useState([]);
@@ -17,23 +22,30 @@ const Quiz = ({ navigate, data: { quizProcessUuid, questions: data } }) => {
     init();
   }, [])
 
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, [steps])
+
   function init() {
     let arrSteps = [];
     data.map(item => arrSteps.push({ question: item.description, content: item }));
     setSteps(arrSteps);
   }
 
-  function onClickOption(indexOption, data) {
-    setLoading(true);
-    answerQuestionsData.answers.push(data);
-    steps[current].content.options[indexOption].isLinked = true;
-    setAnswerQuestions(answerQuestionsData);
-    setLoading(false);
+  async function onClickOption(indexOption, data) {
+    await setLoading(true);
+    await answerQuestionsData.answers.push(data);
+    steps[current].content.selectedOption = indexOption;
+    await setAnswerQuestions(answerQuestionsData);
+    await setSteps(steps)
+
+    // setTimeout(() => {
+      setLoading(false);
+    // }, 500);
   }
+  console.log(steps)
 
-
-
-  if (steps.length === 0) return <Skeleton />;
+  if (steps.length === 0 || loading) return <Skeleton />;
 
   const next = () => {
     setCurrent(current + 1);
@@ -44,52 +56,50 @@ const Quiz = ({ navigate, data: { quizProcessUuid, questions: data } }) => {
   };
 
   return (
-    <>
+    <div>
       <Steps progressDot current={current}>
         {steps.map(item => (
           <Step key={item.question} />
         ))}
       </Steps>
-      {loading ? (<div />) : (
-        <>
-          <div className="steps-content">
-            <ContentQuestions data={steps[current].content} onClick={onClickOption} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 250 }}>
+
+      <>
+        <div className="steps-content">
+          <ContentQuestions data={steps[current].content} onClick={onClickOption} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
 
 
-            {current > 0 && (
-              <Button
-                style={{
-                  margin: '0 8px',
-                }}
-                onClick={() => prev()}
-              >
-                Voltar
-              </Button>
-            )}
+          {current > 0 && (
+            <Button
+              className={styles.btnPrev}
+              title="Voltar"
+              style={{
+                margin: '0 8px',
+              }}
+              onClick={() => prev()}
+            />
+          )}
 
-            {current === steps.length - 1 && (
-              <Button type="primary" onClick={async () => {
+          {current === steps.length - 1 && (
+            <Button
+              className={styles.btnNext}
+              title="Finalizar Quiz"
+              onClick={async () => {
                 await answerQuestions(answerQuestionsData);
                 notification({ status: 'success', message: 'Quiz enviado!' });
                 setTimeout(() => {
                   navigate('/quiz');
                 }, 1000)
-              }} >
-                Finalizar Quiz
-              </Button>
-            )}
+              }} />
+          )}
 
-            {current < steps.length - 1 && (
-              <Button type="primary" onClick={() => next()}>
-                Avançar
-              </Button>
-            )}
-          </div>
-        </>
-      )}
-    </>
+          {current < steps.length - 1 && (
+            <Button className={styles.btnNext} title="Avançar" onClick={() => next()} />
+          )}
+        </div>
+      </>
+    </div >
   )
 }
 

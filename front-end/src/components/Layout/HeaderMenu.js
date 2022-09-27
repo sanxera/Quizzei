@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Avatar, Row, Col, Button } from 'antd';
+import { Layout, Menu, Avatar, Row, Col } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import {
   LogoutOutlined,
   SettingOutlined,
   MailOutlined,
   AppstoreOutlined
 } from '@ant-design/icons';
+import logoQuizzei from '../../image/logo-quizzei.png';
 import { setAuthority } from '../../utils/auth';
 
-import logoQuizzei from '../../image/logo-quizzei.png';
+import styles from './styles.less'
 
 const { Header } = Layout;
 
-const HeaderMenu = ({ navigate }) => {
+const HeaderMenu = () => {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState('quiz');
 
   async function logout() {
@@ -30,6 +33,7 @@ const HeaderMenu = ({ navigate }) => {
       label: 'Quizzes',
       key: 'quiz',
       icon: <MailOutlined />,
+      onClick: () => navigate('/quiz')
     },
     {
       label: 'Conteúdo',
@@ -41,34 +45,22 @@ const HeaderMenu = ({ navigate }) => {
 
   return (
     <Header
-      style={{
-        position: 'fixed',
-        zIndex: 1,
-        width: '100%',
-        // display: 'flex',
-        // justifyContent: 'space-between',
-        alignItems: 'center',
-        color: 'white',
-        backgroundColor: '#06a7c3',
-        padding: 0,
-        margin: 0
-      }}
+      className={styles.header}
       trigger={null}>
       <Row justify='space-between' style={{ margin: 0, padding: 0 }}>
-        {/* <Col style={{ padding: '0px 10px 0px 10px', display: 'flex', justifyContent: 'start' }} span={5}> */}
         <img style={{ height: 63 }} src={logoQuizzei} />
-        {/* </Col> */}
-        <Col style={{ display: 'flex', justifyContent: 'center' }} span={11}>
-          <Menu onClick={onClick}
+        <Col span={11}>
+          <Menu
+            className={styles.menu}
+            onClick={onClick}
             selectedKeys={[current]}
             mode="horizontal"
             items={items}
-            style={{ display: 'flex', width: '100%', marginRight: 250, border: 'none', justifyContent: 'end', backgroundColor: '#06a7c3', color: '#FFF' }}
           />
         </Col>
 
         <Col style={{ display: 'flex', justifyContent: 'end' }} span={8}>
-          <Menu mode="horizontal" defaultSelectedKeys={['mail']} style={{ display: 'flex', minWidth: '40%', border: 'none', justifyContent: 'end', backgroundColor: '#06a7c3', color: '#FFF' }}>
+          <Menu className={styles.user_menu} mode="horizontal" defaultSelectedKeys={['mail']}>
             <Menu.SubMenu key="SubMenu" title="Luiz Eduardo"
               icon={
                 <Avatar
@@ -81,7 +73,10 @@ const HeaderMenu = ({ navigate }) => {
                 >L</Avatar>
               }
             >
-              <Menu.Item key="two" icon={<SettingOutlined />} onClick={() => navigate('/user')}>
+              <Menu.Item
+                key="two" icon={<SettingOutlined />}
+                onClick={() => navigate('/user')}
+              >
                 Configurações
               </Menu.Item>
               <Menu.Item

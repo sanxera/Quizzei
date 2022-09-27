@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Button, Row, Col } from 'antd';
+import { Typography, Row, Col } from 'antd';
+import { Button } from '../../../components/Button';
 import LayoutWrapper from '../../../components/Layout/Layout';
 import loginImage from '../../../image/login.jpg'
 import FormComponent from './Form';
@@ -13,9 +14,11 @@ const Register = ({ navigate }) => {
       hasHeader
       header={
         <div style={{ display: 'flex', justifyContent: 'end', padding: 10 }}>
-          <Button type="link" style={{ borderBottom: '1px solid' }} onClick={() => navigate('/')}>
-            <Title level={3} style={{ color: '#06a7c3' }}>Login</Title>
-          </Button>
+          <Button
+            title={<Title level={3} style={{ color: '#06a7c3' }}>Login</Title>}
+            type="link" style={{ borderBottom: '1px solid' }}
+            onClick={() => navigate('/')}
+          />
         </div>
       }
       hasFooter={false}

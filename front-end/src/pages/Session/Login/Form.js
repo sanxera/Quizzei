@@ -1,7 +1,10 @@
 import React from 'react';
-import { Form, Button, Input, Typography } from 'antd';
+import { Form, Input, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+
+import './styles.css'
+import { Button } from '../../../components/Button';
+import { Link } from '../../../components/Button/Link';
 
 const { Text } = Typography;
 
@@ -17,10 +20,11 @@ const FormComponent = ({ onSubmit }) => {
       onFinish={onSubmit}
     >
       <Form.Item
-        style={{ height: 56 }}
+        className='input-email'
         name="email"
         rules={
           [{
+            required: true,
             type: 'email',
             message: 'Email informado inválido.'
           }]
@@ -28,8 +32,8 @@ const FormComponent = ({ onSubmit }) => {
         <Input className='inputWrapper' bordered={false} style={{ ...INPUT_STYLE }} placeholder="Email" suffix={<UserOutlined />} />
       </Form.Item>
 
-      <Form.Item name="password" style={{ marginTop: 30 }}>
-        <Input.Password className='inputWrapper' type={"password"} bordered={false} style={{ ...INPUT_STYLE }} placeholder="Senha" />
+      <Form.Item rules={[{ required: true, message: 'Senha inválida' }]} name="password" style={{ marginTop: 30 }}>
+        <Input.Password className='inputWrapper' bordered={false} style={{ ...INPUT_STYLE }} placeholder="Senha" />
       </Form.Item>
 
       <div style={{ width: '100%', textAlign: 'right', marginBottom: 50 }}>
@@ -37,9 +41,7 @@ const FormComponent = ({ onSubmit }) => {
       </div>
 
       <Form.Item wrapperCol={{ span: 24, offset: 3 }}>
-        <Button className='btn-main' style={{ width: '90%' }} type="primary" size='middle' htmlType="submit">
-          ENTRAR
-        </Button>
+        <Button title="ENTRAR" style={{ width: '90%' }} type="primary" size='middle' htmlType="submit" />
       </Form.Item>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>

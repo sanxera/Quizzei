@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Input, Button } from 'antd';
+import { Row, Col, Typography, Select } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { RightOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import ModalQuiz from './Modal';
 
-import CardWrapper from '../../components/CardWrapper';
+import { useKeenSlider } from "keen-slider/react"
+import "keen-slider/keen-slider.min.css"
+
+import Card from '../../components/Card';
+import { Button } from '../../components/Button';
+import ModalQuiz from './Modal';
 import StartQuiz from './StartQuiz';
 import { listMyQuizzes, listPublicQuizzes } from '../../services/quiz';
 
+import styles from './styles.less'
+
+const { Option, OptGroup } = Select;
 const { Title, Text } = Typography;
 
-const List = ({ navigate, status, dispatch }) => {
+const List = () => {
+  const navigate = useNavigate();
+  const [sliderRef] = useKeenSlider({
+    slides: {
+      perView: 2,
+      spacing: 15,
+    },
+  })
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
 
@@ -73,82 +88,109 @@ const List = ({ navigate, status, dispatch }) => {
 
   return (
     <>
-      {/* Criar componente de filtro */}
-      <Row style={{ width: '100%' }}>
-        <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+      {/* TODO component filter */}
+      <Row>
+        <Col span={24} style={{ textAlign: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
         </Col>
         <Col span={24}>
-          <Input style={{ backgroundColor: '#FFFF', borderRadius: 20, height: 50 }} suffix={<RightOutlined />} />
+          <Select
+            onSelect={() => {
+              navigate('/perfil')
+            }}
+            size="large"
+            style={{ backgroundColor: '#FFFF', borderRadius: 20, width: '100%' }}
+            suffixIcon={<RightOutlined />}
+          >
+            <OptGroup label="Quizzes">
+              <Option value="jack">Quiz numero 1</Option>
+              <Option value="lucy">Quiz numero 2</Option>
+            </OptGroup>
+            <OptGroup label="Instituições">
+              <Option value="Senai"> Senai Londrina </Option>
+            </OptGroup>
+          </Select>
         </Col>
         <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
           {arrFilter.map(item => (
-            <Row>
-              <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button type="link" shape='circle' style={{ backgroundColor: '#FFFF', borderColor: '#FFFF' }}>
-                  <img style={{ width: '100%', height: 50, borderRadius: '20px 20px 20px 20px' }} alt="example" src={item.logo} />
-                </Button>
+            <Row key={`arr-filter-${item.description}`}>
+              <Col span={24}>
+                <Button
+                  // icon={<img style={{ width: '100%', height: 50, borderRadius: '20px 20px 20px 20px' }} alt="example" src={item.logo} />}
+                  type="link"
+                  shape='circle'
+                  style={{ backgroundColor: '#FFFF', borderColor: '#FFFF' }}
+                />
               </Col>
-              <Col span={24} style={{ marginTop: 30, display: 'flex', justifyContent: 'center' }}>
-                <Text style={{ fontWeight: 'bold' }}>{item.description}</Text>
+              <Col span={24} style={{ marginTop: 30, textAlign: 'center' }}>
+                <Text strong>{item.description}</Text>
               </Col>
             </Row>
           ))}
         </Col>
       </Row>
 
-      <div style={{ display: 'flex', marginTop: 100 }}>
-        <Row style={{ width: '100%' }}>
-          <Col span={20} style={{ marginBottom: 20, paddingLeft: 75 }}>
-            <Title level={3} >Meus Quizzes</Title>
-          </Col>
-          <Col span={4} style={{ marginBottom: 20, paddingLeft: 75 }}>
-            <Button
-              className='btn-main'
-              onClick={() => handleModal()}>
-              <PlusCircleOutlined /> Criar quiz
-            </Button>
+      <div className={styles.quizContainer}>
+        <Row>
+          <Col className={styles.quizCategory} span={24}>
+            < Title level={3} > Meus Quizzes</Title>
+            <Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />
           </Col>
 
-          <Col style={{ display: 'flex', marginLeft: 100 }}>
+          <Col ref={sliderRef} className={styles.listQuizzes}>
             {(!userQuizzes.quizzesInfoDto || userQuizzes.quizzesInfoDto.length === 0) && (
               <Button style={{ width: '115rem', minHeight: 100 }} type='dashed'>Não há quizzes</Button>
             )}
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.map((item, index) => (
-              <CardWrapper
-                key={`my-quizzes-${index}`}
+              <Card
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
                 description={item.description}
-                onClick={() => handleModal(item)} style={{ marginRight: 30, padding: 0 }}
+                onClick={() => handleModal(item)}
+                style={{ marginRight: 30, padding: 0 }}
               />
             ))}
           </Col>
 
-          <Col span={24} style={{ marginTop: 50, marginBottom: 20, paddingLeft: 75 }}>
+          <Col className={styles.quizCategory} span={24}>
             <Title level={3} >Quizzes</Title>
           </Col>
-          <Col style={{ display: 'flex', marginLeft: 100 }}>
+          <Col className={styles.listQuizzes}>
             {(!publicQuizzes.quizzesInfoDto || publicQuizzes.quizzesInfoDto.length === 0) && (
               <Button style={{ width: '115rem', minHeight: 100 }} type='dashed'>Não há quizzes</Button>
             )}
             {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.map((item, index) => (
-              <CardWrapper
+              <Card
                 key={`quizzes-${index}`}
                 isQuiz
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
                 description={item.description}
                 onClick={() => openInfoQuizzes(item)}
-                style={{ marginRight: 30, padding: 0 }} />
+                style={{ marginRight: 30, minHeight: '20rem', padding: 0 }} />
             ))}
           </Col>
         </Row>
 
-        {visible && (<ModalQuiz data={rowData} onClose={onCloseModal} onCallback={init} visible={visible} />)}
-        {infoVisible && (<StartQuiz navigate={navigate} data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />)}
+        {visible && (
+          <ModalQuiz
+            data={rowData}
+            onClose={onCloseModal}
+            onCallback={init}
+            visible={visible}
+          />
+        )}
 
-      </div>
+        {infoVisible && (
+          <StartQuiz
+            navigate={navigate}
+            data={rowData}
+            visible={infoVisible}
+            onClose={() => setInfoVisible(false)}
+          />
+        )}
+
+      </div >
     </>
   )
 }
