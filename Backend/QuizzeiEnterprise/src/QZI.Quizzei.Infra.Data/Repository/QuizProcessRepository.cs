@@ -13,7 +13,7 @@ namespace QZI.Quizzei.Infra.Data.Repository
         {
         }
 
-        public async Task<QuizProcess> GetQuizInfoById(Guid id)
+        public async Task<QuizProcess> GetQuizProcessById(Guid id)
         {
             return await Context.QuizProcesses
                 .FirstOrDefaultAsync(x => x.QuizProcessUuid == id);

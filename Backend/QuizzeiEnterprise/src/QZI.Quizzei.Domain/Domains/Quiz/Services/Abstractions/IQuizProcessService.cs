@@ -7,5 +7,6 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions
     public interface IQuizProcessService
     {
         Task<StartQuizProcessResponse> StartQuizProcess(string emailOwner, Guid quizInfoUuid);
+        Task<bool> RatingQuiz(Guid quizProcessUuid, int ratePoints);
     }
 }

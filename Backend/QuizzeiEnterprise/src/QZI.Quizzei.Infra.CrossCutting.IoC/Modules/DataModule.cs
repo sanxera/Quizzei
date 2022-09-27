@@ -22,6 +22,7 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
+            services.AddScoped<IQuizRateRepository, QuizRateRepository>();
             services.AddScoped<IQuizProcessRepository, QuizProcessRepository>();
 
             services.AddDbContext<QuizzeiContext>(options =>

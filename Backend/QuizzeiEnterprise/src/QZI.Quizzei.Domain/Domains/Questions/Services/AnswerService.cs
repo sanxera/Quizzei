@@ -35,7 +35,7 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Services
         public async Task<AnswerQuestionResponse> AnswerQuestion(string emailOwner, Guid quizProcessUuid, AnswerQuestionRequest request)
         {
             var user = await _userService.GetUserByEmail(emailOwner);
-            var quizProcess = await _quizProcessRepository.GetQuizInfoById(quizProcessUuid);
+            var quizProcess = await _quizProcessRepository.GetQuizProcessById(quizProcessUuid);
             var correctAnswers = 0;
 
             foreach (var answer in request.Answers)

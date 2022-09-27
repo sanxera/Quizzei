@@ -33,7 +33,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
             var category = await _categoryRepository.GetCategoryById(request.CategoryId);
             var userResponse = await _userService.GetUserByEmail(emailOwner);
 
-            var quizInfo = QuizInformation.CreateQuizInfo(request.Title, request.Description, request.Points, userResponse.Id, category.Id);
+            var quizInfo = QuizInformation.CreateQuizInfo(request.Title, request.Description, userResponse.Id, category.Id);
             await _quizInfoRepository.AddAsync(quizInfo);
 
             await _unitOfWork.SaveChangesAsync();
