@@ -25,7 +25,7 @@ namespace QZI.Quizzei.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("avaliate-quiz/{quizProcessUuid:guid}")]
+        [HttpPost("rating-quiz/{quizProcessUuid:guid}")]
         public async Task<IActionResult> RatingQuiz(Guid quizProcessUuid, int rate)
         {
             var result = await _quizProcessService.RatingQuiz(quizProcessUuid, rate);
