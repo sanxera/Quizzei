@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using QZI.Quizzei.Domain.Domains.Questions.Entities;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
 
 namespace QZI.Quizzei.Infra.Data.Mapping
@@ -10,6 +9,8 @@ namespace QZI.Quizzei.Infra.Data.Mapping
         public void Configure(EntityTypeBuilder<QuizRate> builder)
         {
             builder.ToTable("QUIZ_RATE");
+
+            builder.HasNoKey();
 
             builder.Property(x => x.QuizProcessUuid)
                 .HasColumnName("QUIZ_PROCESS_UUID");
