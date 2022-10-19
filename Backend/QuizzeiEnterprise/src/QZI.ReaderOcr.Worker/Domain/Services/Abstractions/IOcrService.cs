@@ -1,4 +1,4 @@
-﻿namespace QZI.ReaderOcr.Worker.Services.Abstractions
+﻿namespace QZI.ReaderOcr.Worker.Domain.Services.Abstractions
 {
     public interface IOcrService
     {

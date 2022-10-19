@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using QZI.ReaderOcr.Worker.Services.Abstractions;
+using QZI.ReaderOcr.Worker.Domain.Services.Abstractions;
 
-namespace QZI.ReaderOcr.Worker.Services
+namespace QZI.ReaderOcr.Worker.Domain.Services
 {
     public class OcrService : IOcrService
     {
@@ -15,7 +15,6 @@ namespace QZI.ReaderOcr.Worker.Services
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true
             };
-
             process.StartInfo = startInfo;
 
             process.Start();
@@ -25,7 +24,6 @@ namespace QZI.ReaderOcr.Worker.Services
 
         private static async Task SendOcrCommandToCmd(string inputPdfFileName, string outputTextFileName, Process process)
         {
-            //await process.StandardInput.WriteLineAsync(@$"cd {Directory.GetCurrentDirectory()}");
             await process.StandardInput.WriteLineAsync($"ocrmypdf --sidecar files/{outputTextFileName}.txt files/{inputPdfFileName}.pdf files/output_{inputPdfFileName}.pdf --force-ocr");
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Abstractions;
 
-namespace QZI.Quizzei.Domain.Domains.Category.Repositories.Base
+namespace QZI.Quizzei.Domain.Abstractions
 {
     public interface IRepository<in T> where T : Entity
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using QZI.ReaderOcr.Worker.Services;
-using QZI.ReaderOcr.Worker.Services.Abstractions;
+using QZI.ReaderOcr.Worker.Domain.Services;
+using QZI.ReaderOcr.Worker.Domain.Services.Abstractions;
 
-namespace QZI.ReaderOcr.Worker.Ioc
+namespace QZI.ReaderOcr.Worker.CrossCuttingIoc
 {
     public static class DomainModule
     {

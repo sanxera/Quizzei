@@ -6,6 +6,7 @@ using QZI.Quizzei.Domain.Domains.Questions.Services;
 using QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions;
 using QZI.Quizzei.Domain.Domains.Quiz.Services;
 using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
+using QZI.Quizzei.Domain.Domains.Search;
 using QZI.Quizzei.Domain.Domains.User.Service;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
 
@@ -23,6 +24,7 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IQuizProcessService, QuizProcessService>();
             services.AddScoped<IQuizInformationService, QuizInformationService>();
+            services.AddScoped<ISearchService, SearchService>();
         }
     }
 }

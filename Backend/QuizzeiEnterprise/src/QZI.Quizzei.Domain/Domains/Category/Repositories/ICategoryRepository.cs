@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Domains.Category.Repositories.Base;
+using QZI.Quizzei.Domain.Abstractions;
 
 namespace QZI.Quizzei.Domain.Domains.Category.Repositories
 {

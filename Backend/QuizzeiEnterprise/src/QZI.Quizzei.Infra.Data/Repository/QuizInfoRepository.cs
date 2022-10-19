@@ -28,5 +28,10 @@ namespace QZI.Quizzei.Infra.Data.Repository
         {
             return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid).ToListAsync();
         }
+
+        public async Task<IEnumerable<QuizInformation>> GetQuizzesByName(string name)
+        {
+            return await Context.QuizzesInfos.Where(x => EF.Functions.Like(x.Title, $"%{name}%")).ToListAsync();
+        }
     }
 }
