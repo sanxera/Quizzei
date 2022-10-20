@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using QZI.Quizzei.Domain.Domains.Category.Service;
-using QZI.Quizzei.Domain.Domains.Category.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.Categories.Service;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions;
 using QZI.Quizzei.Domain.Domains.Questions.Services;
 using QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions;
 using QZI.Quizzei.Domain.Domains.Quiz.Services;

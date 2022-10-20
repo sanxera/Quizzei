@@ -2,7 +2,7 @@
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Response.Information
 {
-    public class GetQuizzesInfoByUserResponse
+    public class GetQuizzesResponse
     {
         public IList<QuizInfoResponse> QuizzesInfoDto { get; set; } = new List<QuizInfoResponse>();
     }

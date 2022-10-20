@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QZI.Quizzei.Domain.Domains.Category.Entities;
-using QZI.Quizzei.Domain.Domains.Category.Repositories;
+using QZI.Quizzei.Domain.Domains.Categories.Entities;
+using QZI.Quizzei.Domain.Domains.Categories.Repositories;
 using QZI.Quizzei.Infra.Data.Repository.Base;
 
 namespace QZI.Quizzei.Infra.Data.Repository
@@ -15,6 +15,11 @@ namespace QZI.Quizzei.Infra.Data.Repository
         public async Task<Category> GetCategoryById(int categoryId)
         {
             return await Context.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
+        }
+
+        public async Task<IList<Category>> GetCategoriesInRange(int range)
+        {
+            return await Context.Categories.Where(x => x.Active).Take(range).ToListAsync();
         }
 
         public async Task<IList<Category>> GetAllCategories()

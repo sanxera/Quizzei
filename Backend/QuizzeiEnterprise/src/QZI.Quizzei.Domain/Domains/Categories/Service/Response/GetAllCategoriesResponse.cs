@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QZI.Quizzei.Domain.Domains.Category.Service.Response
+namespace QZI.Quizzei.Domain.Domains.Categories.Service.Response
 {
     public class GetAllCategoriesResponse
     {

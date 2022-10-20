@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
-using QZI.Quizzei.Domain.Domains.Category.Repositories;
-using QZI.Quizzei.Domain.Domains.Category.Service.Abstractions;
-using QZI.Quizzei.Domain.Domains.Category.Service.Requests;
-using QZI.Quizzei.Domain.Domains.Category.Service.Response;
+using QZI.Quizzei.Domain.Domains.Categories.Repositories;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Requests;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Response;
 using QZI.Quizzei.Domain.Exceptions;
 
-namespace QZI.Quizzei.Domain.Domains.Category.Service
+namespace QZI.Quizzei.Domain.Domains.Categories.Service
 {
     public class CategoryService : ICategoryService
     {

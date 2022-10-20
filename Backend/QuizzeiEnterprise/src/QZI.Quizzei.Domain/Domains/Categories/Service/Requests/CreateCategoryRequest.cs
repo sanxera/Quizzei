@@ -1,4 +1,4 @@
-﻿namespace QZI.Quizzei.Domain.Domains.Category.Service.Requests
+﻿namespace QZI.Quizzei.Domain.Domains.Categories.Service.Requests
 {
     public class CreateCategoryRequest
     {

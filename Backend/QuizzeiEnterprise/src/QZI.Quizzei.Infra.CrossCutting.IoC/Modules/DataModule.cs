@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
-using QZI.Quizzei.Domain.Domains.Category.Repositories;
+using QZI.Quizzei.Domain.Domains.Categories.Repositories;
 using QZI.Quizzei.Domain.Domains.Questions.Repositories;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Domain.Domains.User.Entities;

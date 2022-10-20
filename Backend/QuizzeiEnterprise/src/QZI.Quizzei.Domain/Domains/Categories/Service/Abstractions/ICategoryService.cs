@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Domains.Category.Service.Requests;
-using QZI.Quizzei.Domain.Domains.Category.Service.Response;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Requests;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Response;
 
-namespace QZI.Quizzei.Domain.Domains.Category.Service.Abstractions
+namespace QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions
 {
     public interface ICategoryService
     {

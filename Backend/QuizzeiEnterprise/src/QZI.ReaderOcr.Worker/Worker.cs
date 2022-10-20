@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using QZI.ReaderOcr.Worker.Data.Repositories;
+﻿using System.Text.RegularExpressions;
+using Microsoft.Extensions.Hosting;
 using QZI.ReaderOcr.Worker.Domain.Abstractions.UnitOfWork;
 using QZI.ReaderOcr.Worker.Domain.Entities;
 using QZI.ReaderOcr.Worker.Domain.Repositories;
@@ -56,26 +55,31 @@ namespace QZI.ReaderOcr.Worker
                 await InsertQuestionWithOptions(formattedQuestion, options);
             }
 
+            await _unitOfWork.SaveChangesAsync();
             _applicationLifetime.StopApplication();
         }
 
         private async Task InsertQuestionWithOptions(string questionText, string[] optionsText)
         {
-            var ocrQuestion = new OcrQuestion(questionText);
+            var ocrQuestion = new OcrQuestion(RemoveEmptySpaces(questionText));
 
             foreach (var optionText in optionsText)
             {
-                var ocrOption = new OcrQuestionOption(optionText, CheckIfCorrectOption(optionText));
+                var ocrOption = new OcrQuestionOption(RemoveEmptySpaces(optionText), CheckIfCorrectOption(optionText));
                 ocrQuestion.Options.Add(ocrOption);
             }
 
             await _ocrQuestionRepository.AddAsync(ocrQuestion);
-            await _unitOfWork.SaveChangesAsync();
+        }
+
+        private string RemoveEmptySpaces(string text)
+        {
+            return Regex.Replace(text, @"\r\n?|\n", "");
         }
 
         private static bool CheckIfCorrectOption(string optionText)
         {
-            return optionText.Contains("[CRQ]");
+            return optionText.Contains("[CRO]");
         }
     }
 }

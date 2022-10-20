@@ -1,4 +1,4 @@
-﻿namespace QZI.Quizzei.Domain.Domains.Category.Service.Response
+﻿namespace QZI.Quizzei.Domain.Domains.Categories.Service.Response
 {
     public class GetCategoryByIdResponse
     {

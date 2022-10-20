@@ -1,7 +1,7 @@
 ﻿using System;
 using QZI.Quizzei.Domain.Abstractions;
 
-namespace QZI.Quizzei.Domain.Domains.Category.Entities
+namespace QZI.Quizzei.Domain.Domains.Categories.Entities
 {
     public class Category : Entity
     {

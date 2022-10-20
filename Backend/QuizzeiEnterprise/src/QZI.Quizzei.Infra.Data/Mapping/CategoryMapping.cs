@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using QZI.Quizzei.Domain.Domains.Category.Entities;
+using QZI.Quizzei.Domain.Domains.Categories.Entities;
 
 namespace QZI.Quizzei.Infra.Data.Mapping
 {
