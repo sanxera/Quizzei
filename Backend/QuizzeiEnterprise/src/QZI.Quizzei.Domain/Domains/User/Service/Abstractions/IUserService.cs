@@ -11,6 +11,7 @@ namespace QZI.Quizzei.Domain.Domains.User.Service.Abstractions
         Task<Guid> CreateUser(CreateUserRequest request);
         Task<Guid> CreateRole(CreateRoleRequest request);
         Task<UserBaseResponse> GetUserByEmail(string email);
+        Task<UserBaseResponse> GetUserById(Guid userUuid);
         Task<GetUserDetailsResponse?> GetUserDetails(GetUserDetailsRequest request);
     }
 }

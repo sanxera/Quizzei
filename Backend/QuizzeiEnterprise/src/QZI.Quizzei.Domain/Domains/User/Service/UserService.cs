@@ -68,10 +68,17 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
             return Guid.Parse(newRole.Id);
         }
 
-
         public async Task<UserBaseResponse> GetUserByEmail(string email)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+            return (user is null ? null :
+                new UserBaseResponse { Email = user.Email, Id = Guid.Parse(user.Id), NickName = user.NickName })!;
+        }
+
+        public async Task<UserBaseResponse> GetUserById(Guid userUuid)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userUuid.ToString());
 
             return (user is null ? null :
                 new UserBaseResponse { Email = user.Email, Id = Guid.Parse(user.Id), NickName = user.NickName })!;

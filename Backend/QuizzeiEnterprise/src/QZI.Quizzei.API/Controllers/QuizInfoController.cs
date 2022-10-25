@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
@@ -49,6 +50,16 @@ namespace QZI.Quizzei.API.Controllers
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var result = await _quizInformationService.GetQuizzesInfoSeparateByCategoriesFromDifferentUsers(email);
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("get-quizzes-from-user-id/{userUuid:guid}")]
+        public async Task<IActionResult> GetQuizzesInfoFromUserByEmail(Guid userUuid)
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var result = await _quizInformationService.GetQuizzesInformationByUser(userUuid);
 
             return Ok(result);
         }
