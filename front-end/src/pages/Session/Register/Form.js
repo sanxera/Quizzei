@@ -31,7 +31,6 @@ const FormComponent = ({ navigate }) => {
   };
 
   function validationPassword(confirmPassword) {
-    console.log(confirmPassword, password)
     if (confirmPassword === password) {
       setDisable(false);
       return;

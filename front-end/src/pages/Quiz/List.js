@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Select, Button as ButtonAntd } from 'antd';
+import { Row, Col, Typography, Button as ButtonAntd } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { RightOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
 import { useKeenSlider } from "keen-slider/react"
-import "keen-slider/keen-slider.min.css"
 
 import Card from '../../components/Card';
 import { Button } from '../../components/Button';
 import ModalQuiz from './Modal';
 import StartQuiz from './StartQuiz';
-import { listMyQuizzes, listPublicQuizzes } from '../../services/quiz';
+import { listMyQuizzes, listPublicQuizzesByCategory, listPublicQuizzes } from '../../services/quiz';
 
 import styles from './styles.less'
+import Filter from '../../components/Filter';
 
-const { Option, OptGroup } = Select;
 const { Title, Text } = Typography;
 
 const List = () => {
@@ -28,6 +27,7 @@ const List = () => {
   })
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
+  const [allQuizzes, setAllQuizzes] = useState({});
   // const [allQuizzes, setAllQuizzes] = useState([])
   const [visible, setVisible] = useState(false);
   const [infoVisible, setInfoVisible] = useState(false);
@@ -40,9 +40,11 @@ const List = () => {
 
   async function init() {
     const userQuizzes = await listMyQuizzes();
-    const publicQuizzes = await listPublicQuizzes();
+    const publicQuizzes = await listPublicQuizzesByCategory();
+    const allQuizzes = await listPublicQuizzes();
     await setUserQuizzes(userQuizzes);
     await setPublicQuizzes(publicQuizzes);
+    await setAllQuizzes(allQuizzes);
   }
 
   async function handleModal(data) {
@@ -59,6 +61,29 @@ const List = () => {
   async function openInfoQuizzes(data) {
     await setData(data);
     await setInfoVisible(!infoVisible);
+  }
+
+  async function onSelect(quizInfoUuid) {
+    let quiz = {};
+    let quizType = 'userQuizzes';
+    quiz = userQuizzes.quizzesInfoDto.filter(data => data.quizInfoUuid === quizInfoUuid)[0];
+
+    if (!quiz || !quiz.quizInfoUuid) {
+      quizType = 'publicQuizzes';
+      quiz = allQuizzes.quizzesInfoDto.filter(data => data.quizInfoUuid === quizInfoUuid)[0];
+    }
+
+    console.log(quiz, '<<<<< quiz')
+
+    switch (quizType) {
+      case 'userQuizzes':
+        handleModal(quiz);
+        break;
+
+      default:
+        openInfoQuizzes(quiz);
+        break;
+    }
   }
 
   const arrFilter = [
@@ -90,41 +115,12 @@ const List = () => {
 
   return (
     <>
-      {/* TODO component filter */}
       <Row>
         <Col span={24} style={{ textAlign: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
         </Col>
         <Col span={24}>
-          <Select
-            onSelect={() => {
-              navigate('/perfil')
-            }}
-            showSearch
-            filterOption={(input, option) => (option.children || "").toString().toLowerCase().includes((input || "").toLowerCase())}
-            placeholder="Buscar Quizzes & Instituições"
-            size="large"
-            style={{ backgroundColor: '#FFFF', borderRadius: '50px !important', width: '100%' }}
-            suffixIcon={<RightOutlined />}
-          >
-            {userQuizzes?.quizzesInfoDto?.length > 0 && (
-              <OptGroup label="Meus Quizzes">
-                {userQuizzes?.quizzesInfoDto.map(item => (
-                  <Option key={item.quizInfoUuid} value={item.title}>{item.title}</Option>
-                ))}
-              </OptGroup>
-            )}
-            {publicQuizzes?.quizzesInfoDto?.length > 0 && (
-              <OptGroup label="Quizzes publicados">
-                {publicQuizzes?.quizzesInfoDto.map(item => (
-                  <Option key={item.quizInfoUuid} value={item.title}>{item.title}</Option>
-                ))}
-              </OptGroup>
-            )}
-            <OptGroup label="Instituições">
-              <Option value="Senai"> Senai Londrina </Option>
-            </OptGroup>
-          </Select>
+          <Filter onSelect={onSelect} navigate={navigate} />
         </Col>
         <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
           {arrFilter.map(item => (
@@ -149,33 +145,30 @@ const List = () => {
       <div className={styles.quizContainer}>
         <Row style={{ maxWidth: '90vw' }}>
           <Col className={styles.quizCategory} span={24}>
-            < Title level={3} > Meus Quizzes</Title>
+            <Title level={3} > Meus Quizzes</Title>
             <Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />
           </Col>
 
-          <Col className={styles.listQuizzes}>
-            {(!userQuizzes.quizzesInfoDto || userQuizzes.quizzesInfoDto.length === 0) && (
-              <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
-            )}
-            {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.map((item, index) => (
+          <Col ref={sliderRef} className={`keen-slide ${styles.listQuizzes}`}>
+            {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.length > 0 ? userQuizzes.quizzesInfoDto.map((item, index) => (
               <Card
+                cardName={`keen-slider__slide${index}`}
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
                 description={item.description}
                 onClick={() => handleModal(item)}
                 style={{ marginRight: 30, padding: 0 }}
               />
-            ))}
+            )) : (
+              <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
+            )}
           </Col>
 
           <Col className={styles.quizCategory} span={24}>
-            <Title level={3} >Quizzes</Title>
+            <Title level={3} >Quizzes Publicados</Title>
           </Col>
-          {(!publicQuizzes.quizzesInfoDto || publicQuizzes.quizzesInfoDto.length === 0) && (
-            <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
-          )}
-          {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.map((item, index) => (
-            <Col className={styles.listQuizzes}>
+          {/* <Col className={styles.listQuizzes}>
+            {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.length > 0 ? publicQuizzes.quizzesInfoDto.map((item, index) => (
               <Card
                 key={`quizzes-${index}`}
                 isQuiz
@@ -184,8 +177,40 @@ const List = () => {
                 description={item.description}
                 onClick={() => openInfoQuizzes(item)}
                 style={{ marginRight: 30, minHeight: '20rem', padding: 0 }} />
-            </Col>
-          ))}
+            )) : (
+              <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
+            )}
+          </Col> */}
+          <Col className={styles.listQuizzes}>
+            <Row >
+              {publicQuizzes.quizzesByCategories && publicQuizzes.quizzesByCategories.map(data => (
+                <Col style={{ left: 30, marginBottom: 30 }} span={24}>
+                  <Title level={4} >{data.categoryName}</Title>
+                  {/* </Col>
+                <Col span={24}> */}
+                  <div style={{ display: 'flex', marginTop: 20 }}>
+                    {
+                      data.quizzesInfoResponses && data.quizzesInfoResponses.length > 0 ? data.quizzesInfoResponses.map((item, index) => (
+                        <Card
+                          key={`quizzes-${index}`}
+                          isQuiz
+                          logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
+                          title={item.title}
+                          description={item.description}
+                          ownerNickName={item.ownerNickName}
+                          numberOfQuestions={item.numberOfQuestions}
+                          onClick={() => openInfoQuizzes(item)}
+                          style={{ marginRight: 30, minHeight: '20rem', padding: 0 }} />
+                      )) : (
+                        <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
+                      )
+                    }
+                  </div>
+                </Col>
+              ))}
+            </Row>
+
+          </Col>
         </Row>
 
         {visible && (

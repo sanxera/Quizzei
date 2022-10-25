@@ -1,6 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import "keen-slider/keen-slider.min.css"
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RoutesList } from './routes/routes';
 import { Provider } from 'react-redux'

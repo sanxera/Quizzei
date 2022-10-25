@@ -13,7 +13,6 @@ import styles from './styles.less';
 const { Title, Text } = Typography;
 
 const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
-  console.log(data, '<<< startQuiz');
   if (!visible || !data) return <div />;
 
   async function onClickStartQuiz() {

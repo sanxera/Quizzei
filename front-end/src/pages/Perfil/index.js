@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Row, Col, Avatar, Typography, Rate, Card } from 'antd';
-// import Card from '../../components/Card';
 import styles from './styles.less';
-import { getPerfil, listQuizzesByPerfil } from '../../services/perfil';
+import { getPerfil } from '../../services/perfil';
+import { listMyQuizzes } from '../../services/quiz';
 
 const { Title, Text } = Typography;
 
-export function Perfil() {
+const Perfil = ({ data, dispatch }) => {
   const [arrQuizzes, setArrQuizzes] = useState([]);
   const [perfil, setPerfil] = useState({});
 
@@ -15,11 +16,15 @@ export function Perfil() {
   }, [])
 
   async function init() {
-    const perfilData = await getPerfil();
-    const quizzes = await listQuizzesByPerfil();
+    const perfilData = await getPerfil(data.userUuid);
+    const quizzes = await listMyQuizzes(data.userUuid);
 
     setPerfil(perfilData);
     setArrQuizzes(quizzes);
+  }
+
+  async function onClick() {
+
   }
 
   return (
@@ -39,8 +44,8 @@ export function Perfil() {
             </Col>
 
             <Col style={{ textAlign: 'center', marginTop: 20 }}>
-              <Title className={styles.text} level={4}>{perfil.name}</Title>
-              <Text className={styles.text}>{perfil.description}</Text>
+              <Title className={styles.text} level={4}>{perfil.nickName}</Title>
+              <Text className={styles.text}>{perfil.roleName}</Text>
             </Col>
 
             <Col style={{ marginTop: '5rem' }}>
@@ -52,8 +57,14 @@ export function Perfil() {
 
       <Col span={12} style={{ textAlign: 'center' }}>
         <h2>Quizzes / Conteudo</h2>
-        {arrQuizzes.map(item => (
-          <Card className={styles.card} onClick={() => console.log('xxx')} hoverable style={{ width: '100%', marginTop: '3rem' }} bodyStyle={{ margin: 0, padding: 0 }} height="50rem">
+        {arrQuizzes.quizzesInfoDto && arrQuizzes.quizzesInfoDto.map(item => (
+          <Card
+            className={styles.card}
+            hoverable
+            style={{ width: '100%', marginTop: '3rem' }}
+            bodyStyle={{ margin: 0, padding: 0 }}
+            onClick={() => console.log('xxx')}
+          >
             <Row style={{ padding: 15 }}>
               <Col style={{ display: 'flex', justifyContent: 'space-between' }} span={24}>
                 <Title className={styles.text} level={4}>{item.title}e</Title>
@@ -72,4 +83,6 @@ export function Perfil() {
       </Col>
     </Row>
   )
-}  
+}
+
+export default connect(state => ({ data: state.data }))(Perfil);

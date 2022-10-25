@@ -8,23 +8,27 @@ const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children,
   const headerElement = header ? header : <HeaderMenu navigate={navigate} />;
 
   return (
-    <Layout style={{ minHeight: '100vh' }} {...rest}>
+    <Layout>
       {hasHeader && headerElement}
 
-      <Content style={{
-        // backgroundColor: '#f0f2f5',
-        backgroundColor: '#FFFFFF',
-        padding: 50
-      }}>
-        {children}
-      </Content>
-      {
-        hasFooter && (
-          <Footer style={{ textAlign: 'center' }}>
-            Quizzei ©2022 Created by Quizzei Devs
-          </Footer>
-        )
-      }
+      <Layout style={{ minHeight: '100vh' }} {...rest}>
+        <Content
+          style={{
+            // backgroundColor: '#f0f2f5',
+            backgroundColor: '#FFFFFF',
+            padding: 50
+          }}
+        >
+          {children}
+        </Content>
+        {
+          hasFooter && (
+            <Footer style={{ textAlign: 'center' }}>
+              Quizzei © 2022 Created by Quizzei Devs
+            </Footer>
+          )
+        }
+      </Layout>
     </Layout >
   );
 }

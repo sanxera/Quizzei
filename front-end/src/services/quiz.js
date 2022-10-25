@@ -41,7 +41,7 @@ export async function listMyQuizzes() {
     return {
       quizzesInfoDto: [
         {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da1",
+          quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
           title: "Meu Quiz 1",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz",
@@ -94,37 +94,7 @@ export async function listPublicQuizzes() {
           title: "Public Quiz 3",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz"
-        },
-        {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf914",
-          title: "Public Quiz 4",
-          description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
-        },
-        {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf915",
-          title: "Public Quiz 5",
-          description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
-        },
-        {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d6",
-          title: "Public Quiz 6",
-          description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
-        },
-        {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d7",
-          title: "Public Quiz 7",
-          description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
-        },
-        {
-          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d8",
-          title: "Public Quiz 8",
-          description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
-        },
+        }
       ]
     };
   };
@@ -248,3 +218,390 @@ export async function answerQuestions(params = {}) {
 
   return response.data;
 }
+
+export async function listPublicQuizzesByCategory() {
+  if (isEnvironmentDevelopment) {
+    return {
+      quizzesByCategories: [
+        {
+          categoryName: "Geografia",
+          quizzesInfoResponses: [
+            {
+              quizInfoUuid: "f81d1f5e-bcd1-4610-a206-02bec0e19daa",
+              title: "Quiz do Romenin da ZN PARTE 2",
+              description: "Quiz sobre a vida Romeno da ZN PARTE 2",
+              categoryDescription: "Geografia",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "db8d7872-eeb2-4d6a-ab33-0aeae478307a",
+              title: "Quiz do Romenin da ZN",
+              description: "Quiz sobre a vida Romeno da ZN",
+              categoryDescription: "Geografia",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "522d3b8e-f5b3-4c01-a6e7-0f39f10ce598",
+              title: "Meu primeiro Quiz",
+              description: "Um quiz feito para teste e ta ligado",
+              categoryDescription: "Geografia",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "92b9d22f-9c62-478f-bfd1-601580e29909",
+              title: "Quiz de Arquitetura",
+              description: "Quiz sobre arquitetura de software e seus conceitos.",
+              categoryDescription: "Geografia",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            }
+          ]
+        },
+        {
+          categoryName: "Arquitetura",
+          quizzesInfoResponses: [
+            {
+              quizInfoUuid: "f81d1f5e-bcd1-4610-a206-02bec0e19daa",
+              title: "Quiz do Romenin da ZN PARTE 2",
+              description: "Quiz sobre a vida Romeno da ZN PARTE 2",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "d636986e-6e2b-43a1-96b9-09b2bee2dfd7",
+              title: "Quiz de Geografia",
+              description: "Amigos 1",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "db8d7872-eeb2-4d6a-ab33-0aeae478307a",
+              title: "Quiz do Romenin da ZN",
+              description: "Quiz sobre a vida Romeno da ZN",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "522d3b8e-f5b3-4c01-a6e7-0f39f10ce598",
+              title: "Meu primeiro Quiz",
+              description: "Um quiz feito para teste e ta ligado",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "64a678cc-e08b-4d8e-bab6-302f5cd44838",
+              title: "Quiz do Sanxes I",
+              description: "Quiz sobre a vida das batatas e peixes",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "866af655-0764-4a13-b6ff-742f6419e86d",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "e222933c-15c4-40f8-a4c4-a6d5872cde8f",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "de9fce3b-f19b-47ab-8a70-bc2abc5c6e69",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            }
+          ]
+        },
+        {
+          categoryName: "Teste",
+          quizzesInfoResponses: [
+            {
+              quizInfoUuid: "f81d1f5e-bcd1-4610-a206-02bec0e19daa",
+              title: "Quiz do Romenin da ZN PARTE 2",
+              description: "Quiz sobre a vida Romeno da ZN PARTE 2",
+              categoryDescription: "Teste",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "d636986e-6e2b-43a1-96b9-09b2bee2dfd7",
+              title: "Quiz de Geografia",
+              description: "Amigos 1",
+              categoryDescription: "Teste",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "db8d7872-eeb2-4d6a-ab33-0aeae478307a",
+              title: "Quiz do Romenin da ZN",
+              description: "Quiz sobre a vida Romeno da ZN",
+              categoryDescription: "Teste",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "522d3b8e-f5b3-4c01-a6e7-0f39f10ce598",
+              title: "Meu primeiro Quiz",
+              description: "Um quiz feito para teste e ta ligado",
+              categoryDescription: "Teste",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "64a678cc-e08b-4d8e-bab6-302f5cd44838",
+              title: "Quiz do Sanxes I",
+              description: "Quiz sobre a vida das batatas e peixes",
+              categoryDescription: "Teste",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "92b9d22f-9c62-478f-bfd1-601580e29909",
+              title: "Quiz de Arquitetura",
+              description: "Quiz sobre arquitetura de software e seus conceitos.",
+              categoryDescription: "Teste",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "866af655-0764-4a13-b6ff-742f6419e86d",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Teste",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "e222933c-15c4-40f8-a4c4-a6d5872cde8f",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Teste",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "de9fce3b-f19b-47ab-8a70-bc2abc5c6e69",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Teste",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Teste",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            }
+          ]
+        },
+        {
+          categoryName: "Informática",
+          quizzesInfoResponses: [
+            {
+              quizInfoUuid: "f81d1f5e-bcd1-4610-a206-02bec0e19daa",
+              title: "Quiz do Romenin da ZN PARTE 2",
+              description: "Quiz sobre a vida Romeno da ZN PARTE 2",
+              categoryDescription: "Informática",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "d636986e-6e2b-43a1-96b9-09b2bee2dfd7",
+              title: "Quiz de Geografia",
+              description: "Amigos 1",
+              categoryDescription: "Informática",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "db8d7872-eeb2-4d6a-ab33-0aeae478307a",
+              title: "Quiz do Romenin da ZN",
+              description: "Quiz sobre a vida Romeno da ZN",
+              categoryDescription: "Informática",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "522d3b8e-f5b3-4c01-a6e7-0f39f10ce598",
+              title: "Meu primeiro Quiz",
+              description: "Um quiz feito para teste e ta ligado",
+              categoryDescription: "Informática",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "64a678cc-e08b-4d8e-bab6-302f5cd44838",
+              title: "Quiz do Sanxes I",
+              description: "Quiz sobre a vida das batatas e peixes",
+              categoryDescription: "Informática",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "92b9d22f-9c62-478f-bfd1-601580e29909",
+              title: "Quiz de Arquitetura",
+              description: "Quiz sobre arquitetura de software e seus conceitos.",
+              categoryDescription: "Informática",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "866af655-0764-4a13-b6ff-742f6419e86d",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Informática",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "e222933c-15c4-40f8-a4c4-a6d5872cde8f",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Informática",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "de9fce3b-f19b-47ab-8a70-bc2abc5c6e69",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Informática",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Informática",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            }
+          ]
+        },
+        {
+          categoryName: "DASDAS",
+          quizzesInfoResponses: [
+            {
+              quizInfoUuid: "f81d1f5e-bcd1-4610-a206-02bec0e19daa",
+              title: "Quiz do Romenin da ZN PARTE 2",
+              description: "Quiz sobre a vida Romeno da ZN PARTE 2",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "d636986e-6e2b-43a1-96b9-09b2bee2dfd7",
+              title: "Quiz de Geografia",
+              description: "Amigos 1",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "db8d7872-eeb2-4d6a-ab33-0aeae478307a",
+              title: "Quiz do Romenin da ZN",
+              description: "Quiz sobre a vida Romeno da ZN",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "522d3b8e-f5b3-4c01-a6e7-0f39f10ce598",
+              title: "Meu primeiro Quiz",
+              description: "Um quiz feito para teste e ta ligado",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "64a678cc-e08b-4d8e-bab6-302f5cd44838",
+              title: "Quiz do Sanxes I",
+              description: "Quiz sobre a vida das batatas e peixes",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 4,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "92b9d22f-9c62-478f-bfd1-601580e29909",
+              title: "Quiz de Arquitetura",
+              description: "Quiz sobre arquitetura de software e seus conceitos.",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "866af655-0764-4a13-b6ff-742f6419e86d",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 1,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "e222933c-15c4-40f8-a4c4-a6d5872cde8f",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "de9fce3b-f19b-47ab-8a70-bc2abc5c6e69",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "DASDAS",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            }
+          ]
+        }
+      ]
+    };
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/quizzes-info/get-quizzes-by-category-from-different-users`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  })
+
+  return response.data;
+};
