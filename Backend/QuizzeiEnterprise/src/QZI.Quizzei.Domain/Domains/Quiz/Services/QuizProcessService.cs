@@ -55,6 +55,8 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
 
             await _quizRateRepository.AddAsync(rate);
 
+            await _unitOfWork.SaveChangesAsync();
+
             var newQuizRate = await CalculateNewRate(quizInfo.QuizInfoUuid);
             quizInfo.UpdateQuizRate(newQuizRate);
 

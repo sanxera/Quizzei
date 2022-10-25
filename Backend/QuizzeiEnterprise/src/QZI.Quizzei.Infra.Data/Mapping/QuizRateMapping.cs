@@ -10,7 +10,8 @@ namespace QZI.Quizzei.Infra.Data.Mapping
         {
             builder.ToTable("QUIZ_RATE");
 
-            builder.HasNoKey();
+            builder.Property(x => x.QuizRateUuid)
+                .HasColumnName("QUIZ_RATE_UUID");
 
             builder.Property(x => x.QuizProcessUuid)
                 .HasColumnName("QUIZ_PROCESS_UUID");
@@ -20,6 +21,17 @@ namespace QZI.Quizzei.Infra.Data.Mapping
 
             builder.Property(e => e.QuizInformationUuid)
                 .HasColumnName("QUIZ_INFO_UUID");
+
+            builder.Property(e => e.CreatedAt)
+                .HasColumnName("CREATED_AT");
+
+            builder.Property(e => e.CreatedBy)
+                .IsRequired()
+                .HasColumnName("CREATED_BY");
+
+            builder
+                .HasKey(e => e.QuizRateUuid)
+                .HasName("QUIZ_RATE_UUID");
         }
     }
 }

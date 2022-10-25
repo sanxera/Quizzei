@@ -5,6 +5,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Entities
 {
     public class QuizRate : Entity
     {
+        public Guid QuizRateUuid { get; set; }
         public Guid QuizProcessUuid { get; set; }
         public Guid QuizInformationUuid { get; set; }
         public int Rate { get; set; }
