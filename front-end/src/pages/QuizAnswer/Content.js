@@ -7,7 +7,7 @@ const { Title } = Typography;
 
 const ContentQuestions = ({ data, onClick }) => {
   const { description, options, selectedOption = null } = data;
-  console.log(data, 'ContentQuestions')
+
   return (
     <Row style={{ display: 'flex' }} justify="center">
       <Col style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }} span={24}>

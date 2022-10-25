@@ -1,14 +1,10 @@
 .header {
   position: 'fixed';
   z-index: 1;
-  width: 100%;
+  width: 'auto';
   align-items: center;
   color: #FFFFFF;
-  background: var(--gradient) ;
-  // background: hsla(206, 85%, 61%, 1);
-  // background: radial-gradient(circle, hsla(206, 85%, 61%, 1) 0%, hsla(234, 100%, 83%, 1) 87%); 
-  // background: -moz-radial-gradient(circle, hsla(206, 85%, 61%, 1) 0%, hsla(234, 100%, 83%, 1) 87%); 
-  // background: -webkit-radial-gradient(circle, hsla(206, 85%, 61%, 1) 0%, hsla(234, 100%, 83%, 1) 87%); 
+  background: var(--primary-color) ;
   padding: 0;
   margin: 0;
 }
@@ -16,6 +12,7 @@
 
 .menu {
   display: flex;
+  flex-direction: column;
   justify-content: end;
   width: 100%;
   margin-right: 250px;

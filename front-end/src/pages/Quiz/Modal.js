@@ -53,12 +53,12 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   }
 
   async function onSubmit() {
+    console.log('xxxx')
     try {
       const { questions, ...restData } = await form.validateFields();
       if (!restData) return;
       const { createdQuizUuid } = await create(restData);
       if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
-
       if (!data.quizInfoUuid && questions && questions.length > 0) {
         await createQuestions(createdQuizUuid, { questions });
       }

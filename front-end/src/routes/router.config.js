@@ -1,5 +1,5 @@
 import List from '../pages/Quiz/List';
-import { Perfil } from '../pages/Perfil';
+import Perfil from '../pages/Perfil';
 import UserList from '../pages/User/List';
 import Quiz from '../pages/QuizAnswer/Quiz';
 

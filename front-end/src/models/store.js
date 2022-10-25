@@ -5,6 +5,10 @@ function reducer(state = {}, action) {
     return { ...state, data: action.data }
   }
 
+  if (action.type === 'PERFIL') {
+    return { ...state, data: action.data }
+  }
+
   return state
 }
 

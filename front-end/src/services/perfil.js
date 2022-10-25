@@ -7,14 +7,16 @@ const isEnvironmentDevelopment = REACT_APP_ENVIRONMENT === 'DEVELOPMENT';
 export async function getPerfil(uuid) {
   if (isEnvironmentDevelopment) {
     return {
-      name: 'Senai Londrina',
-      description: 'Serviço Nacional de Aprendizagem Industrial do Estado do Paraná, integrante do Sistema Fiep.',
-      rating: 5,
+      userUuid: "220fe8e1-b06d-4da1-bf33-2e6f5e4dbcb8",
+      email: "manuel123@gmail.com",
+      nickName: "Manuel",
+      roleUuid: "0bd3463c-95dd-4dce-ae51-7c2c62609860",
+      roleName: "Aluno"
     };
   };
 
   const auth = getAuthority();
-  const response = await request(`api/quizzes-info/get-all-by-user`, {
+  const response = await request(`api/users/get-user-details?userUuid=${uuid}`, {
     headers: {
       Authorization: `Bearer ${auth.token}`
     }

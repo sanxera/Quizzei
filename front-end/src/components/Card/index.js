@@ -6,10 +6,10 @@ import styles from './index.less';
 const { Meta } = CardAntd;
 const { Title, Text } = Typography;
 
-const Card = ({ logo, title, description = '', onClick, isQuiz = false, children, ...rest }) => {
+const Card = ({ logo, title, ownerNickName, numberOfQuestions, description = '', cardName, onClick, isQuiz = false, children, ...rest }) => {
   return (
     <CardAntd
-      className={styles.card}
+      className={cardName ? `${cardName} ${styles.card}` : styles.card}
       size='small'
       onClick={() => onClick()}
       hoverable
@@ -26,14 +26,14 @@ const Card = ({ logo, title, description = '', onClick, isQuiz = false, children
             }
             description={
               <div style={{ width: 200 }}>
-                <Text className={styles.text}>{description}</Text>
+                <Text ellipsis={{ rows: 1, expandable: true, symbol: 'more' }} className={styles.text}>{description}</Text>
                 {isQuiz && (
                   <Row style={{ marginTop: 20, marginBottom: 20 }} justify='center'>
                     <Col className={styles.text} span={15}>
-                      <UserOutlined /> Luiz Eduardo
+                      <UserOutlined /> {ownerNickName}
                     </Col>
                     <Col className={styles.text} span={9}>
-                      <FileTextOutlined /> 10
+                      <FileTextOutlined /> {numberOfQuestions}
                     </Col>
                   </Row>
                 )}

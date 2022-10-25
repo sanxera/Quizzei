@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Steps, Skeleton } from 'antd';
 import { connect } from 'react-redux';
+import { Steps, Skeleton } from 'antd';
 import ContentQuestions from './Content';
 import { Button } from '../../components/Button'
 import { notification } from '../../utils/notification';
@@ -13,7 +13,6 @@ import { FinishedModal } from './FinishedModal';
 const { Step } = Steps;
 
 const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
-  console.log(quizProcessUuid, '<<< quizppp')
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(0);
