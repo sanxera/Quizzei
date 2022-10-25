@@ -11,15 +11,21 @@ const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children,
     <Layout style={{ minHeight: '100vh' }} {...rest}>
       {hasHeader && headerElement}
 
-      <Content style={{ backgroundColor: '#FFFF', padding: 50, marginTop: 64 }}>
+      <Content style={{
+        // backgroundColor: '#f0f2f5',
+        backgroundColor: '#FFFFFF',
+        padding: 50
+      }}>
         {children}
       </Content>
-      {hasFooter && (
-        <Footer style={{ textAlign: 'center' }}>
-          Quizzei ©2022 Created by Quizzei Devs
-        </Footer>
-      )}
-    </Layout>
+      {
+        hasFooter && (
+          <Footer style={{ textAlign: 'center' }}>
+            Quizzei ©2022 Created by Quizzei Devs
+          </Footer>
+        )
+      }
+    </Layout >
   );
 }
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
-using QZI.Quizzei.Domain.Domains.Category.Repositories;
+using QZI.Quizzei.Domain.Domains.Categories.Repositories;
 using QZI.Quizzei.Domain.Domains.Questions.Repositories;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Domain.Domains.User.Entities;
@@ -22,6 +22,7 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IQuizInfoRepository, QuizInfoRepository>();
+            services.AddScoped<IQuizRateRepository, QuizRateRepository>();
             services.AddScoped<IQuizProcessRepository, QuizProcessRepository>();
 
             services.AddDbContext<QuizzeiContext>(options =>

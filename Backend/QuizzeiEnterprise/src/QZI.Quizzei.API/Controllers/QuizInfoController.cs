@@ -36,10 +36,19 @@ namespace QZI.Quizzei.API.Controllers
         }
 
         [HttpGet("get-all-by-different-users")]
-        public async Task<IActionResult> GetQuizzesInfo()
+        public async Task<IActionResult> GetQuizzesInfoByDifferentUsers()
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var result = await _quizInformationService.GetQuizzesInformationByDifferentUser(email);
+
+            return Ok(result);
+        }
+
+        [HttpGet("get-quizzes-by-category-from-different-users")]
+        public async Task<IActionResult> GetQuizzesInfoSeparateByCategoriesFromDifferentUsers()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var result = await _quizInformationService.GetQuizzesInfoSeparateByCategoriesFromDifferentUsers(email);
 
             return Ok(result);
         }

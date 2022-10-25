@@ -7,6 +7,6 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Repositories
 {
     public interface IQuizProcessRepository : IRepository<QuizProcess>
     {
-        Task<QuizProcess> GetQuizInfoById(Guid id);
+        Task<QuizProcess> GetQuizProcessById(Guid id);
     }
 }

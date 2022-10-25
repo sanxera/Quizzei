@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Steps, Button, Skeleton } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Steps, Skeleton } from 'antd';
 import { connect } from 'react-redux';
 import ContentQuestions from './Content';
+import { Button } from '../../components/Button'
 import { notification } from '../../utils/notification';
 import { answerQuestions } from '../../services/quiz';
 
+import styles from './index.less';
+import { FinishedModal } from './FinishedModal';
+
 const { Step } = Steps;
 
-const Quiz = ({ navigate, data: { quizProcessUuid, questions: data } }) => {
+const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
+  console.log(quizProcessUuid, '<<< quizppp')
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [steps, setSteps] = useState([]);
+  const [finallyData, setFinallyData] = useState({});
+  const [showFinallyModal, setShowFinallyModal] = useState(false);
   const [answerQuestionsData, setAnswerQuestions] = useState({ quizProcessUuid, answers: [] })
 
   useEffect(() => {
@@ -23,17 +32,32 @@ const Quiz = ({ navigate, data: { quizProcessUuid, questions: data } }) => {
     setSteps(arrSteps);
   }
 
-  function onClickOption(indexOption, data) {
-    setLoading(true);
-    answerQuestionsData.answers.push(data);
-    steps[current].content.options[indexOption].isLinked = true;
-    setAnswerQuestions(answerQuestionsData);
+  async function onClickOption(indexOption, data) {
+    await setLoading(true);
+    await answerQuestionsData.answers.push(data);
+    steps[current].content.selectedOption = indexOption;
+    await setAnswerQuestions(answerQuestionsData);
+    await setSteps(steps)
     setLoading(false);
   }
 
+  async function onFinishQuiz() {
+    const response = await answerQuestions(answerQuestionsData);
+    const { totalQuestions, correctAnswers } = response;
+    if (!totalQuestions || !correctAnswers) {
+      notification({ status: 'error', message: 'Ocorreu um erro ao finalizar o quiz' });
+      return;
+    }
 
+    await setFinallyData({ totalQuestions, correctAnswers });
+    await setShowFinallyModal(true);
+  }
 
-  if (steps.length === 0) return <Skeleton />;
+  function onClickModal() {
+    navigate('/quiz')
+  }
+
+  if (steps.length === 0 || loading) return <Skeleton />;
 
   const next = () => {
     setCurrent(current + 1);
@@ -44,52 +68,46 @@ const Quiz = ({ navigate, data: { quizProcessUuid, questions: data } }) => {
   };
 
   return (
-    <>
+    <div>
       <Steps progressDot current={current}>
         {steps.map(item => (
           <Step key={item.question} />
         ))}
       </Steps>
-      {loading ? (<div />) : (
-        <>
-          <div className="steps-content">
-            <ContentQuestions data={steps[current].content} onClick={onClickOption} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 250 }}>
+
+      <>
+        <div className="steps-content">
+          <ContentQuestions data={steps[current].content} onClick={onClickOption} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
 
 
-            {current > 0 && (
-              <Button
-                style={{
-                  margin: '0 8px',
-                }}
-                onClick={() => prev()}
-              >
-                Voltar
-              </Button>
-            )}
+          {current > 0 && (
+            <Button
+              className={styles.btnPrev}
+              title="Voltar"
+              style={{
+                margin: '0 8px',
+              }}
+              onClick={() => prev()}
+            />
+          )}
 
-            {current === steps.length - 1 && (
-              <Button type="primary" onClick={async () => {
-                await answerQuestions(answerQuestionsData);
-                notification({ status: 'success', message: 'Quiz enviado!' });
-                setTimeout(() => {
-                  navigate('/quiz');
-                }, 1000)
-              }} >
-                Finalizar Quiz
-              </Button>
-            )}
+          {current === steps.length - 1 && (
+            <Button
+              className={styles.btnNext}
+              title="Finalizar Quiz"
+              onClick={onFinishQuiz} />
+          )}
 
-            {current < steps.length - 1 && (
-              <Button type="primary" onClick={() => next()}>
-                Avançar
-              </Button>
-            )}
-          </div>
-        </>
-      )}
-    </>
+          {current < steps.length - 1 && (
+            <Button className={styles.btnNext} title="Avançar" onClick={() => next()} />
+          )}
+        </div>
+      </>
+
+      <FinishedModal visible={showFinallyModal} data={finallyData} onClick={onClickModal} />
+    </div >
   )
 }
 

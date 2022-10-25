@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Abstractions;
-using QZI.Quizzei.Domain.Domains.Category.Repositories.Base;
 
 namespace QZI.Quizzei.Infra.Data.Repository.Base
 {

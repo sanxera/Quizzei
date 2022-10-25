@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using QZI.Quizzei.Domain.Domains.Category.Entities;
+using QZI.Quizzei.Domain.Domains.Categories.Entities;
 using QZI.Quizzei.Domain.Domains.Questions.Entities;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
 using QZI.Quizzei.Domain.Domains.User.Entities;
@@ -16,6 +16,7 @@ namespace QZI.Quizzei.Infra.Data
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<QuizInformation> QuizzesInfos { get; set; }
         public virtual DbSet<QuizProcess> QuizProcesses { get; set; }
+        public virtual DbSet<QuizRate> QuizRates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

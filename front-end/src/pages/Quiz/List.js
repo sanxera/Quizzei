@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Input, Button } from 'antd';
+import { Row, Col, Typography, Select, Button as ButtonAntd } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { RightOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import ModalQuiz from './Modal';
 
-import CardWrapper from '../../components/CardWrapper';
+import { useKeenSlider } from "keen-slider/react"
+import "keen-slider/keen-slider.min.css"
+
+import Card from '../../components/Card';
+import { Button } from '../../components/Button';
+import ModalQuiz from './Modal';
 import StartQuiz from './StartQuiz';
 import { listMyQuizzes, listPublicQuizzes } from '../../services/quiz';
 
+import styles from './styles.less'
+
+const { Option, OptGroup } = Select;
 const { Title, Text } = Typography;
 
-const List = ({ navigate, status, dispatch }) => {
+const List = () => {
+  const navigate = useNavigate();
+  const [sliderRef] = useKeenSlider({
+    slides: {
+      perView: 2,
+      spacing: 15,
+    },
+  })
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
-
+  // const [allQuizzes, setAllQuizzes] = useState([])
   const [visible, setVisible] = useState(false);
   const [infoVisible, setInfoVisible] = useState(false);
   const [rowData, setRowData] = useState({});
+  const [data, setData] = useState({});
 
   useEffect(() => {
     init();
@@ -36,11 +52,12 @@ const List = ({ navigate, status, dispatch }) => {
 
   async function onCloseModal() {
     await setRowData({});
+    await setData({});
     await setVisible(!visible);
   }
 
   async function openInfoQuizzes(data) {
-    await setRowData(data);
+    await setData(data);
     await setInfoVisible(!infoVisible);
   }
 
@@ -73,83 +90,123 @@ const List = ({ navigate, status, dispatch }) => {
 
   return (
     <>
-      {/* Criar componente de filtro */}
-      <Row style={{ width: '100%' }}>
-        <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+      {/* TODO component filter */}
+      <Row>
+        <Col span={24} style={{ textAlign: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
         </Col>
         <Col span={24}>
-          <Input style={{ backgroundColor: '#FFFF', borderRadius: 20, height: 50 }} suffix={<RightOutlined />} />
+          <Select
+            onSelect={() => {
+              navigate('/perfil')
+            }}
+            showSearch
+            filterOption={(input, option) => (option.children || "").toString().toLowerCase().includes((input || "").toLowerCase())}
+            placeholder="Buscar Quizzes & Instituições"
+            size="large"
+            style={{ backgroundColor: '#FFFF', borderRadius: '50px !important', width: '100%' }}
+            suffixIcon={<RightOutlined />}
+          >
+            {userQuizzes?.quizzesInfoDto?.length > 0 && (
+              <OptGroup label="Meus Quizzes">
+                {userQuizzes?.quizzesInfoDto.map(item => (
+                  <Option key={item.quizInfoUuid} value={item.title}>{item.title}</Option>
+                ))}
+              </OptGroup>
+            )}
+            {publicQuizzes?.quizzesInfoDto?.length > 0 && (
+              <OptGroup label="Quizzes publicados">
+                {publicQuizzes?.quizzesInfoDto.map(item => (
+                  <Option key={item.quizInfoUuid} value={item.title}>{item.title}</Option>
+                ))}
+              </OptGroup>
+            )}
+            <OptGroup label="Instituições">
+              <Option value="Senai"> Senai Londrina </Option>
+            </OptGroup>
+          </Select>
         </Col>
         <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
           {arrFilter.map(item => (
-            <Row>
-              <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button type="link" shape='circle' style={{ backgroundColor: '#FFFF', borderColor: '#FFFF' }}>
-                  <img style={{ width: '100%', height: 50, borderRadius: '20px 20px 20px 20px' }} alt="example" src={item.logo} />
-                </Button>
+            <Row key={`arr-filter-${item.description}`}>
+              <Col style={{ display: 'flex', justifyContent: 'center' }} span={24}>
+                <ButtonAntd
+                  // size='large'
+                  icon={<img style={{ width: '100%', height: 50, borderRadius: '20px 20px 20px 20px' }} alt="example" src={item.logo} />}
+                  type="link"
+                  shape='circle'
+                  style={{ backgroundColor: '#FFFF', borderColor: '#FFFF', }}
+                />
               </Col>
               <Col span={24} style={{ marginTop: 30, display: 'flex', justifyContent: 'center' }}>
-                <Text style={{ fontWeight: 'bold' }}>{item.description}</Text>
+                <Text strong>{item.description}</Text>
               </Col>
             </Row>
           ))}
         </Col>
       </Row>
 
-      <div style={{ display: 'flex', marginTop: 100 }}>
-        <Row style={{ width: '100%' }}>
-          <Col span={20} style={{ marginBottom: 20, paddingLeft: 75 }}>
-            <Title level={3} >Meus Quizzes</Title>
-          </Col>
-          <Col span={4} style={{ marginBottom: 20, paddingLeft: 75 }}>
-            <Button
-              className='btn-main'
-              shape='round'
-              onClick={() => handleModal()}>
-              <PlusCircleOutlined /> Criar quiz
-            </Button>
+      <div className={styles.quizContainer}>
+        <Row style={{ maxWidth: '90vw' }}>
+          <Col className={styles.quizCategory} span={24}>
+            < Title level={3} > Meus Quizzes</Title>
+            <Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />
           </Col>
 
-          <Col style={{ display: 'flex', marginLeft: 100 }}>
+          <Col className={styles.listQuizzes}>
             {(!userQuizzes.quizzesInfoDto || userQuizzes.quizzesInfoDto.length === 0) && (
-              <Button style={{ width: '115rem', minHeight: 100 }} type='dashed'>Não há quizzes</Button>
+              <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
             )}
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.map((item, index) => (
-              <CardWrapper
-                key={`my-quizzes-${index}`}
+              <Card
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
                 description={item.description}
-                onClick={() => handleModal(item)} style={{ marginRight: 30, padding: 0 }}
+                onClick={() => handleModal(item)}
+                style={{ marginRight: 30, padding: 0 }}
               />
             ))}
           </Col>
 
-          <Col span={24} style={{ marginTop: 50, marginBottom: 20, paddingLeft: 75 }}>
+          <Col className={styles.quizCategory} span={24}>
             <Title level={3} >Quizzes</Title>
           </Col>
-          <Col style={{ display: 'flex', marginLeft: 100 }}>
-            {(!publicQuizzes.quizzesInfoDto || publicQuizzes.quizzesInfoDto.length === 0) && (
-              <Button style={{ width: '115rem', minHeight: 100 }} type='dashed'>Não há quizzes</Button>
-            )}
-            {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.map((item, index) => (
-              <CardWrapper
+          {(!publicQuizzes.quizzesInfoDto || publicQuizzes.quizzesInfoDto.length === 0) && (
+            <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
+          )}
+          {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.map((item, index) => (
+            <Col className={styles.listQuizzes}>
+              <Card
                 key={`quizzes-${index}`}
                 isQuiz
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
                 description={item.description}
                 onClick={() => openInfoQuizzes(item)}
-                style={{ marginRight: 30, padding: 0 }} />
-            ))}
-          </Col>
+                style={{ marginRight: 30, minHeight: '20rem', padding: 0 }} />
+            </Col>
+          ))}
         </Row>
 
-        {visible && (<ModalQuiz data={rowData} onClose={onCloseModal} onCallback={init} visible={visible} />)}
-        {infoVisible && (<StartQuiz navigate={navigate} data={rowData} visible={infoVisible} onClose={() => setInfoVisible(false)} />)}
+        {visible && (
+          <ModalQuiz
+            data={rowData}
+            onClose={onCloseModal}
+            onCallback={init}
+            visible={visible}
+          />
+        )}
 
-      </div>
+        {infoVisible && (
+          <StartQuiz
+            navigate={navigate}
+            data={data}
+            visible={infoVisible}
+            onClose={() => setInfoVisible(false)}
+          />
+        )}
+
+      </div >
     </>
   )
 }

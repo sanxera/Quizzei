@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Domain.Domains.Category.Service.Abstractions;
-using QZI.Quizzei.Domain.Domains.Category.Service.Requests;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.Categories.Service.Requests;
 
 namespace QZI.Quizzei.API.Controllers
 {

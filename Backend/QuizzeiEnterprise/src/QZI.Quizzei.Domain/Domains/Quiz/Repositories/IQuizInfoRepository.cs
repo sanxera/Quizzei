@@ -11,5 +11,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Repositories
         Task<QuizInformation> GetQuizInfoById(Guid id);
         Task<IEnumerable<QuizInformation>> GetQuizInfoByUserUuid(Guid userUuid);
         Task<IEnumerable<QuizInformation>> GetQuizInfoByDifferentUsers(Guid userUuid);
+        Task<IEnumerable<QuizInformation>> GetQuizzesByTitle(string name);
+        Task<IEnumerable<QuizInformation>> GetQuizzesByCategory(int categoryId);
     }
 }

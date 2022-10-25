@@ -1,41 +1,43 @@
-// @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans&display=swap');
+:root {
+  --primary-color: #47a7f0;
+  --primary-color-hover: #47a7f0db;
+  --gradient: linear-gradient(to right, #47A7F0, #58abe9, #0077F7);
+}
 
 :global {
 
-  * {
-    box-sizing: border-box;
+  body {
+    // font-family: 'Inter 400', sans;
   }
 
-  #container {
-    height: 100vh;
-    font-family: Roboto, sans-serif;
+  * {
+    box-sizing: border-box;
   }
 
   .ant-form {
     width: 23rem;
   }
 
-  .btn-main {
-    background-color: #06a7c3 !important;
-    border-color: #06a7c3 !important;
-    color: #FFF !important;
-  }
-
-  .btn-main:hover {
-    background-color: #06c6e8 !important;
-    border-color: #06c6e8 !important;
-  }
-
-  .btn-text {
-    color: #06a7c3 !important;
-  }
-
-  .btn-text:hover {
-    color: #06c6e8 !important;
-  }
-
   .ant-form-item-control-input-content {
     height: 100%;
   }
+
+  .ant-form-item-explain-error {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+
+  .ant-input-affix-wrapper-focused {
+    border-color: var(--primary-color) !important;
+  }
+
+  .ant-input-affix-wrapper-focused>.ant-input-suffix {
+    color: var(--primary-color);
+  }
 }
+
+
+// background: hsla(206, 85%, 61%, 1);
+//   background: radial-gradient(circle, hsla(206, 85%, 61%, 1) 0%, hsla(234, 100%, 83%, 1) 87%);
+//   background: -moz-radial-gradient(circle, hsla(206, 85%, 61%, 1) 0%, hsla(234, 100%, 83%, 1) 87%);
+//   background: -webkit-radial-gradient(circle, hsla(206, 85%, 61%, 1) 0%, hsla(234, 100%, 83%, 1) 87%);
