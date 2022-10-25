@@ -9,8 +9,8 @@ import {
   FileSearchOutlined
 } from '@ant-design/icons';
 import { Button } from '../../components/Button'
-import { createQuestions, listQuestions } from '../../services/quiz';
-import { create, list as listCategories } from '../../services/categories';
+import { create, createQuestions, listQuestions } from '../../services/quiz';
+import { create as createCategory, list as listCategories } from '../../services/categories';
 import { notification } from '../../utils/notification';
 import { ModalCategory } from './ModalCategory';
 
@@ -80,7 +80,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
 
   async function onAddCategory(categoryName) {
     if (!categoryName || (categoryName || "").length === 0) return;
-    const response = await create(categoryName);
+    const response = await createCategory(categoryName);
     if (!response.createdId) return;
 
     await loadCategories();
