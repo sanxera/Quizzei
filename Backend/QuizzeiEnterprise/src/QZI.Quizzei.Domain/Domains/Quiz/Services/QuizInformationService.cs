@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
 using QZI.Quizzei.Domain.Domains.Categories.Entities;
@@ -42,6 +43,33 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
             await _unitOfWork.SaveChangesAsync();
 
             return new CreateQuizInfoResponse { CreatedQuizUuid = quizInfo.QuizInfoUuid };
+        }
+
+        public async Task<GetQuizzesResponse> GetQuizzesInformationByUser(Guid userUuid)
+        {
+            var user = await _userService.GetUserById(userUuid);
+            var quizzes = await _quizInfoRepository.GetQuizInfoByUserUuid(user.Id);
+
+            var response = new GetQuizzesResponse();
+
+            foreach (var quiz in quizzes)
+            {
+                var category = await _categoryRepository.GetCategoryById(quiz.CategoryId);
+                var questions = await _questionRepository.GetQuestionsByQuizInfo(quiz.QuizInfoUuid);
+
+
+                response.QuizzesInfoDto.Add(new QuizInfoResponse
+                {
+                    Title = quiz.Title,
+                    Description = quiz.Description,
+                    CategoryDescription = category.Description,
+                    QuizInfoUuid = quiz.QuizInfoUuid,
+                    NumberOfQuestions = questions.Count,
+                    OwnerNickName = user.NickName
+                });
+            }
+
+            return response;
         }
 
         public async Task<GetQuizzesResponse> GetQuizzesInformationByUser(string emailOwner)
@@ -100,7 +128,6 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
         public async Task<GetQuizzesByCategoryResponse> GetQuizzesInfoSeparateByCategoriesFromDifferentUsers(string emailOwner)
         {
             var response = new GetQuizzesByCategoryResponse();
-            var user = await _userService.GetUserByEmail(emailOwner);
             var categories = await _categoryRepository.GetCategoriesInRange(5);
 
             foreach (var category in categories)
@@ -108,7 +135,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
                 var quizzesByCategory = await _quizInfoRepository.GetQuizzesByCategory(category.Id);
                 var quizzesByCategoryResponse = new QuizzesByCategory { CategoryName = category.Description };
 
-                await CreateQuizzesResponse(quizzesByCategory, category, user, quizzesByCategoryResponse);
+                await CreateQuizzesResponse(quizzesByCategory, category, quizzesByCategoryResponse);
 
                 response.QuizzesByCategories.Add(quizzesByCategoryResponse);
             }
@@ -116,8 +143,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
             return response;
         }
 
-        private async Task CreateQuizzesResponse(IEnumerable<QuizInformation> quizzesByCategory, Category category, UserBaseResponse user,
-            QuizzesByCategory quizzesByCategoryResponse)
+        private async Task CreateQuizzesResponse(IEnumerable<QuizInformation> quizzesByCategory, Category category, QuizzesByCategory quizzesByCategoryResponse)
         {
             foreach (var quiz in quizzesByCategory)
             {
@@ -129,11 +155,18 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
                     CategoryDescription = category.Description,
                     QuizInfoUuid = quiz.QuizInfoUuid,
                     NumberOfQuestions = questions.Count,
-                    OwnerNickName = user.NickName
+                    OwnerNickName = await GetUserOwnerNickName(quiz.UserOwnerId)
                 };
 
                 quizzesByCategoryResponse.QuizzesInfoResponses.Add(quizResponse);
             }
+        }
+
+        private async Task<string> GetUserOwnerNickName(Guid userUuid)
+        {
+            var user = await _userService.GetUserById(userUuid);
+
+            return user == null ? "Admin" : user.NickName;
         }
     }
 }
