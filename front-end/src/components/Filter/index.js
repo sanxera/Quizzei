@@ -49,7 +49,7 @@ const Filter = ({ navigate, onSelect, dispatch }) => {
       placeholder="Buscar Quizzes, Usuarios & Instituições"
       showSearch
       filterOption={(input, option) => (option.children || "").toString().toLowerCase().includes((input || "").toLowerCase())}
-      onChange={value => loadFilter(value)}
+      onSearch={value => loadFilter(value)}
       onSelect={handleSelect}
     >
       {Object.keys(data).map(key => (
