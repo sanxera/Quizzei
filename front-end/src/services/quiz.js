@@ -73,6 +73,43 @@ export async function listMyQuizzes() {
   return response.data;
 };
 
+export async function listQuizzesFromUser(userUuid) {
+  if (isEnvironmentDevelopment) {
+    return {
+      quizzesInfoDto: [
+        {
+          quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+          title: "Meu Quiz 1",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz",
+          points: 5
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da2",
+          title: "Meu Quiz 2",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+        {
+          quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da3",
+          title: "Meu Quiz 3",
+          description: "Quiz sobre a vida do luiz",
+          categoryDescription: "Categoria do Luiz"
+        },
+      ]
+    };
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/quizzes-info/get-quizzes-from-user-id/${userUuid}`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  })
+
+  return response.data;
+};
+
 export async function listPublicQuizzes() {
   if (isEnvironmentDevelopment) {
     return {

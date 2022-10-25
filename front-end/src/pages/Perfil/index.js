@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Avatar, Typography, Rate, Card } from 'antd';
 import styles from './styles.less';
 import { getPerfil } from '../../services/perfil';
-import { listMyQuizzes } from '../../services/quiz';
+import { listQuizzesFromUser } from '../../services/quiz';
 
 const { Title, Text } = Typography;
 
@@ -17,7 +17,7 @@ const Perfil = ({ data, dispatch }) => {
 
   async function init() {
     const perfilData = await getPerfil(data.userUuid);
-    const quizzes = await listMyQuizzes(data.userUuid);
+    const quizzes = await listQuizzesFromUser(data.userUuid);
 
     setPerfil(perfilData);
     setArrQuizzes(quizzes);

@@ -65,6 +65,7 @@ export async function filterAll(search) {
 
   const auth = getAuthority();
   const response = await request(`api/search/${search}`, {
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${auth.token}`
     }
