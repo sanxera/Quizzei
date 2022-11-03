@@ -105,7 +105,7 @@ const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
         </div>
       </>
 
-      <FinishedModal visible={showFinallyModal} data={finallyData} onClick={onClickModal} />
+      <FinishedModal visible={showFinallyModal} data={finallyData} quizProcessUuid={quizProcessUuid} onClick={onClickModal} />
     </div >
   )
 }

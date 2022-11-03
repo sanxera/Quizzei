@@ -642,3 +642,16 @@ export async function listPublicQuizzesByCategory() {
 
   return response.data;
 };
+
+
+
+export async function ratingQuiz(quizProcessUuid, value) {
+  const auth = getAuthority();
+  const response = await request(`api/quizzes-process/rating-quiz/${quizProcessUuid}?rate=${value}`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  })
+
+  return response.data;
+};
