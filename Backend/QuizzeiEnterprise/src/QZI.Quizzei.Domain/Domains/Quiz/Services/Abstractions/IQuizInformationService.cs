@@ -12,5 +12,6 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions
         Task<GetQuizzesResponse> GetQuizzesInformationByUser(Guid userUuid);
         Task<GetQuizzesResponse> GetQuizzesInformationByDifferentUser(string emailOwner);
         Task<GetQuizzesByCategoryResponse> GetQuizzesInfoSeparateByCategoriesFromDifferentUsers(string emailOwner);
+        Task<GetQuizzesHistoryFromUserResponse> GetQuizzesHistoryFromUser(string emailOwner);
     }
 }

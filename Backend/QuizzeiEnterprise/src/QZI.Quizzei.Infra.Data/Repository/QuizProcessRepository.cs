@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
@@ -17,6 +19,11 @@ namespace QZI.Quizzei.Infra.Data.Repository
         {
             return await Context.QuizProcesses
                 .FirstOrDefaultAsync(x => x.QuizProcessUuid == id);
+        }
+
+        public async Task<IList<QuizProcess>> GetQuizProcessByUser(Guid userUuid)
+        {
+            return await Context.QuizProcesses.Where(x => x.UserUuid == userUuid).ToListAsync();
         }
     }
 }

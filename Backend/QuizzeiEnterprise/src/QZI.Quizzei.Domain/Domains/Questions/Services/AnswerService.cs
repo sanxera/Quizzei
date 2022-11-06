@@ -8,6 +8,7 @@ using QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions;
 using QZI.Quizzei.Domain.Domains.Questions.Services.Requests;
 using QZI.Quizzei.Domain.Domains.Questions.Services.Responses;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
+using QZI.Quizzei.Domain.Domains.Quiz.Entities.Enums;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
 using QZI.Quizzei.Domain.Domains.User.Service.Response;
@@ -53,6 +54,8 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Services
                 if (selectedOption.IsCorrect)
                     correctAnswers++;
             }
+
+            quizProcess.Status = QuizProcessStatus.Finished;
 
             await _unitOfWork.SaveChangesAsync();
             return new AnswerQuestionResponse { CorrectAnswers = correctAnswers, TotalQuestions = request.Answers.Count };

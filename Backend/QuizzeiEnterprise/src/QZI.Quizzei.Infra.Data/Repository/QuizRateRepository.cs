@@ -21,5 +21,12 @@ namespace QZI.Quizzei.Infra.Data.Repository
                 .Where(x => x.QuizInformationUuid == quizInformationUuid)
                 .ToListAsync();
         }
+
+        public async Task<int> GetRateFromQuizProcess(Guid quizProcessUuid)
+        {
+            var quizRate = await Context.QuizRates.FirstOrDefaultAsync(x => x.QuizProcessUuid == quizProcessUuid);
+
+            return quizRate?.Rate ?? 0;
+        }
     }
 }

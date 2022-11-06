@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.ComponentModel.DataAnnotations.Schema;
 using QZI.Quizzei.Domain.Abstractions;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities.Enums;
 
@@ -10,6 +12,9 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Entities
         public Guid QuizInfoUuid { get; set; }
         public Guid UserUuid { get; set; }
         public QuizProcessStatus Status { get; set; }
+
+        [NotMapped]
+        public QuizInformation QuizInformation { get; set; }
 
         public static QuizProcess CreateQuizProcess(Guid quizUuid, Guid userUuid)
         {

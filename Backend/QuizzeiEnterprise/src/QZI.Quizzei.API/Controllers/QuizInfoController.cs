@@ -58,8 +58,16 @@ namespace QZI.Quizzei.API.Controllers
         [HttpGet("get-quizzes-from-user-id/{userUuid:guid}")]
         public async Task<IActionResult> GetQuizzesInfoFromUserByEmail(Guid userUuid)
         {
-            var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var result = await _quizInformationService.GetQuizzesInformationByUser(userUuid);
+
+            return Ok(result);
+        }
+
+        [HttpGet("get-quizzes-history-from-user")]
+        public async Task<IActionResult> GetQuizzesHistoryFromUser()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var result = await _quizInformationService.GetQuizzesHistoryFromUser(email);
 
             return Ok(result);
         }
