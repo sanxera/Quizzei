@@ -655,3 +655,83 @@ export async function ratingQuiz(quizProcessUuid, value) {
 
   return response.data;
 };
+
+
+export async function historyQuiz() {
+  if (isEnvironmentDevelopment) {
+    return {
+      "userUuid": "bb819f30-64c4-405e-97cf-1dabc6ec5f6b",
+      "quizzesHistoryInformation": [
+        {
+          "quizInfoUuid": "f16a5983-acd4-4507-947e-1237f8db0349",
+          "title": "Quiz do Jonas em",
+          "description": "Quiz do jonas para testar umas coisas",
+          "categoryDescription": "Categoria do Romeno",
+          "numberOfQuestions": 10,
+          "correctAnswers": 2,
+          "rate": 0,
+          "ownerNickName": "JoninhaJoia"
+        },
+        {
+          "quizInfoUuid": "f16a5983-acd4-4507-947e-1237f8db0349",
+          "title": "Quiz do Jonas em",
+          "description": "Quiz do jonas para testar umas coisas",
+          "categoryDescription": "Categoria do Romeno",
+          "numberOfQuestions": 10,
+          "correctAnswers": 5,
+          "rate": 0,
+          "ownerNickName": "JoninhaJoia"
+        },
+        {
+          "quizInfoUuid": "f16a5983-acd4-4507-947e-1237f8db0349",
+          "title": "Quiz do Jonas em",
+          "description": "Quiz do jonas para testar umas coisas",
+          "categoryDescription": "Categoria do Romeno",
+          "numberOfQuestions": 4,
+          "correctAnswers": 0,
+          "rate": 0,
+          "ownerNickName": "JoninhaJoia"
+        },
+        {
+          "quizInfoUuid": "f16a5983-acd4-4507-947e-1237f8db0349",
+          "title": "Quiz do Jonas em",
+          "description": "Quiz do jonas para testar umas coisas",
+          "categoryDescription": "Categoria do Romeno",
+          "numberOfQuestions": 4,
+          "correctAnswers": 0,
+          "rate": 0,
+          "ownerNickName": "JoninhaJoia"
+        },
+        {
+          "quizInfoUuid": "f16a5983-acd4-4507-947e-1237f8db0349",
+          "title": "Quiz do Jonas em",
+          "description": "Quiz do jonas para testar umas coisas",
+          "categoryDescription": "Categoria do Romeno",
+          "numberOfQuestions": 4,
+          "correctAnswers": 0,
+          "rate": 0,
+          "ownerNickName": "JoninhaJoia"
+        },
+        {
+          "quizInfoUuid": "f16a5983-acd4-4507-947e-1237f8db0349",
+          "title": "Quiz do Jonas em",
+          "description": "Quiz do jonas para testar umas coisas",
+          "categoryDescription": "Categoria do Romeno",
+          "numberOfQuestions": 4,
+          "correctAnswers": 0,
+          "rate": 0,
+          "ownerNickName": "JoninhaJoia"
+        }
+      ]
+    };
+  }
+
+  const auth = getAuthority();
+  const response = await request(`api/quizzes-info/get-quizzes-history-from-user`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    }
+  })
+
+  return response.data;
+}

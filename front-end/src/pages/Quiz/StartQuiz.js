@@ -12,11 +12,11 @@ import styles from './styles.less';
 
 const { Title, Text } = Typography;
 
-const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
-  if (!visible || !data) return <div />;
+const StartQuiz = ({ navigate, visible, rowData, onClose, dispatch }) => {
+  if (!visible || !rowData) return <div />;
 
   async function onClickStartQuiz() {
-    const { quizInfoUuid } = data;
+    const { quizInfoUuid } = rowData;
     if (!quizInfoUuid) return;
     const { quizProcessCreatedUuid } = await startQuiz(quizInfoUuid);
     const { questions } = await listQuestions(quizInfoUuid);
@@ -29,6 +29,7 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
       },
     });
 
+    await onClose();
     await navigate('/quiz-answer');
   }
 
@@ -49,12 +50,12 @@ const StartQuiz = ({ navigate, visible, data, onClose, dispatch }) => {
         </Col>
 
         <Col span={24} style={{ display: 'flex', justifyContent: 'center' }} >
-          <Title style={{ color: '#FFFFFF' }} level={5}>{data.title}</Title>
+          <Title style={{ color: '#FFFFFF' }} level={5}>{rowData.title}</Title>
         </Col>
 
 
         <Col span={24}>
-          <Text style={{ color: '#FFFFFF' }}>{data.description}</Text>
+          <Text style={{ color: '#FFFFFF' }}>{rowData.description}</Text>
         </Col>
 
         <Divider />

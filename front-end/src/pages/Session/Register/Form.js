@@ -38,8 +38,20 @@ const FormComponent = ({ navigate }) => {
     setDisable(true);
   }
 
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 24 },
+    },
+  };
+
   return (
     <Form
+      {...formItemLayout}
       layout="vertical"
       name="basic"
       onFinish={onFinish}
@@ -50,6 +62,7 @@ const FormComponent = ({ navigate }) => {
           [{
             required: true,
             type: 'string',
+            message: 'Escolha o tipo de perfil.'
           }]}
       >
         <Select defaultValue={null} placeholder='Escolha o perfil' style={{ width: '100%' }}>

@@ -1,22 +1,22 @@
 import React from 'react';
 import { Layout } from 'antd';
-import HeaderMenu from './HeaderMenu';
+import SiderMenu from './SiderMenu';
 
 const { Content, Footer } = Layout;
 
 const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children, header, ...rest }) => {
-  const headerElement = header ? header : <HeaderMenu navigate={navigate} />;
+  const headerElement = header ? header : <SiderMenu navigate={navigate} />;
 
   return (
     <Layout>
       {hasHeader && headerElement}
 
-      <Layout style={{ minHeight: '100vh' }} {...rest}>
+      <Layout style={{ minHeight: '100vh', marginLeft: 200 }} {...rest}>
         <Content
           style={{
             // backgroundColor: '#f0f2f5',
             backgroundColor: '#FFFFFF',
-            padding: 50
+            padding: 50,
           }}
         >
           {children}

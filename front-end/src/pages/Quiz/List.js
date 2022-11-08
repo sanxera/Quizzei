@@ -14,17 +14,18 @@ import { listMyQuizzes, listPublicQuizzesByCategory, listPublicQuizzes } from '.
 
 import styles from './styles.less'
 import Filter from '../../components/Filter';
+import SliderCard from '../../components/Card/SliderCard';
 
 const { Title, Text } = Typography;
 
 const List = () => {
   const navigate = useNavigate();
-  const [sliderRef] = useKeenSlider({
-    slides: {
-      perView: 2,
-      spacing: 15,
-    },
-  })
+  // const [sliderRef] = useKeenSlider({
+  //   slides: {
+  //     perView: 5,
+  //     spacing: 15,
+  //   },
+  // })
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
   const [allQuizzes, setAllQuizzes] = useState({});
@@ -73,8 +74,6 @@ const List = () => {
       quiz = allQuizzes.quizzesInfoDto.filter(data => data.quizInfoUuid === quizInfoUuid)[0];
     }
 
-    console.log(quiz, '<<<<< quiz')
-
     switch (quizType) {
       case 'userQuizzes':
         handleModal(quiz);
@@ -119,10 +118,11 @@ const List = () => {
         <Col span={24} style={{ textAlign: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
         </Col>
+
         <Col span={24}>
           <Filter onSelect={onSelect} navigate={navigate} />
         </Col>
-        <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+        {/* <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
           {arrFilter.map(item => (
             <Row key={`arr-filter-${item.description}`}>
               <Col style={{ display: 'flex', justifyContent: 'center' }} span={24}>
@@ -139,7 +139,7 @@ const List = () => {
               </Col>
             </Row>
           ))}
-        </Col>
+        </Col> */}
       </Row>
 
       <div className={styles.quizContainer}>
@@ -149,10 +149,10 @@ const List = () => {
             <Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />
           </Col>
 
-          <Col ref={sliderRef} className={`keen-slide ${styles.listQuizzes}`}>
+          <Col className={`keen-slide ${styles.listQuizzes}`}>
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.length > 0 ? userQuizzes.quizzesInfoDto.map((item, index) => (
               <Card
-                cardName={`keen-slider__slide${index}`}
+                // cardName={`keen-slider__slide${index}`}
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
                 description={item.description}
@@ -167,31 +167,20 @@ const List = () => {
           <Col className={styles.quizCategory} span={24}>
             <Title level={3} >Quizzes Publicados</Title>
           </Col>
-          {/* <Col className={styles.listQuizzes}>
-            {publicQuizzes.quizzesInfoDto && publicQuizzes.quizzesInfoDto.length > 0 ? publicQuizzes.quizzesInfoDto.map((item, index) => (
-              <Card
-                key={`quizzes-${index}`}
-                isQuiz
-                logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
-                title={item.title}
-                description={item.description}
-                onClick={() => openInfoQuizzes(item)}
-                style={{ marginRight: 30, minHeight: '20rem', padding: 0 }} />
-            )) : (
-              <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
-            )}
-          </Col> */}
+
           <Col className={styles.listQuizzes}>
             <Row >
               {publicQuizzes.quizzesByCategories && publicQuizzes.quizzesByCategories.map(data => (
                 <Col style={{ left: 30, marginBottom: 30 }} span={24}>
                   <Title level={4} >{data.categoryName}</Title>
-                  {/* </Col>
-                <Col span={24}> */}
-                  <div style={{ display: 'flex', marginTop: 20 }}>
+
+                  <SliderCard data={data} openInfoQuizzes={openInfoQuizzes} />
+
+                  {/* <div ref={sliderRef} className="keen-slider" style={{ display: 'flex', marginTop: 20, width: '80vw' }}>
                     {
                       data.quizzesInfoResponses && data.quizzesInfoResponses.length > 0 ? data.quizzesInfoResponses.map((item, index) => (
                         <Card
+                          className="keen-slider__slide"
                           key={`quizzes-${index}`}
                           isQuiz
                           logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
@@ -200,12 +189,12 @@ const List = () => {
                           ownerNickName={item.ownerNickName}
                           numberOfQuestions={item.numberOfQuestions}
                           onClick={() => openInfoQuizzes(item)}
-                          style={{ marginRight: 30, minHeight: '20rem', padding: 0 }} />
+                          style={{ marginRight: 30, minHeight: '20rem', padding: 0, width: 240 }} />
                       )) : (
                         <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
                       )
                     }
-                  </div>
+                  </div> */}
                 </Col>
               ))}
             </Row>
@@ -225,7 +214,7 @@ const List = () => {
         {infoVisible && (
           <StartQuiz
             navigate={navigate}
-            data={data}
+            rowData={data}
             visible={infoVisible}
             onClose={() => setInfoVisible(false)}
           />

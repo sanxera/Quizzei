@@ -25,7 +25,7 @@ const Signin = () => {
     notification(notificationProps);
 
     if (isLogged) {
-      await navigate('/quiz');
+      await navigate('/dashboard');
       return;
     }
   };
