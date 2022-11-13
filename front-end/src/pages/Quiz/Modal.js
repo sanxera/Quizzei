@@ -56,8 +56,9 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
     let quizInfoUuid = data.quizInfoUuid;
     try {
       const { questions, ...restData } = await form.validateFields();
+      const isExistUuid = data.quizInfoUuid ? true : false;
       if (!restData) return;
-      switch (data.quizInfoUuid) {
+      switch (isExistUuid) {
         default:
           const { status } = await update(restData);
           if (status !== 'OK') return notification({ status: 'error', message: 'Erro ao atualizar o quiz.' })
@@ -73,7 +74,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
         await createQuestions(quizInfoUuid, { questions });
       }
 
-      notification({ status: 'success', message: data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
+      notification({ status: 'success', message: !data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
       await onCallback();
       await onCloseModal();
     } catch (error) {
