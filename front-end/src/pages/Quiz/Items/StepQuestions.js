@@ -39,7 +39,6 @@ const StepQuestion = ({ data, form }) => {
                   <Panel forceRender header={`Questão ${index + 1}`} key={index + 1} extra={genExtra(index, form)}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                       <Row key={question.key} style={{ marginBottom: 20, borderBottom: '1px solid', padding: 10 }} justify='center'>
-                        {data[index] && data[index].questionUuid ? ACTIONS['UPDATE'] : ACTIONS['CREATE']}
                         <Form.Item
                           {...question}
                           initialValue={data[index] && data[index].questionUuid ? ACTIONS['UPDATE'] : ACTIONS['CREATE']}
@@ -74,8 +73,6 @@ const StepQuestion = ({ data, form }) => {
                                     >
                                       <Input hidden />
                                     </Form.Item>
-
-                                      {console.log(form.getFieldsValue())}
                                     <Col span={22}>
                                       <Form.Item
                                         {...item}
@@ -85,7 +82,7 @@ const StepQuestion = ({ data, form }) => {
                                       >
                                         <Input disabled={form.getFieldsValue().questions && form.getFieldsValue().questions[question.fieldKey]?.options[index] && form.getFieldsValue().questions[question.fieldKey]?.options[index].action === 2} placeholder='Digite a opção aqui!' />
                                       </Form.Item>
-                                    
+
                                     </Col>
                                     <Col style={{ height: 50 }} span={1}>
                                       <Form.Item

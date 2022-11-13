@@ -9,7 +9,7 @@ import {
   FileSearchOutlined
 } from '@ant-design/icons';
 import { Button } from '../../components/Button'
-import { create, createQuestions, listQuestions } from '../../services/quiz';
+import { create, createQuestions, listQuestions, update } from '../../services/quiz';
 import { create as createCategory, list as listCategories } from '../../services/categories';
 import { notification } from '../../utils/notification';
 import { ModalCategory } from './ModalCategory';
@@ -53,20 +53,30 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   }
 
   async function onSubmit() {
+    let quizInfoUuid = data.quizInfoUuid;
     try {
       const { questions, ...restData } = await form.validateFields();
+      const isExistUuid = data.quizInfoUuid ? true : false;
       if (!restData) return;
-      const { createdQuizUuid } = await create(restData);
-      if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
-      if (!data.quizInfoUuid && questions && questions.length > 0) {
-        await createQuestions(createdQuizUuid, { questions });
+      switch (isExistUuid) {
+        default:
+          const { status } = await update(restData);
+          if (status !== 'OK') return notification({ status: 'error', message: 'Erro ao atualizar o quiz.' })
+          break;
+        case false:
+          const { createdQuizUuid } = await create(restData);
+          quizInfoUuid = createdQuizUuid;
+          if (!createdQuizUuid) return notification({ status: 'error', message: 'Falha ao criar o quiz.' });
+          break;
+
+      }
+      if (questions && questions.length > 0) {
+        await createQuestions(quizInfoUuid, { questions });
       }
 
-      setTimeout(async () => {
-        notification({ status: 'success', message: data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
-        await onCallback();
-        await onCloseModal();
-      }, 1000)
+      notification({ status: 'success', message: !data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
+      await onCallback();
+      await onCloseModal();
     } catch (error) {
       console.log('error submit => ', error)
       if (error) notification({ status: 'error', message: 'Preencha as informações do quiz!' });
@@ -99,9 +109,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           danger
           onClick={async () => {
             await form.resetFields();
-            setTimeout(async () => {
-              await onCloseModal()
-            }, 500)
+            await onCloseModal();
           }}
         />,
         <Button

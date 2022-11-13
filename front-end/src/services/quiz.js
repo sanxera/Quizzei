@@ -20,11 +20,28 @@ export async function create(params) {
   return response.data;
 }
 
+export async function update(params) {
+  const { quizInfoUuid, ...restParams } = params;
+  if (isEnvironmentDevelopment) return { status: 'OK' };
+  const auth = getAuthority();
+  const response = await request(`api/update-quiz-info/${quizInfoUuid}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+    data: {
+      ...restParams
+    },
+  });
+
+  return response.data;
+}
+
 export async function createQuestions(quizInfoUuid, params) {
   if (isEnvironmentDevelopment) return { createdQuizUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91d" };
   const auth = getAuthority();
   const response = await request(`api/questions/create-questions-with-options/${quizInfoUuid}`, {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${auth.token}`,
     },
