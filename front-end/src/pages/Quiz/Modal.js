@@ -60,7 +60,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
       if (!restData) return;
       switch (isExistUuid) {
         default:
-          const { status } = await update(restData);
+          const { status } = await update({ quizInfoUuid, ...restData });
           if (status !== 'OK') return notification({ status: 'error', message: 'Erro ao atualizar o quiz.' })
           break;
         case false:
