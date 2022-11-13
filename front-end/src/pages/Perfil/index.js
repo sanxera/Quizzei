@@ -57,8 +57,9 @@ const Perfil = ({ data, dispatch }) => {
 
       <Col span={12} style={{ textAlign: 'center' }}>
         <h2>Quizzes / Conteudo</h2>
-        {arrQuizzes.quizzesInfoDto && arrQuizzes.quizzesInfoDto.map(item => (
+        {arrQuizzes.quizzesInfoDto && arrQuizzes.quizzesInfoDto.map((item, index) => (
           <Card
+            key={`perfil-quizzes-${index}`}
             className={styles.card}
             hoverable
             style={{ width: '100%', marginTop: '3rem' }}

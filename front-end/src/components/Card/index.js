@@ -32,8 +32,8 @@ const Card = ({ logo, title, ownerNickName, numberOfQuestions, description = '',
             }
             description={
               <div style={{ width: 200 }}>
-                <Text ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}
-                  // className={styles.text}
+                <Text ellipsis={{ rows: 1 }}
+                // className={styles.text}
                 >{description}</Text>
                 {isQuiz && (
                   <Row style={{ marginTop: 20, marginBottom: 20 }} justify='center'>

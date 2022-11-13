@@ -33,8 +33,8 @@ const Dashboard = () => {
         <Col span={16}>
           <Title level={2}>Quizzes recente</Title>
           <Timeline style={{ marginLeft: 20 }}>
-            {history.quizzesHistoryInformation && history.quizzesHistoryInformation.length > 0 && history?.quizzesHistoryInformation.map(item => (
-              <Timeline.Item>
+            {history.quizzesHistoryInformation && history.quizzesHistoryInformation.length > 0 && history?.quizzesHistoryInformation.map((item, index) => (
+              <Timeline.Item key={`history-recent-quizzes-${index}`}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', padding: 30, borderRadius: 10, border: '1px solid', paddingBottom: 10 }}>
                   <div>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>

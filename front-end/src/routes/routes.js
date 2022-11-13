@@ -1,5 +1,5 @@
 import React from 'react';
-import { Result, Button, PageHeader } from 'antd';
+import { Result, Button } from 'antd';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Signin from '../pages/Session/Login/index';
 import ProtectedRoutes from './protectedRoutes';
@@ -16,13 +16,15 @@ export const RoutesList = () => {
       <Route path="/register" element={<Register navigate={navigate} />} />
       <Route path="/recovery-password" element={<div>Recuperar senha</div>} />
       <Route element={<ProtectedRoutes />}>
-        {routes.map(route => <Route path={route.path} element={
-          <LayoutWrapper>
-            {/* <PageHeader title="Quizzes" subTitle="Lista do seus quizzes e outros publicados por usuarios / instituições"> */}
-            {route.element}
-            {/* </PageHeader> */}
-          </LayoutWrapper >
-        } />)}
+        {routes.map((route, index) =>
+          <Route key={`route${index}`} path={route.path} element={
+            <LayoutWrapper>
+              {/* <PageHeader title="Quizzes" subTitle="Lista do seus quizzes e outros publicados por usuarios / instituições"> */}
+              {route.element}
+              {/* </PageHeader> */}
+            </LayoutWrapper >
+          } />
+        )}
       </Route >
 
       <Route path="*" element={

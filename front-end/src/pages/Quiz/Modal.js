@@ -53,7 +53,6 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   }
 
   async function onSubmit() {
-    console.log('xxxx')
     try {
       const { questions, ...restData } = await form.validateFields();
       if (!restData) return;

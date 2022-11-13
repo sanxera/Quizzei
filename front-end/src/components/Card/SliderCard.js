@@ -46,43 +46,42 @@ const SliderCard = ({ data, openInfoQuizzes }) => {
   return (
     <div ref={sliderRef} className="keen-slider" style={{ display: 'flex', marginTop: 20, width: '80vw' }}>
       {data.quizzesInfoResponses.map((item, index) => (
-        <>
-          <Card
-            className="keen-slider__slide card"
-            key={`quizzes-${index}`}
-            isQuiz
-            logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
-            title={item.title}
-            description={item.description}
-            ownerNickName={item.ownerNickName}
-            numberOfQuestions={item.numberOfQuestions}
-            onClick={() => openInfoQuizzes(item)}
-            style={{ marginRight: 30, marginLeft: 0, minHeight: '20rem', padding: 0, width: 240 }} 
-            />
-          {/* {
-            loaded && instanceRef.current && (
-              <>
-                <Arrow
-                  left
-                  onClick={(e) =>
-                    e.stopPropagation() || instanceRef.current?.prev()
-                  }
-                  disabled={currentSlide === 0}
-                />
 
-                <Arrow
-                  onClick={(e) =>
-                    e.stopPropagation() || instanceRef.current?.next()
-                  }
-                  disabled={
-                    currentSlide ===
-                    instanceRef.current.track.details.slides.length - 1
-                  }
-                />
-              </>
-            )
-          } */}
-        </>
+        <Card
+          className="keen-slider__slide card"
+          key={`quizzes-${index}`}
+          isQuiz
+          logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
+          title={item.title}
+          description={item.description}
+          ownerNickName={item.ownerNickName}
+          numberOfQuestions={item.numberOfQuestions}
+          onClick={() => openInfoQuizzes(item)}
+          style={{ marginRight: 30, marginLeft: 0, minHeight: '20rem', padding: 0, width: 240 }}
+        />
+        // {/* {
+        //   loaded && instanceRef.current && (
+        //     <>
+        //       <Arrow
+        //         left
+        //         onClick={(e) =>
+        //           e.stopPropagation() || instanceRef.current?.prev()
+        //         }
+        //         disabled={currentSlide === 0}
+        //       />
+
+        //       <Arrow
+        //         onClick={(e) =>
+        //           e.stopPropagation() || instanceRef.current?.next()
+        //         }
+        //         disabled={
+        //           currentSlide ===
+        //           instanceRef.current.track.details.slides.length - 1
+        //         }
+        //       />
+        //     </>
+        //   )
+        // } */}
       ))}
     </div>
   )

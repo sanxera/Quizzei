@@ -85,33 +85,6 @@ const List = () => {
     }
   }
 
-  const arrFilter = [
-    {
-      description: 'Programação',
-      logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtL8rQ0JI7gAvQ0apgQlbTc1_8iNbZp-VroD_wSmk8yOviTzEnvznx7W9TdFomegR_un8&usqp=CAU',
-    },
-    {
-      description: 'Matematica',
-      logo: 'https://img.freepik.com/free-vector/calculator-concept-illustration_114360-1259.jpg?w=2000',
-    },
-    {
-      description: 'Geografia',
-      logo: 'https://img.freepik.com/free-vector/geography-teacher-explaining-lesson-pupil-woman-with-pointer-girl-planet-model-flat-illustration_74855-10671.jpg?w=2000',
-    },
-    {
-      description: 'Portugues',
-      logo: 'https://c8.alamy.com/comp/2C50YRR/open-book-education-and-reading-concept-book-festival-back-to-school-modern-vector-illustration-in-flat-style-2C50YRR.jpg',
-    },
-    {
-      description: 'Ciencia',
-      logo: 'https://st4.depositphotos.com/4006379/39000/v/950/depositphotos_390004064-stock-illustration-science-chemistry-icon-logo-vector.jpg?forcejpeg=true',
-    },
-    {
-      description: 'Fisíca',
-      logo: 'https://previews.123rf.com/images/stockgiu/stockgiu1709/stockgiu170905590/86637891-f%C3%ADsica-%C3%B3rbita-qu%C3%ADmica-ciencia-educaci%C3%B3n-vector-ilustraci%C3%B3n.jpg',
-    },
-  ];
-
   return (
     <>
       <Row>
@@ -122,24 +95,6 @@ const List = () => {
         <Col span={24}>
           <Filter onSelect={onSelect} navigate={navigate} />
         </Col>
-        {/* <Col span={24} style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
-          {arrFilter.map(item => (
-            <Row key={`arr-filter-${item.description}`}>
-              <Col style={{ display: 'flex', justifyContent: 'center' }} span={24}>
-                <ButtonAntd
-                  // size='large'
-                  icon={<img style={{ width: '100%', height: 50, borderRadius: '20px 20px 20px 20px' }} alt="example" src={item.logo} />}
-                  type="link"
-                  shape='circle'
-                  style={{ backgroundColor: '#FFFF', borderColor: '#FFFF', }}
-                />
-              </Col>
-              <Col span={24} style={{ marginTop: 30, display: 'flex', justifyContent: 'center' }}>
-                <Text strong>{item.description}</Text>
-              </Col>
-            </Row>
-          ))}
-        </Col> */}
       </Row>
 
       <div className={styles.quizContainer}>
@@ -152,6 +107,7 @@ const List = () => {
           <Col className={`keen-slide ${styles.listQuizzes}`}>
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.length > 0 ? userQuizzes.quizzesInfoDto.map((item, index) => (
               <Card
+                key={`my-quizzes-${index}`}
                 // cardName={`keen-slider__slide${index}`}
                 logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
                 title={item.title}
@@ -170,8 +126,8 @@ const List = () => {
 
           <Col className={styles.listQuizzes}>
             <Row >
-              {publicQuizzes.quizzesByCategories && publicQuizzes.quizzesByCategories.map(data => (
-                <Col style={{ left: 30, marginBottom: 30 }} span={24}>
+              {publicQuizzes.quizzesByCategories && publicQuizzes.quizzesByCategories.map((data, index) => (
+                <Col key={`public-quizzes-${index}`} style={{ left: 30, marginBottom: 30 }} span={24}>
                   <Title level={4} >{data.categoryName}</Title>
 
                   <SliderCard data={data} openInfoQuizzes={openInfoQuizzes} />

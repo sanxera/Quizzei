@@ -69,7 +69,7 @@ const Quiz = ({ data: { quizProcessUuid, questions: data } }) => {
   return (
     <div>
       <Steps progressDot current={current}>
-        {steps.map(item => (
+        {steps.map((item) => (
           <Step key={item.question} />
         ))}
       </Steps>
