@@ -15,5 +15,10 @@ namespace QZI.Quizzei.Infra.Data.Repository
         {
             return await Context.Options.FirstOrDefaultAsync(x => x.QuestionOptionUuid == id);
         }
+
+        public void Delete(QuestionOption option)
+        {
+            Context.Options.Remove(option);
+        }
     }
 }

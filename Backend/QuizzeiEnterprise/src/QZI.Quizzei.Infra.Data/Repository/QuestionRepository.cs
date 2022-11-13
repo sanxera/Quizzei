@@ -26,5 +26,10 @@ namespace QZI.Quizzei.Infra.Data.Repository
                 .Include(x => x.Options)
                 .Where(x => x.QuizInfoUuid == quizInfoUuid).ToListAsync();
         }
+
+        public void Delete(Question question)
+        {
+            Context.Questions.Remove(question);
+        }
     }
 }

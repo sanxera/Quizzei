@@ -17,12 +17,12 @@ namespace QZI.Quizzei.API.Controllers
             _questionService = questionService;
         }
 
-        [HttpPost("create-questions-with-options/{quizInfoUuid:guid}")]
-        public async Task<IActionResult> CreateQuestionsWithOptions(Guid quizInfoUuid, [FromBody] CreateQuestionsRequest request)
+        [HttpPatch("create-questions-with-options/{quizInfoUuid:guid}")]
+        public async Task<IActionResult> CreateQuestionsWithOptions(Guid quizInfoUuid, [FromBody] UpdateQuestionsWithOptionsRequest request)
         {
-            var response = await _questionService.CreateQuestions(quizInfoUuid, request);
+             await _questionService.UpdateQuestions(quizInfoUuid, request);
 
-            return Ok(response);
+            return Ok();
         }
 
         [HttpGet("get-questions-by-quiz/{quizInfoUuid:guid}")]

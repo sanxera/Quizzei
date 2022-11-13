@@ -7,7 +7,7 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions
 {
     public interface IQuestionService
     {
-        Task<CreateQuestionsResponse> CreateQuestions(Guid quizInfoUuid, CreateQuestionsRequest request);
+        Task UpdateQuestions(Guid quizInfoUuid, UpdateQuestionsWithOptionsRequest request);
         Task<GetQuestionsWithOptionsByQuizResponse> GetQuestionWithOptionsByQuizInfo(Guid quizInfo);
     }
 }

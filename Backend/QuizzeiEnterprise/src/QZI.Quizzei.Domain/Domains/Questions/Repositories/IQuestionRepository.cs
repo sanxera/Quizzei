@@ -10,5 +10,6 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Repositories
     {
         Task<Question> GetQuestionById(Guid id);
         Task<IList<Question>> GetQuestionsByQuizInfo(Guid quizInfoUuid);
+        void Delete(Question question);
     }
 }

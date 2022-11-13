@@ -648,6 +648,7 @@ export async function listPublicQuizzesByCategory() {
 export async function ratingQuiz(quizProcessUuid, value) {
   const auth = getAuthority();
   const response = await request(`api/quizzes-process/rating-quiz/${quizProcessUuid}?rate=${value}`, {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${auth.token}`
     }

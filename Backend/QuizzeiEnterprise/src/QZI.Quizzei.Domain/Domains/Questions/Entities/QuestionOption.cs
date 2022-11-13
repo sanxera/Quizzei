@@ -14,12 +14,25 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Entities
         public Guid QuestionUuid { get; set; }
         public Question Question { get; set; }
 
-        public static List<QuestionOption> CreateAnyOptions(List<QuestionOptionsRequest> questionsRequest)
+        public QuestionOption()
+        {
+
+        }
+
+        public QuestionOption(string description, bool isCorrect, Guid questionUuid, Question question)
+        {
+            Description = description;
+            IsCorrect = isCorrect;
+            QuestionUuid = questionUuid;
+            Question = question;
+        }
+
+        public static List<QuestionOption> CreateAnyOptions(List<UpdateOptions> questionsRequest)
         {
             return questionsRequest.Select(CreateQuestionOption).ToList();
         }
 
-        private static QuestionOption CreateQuestionOption(QuestionOptionsRequest request)
+        private static QuestionOption CreateQuestionOption(UpdateOptions request)
         {
             return new QuestionOption()
             {
