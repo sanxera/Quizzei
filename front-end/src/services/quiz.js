@@ -24,7 +24,7 @@ export async function update(params) {
   const { quizInfoUuid, ...restParams } = params;
   if (isEnvironmentDevelopment) return { status: 'OK' };
   const auth = getAuthority();
-  const response = await request(`api/update-quiz-info/${quizInfoUuid}`, {
+  const response = await request(`api/quizzes-info/update-quiz-info/${quizInfoUuid}`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${auth.token}`

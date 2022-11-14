@@ -30,7 +30,9 @@ namespace QZI.Quizzei.API.Controllers
         [HttpPatch("update-quiz-info/{quizInfoUuid:guid}")]
         public async Task<IActionResult> UpdateQuizInfo(Guid quizInfoUuid, [FromBody] UpdateQuizInformationRequest request)
         {
-            return Ok();
+            await _quizInformationService.UpdateQuizInformation(quizInfoUuid, request);
+
+            return Ok(new {Status = "OK"});
         }
 
         [HttpGet("get-all-by-user")]
