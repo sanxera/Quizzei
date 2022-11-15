@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout, Menu, Avatar, Typography, Divider } from 'antd';
-import { Gauge, ChatCenteredText, Folder, Gear, SignOut, UserFocus } from 'phosphor-react'
+import { Gauge, ChatCenteredText, Folder, Gear, SignOut } from 'phosphor-react'
 import logoQuizzei from '../../image/logo-quizzei.png';
 import { setAuthority } from '../../utils/auth';
 
 import styles from './styles.less'
+import { getUser } from '../../services/session';
 
 const { Sider } = Layout;
 const { Title, Text } = Typography;
 
 const SiderMenu = () => {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState('quiz');
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  if (!user || !user.nickName) return <div />;
+
+  async function init() {
+    const user = await getUser();
+    console.log("🚀 ~ file: SiderMenu.js ~ line 27 ~ init ~ user", user)
+    setUser(user);
+  }
 
   async function logout() {
     await setAuthority({ token: null });
     await navigate('/');
   }
-
-
-  const onClick = (e) => {
-    setCurrent(e.key);
-  };
 
   const items = [
     {
@@ -92,9 +100,10 @@ const SiderMenu = () => {
           }}
           size={64}
           gap={4}
-        >L</Avatar>
+        >{user.nickName[0]}</Avatar>
 
-        <Title style={{ color: 'white', marginTop: 20 }} level={3}>Luiz Eduardo</Title>
+        <Title style={{ color: 'white', marginTop: 20 }} level={3}>{user.nickName}</Title>
+        <Text style={{ color: 'white', marginTop: 20 }}>{user.email}</Text>
 
         {/* <div>
           <div style={{ display: 'flex', alignItems: 'center', color: '#fff', grid: 20 }}>
@@ -103,7 +112,12 @@ const SiderMenu = () => {
         </div> */}
       </div>
       <Divider style={{ backgroundColor: '#fff' }} />
-      <Menu style={{ backgroundColor: '#47a7f0', color: '#fff', marginTop: 25, marginLeft: 13 }} mode="inline" defaultSelectedKeys={['4']} items={items} />
+      <Menu
+        style={{ backgroundColor: '#47a7f0', color: '#fff', marginTop: 25, marginLeft: 13, overflow: 'hidden' }}
+        mode="inline"
+        defaultSelectedKeys={['4']}
+        items={items}
+      />
 
     </Sider>
   )

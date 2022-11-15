@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Input, Select, Typography } from 'antd';
+import { Form, Input, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 import { Button } from '../../../components/Button';
 import { register } from '../../../services/session';
@@ -9,7 +9,6 @@ import './index.css';
 import { notification } from '../../../utils/notification';
 
 const { Option } = Select;
-const { Text } = Typography;
 
 const INPUT_STYLE = {
   borderBottom: '1px solid',
@@ -19,6 +18,7 @@ const INPUT_STYLE = {
 const FormComponent = ({ navigate }) => {
   const [password, setPassword] = useState(null);
   const [disable, setDisable] = useState(false);
+  
   async function onFinish(data) {
     const { created } = await register(data);
     const status = created ? 'success' : 'error';
