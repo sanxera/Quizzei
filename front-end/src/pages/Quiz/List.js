@@ -3,9 +3,6 @@ import { Row, Col, Typography, Button as ButtonAntd } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-
-import { useKeenSlider } from "keen-slider/react"
-
 import Card from '../../components/Card';
 import { Button } from '../../components/Button';
 import ModalQuiz from './Modal';
@@ -16,7 +13,7 @@ import styles from './styles.less'
 import Filter from '../../components/Filter';
 import SliderCard from '../../components/Card/SliderCard';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const List = () => {
   const navigate = useNavigate();

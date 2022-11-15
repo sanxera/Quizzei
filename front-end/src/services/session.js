@@ -60,3 +60,22 @@ export async function verifiedRequest() {
 
   return response.data;
 }
+
+export async function getUser() {
+  if (isEnvironmentDevelopment) return {
+    userUuid: "220fe8e1-b06d-4da1-bf33-2e6f5e4dbcb8",
+    email: "manuel123@gmail.com",
+    nickName: "Luiz Eduardo",
+    roleUuid: "0bd3463c-95dd-4dce-ae51-7c2c62609860",
+    roleName: "Aluno"
+  };
+
+  const auth = getAuthority();
+  const response = await request('api/users/get-logged-user-details', {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  });
+
+  return response.data;
+}
