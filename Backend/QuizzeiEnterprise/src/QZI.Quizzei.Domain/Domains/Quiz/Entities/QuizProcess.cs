@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.ComponentModel.DataAnnotations.Schema;
 using QZI.Quizzei.Domain.Abstractions;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities.Enums;

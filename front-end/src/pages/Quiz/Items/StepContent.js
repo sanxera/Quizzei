@@ -11,7 +11,7 @@ const props = {
   headers: {
     enctype: 'multipart/form-data',
   },
-  action: `${REACT_APP_QUIZZEI_BACKEND_URL}/api/files/upload-pdf`,
+  action: `${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-pdf`,
   onChange(info) {
     const { status } = info.file;
     if (status !== 'uploading') {

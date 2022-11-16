@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions;
-using QZI.Quizzei.Domain.Domains.Questions.Services.Requests;
+using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
 
 namespace QZI.Quizzei.API.Controllers
 {
@@ -15,25 +10,46 @@ namespace QZI.Quizzei.API.Controllers
     [Route("api/files")]
     public class FilesController : Controller
     {
-        [HttpPost("upload-pdf")]
-        public async Task<IActionResult> UploadPdf(IFormFile file)
+        private readonly IFilesService _filesService;
+
+        public FilesController(IFilesService filesService)
         {
+            _filesService = filesService;
+        }  
+
+        [HttpPost("upload/{quizInfoUuid:guid}")]
+        public async Task<IActionResult> Upload(Guid quizInfoUuid, IFormFile file)
+        {
+            var fileName = file.FileName;
             var stream = file.OpenReadStream();
 
-            var s3Client = new AmazonS3Client("ASIA5VCJBR53PWMPG5OZ", "BPOLUnUpe8ghI2fxQZPKtVySdFdnKvk5NMIs28h3", "FwoGZXIvYXdzEA0aDHZy3hP2ibc15jLedSLCAQqSzOgO6/rxMX/SUsPTulKe2c7CbSkhvKym6E/w8ixrz4GRhnRcAVvnctxWp5D16kDyXcii6f3Ni9lj/EI3aXwMirGX1/fV4gQ8+cpNuz/wuMw/MAYfyp+QYxBp8IbHUFDrC+ovLgd0VYFCMCJ2Q+3t7Fdi8RiuN7qAMzIyKKz/YvcIM+X4F+g7iF8K2htBWVvGQVrglZolrwLeflGrn3yOuLbpjtKxLWbpHtACloOgT/LJv+Iq0PH0t7TSxr44e0a6KMfGz5sGMi3ysqpNWnXJsFZ21z9618EsMESDXIpmtMMLy9I094PgaDWw1I+jmC0kzhfOOnM=", RegionEndpoint.USEast1);
+            var response = await _filesService.UploadFileToBucket(quizInfoUuid, fileName, stream);
 
-            var s3Request = new PutObjectRequest
-            {
-                BucketName = "quizzei-bucket",
-                Key = "meuarquivo.pdf",
-                InputStream = stream,
-                ContentType = "application/pdf",
-                CannedACL = S3CannedACL.BucketOwnerFullControl
-            };
+            return Ok(response);
+        }
 
-            var s3Response = await s3Client.PutObjectAsync(s3Request);
+        [HttpGet("get-files-from-quiz-information/{quizInfoUuid:guid}")]
+        public async Task<IActionResult> GetFilesFromQuizInformation(Guid quizInfoUuid)
+        {
+            var response = await _filesService.GetFilesFromQuizInfo(quizInfoUuid);
 
-            return Ok();
+            return Ok(response);
+        }
+
+        [HttpGet("get-all-files")]
+        public async Task<IActionResult> GetAllFiles()
+        {
+            var response = await _filesService.GetRandomFiles();
+
+            return Ok(response);
+        }
+
+        [HttpGet("download-file/{fileUuid:guid}")]
+        public async Task<IActionResult> DownloadFile(Guid fileUuid)
+        {
+            var response = await _filesService.DownloadFileFromS3(fileUuid);
+
+            return File(response.FileStream, "application/pdf", response.FileName);
         }
     }
 }

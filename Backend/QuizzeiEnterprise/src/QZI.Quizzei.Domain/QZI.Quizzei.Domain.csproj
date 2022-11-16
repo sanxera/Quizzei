@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domains\Quiz\Services\Requests\Files\" />
+  </ItemGroup>
+
 </Project>
