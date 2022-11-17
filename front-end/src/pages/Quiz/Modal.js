@@ -147,16 +147,18 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           <StepQuestion data={questions || []} form={form} />
         </TabPane>
 
-        <TabPane
-          tab={
-            <>
-              <FileSearchOutlined />
-              Conteúdo
-            </>
-          }
-          key="3" >
-          <StepContent data={data} />
-        </TabPane>
+        {data && data.quizInfoUuid && (
+          <TabPane
+            tab={
+              <>
+                <FileSearchOutlined />
+                Conteúdo
+              </>
+            }
+            key="3" >
+            <StepContent data={data} />
+          </TabPane>
+        )}
       </Tabs>
 
       {modalCategoryVisible && <ModalCategory visible={modalCategoryVisible} onAdd={onAddCategory} onClose={() => setModalCategoryVisible(false)} />}

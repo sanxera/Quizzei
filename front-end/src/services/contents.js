@@ -47,5 +47,4 @@ export async function getAllFiles() {
 
   const response = await request(`api/files/get-all-files`);
   return response.data;
-
 }
