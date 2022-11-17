@@ -155,7 +155,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
             </>
           }
           key="3" >
-          <StepContent form={form} />
+          <StepContent data={data} />
         </TabPane>
       </Tabs>
 
