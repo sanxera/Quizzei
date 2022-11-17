@@ -7,7 +7,7 @@ const SliderCard = ({ data, openInfoQuizzes }) => {
   const [sliderRef] = useKeenSlider({
     initial: 0,
     slides: {
-      perView: 6,
+      perView: 4.8,
       spacing: 1,
     },
     renderMode: 'performance'
