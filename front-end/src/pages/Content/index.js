@@ -37,7 +37,7 @@ const Content = () => {
                 className='card-content'
                 style={{ width: 250, marginTop: 16 }}
                 actions={[
-                  <ButtonAntd type="link" href={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/download-file/${file.fileCreateUuid}`} target="_blank">Baixar</ButtonAntd>,
+                  <ButtonAntd type="link" href={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/download-file/${file.fileCreatedUuid}`} target="_blank">Baixar</ButtonAntd>,
                 ]}
               >
                 <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
