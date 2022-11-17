@@ -8,7 +8,7 @@ const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env
 const { Dragger } = Upload;
 
 const StepContent = ({ data }) => {
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState(null);
 
   const props = {
     name: 'file',
@@ -48,7 +48,7 @@ const StepContent = ({ data }) => {
     setFileList(files);
   }
 
-  if (fileList.length === 0) return <div />;
+  if (!fileList) return <div />;
 
   return (
     <div style={{ padding: 10 }}>
