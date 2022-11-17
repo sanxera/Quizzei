@@ -42,7 +42,7 @@ const Content = () => {
               >
                 <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                   <FilePdf size={50} />
-                  <Text>Logica de programação</Text>
+                  <Text>{file.fileName}</Text>
                 </div>
               </Card>
             </Col>
