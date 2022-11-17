@@ -25,6 +25,7 @@ const StartQuiz = ({ navigate, visible, rowData, onClose, dispatch }) => {
       type: 'INIT_QUIZ',
       data: {
         quizProcessUuid: quizProcessCreatedUuid,
+        quizInfoUuid,
         questions
       },
     });
