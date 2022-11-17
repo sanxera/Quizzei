@@ -12,26 +12,17 @@ const Register = ({ navigate }) => {
   return (
     <LayoutWrapper
       hasHeader={false}
-      // header={
-      //   <div style={{ display: 'flex', justifyContent: 'end', padding: 10 }}>
-      //     <Button
-      //       title={<Title level={3} style={{ color: '#47a7f0' }}>Login</Title>}
-      //       type="link" style={{ borderBottom: '1px solid' }}
-      //       onClick={() => navigate('/')}
-      //     />
-      //   </div>
-      // }
       hasFooter={false}
       style={{ backgroundColor: '#FFFF', }}
     >
-      <Row style={{ marginTop: 60}}>
+      <Row style={{ marginTop: 60 }} justify="center">
         <Col span={16} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img
             alt="logo"
             src={loginImage}
             style={{ width: '90%', height: 'auto', marginBottom: 50 }} />
         </Col>
-        <Col style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center', marginBottom: 70 }} span={8}>
+        <Col style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: 20 }} span={8}>
           <Title style={{ textAlign: 'center', marginBottom: 50, color: '#47a7f0' }} level={2} >Cadastro</Title>
           <FormComponent navigate={navigate} />
         </Col>

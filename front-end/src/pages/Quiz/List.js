@@ -126,28 +126,7 @@ const List = () => {
               {publicQuizzes.quizzesByCategories && publicQuizzes.quizzesByCategories.map((data, index) => (
                 <Col key={`public-quizzes-${index}`} style={{ left: 30, marginBottom: 30 }} span={24}>
                   <Title level={4} >{data.categoryName}</Title>
-
                   <SliderCard data={data} openInfoQuizzes={openInfoQuizzes} />
-
-                  {/* <div ref={sliderRef} className="keen-slider" style={{ display: 'flex', marginTop: 20, width: '80vw' }}>
-                    {
-                      data.quizzesInfoResponses && data.quizzesInfoResponses.length > 0 ? data.quizzesInfoResponses.map((item, index) => (
-                        <Card
-                          className="keen-slider__slide"
-                          key={`quizzes-${index}`}
-                          isQuiz
-                          logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
-                          title={item.title}
-                          description={item.description}
-                          ownerNickName={item.ownerNickName}
-                          numberOfQuestions={item.numberOfQuestions}
-                          onClick={() => openInfoQuizzes(item)}
-                          style={{ marginRight: 30, minHeight: '20rem', padding: 0, width: 240 }} />
-                      )) : (
-                        <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
-                      )
-                    }
-                  </div> */}
                 </Col>
               ))}
             </Row>

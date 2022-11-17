@@ -23,7 +23,6 @@ const SiderMenu = () => {
 
   async function init() {
     const user = await getUser();
-    console.log("🚀 ~ file: SiderMenu.js ~ line 27 ~ init ~ user", user)
     setUser(user);
   }
 
@@ -70,7 +69,7 @@ const SiderMenu = () => {
     <Sider
       // className={styles.header}
       style={{
-        overflow: 'auto',
+        overflow: 'hidden',
         height: '100vh',
         position: 'fixed',
         left: 0,
@@ -94,7 +93,8 @@ const SiderMenu = () => {
       <div style={{ marginTop: 20 }}>
         <Avatar
           style={{
-            backgroundColor: '#f56a00',
+            // backgroundColor: "#" + ((1 << 24) * Math.random() | 0).toString(16),
+            backgroundColor: '#51d1f3', 
             verticalAlign: 'middle',
             border: '1px solid #fff'
           }}
@@ -112,12 +112,14 @@ const SiderMenu = () => {
         </div> */}
       </div>
       <Divider style={{ backgroundColor: '#fff' }} />
-      <Menu
-        style={{ backgroundColor: '#47a7f0', color: '#fff', marginTop: 25, marginLeft: 13, overflow: 'hidden' }}
-        mode="inline"
-        defaultSelectedKeys={['4']}
-        items={items}
-      />
+      <div>
+        <Menu
+          style={{ backgroundColor: '#47a7f0', color: '#fff', marginTop: 25, overflow: 'hidden', border: 'none' }}
+          mode="inline"
+          defaultSelectedKeys={['4']}
+          items={items}
+        />
+      </div>
 
     </Sider>
   )
