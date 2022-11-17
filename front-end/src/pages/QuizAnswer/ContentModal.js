@@ -33,7 +33,7 @@ const ContentModal = ({ visible, data, onClose }) => {
         {files.length > 0 && files.map(file => (
           <ButtonAntd
             type="link"
-            href={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/download-file/${file.fileCreateUuid}`}
+            href={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/download-file/${file.fileCreatedUuid}`}
             target="_blank"
             style={{ fontSize: 20, marginBottom: 10 }}
             icon={<FilePdfOutlined />}
