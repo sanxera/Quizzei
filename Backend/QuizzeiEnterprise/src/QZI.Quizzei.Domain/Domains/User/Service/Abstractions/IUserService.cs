@@ -13,5 +13,6 @@ namespace QZI.Quizzei.Domain.Domains.User.Service.Abstractions
         Task<UserBaseResponse> GetUserByEmail(string email);
         Task<UserBaseResponse> GetUserById(Guid userUuid);
         Task<GetUserDetailsResponse?> GetUserDetails(GetUserDetailsRequest request);
+        Task<GetUserDetailsResponse?> GetUserDetails(GetLoggedUserDetailsRequest request);
     }
 }

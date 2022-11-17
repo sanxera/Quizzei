@@ -70,7 +70,7 @@ const SiderMenu = () => {
     <Sider
       // className={styles.header}
       style={{
-        overflow: 'auto',
+        overflow: 'hidden',
         height: '100vh',
         position: 'fixed',
         left: 0,

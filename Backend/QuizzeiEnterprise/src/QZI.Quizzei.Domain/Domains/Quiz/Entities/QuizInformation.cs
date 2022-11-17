@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using QZI.Quizzei.Domain.Abstractions;
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Entities
@@ -12,6 +13,8 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Entities
         public bool Active { get; set; }
         public int CategoryId { get; set; }
         public Guid UserOwnerId { get; set; }
+
+        public ICollection<QuizInformationFile> Files { get; set; } = new List<QuizInformationFile>();
 
         public static QuizInformation CreateQuizInfo(string title, string description, Guid userOwner, int categoryId)
         {

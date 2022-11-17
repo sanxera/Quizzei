@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -76,6 +77,19 @@ namespace QZI.Quizzei.API.Controllers
         public async Task<IActionResult> GetUserDetails(Guid userUuid)
         {
             var user = await _userService.GetUserDetails(new GetUserDetailsRequest { UserUuid = userUuid });
+
+            if (user is null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+
+        [HttpGet("get-logged-user-details")]
+        public async Task<IActionResult> GetLoggedUserDetails()
+        {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            var user = await _userService.GetUserDetails(new GetLoggedUserDetailsRequest { Email = email });
 
             if (user is null)
                 return NotFound();

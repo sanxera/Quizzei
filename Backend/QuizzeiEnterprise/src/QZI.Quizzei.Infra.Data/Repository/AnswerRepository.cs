@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Domains.Questions.Entities;
 using QZI.Quizzei.Domain.Domains.Questions.Repositories;
 using QZI.Quizzei.Infra.Data.Repository.Base;

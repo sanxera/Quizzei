@@ -25,6 +25,7 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IQuizProcessService, QuizProcessService>();
             services.AddScoped<IQuizInformationService, QuizInformationService>();
             services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IFilesService, FilesService>();
         }
     }
 }

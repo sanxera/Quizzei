@@ -104,6 +104,26 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
                 };
         }
 
+        public async Task<GetUserDetailsResponse?> GetUserDetails(GetLoggedUserDetailsRequest request)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+
+            if (user is null)
+                return null;
+
+            var role = await _userManager.GetRolesAsync(user);
+            var roleMain = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Name == role.FirstOrDefault());
+
+            return new GetUserDetailsResponse
+            {
+                Email = user.Email,
+                UserUuid = Guid.Parse(user.Id),
+                NickName = user.NickName,
+                RoleUuid = Guid.Parse(roleMain.Id),
+                RoleName = roleMain.Name
+            };
+        }
+
         private async Task AssignRoleToUser(ApplicationUser user, Guid roleGuid)
         {
             var role = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == roleGuid.ToString());

@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.101.16" />
+    <PackageReference Include="AWSSDK.S3Control" Version="3.7.101.8" />
     <PackageReference Include="FluentValidation" Version="10.1.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.6" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domains\Quiz\Services\Requests\Files\" />
   </ItemGroup>
 
 </Project>

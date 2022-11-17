@@ -44,6 +44,14 @@ namespace QZI.Quizzei.Infra.Data.Mapping
 
             builder.HasKey(e => e.QuizInfoUuid)
                 .HasName("QUIZ_UUID");
+
+            builder
+                .HasMany(x => x.Files)
+                .WithOne(f => f.QuizInformation)
+                .HasForeignKey(e => new
+                {
+                    QUIZ_INFO_UUID = e.QuizInfoUuid
+                });
         }
     }
 }

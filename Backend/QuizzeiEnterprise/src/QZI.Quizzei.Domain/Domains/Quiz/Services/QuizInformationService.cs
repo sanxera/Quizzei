@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
 using QZI.Quizzei.Domain.Domains.Categories.Entities;
@@ -108,6 +107,18 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
             await GetQuizInformationByProcess(quizzesProcess);
 
             return await CreateQuizzesHistoryResponse(quizzesProcess, user);
+        }
+
+        public async Task UpdateQuizInformation(Guid quizInfoUuid, UpdateQuizInformationRequest request)
+        {
+            var quizInfo = await _quizInfoRepository.GetQuizInfoById(quizInfoUuid);
+
+            quizInfo.Description = request.Description;
+            quizInfo.Title = request.Title;
+            quizInfo.CategoryId = request.CategoryId;
+
+            _quizInfoRepository.Update(quizInfo);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         private async Task<GetQuizzesResponse> CreateQuizzesResponse(IEnumerable<QuizInformation> quizzes, UserBaseResponse user)
