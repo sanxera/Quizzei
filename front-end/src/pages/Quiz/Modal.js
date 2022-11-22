@@ -33,7 +33,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   const titleModal = data && data.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
 
   useEffect(() => {
-    // loadQuestions();
+    loadQuestions();
     loadCategories();
   }, []);
 
@@ -186,7 +186,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           }
           key="2" >
           <>
-            {!showQuestions ? (
+            {!showQuestions && questions.length === 0 ? (
               <Row justify='center' style={{ marginTop: 50 }}>
                 <Col>
                   <ButtonAntd
