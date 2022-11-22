@@ -2,6 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using QZI.Quizzei.Domain.Domains.Categories.Service;
 using QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions;
+using QZI.Quizzei.Domain.Domains.Files;
+using QZI.Quizzei.Domain.Domains.Files.Abstractions;
+using QZI.Quizzei.Domain.Domains.Files.Helpers;
 using QZI.Quizzei.Domain.Domains.Questions.Services;
 using QZI.Quizzei.Domain.Domains.Questions.Services.Abstractions;
 using QZI.Quizzei.Domain.Domains.Quiz.Services;
@@ -26,6 +29,10 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IQuizInformationService, QuizInformationService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IFilesService, FilesService>();
+
+            services.AddScoped<IOcrService, OcrService>();
+            services.AddScoped<ITokenSplitService, TokenSplitService>();
+            services.AddScoped<IReadPdfService, ReadPdfService>();
         }
     }
 }

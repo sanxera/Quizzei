@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Domains.Quiz.Services.Response.Files;
+using QZI.Quizzei.Domain.Domains.Files.Responses;
 
 namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions
 {

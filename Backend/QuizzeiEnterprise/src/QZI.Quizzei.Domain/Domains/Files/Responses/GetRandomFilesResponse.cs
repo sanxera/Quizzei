@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Response.Files
+namespace QZI.Quizzei.Domain.Domains.Files.Responses
 {
     public class GetRandomFilesResponse
     {

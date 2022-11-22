@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QZI.Quizzei.Domain.Domains.Files.Abstractions;
 using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
 
 namespace QZI.Quizzei.API.Controllers
@@ -11,10 +13,12 @@ namespace QZI.Quizzei.API.Controllers
     public class FilesController : Controller
     {
         private readonly IFilesService _filesService;
+        private readonly IReadPdfService _pdfService;
 
-        public FilesController(IFilesService filesService)
+        public FilesController(IFilesService filesService, IReadPdfService pdfService)
         {
             _filesService = filesService;
+            _pdfService = pdfService;
         }  
 
         [HttpPost("upload/{quizInfoUuid:guid}")]
@@ -50,6 +54,17 @@ namespace QZI.Quizzei.API.Controllers
             var response = await _filesService.DownloadFileFromS3(fileUuid);
 
             return File(response.FileStream, "application/pdf", response.FileName);
+        }
+
+        [HttpPost("read-pdf")]
+        public async Task<IActionResult> ReadQuestionsFromPdf(IFormFile file)
+        {
+            var fileName = file.FileName;
+            var stream = file.OpenReadStream();
+
+            var response = await _pdfService.ExecuteAsync(stream, fileName, CancellationToken.None);
+
+            return Ok(response);
         }
     }
 }

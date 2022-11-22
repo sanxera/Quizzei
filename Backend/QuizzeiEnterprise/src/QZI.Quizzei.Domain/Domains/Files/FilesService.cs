@@ -5,12 +5,12 @@ using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
+using QZI.Quizzei.Domain.Domains.Files.Responses;
 using QZI.Quizzei.Domain.Domains.Quiz.Entities;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
-using QZI.Quizzei.Domain.Domains.Quiz.Services.Response.Files;
 
-namespace QZI.Quizzei.Domain.Domains.Quiz.Services
+namespace QZI.Quizzei.Domain.Domains.Files
 {
     public class FilesService : IFilesService
     {
