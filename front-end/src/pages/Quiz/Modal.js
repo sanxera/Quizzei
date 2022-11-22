@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Form, Modal, Typography } from 'antd';
-import StepForm from './Items/StepForm';
-import StepQuestion from './Items/StepQuestions';
-import StepContent from './Items/StepContent';
+import { Tabs, Form, Modal, Typography, Row, Col, Button as ButtonAntd, Upload, message, Divider } from 'antd';
 import {
   InfoCircleOutlined,
   QuestionCircleOutlined,
   FileSearchOutlined
 } from '@ant-design/icons';
+import { ListBullets, FilePdf } from 'phosphor-react';
+import StepForm from './Items/StepForm';
+import StepQuestion from './Items/StepQuestions';
+import StepContent from './Items/StepContent';
 import { Button } from '../../components/Button'
 import { create, createQuestions, listQuestions, update } from '../../services/quiz';
 import { create as createCategory, list as listCategories } from '../../services/categories';
@@ -16,20 +17,23 @@ import { ModalCategory } from './ModalCategory';
 
 const { TabPane } = Tabs;
 const { Text } = Typography;
+const { Dragger } = Upload;
 
+const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
 const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   const [form] = Form.useForm();
   const [activeKey, setActiveKey] = useState('1');
   const [categories, setCategories] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [showQuestions, setShowQuestions] = useState(false);
   const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
   const textButton = data && data.quizInfoUuid ? 'Atualizar' : 'Criar';
   const titleModal = data && data.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
 
   useEffect(() => {
-    handleQuestions();
+    // loadQuestions();
     loadCategories();
   }, []);
 
@@ -39,7 +43,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
     await setCategories(data.categories);
   }
 
-  async function handleQuestions() {
+  async function loadQuestions() {
     const { quizInfoUuid } = data;
     if (!quizInfoUuid) return;
 
@@ -96,6 +100,31 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
     setModalCategoryVisible(false);
   }
 
+  const props = {
+    name: 'file',
+    multiple: true,
+    headers: {
+      enctype: 'multipart/form-data',
+    },
+    action: `${REACT_APP_QUIZZEI_BACKEND_URL}api/files/read-pdf`,
+    onChange: async info => {
+      console.log("🚀 ~ file: Modal.js ~ line 111 ~ ModalQuiz ~ info", info.response)
+      const { status, response } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        message.success(`${info.file.name} upload feito com sucesso`);
+        const data = response.data;
+        await setQuestions(data);
+
+        setShowQuestions(true);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} falha no upload.`);
+      }
+    },
+  };
+
   return (
     <Modal
       title={<Text strong>{titleModal}</Text>}
@@ -144,7 +173,47 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
             </>
           }
           key="2" >
-          <StepQuestion data={questions || []} form={form} />
+          <>
+            {!showQuestions ? (
+              <Row justify='center' style={{ marginTop: 50 }}>
+                <Col>
+                  <ButtonAntd
+                    style={{ width: '50rem', minHeight: 100 }}
+                    type='dashed'
+                    onClick={async () => {
+                      await loadQuestions();
+                      setShowQuestions(true);
+                    }}
+                  >
+                    <div>
+                      <ListBullets size={35} />
+                    </div>
+                    <div>
+                      Cadastrar manualmente
+                    </div>
+                  </ButtonAntd>
+                </Col>
+                <Divider style={{ width: '10rem' }}>Ou</Divider>
+                <Col>
+                  <div style={{ padding: 35, width: '55rem' }}>
+                    <Dragger
+                      listType='picture'
+                      style={{ backgroundColor: '#FFFF' }}
+                      maxCount={1}
+                      {...props}
+                    >
+                      <p>
+                        <FilePdf size={35} />
+                      </p>
+                      <p className="ant-upload-text">Fazer upload de arquivo .pdf</p>
+                    </Dragger>
+                  </div>
+                </Col>
+              </Row>
+            ) : (
+              <StepQuestion data={questions || []} form={form} />
+            )}
+          </>
         </TabPane>
 
         {data && data.quizInfoUuid && (

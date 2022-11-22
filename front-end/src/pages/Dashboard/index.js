@@ -29,8 +29,8 @@ const Dashboard = () => {
         subTitle="dashboard"
       />
 
-      <Row style={{ marginTop: 100, marginLeft: 50 }} gutter={20}>
-        <Col span={16}>
+      <Row style={{ marginTop: 100, marginLeft: 10 }} gutter={2}>
+        <Col span={15}>
           <Title level={2}>Quizzes recente</Title>
           {history.quizzesHistoryInformation && history.quizzesHistoryInformation.length > 0 ? (
             <Timeline style={{ marginLeft: 20 }}>
@@ -84,7 +84,7 @@ const Dashboard = () => {
           )}
         </Col>
 
-        <Col span={6} style={{ marginLeft: 50 }}>
+        <Col span={7} style={{ marginLeft: 50 }}>
           <Title level={2}>Calendário</Title>
           <Calendar style={{ borderBottom: '1px solid' }} fullscreen={false} onPanelChange={onPanelChange} headerRender={null} />
         </Col>
