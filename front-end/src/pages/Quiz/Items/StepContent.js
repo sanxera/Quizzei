@@ -3,7 +3,7 @@ import { Upload, message } from 'antd';
 import { FileArrowUp } from 'phosphor-react';
 import { getFilesFromQuiz } from '../../../services/contents';
 import { notification } from '../../../utils/notification';
-const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env
+const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
 const { Dragger } = Upload;
 
