@@ -114,8 +114,20 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
         console.log(info.file, info.fileList);
       }
       if (status === 'done') {
+        const data = [];
         message.success(`${info.file.name} upload feito com sucesso`);
-        const data = response.data;
+        await response.questions.forEach(async question => {
+          await data.push({
+            // questionUuid: question.questionUuid,
+            description: question.questionDescription,
+            options: question.options.map(option => {
+              return {
+                // optionUuid: option.optionUuid,
+                description: option.optionDescription
+              }
+            })
+          })
+        })
         await setQuestions(data);
 
         setShowQuestions(true);
