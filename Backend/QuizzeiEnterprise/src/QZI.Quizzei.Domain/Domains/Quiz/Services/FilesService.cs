@@ -65,7 +65,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
 
         private static async Task UploadToS3(string fileName, Stream fileStream)
         {
-            var s3Client = new AmazonS3Client("ASIA5VCJBR53HLOTA2U3", "T7qo3j9g999pAaH2pZfZumPrW4ClKKas33YAhuI4", "FwoGZXIvYXdzECwaDA/PmWgD/IOr11qqySLCAZFQnevF3GK1XEn48CEKYOhxlPrrA1kkZNciL04qH1PCvQXQi4kCNTax7wc7jo9mE3jbRF1u2Hg7WLkgTOYUzw+S8IDvPD5AHmmVPlmNTFb3XzD6QoVCDhdq1iLeNhd+pVAoohFcQ31QeY4o49WN4iAzHBA7C2UVBDgfufSqFOcvZGo07e4KgohkJFNyYwktYzSL1LZ6jyjEuq+E/TviZjZNc16xq/BVjX5nNDTl67ffb9b+03H/bNkQvqrsutY3NazlKKG21psGMi3u8AXoxDgM6DE9puAp7EJQ+PXl7Ome3+sofvuZdyeVPKOHVtdP4QHJbar2pgw=", RegionEndpoint.USEast1);
+            var s3Client = new AmazonS3Client("ASIA5VCJBR53JRGHPVJQ", "gyLSWu9lKJ4wmW0q7ZMc8vsSp7fGEybQXE3X71sl", "FwoGZXIvYXdzED0aDCmiuqm7ckSdCU3LcyLCAZ/Mq6zZlQKLE9YbbOk/KwN/VTjk2n1OWAFGGQiYPPvocUrFUHO/heKjj7687Vjwy0PVbJgJm43mD8plneRTjQgK++sNj1VktVscydte9kHXLbtaxeYtD7JUCds+8s5Kd/LRipZswkzf4i5PZd59MSBApud8SRw6QNE2Z9cuedrHxdpJICCa60cqmg35JVGEts8PxYgkIEagp6bQ+3dbpaWO1UHMry2NJuvFhKv+nK6+jafpBYvdJ/WkcG8pLJBm7t2rKKGP2psGMi2CLL2MpGGsu2Ioaz2dPFUIhUsBSU2ltjC9sDakOHow9kYkQNSTmpd84/aSvX8=", RegionEndpoint.USEast1);
 
             var s3Request = new PutObjectRequest
             {
@@ -83,7 +83,7 @@ namespace QZI.Quizzei.Domain.Domains.Quiz.Services
         {
             var file = await _fileRepository.GetQuizInfoFileById(fileUuid);
 
-            var s3Client = new AmazonS3Client("ASIA5VCJBR53HLOTA2U3", "T7qo3j9g999pAaH2pZfZumPrW4ClKKas33YAhuI4", "FwoGZXIvYXdzECwaDA/PmWgD/IOr11qqySLCAZFQnevF3GK1XEn48CEKYOhxlPrrA1kkZNciL04qH1PCvQXQi4kCNTax7wc7jo9mE3jbRF1u2Hg7WLkgTOYUzw+S8IDvPD5AHmmVPlmNTFb3XzD6QoVCDhdq1iLeNhd+pVAoohFcQ31QeY4o49WN4iAzHBA7C2UVBDgfufSqFOcvZGo07e4KgohkJFNyYwktYzSL1LZ6jyjEuq+E/TviZjZNc16xq/BVjX5nNDTl67ffb9b+03H/bNkQvqrsutY3NazlKKG21psGMi3u8AXoxDgM6DE9puAp7EJQ+PXl7Ome3+sofvuZdyeVPKOHVtdP4QHJbar2pgw=", RegionEndpoint.USEast1);
+            var s3Client = new AmazonS3Client("ASIA5VCJBR53JRGHPVJQ", "gyLSWu9lKJ4wmW0q7ZMc8vsSp7fGEybQXE3X71sl", "FwoGZXIvYXdzED0aDCmiuqm7ckSdCU3LcyLCAZ/Mq6zZlQKLE9YbbOk/KwN/VTjk2n1OWAFGGQiYPPvocUrFUHO/heKjj7687Vjwy0PVbJgJm43mD8plneRTjQgK++sNj1VktVscydte9kHXLbtaxeYtD7JUCds+8s5Kd/LRipZswkzf4i5PZd59MSBApud8SRw6QNE2Z9cuedrHxdpJICCa60cqmg35JVGEts8PxYgkIEagp6bQ+3dbpaWO1UHMry2NJuvFhKv+nK6+jafpBYvdJ/WkcG8pLJBm7t2rKKGP2psGMi2CLL2MpGGsu2Ioaz2dPFUIhUsBSU2ltjC9sDakOHow9kYkQNSTmpd84/aSvX8=", RegionEndpoint.USEast1);
 
             var s3Request = new GetObjectRequest
             {

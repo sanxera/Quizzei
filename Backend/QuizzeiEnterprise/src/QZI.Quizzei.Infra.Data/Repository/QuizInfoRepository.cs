@@ -37,7 +37,7 @@ namespace QZI.Quizzei.Infra.Data.Repository
 
         public async Task<IEnumerable<QuizInformation>> GetQuizzesByCategory(int categoryId)
         {
-            return await Context.QuizzesInfos.Where(x => x.CategoryId != categoryId).ToListAsync();
+            return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId).ToListAsync();
         }
     }
 }
