@@ -44,9 +44,7 @@ namespace QZI.Quizzei.Domain.Domains.Files
                 var formattedOptions = questionString[firstQuestionRange..];
 
                 var formattedQuestion = questionString[..firstQuestionRange];
-                var splittedOptions = formattedOptions
-                    .Split(optionToken, StringSplitOptions.RemoveEmptyEntries);
-
+                var splittedOptions = formattedOptions.Split(optionToken, StringSplitOptions.RemoveEmptyEntries);
 
                 var questionResponse = new OcrQuestionResponse(TrimString(formattedQuestion));
                 foreach (var option in splittedOptions)

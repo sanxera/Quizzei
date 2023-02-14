@@ -153,7 +153,7 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Services
         private static IList<QuestionOptionResponse> CreateOptionsResponse(Question question)
         {
             return question.Options
-                    .Select(option => new QuestionOptionResponse { OptionDescription = option.Description, OptionUuid = option.QuestionOptionUuid })
+                    .Select(option => new QuestionOptionResponse { OptionDescription = option.Description, OptionUuid = option.QuestionOptionUuid,  IsCorrect = option.IsCorrect})
                     .ToList();
         }
     }

@@ -19,5 +19,6 @@ namespace QZI.Quizzei.Domain.Domains.Questions.Services.Responses
     {
         public Guid OptionUuid { get; set; }
         public string OptionDescription { get; set; }
+        public bool IsCorrect { get; set; }
     }
 }
