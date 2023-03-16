@@ -174,7 +174,12 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
             </>
           }
           key="1">
-          <StepForm form={form} data={data} showModalCategory={showModalCategory} categories={categories} />
+          <StepForm
+            form={form}
+            data={data}
+            categories={categories}
+            // showModalCategory={showModalCategory}
+          />
         </TabPane>
 
         <TabPane
@@ -242,7 +247,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
         )}
       </Tabs>
 
-      {modalCategoryVisible && <ModalCategory visible={modalCategoryVisible} onAdd={onAddCategory} onClose={() => setModalCategoryVisible(false)} />}
+      {/* {modalCategoryVisible && <ModalCategory visible={modalCategoryVisible} onAdd={onAddCategory} onClose={() => setModalCategoryVisible(false)} />} */}
 
     </Modal>
   )
