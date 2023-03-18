@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Row, Col, Select, Divider, Space } from 'antd';
-import { Button } from '../../../components/Button';
+import React from 'react';
+import { Form, Input, Row, Col, Select } from 'antd';
 import { InputWrapper } from '../../../components/InputWrapper';
-import { TagOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
-const StepForm = ({ data, form, showModalCategory, categories }) => {
+const StepForm = ({ data, form, categories }) => {
   async function onSelect(value) {
     if (!value) return;
     await form.setFieldsValue({ categoryId: value })
@@ -53,15 +51,6 @@ const StepForm = ({ data, form, showModalCategory, categories }) => {
             filterOption={(input, option) => (option.children || "").toString().toLowerCase().includes((input || "").toLowerCase())}
             onChange={item => onSelect(item)}
             placeholder="Categoria"
-            dropdownRender={menu => (
-              <>
-                {menu}
-                <Divider style={{ margin: '8px 0' }} />
-                <Space style={{ padding: '0 8px 4px' }}>
-                  <Button icon={<TagOutlined />} title="Nova categoria" onClick={() => showModalCategory()} />
-                </Space>
-              </>
-            )}
           >
             {options}
           </Select>
