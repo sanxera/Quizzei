@@ -8,7 +8,7 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC
     {
         public static void RegisterModules(this IServiceCollection services, IConfiguration configuration)
         {
-            DomainModule.Register(services);
+            DomainModule.Register(services, configuration);
             DataModule.Register(services, configuration);
         }
     }

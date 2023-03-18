@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QZI.Quizzei.Domain.Configuration;
 using QZI.Quizzei.Domain.Domains.Categories.Service;
 using QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions;
 using QZI.Quizzei.Domain.Domains.Files;
@@ -17,7 +19,7 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
 {
     public static class DomainModule
     {
-        public static void Register(IServiceCollection services)
+        public static void Register(IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -33,6 +35,8 @@ namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
             services.AddScoped<IOcrService, OcrService>();
             services.AddScoped<ITokenSplitService, TokenSplitService>();
             services.AddScoped<IReadPdfService, ReadPdfService>();
+
+            services.AddSingleton(configuration.GetSection("AwsConfiguration").Get<AwsConfiguration>()!);
         }
     }
 }

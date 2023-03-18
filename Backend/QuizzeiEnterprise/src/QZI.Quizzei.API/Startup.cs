@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using QZI.Quizzei.API.Configuration;
 using QZI.Quizzei.Infra.CrossCutting.IoC;
-using MediatR;
 
 namespace QZI.Quizzei.API
 {
@@ -36,7 +35,6 @@ namespace QZI.Quizzei.API
             services.AddApiConfiguration(Configuration);
             services.AddSwaggerConfiguration();
             services.RegisterModules(Configuration);
-            services.AddMediatR(typeof(Startup));
 
             services.AddLogging(loggingBuilder => {
                 loggingBuilder.AddConsole()
