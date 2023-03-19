@@ -14,20 +14,9 @@ public class Startup
 {
     public IConfiguration Configuration { get; }
 
-    public Startup(IHostEnvironment hostEnvironment)
+    public Startup(IConfiguration configuration)
     {
-        var builder = new ConfigurationBuilder()
-            .SetBasePath(hostEnvironment.ContentRootPath)
-            .AddJsonFile("appsettings.json", true, true)
-            .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
-            .AddEnvironmentVariables();
-
-        if (hostEnvironment.IsDevelopment())
-        {
-            builder.AddUserSecrets<Startup>();
-        }
-
-        Configuration = builder.Build();
+        Configuration = configuration;
     }
 
     public void ConfigureServices(IServiceCollection services)
@@ -47,5 +36,21 @@ public class Startup
     {
         app.UseApiConfiguration(env);
         app.UseSwaggerConfiguration();
+        ConfigureEnvironment(env);
+    }
+
+
+    private static void ConfigureEnvironment(IHostEnvironment hostEnvironment)
+    {
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(hostEnvironment.ContentRootPath)
+            .AddJsonFile("appsettings.json", true, true)
+            .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+            .AddEnvironmentVariables();
+
+        if (hostEnvironment.IsDevelopment())
+        {
+            builder.AddUserSecrets<Startup>();
+        }
     }
 }

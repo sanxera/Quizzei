@@ -14,6 +14,8 @@ using QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
 using QZI.Quizzei.Domain.Domains.Search;
 using QZI.Quizzei.Domain.Domains.User.Service;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
+using QZI.Quizzei.Domain.Shared.Interfaces;
+using QZI.Quizzei.Domain.Shared.Services;
 
 namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules;
 
@@ -35,6 +37,9 @@ public static class DomainModule
         services.AddScoped<IOcrService, OcrService>();
         services.AddScoped<ITokenSplitService, TokenSplitService>();
         services.AddScoped<IReadPdfService, ReadPdfService>();
+
+        services.AddScoped<IAmazonService, AmazonService>();
+        services.AddScoped<IImageService, ImageService>();
 
         services.AddSingleton(configuration.GetSection("AwsConfiguration").Get<AwsConfiguration>()!);
     }
