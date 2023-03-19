@@ -73,10 +73,11 @@ namespace QZI.Quizzei.Domain.Domains.Files
             var s3Request = new PutObjectRequest
             {
                 BucketName = _awsConfiguration.BucketName,
-                Key = fileName,
+                Key = "Files/" + fileName,
                 InputStream = fileStream,
                 ContentType = "application/pdf",
                 CannedACL = S3CannedACL.BucketOwnerFullControl
+                
             };
 
             await s3Client.PutObjectAsync(s3Request);

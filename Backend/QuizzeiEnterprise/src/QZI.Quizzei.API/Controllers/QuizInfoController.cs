@@ -70,7 +70,7 @@ namespace QZI.Quizzei.API.Controllers
 
             return Ok(result);
         }
-
+        
         [HttpGet("get-quizzes-history-from-user")]
         public async Task<IActionResult> GetQuizzesHistoryFromUser()
         {
