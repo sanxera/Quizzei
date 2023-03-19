@@ -114,13 +114,15 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
             var role = await _userManager.GetRolesAsync(user);
             var roleMain = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Name == role.FirstOrDefault());
 
+            //TODO: ARRUMAR ISSO DEPOIS  JT-42
             return new GetUserDetailsResponse
             {
                 Email = user.Email,
                 UserUuid = Guid.Parse(user.Id),
                 NickName = user.NickName,
-                RoleUuid = Guid.Parse(roleMain.Id),
-                RoleName = roleMain.Name
+                RoleUuid = Guid.Parse(roleMain!.Id),
+                RoleName = roleMain.Name,
+                Admin = roleMain.Id == "e8ef779f-015d-4b30-808d-5ba36c7aef2b"
             };
         }
 
