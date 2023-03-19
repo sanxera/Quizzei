@@ -100,8 +100,9 @@ namespace QZI.Quizzei.Domain.Domains.User.Service
                     UserUuid = Guid.Parse(user.Id),
                     NickName = user.NickName, 
                     RoleUuid = Guid.Parse(roleMain.Id),
-                    RoleName = roleMain.Name
-                };
+                    RoleName = roleMain.Name,
+                    Admin = roleMain.Id == "e8ef779f-015d-4b30-808d-5ba36c7aef2b"
+            };
         }
 
         public async Task<GetUserDetailsResponse?> GetUserDetails(GetLoggedUserDetailsRequest request)
