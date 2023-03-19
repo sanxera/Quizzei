@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace QZI.Quizzei.Domain.Abstractions.UnitOfWork
+namespace QZI.Quizzei.Domain.Abstractions.UnitOfWork;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task SaveChangesAsync();
-    }
+    Task SaveChangesAsync();
 }

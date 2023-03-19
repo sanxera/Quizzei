@@ -1,7 +1,6 @@
-﻿namespace QZI.Quizzei.Domain.Domains.Questions.Services.Responses
+﻿namespace QZI.Quizzei.Domain.Domains.Questions.Services.Responses;
+
+public class CreateQuestionsResponse
 {
-    public class CreateQuestionsResponse
-    {
-        public bool Created { get; set; }
-    }
+    public bool Created { get; set; }
 }

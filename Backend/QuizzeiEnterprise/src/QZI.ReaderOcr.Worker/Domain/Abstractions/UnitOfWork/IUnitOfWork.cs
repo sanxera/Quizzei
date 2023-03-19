@@ -1,7 +1,6 @@
-﻿namespace QZI.ReaderOcr.Worker.Domain.Abstractions.UnitOfWork
+﻿namespace QZI.ReaderOcr.Worker.Domain.Abstractions.UnitOfWork;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task SaveChangesAsync();
-    }
+    Task SaveChangesAsync();
 }

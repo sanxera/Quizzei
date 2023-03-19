@@ -15,28 +15,27 @@ using QZI.Quizzei.Domain.Domains.Search;
 using QZI.Quizzei.Domain.Domains.User.Service;
 using QZI.Quizzei.Domain.Domains.User.Service.Abstractions;
 
-namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules
+namespace QZI.Quizzei.Infra.CrossCutting.IoC.Modules;
+
+public static class DomainModule
 {
-    public static class DomainModule
+    public static void Register(IServiceCollection services, IConfiguration configuration)
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IAnswerService, AnswerService>();
-            services.AddScoped<IQuestionService, QuestionService>();
-            services.AddScoped<IQuizProcessService, QuizProcessService>();
-            services.AddScoped<IQuizInformationService, QuizInformationService>();
-            services.AddScoped<ISearchService, SearchService>();
-            services.AddScoped<IFilesService, FilesService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IAnswerService, AnswerService>();
+        services.AddScoped<IQuestionService, QuestionService>();
+        services.AddScoped<IQuizProcessService, QuizProcessService>();
+        services.AddScoped<IQuizInformationService, QuizInformationService>();
+        services.AddScoped<ISearchService, SearchService>();
+        services.AddScoped<IFilesService, FilesService>();
 
-            services.AddScoped<IOcrService, OcrService>();
-            services.AddScoped<ITokenSplitService, TokenSplitService>();
-            services.AddScoped<IReadPdfService, ReadPdfService>();
+        services.AddScoped<IOcrService, OcrService>();
+        services.AddScoped<ITokenSplitService, TokenSplitService>();
+        services.AddScoped<IReadPdfService, ReadPdfService>();
 
-            services.AddSingleton(configuration.GetSection("AwsConfiguration").Get<AwsConfiguration>()!);
-        }
+        services.AddSingleton(configuration.GetSection("AwsConfiguration").Get<AwsConfiguration>()!);
     }
 }

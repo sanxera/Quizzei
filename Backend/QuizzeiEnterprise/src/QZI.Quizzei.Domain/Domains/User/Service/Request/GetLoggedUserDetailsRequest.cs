@@ -1,7 +1,6 @@
-﻿namespace QZI.Quizzei.Domain.Domains.User.Service.Request
+﻿namespace QZI.Quizzei.Domain.Domains.User.Service.Request;
+
+public class GetLoggedUserDetailsRequest
 {
-    public class GetLoggedUserDetailsRequest
-    {
-        public string Email { get; set; }
-    }
+    public string Email { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿namespace QZI.Quizzei.Domain.Domains.Questions.Services.Responses
+﻿namespace QZI.Quizzei.Domain.Domains.Questions.Services.Responses;
+
+public class AnswerQuestionResponse
 {
-    public class AnswerQuestionResponse
-    {
-        public int TotalQuestions { get; set; }
-        public int CorrectAnswers { get; set; }
-    }
+    public int TotalQuestions { get; set; }
+    public int CorrectAnswers { get; set; }
 }

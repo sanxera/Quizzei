@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Domains.Quiz.Services.Response.Process;
 
-namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions
+namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Abstractions;
+
+public interface IQuizProcessService
 {
-    public interface IQuizProcessService
-    {
-        Task<StartQuizProcessResponse> StartQuizProcess(string emailOwner, Guid quizInfoUuid);
-        Task<bool> RatingQuiz(Guid quizProcessUuid, int ratePoints);
-    }
+    Task<StartQuizProcessResponse> StartQuizProcess(string emailOwner, Guid quizInfoUuid);
+    Task<bool> RatingQuiz(Guid quizProcessUuid, int ratePoints);
 }

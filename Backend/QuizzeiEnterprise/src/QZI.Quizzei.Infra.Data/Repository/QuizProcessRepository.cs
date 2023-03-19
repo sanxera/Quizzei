@@ -7,23 +7,22 @@ using QZI.Quizzei.Domain.Domains.Quiz.Entities;
 using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Infra.Data.Repository.Base;
 
-namespace QZI.Quizzei.Infra.Data.Repository
+namespace QZI.Quizzei.Infra.Data.Repository;
+
+public class QuizProcessRepository : RepositoryBase<QuizProcess>, IQuizProcessRepository
 {
-    public class QuizProcessRepository : RepositoryBase<QuizProcess>, IQuizProcessRepository
+    public QuizProcessRepository(QuizzeiContext context) : base(context)
     {
-        public QuizProcessRepository(QuizzeiContext context) : base(context)
-        {
-        }
+    }
 
-        public async Task<QuizProcess> GetQuizProcessById(Guid id)
-        {
-            return await Context.QuizProcesses
-                .FirstOrDefaultAsync(x => x.QuizProcessUuid == id);
-        }
+    public async Task<QuizProcess> GetQuizProcessById(Guid id)
+    {
+        return await Context.QuizProcesses
+            .FirstOrDefaultAsync(x => x.QuizProcessUuid == id);
+    }
 
-        public async Task<IList<QuizProcess>> GetQuizProcessByUser(Guid userUuid)
-        {
-            return await Context.QuizProcesses.Where(x => x.UserUuid == userUuid).ToListAsync();
-        }
+    public async Task<IList<QuizProcess>> GetQuizProcessByUser(Guid userUuid)
+    {
+        return await Context.QuizProcesses.Where(x => x.UserUuid == userUuid).ToListAsync();
     }
 }
