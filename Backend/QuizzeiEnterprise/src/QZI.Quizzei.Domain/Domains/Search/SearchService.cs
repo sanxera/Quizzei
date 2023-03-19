@@ -9,57 +9,56 @@ using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
 using QZI.Quizzei.Domain.Domains.Search.Response;
 using QZI.Quizzei.Domain.Domains.User.Entities;
 
-namespace QZI.Quizzei.Domain.Domains.Search
+namespace QZI.Quizzei.Domain.Domains.Search;
+
+public class SearchService : ISearchService
 {
-    public class SearchService : ISearchService
+    private readonly IQuizInfoRepository _quizInfoRepository;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public SearchService(IQuizInfoRepository quizInfoRepository, UserManager<ApplicationUser> userManager)
     {
-        private readonly IQuizInfoRepository _quizInfoRepository;
-        private readonly UserManager<ApplicationUser> _userManager;
+        _quizInfoRepository = quizInfoRepository;
+        _userManager = userManager;
+    }
 
-        public SearchService(IQuizInfoRepository quizInfoRepository, UserManager<ApplicationUser> userManager)
+    public async Task<SearchResponse> SearchByText(string text)
+    {
+        var searchResponse = new SearchResponse();
+        var quizzesInformation = await _quizInfoRepository.GetQuizzesByTitle(text);
+        var users = await _userManager.Users.Where(x => EF.Functions.Like(x.Name, $"%{text}%")).ToListAsync();
+
+        AddFoundUsersToResponse(users, searchResponse);
+        AddFoundQuizzesToResponse(quizzesInformation, searchResponse);
+
+        return searchResponse;
+    }
+
+    private static void AddFoundQuizzesToResponse(IEnumerable<QuizInformation> quizzesInformation, SearchResponse searchResponse)
+    {
+        foreach (var quiz in quizzesInformation)
         {
-            _quizInfoRepository = quizInfoRepository;
-            _userManager = userManager;
-        }
-
-        public async Task<SearchResponse> SearchByText(string text)
-        {
-            var searchResponse = new SearchResponse();
-            var quizzesInformation = await _quizInfoRepository.GetQuizzesByTitle(text);
-            var users = await _userManager.Users.Where(x => EF.Functions.Like(x.Name, $"%{text}%")).ToListAsync();
-
-            AddFoundUsersToResponse(users, searchResponse);
-            AddFoundQuizzesToResponse(quizzesInformation, searchResponse);
-
-            return searchResponse;
-        }
-
-        private static void AddFoundQuizzesToResponse(IEnumerable<QuizInformation> quizzesInformation, SearchResponse searchResponse)
-        {
-            foreach (var quiz in quizzesInformation)
+            var searchQuiz = new SearchQuiz
             {
-                var searchQuiz = new SearchQuiz
-                {
-                    Title = quiz.Title,
-                    QuizUuid = quiz.QuizInfoUuid
-                };
+                Title = quiz.Title,
+                QuizUuid = quiz.QuizInfoUuid
+            };
 
-                searchResponse.Quizzes.Add(searchQuiz);
-            }
+            searchResponse.Quizzes.Add(searchQuiz);
         }
+    }
 
-        private static void AddFoundUsersToResponse(List<ApplicationUser> users, SearchResponse searchResponse)
+    private static void AddFoundUsersToResponse(List<ApplicationUser> users, SearchResponse searchResponse)
+    {
+        foreach (var user in users)
         {
-            foreach (var user in users)
+            var userSearch = new SearchUser
             {
-                var userSearch = new SearchUser
-                {
-                    Name = user.Name,
-                    UserUuid = Guid.Parse(user.Id)
-                };
+                Name = user.Name,
+                UserUuid = Guid.Parse(user.Id)
+            };
 
-                searchResponse.Users.Add(userSearch);
-            }
+            searchResponse.Users.Add(userSearch);
         }
     }
 }

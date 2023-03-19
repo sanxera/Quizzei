@@ -1,9 +1,9 @@
-﻿namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Requests.Information
+﻿namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Requests.Information;
+
+public class CreateQuizInfoRequest
 {
-    public class CreateQuizInfoRequest
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int CategoryId { get; set; }
-    }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public int CategoryId { get; set; }
+    public string ImageName { get; set; }
 }

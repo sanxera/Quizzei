@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace QZI.Quizzei.Domain.Domains.Questions.Services.Requests
+namespace QZI.Quizzei.Domain.Domains.Questions.Services.Requests;
+
+public class GetQuestionsWithOptionsByQuizRequest
 {
-    public class GetQuestionsWithOptionsByQuizRequest
-    {
-        public Guid QuizInfoUuid { get; set; }
-    }
+    public Guid QuizInfoUuid { get; set; }
 }

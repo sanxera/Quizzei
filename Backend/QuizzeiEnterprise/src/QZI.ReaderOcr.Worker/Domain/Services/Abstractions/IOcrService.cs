@@ -1,7 +1,6 @@
-﻿namespace QZI.ReaderOcr.Worker.Domain.Services.Abstractions
+﻿namespace QZI.ReaderOcr.Worker.Domain.Services.Abstractions;
+
+public interface IOcrService
 {
-    public interface IOcrService
-    {
-        Task ExecuteOcr(string inputPdfFileName, string outputTextFileName);
-    }
+    Task ExecuteOcr(string inputPdfFileName, string outputTextFileName);
 }

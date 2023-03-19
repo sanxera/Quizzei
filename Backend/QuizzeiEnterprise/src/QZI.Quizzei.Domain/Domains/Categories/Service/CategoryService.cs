@@ -7,64 +7,63 @@ using QZI.Quizzei.Domain.Domains.Categories.Service.Requests;
 using QZI.Quizzei.Domain.Domains.Categories.Service.Response;
 using QZI.Quizzei.Domain.Exceptions;
 
-namespace QZI.Quizzei.Domain.Domains.Categories.Service
+namespace QZI.Quizzei.Domain.Domains.Categories.Service;
+
+public class CategoryService : ICategoryService
 {
-    public class CategoryService : ICategoryService
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CategoryService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
     {
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        _categoryRepository = categoryRepository;
+        _unitOfWork = unitOfWork;
+    }
 
-        public CategoryService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+    public async Task<CreateCategoryResponse> CreateCategory(CreateCategoryRequest request)
+    {
+        try
         {
-            _categoryRepository = categoryRepository;
-            _unitOfWork = unitOfWork;
+            var newCategory = Entities.Category.CreateQuizCategory(request.Name);
+
+            await _categoryRepository.AddAsync(newCategory);
+            await _unitOfWork.SaveChangesAsync();
+
+            return new CreateCategoryResponse { CreatedId = newCategory.Id };
         }
-
-        public async Task<CreateCategoryResponse> CreateCategory(CreateCategoryRequest request)
+        catch (Exception ex)
         {
-            try
-            {
-                var newCategory = Entities.Category.CreateQuizCategory(request.Name);
-
-                await _categoryRepository.AddAsync(newCategory);
-                await _unitOfWork.SaveChangesAsync();
-
-                return new CreateCategoryResponse { CreatedId = newCategory.Id };
-            }
-            catch (Exception ex)
-            {
-                throw new CategoryException("Error to create category.", ex);
-            }
+            throw new CategoryException("Error to create category.", ex);
         }
+    }
 
-        public async Task<GetAllCategoriesResponse> GetAllCategories()
+    public async Task<GetAllCategoriesResponse> GetAllCategories()
+    {
+        try
         {
-            try
-            {
-                var categories = await _categoryRepository.GetAllCategories();
-                return new GetAllCategoriesResponse(categories);
-            }
-            catch (Exception ex)
-            {
-                throw new CategoryException("Error to get all categories.", ex);
-            }
+            var categories = await _categoryRepository.GetAllCategories();
+            return new GetAllCategoriesResponse(categories);
         }
-
-        public async Task<GetCategoryByIdResponse> GetCategoryById(int categoryId)
+        catch (Exception ex)
         {
-            try
-            {
-                var category = await _categoryRepository.GetCategoryById(categoryId);
+            throw new CategoryException("Error to get all categories.", ex);
+        }
+    }
 
-                if (category == null)
-                    throw new NotFoundException("Category not found !");
+    public async Task<GetCategoryByIdResponse> GetCategoryById(int categoryId)
+    {
+        try
+        {
+            var category = await _categoryRepository.GetCategoryById(categoryId);
 
-                return new GetCategoryByIdResponse { Id = category.Id, Description = category.Description };
-            }
-            catch (Exception ex)
-            {
-                throw new CategoryException("Error to get category.", ex);
-            }
+            if (category == null)
+                throw new NotFoundException("Category not found !");
+
+            return new GetCategoryByIdResponse { Id = category.Id, Description = category.Description };
+        }
+        catch (Exception ex)
+        {
+            throw new CategoryException("Error to get category.", ex);
         }
     }
 }

@@ -2,12 +2,11 @@
 using System.Threading.Tasks;
 using QZI.Quizzei.Domain.Abstractions;
 
-namespace QZI.Quizzei.Domain.Domains.Categories.Repositories
+namespace QZI.Quizzei.Domain.Domains.Categories.Repositories;
+
+public interface ICategoryRepository : IRepository<Entities.Category>
 {
-    public interface ICategoryRepository : IRepository<Entities.Category>
-    {
-        Task<Entities.Category> GetCategoryById(int categoryId);
-        Task<IList<Entities.Category>> GetCategoriesInRange(int range);
-        Task<IList<Entities.Category>> GetAllCategories();
-    }
+    Task<Entities.Category> GetCategoryById(int categoryId);
+    Task<IList<Entities.Category>> GetCategoriesInRange(int range);
+    Task<IList<Entities.Category>> GetAllCategories();
 }

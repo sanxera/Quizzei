@@ -2,27 +2,26 @@
 using System.Linq;
 using QZI.Quizzei.Domain.Domains.Files.Abstractions;
 
-namespace QZI.Quizzei.Domain.Domains.Files.Helpers
+namespace QZI.Quizzei.Domain.Domains.Files.Helpers;
+
+public class TokenSplitService : ITokenSplitService
 {
-    public class TokenSplitService : ITokenSplitService
+    public string[] SplitQuestionToken(int tokenSize)
     {
-        public string[] SplitQuestionToken(int tokenSize)
+        var tokens = new List<string>();
+
+        for (var i = 0; i < tokenSize; i++)
         {
-            var tokens = new List<string>();
-
-            for (var i = 0; i < tokenSize; i++)
-            {
-                tokens.Add($"[{i}]");
-            }
-
-            return tokens.ToArray();
+            tokens.Add($"[{i}]");
         }
 
-        public string[] SplitOptionsToken()
-        {
-            var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".ToCharArray();
+        return tokens.ToArray();
+    }
 
-            return alpha.Select(t => $"[{t}]").ToArray();
-        }
+    public string[] SplitOptionsToken()
+    {
+        var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".ToCharArray();
+
+        return alpha.Select(t => $"[{t}]").ToArray();
     }
 }

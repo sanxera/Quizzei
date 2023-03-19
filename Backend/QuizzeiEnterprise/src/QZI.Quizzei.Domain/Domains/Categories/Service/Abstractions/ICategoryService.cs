@@ -2,12 +2,11 @@
 using QZI.Quizzei.Domain.Domains.Categories.Service.Requests;
 using QZI.Quizzei.Domain.Domains.Categories.Service.Response;
 
-namespace QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions
+namespace QZI.Quizzei.Domain.Domains.Categories.Service.Abstractions;
+
+public interface ICategoryService
 {
-    public interface ICategoryService
-    {
-        Task<CreateCategoryResponse> CreateCategory(CreateCategoryRequest request);
-        Task<GetAllCategoriesResponse> GetAllCategories();
-        Task<GetCategoryByIdResponse> GetCategoryById(int categoryId);
-    }
+    Task<CreateCategoryResponse> CreateCategory(CreateCategoryRequest request);
+    Task<GetAllCategoriesResponse> GetAllCategories();
+    Task<GetCategoryByIdResponse> GetCategoryById(int categoryId);
 }

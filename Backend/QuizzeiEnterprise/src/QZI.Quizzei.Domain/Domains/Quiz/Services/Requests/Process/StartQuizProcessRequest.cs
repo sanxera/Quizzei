@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Requests.Process
+namespace QZI.Quizzei.Domain.Domains.Quiz.Services.Requests.Process;
+
+public class StartQuizProcessRequest
 {
-    public class StartQuizProcessRequest
-    {
-        public Guid QuizUuid { get; set; }
-    }
+    public Guid QuizUuid { get; set; }
 }
