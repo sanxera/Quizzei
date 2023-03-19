@@ -9,5 +9,6 @@ namespace QZI.Quizzei.Domain.Domains.User.Service.Response
         public string NickName { get; set; }
         public Guid RoleUuid { get; set; }
         public string RoleName { get; set; }
+        public bool Admin { get; set; }
     }
 }
