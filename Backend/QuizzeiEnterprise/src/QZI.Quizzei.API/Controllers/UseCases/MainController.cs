@@ -16,7 +16,7 @@ public abstract class MainController : Controller
         _contextAccessor = contextAccessor;
     }
 
-    public string ReadEmailFromToken()
+    protected string ReadEmailFromToken()
     {
         var jwt = _contextAccessor.HttpContext!.Request.Headers["Authorization"][0]!.Replace("Bearer ", string.Empty);
 
