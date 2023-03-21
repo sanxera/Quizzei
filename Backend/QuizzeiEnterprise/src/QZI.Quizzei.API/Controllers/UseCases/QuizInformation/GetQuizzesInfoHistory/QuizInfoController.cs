@@ -1,5 +1,5 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoHistory.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoHistory.Models.Request;
@@ -8,11 +8,11 @@ namespace QZI.Quizzei.API.Controllers.UseCases.QuizInformation.GetQuizzesInfoHis
 
 //[Authorize]
 [Route("api/quizzes-info")]
-public class QuizInfoController : Controller
+public class QuizInfoController : MainController
 {
     private readonly IGetQuizzesInfoHistoryUseCase _useCase;
 
-    public QuizInfoController(IGetQuizzesInfoHistoryUseCase useCase)
+    public QuizInfoController(IGetQuizzesInfoHistoryUseCase useCase, IHttpContextAccessor contextAccessor) : base(contextAccessor)
     {
         _useCase = useCase;
     }
@@ -20,7 +20,7 @@ public class QuizInfoController : Controller
     [HttpGet("get-quizzes-history-from-user")]
     public async Task<IActionResult> GetQuizzesHistoryFromUser()
     {
-        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+        var email = ReadEmailFromToken();
         var result = await _useCase.ExecuteAsync(new GetQuizzesInfoHistoryRequest{Email = email});
 
         return Ok(result);

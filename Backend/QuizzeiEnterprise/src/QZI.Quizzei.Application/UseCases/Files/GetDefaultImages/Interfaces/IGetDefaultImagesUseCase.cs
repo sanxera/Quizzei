@@ -1,9 +1,8 @@
 ﻿using QZI.Quizzei.Application.UseCases.Files.GetDefaultImages.Models.Responses;
 
-namespace QZI.Quizzei.Application.UseCases.Files.GetDefaultImages.Interfaces
+namespace QZI.Quizzei.Application.UseCases.Files.GetDefaultImages.Interfaces;
+
+public interface IGetDefaultImagesUseCase
 {
-    public interface IGetDefaultImagesUseCase
-    {
-        Task<GetDefaultImagesResponse> ExecuteAsync();
-    }
+    Task<GetDefaultImagesResponse> ExecuteAsync();
 }

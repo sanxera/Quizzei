@@ -8,7 +8,7 @@ public class QuizInformation : Entity
     public int Points { get; set; }
     public bool Active { get; set; }
     public int CategoryId { get; set; }
-    public string ImageName { get; set; } = null!;
+    public string? ImageName { get; set; }
     public Guid UserOwnerId { get; set; }
 
     public ICollection<QuizInformationFile> Files { get; set; } = new List<QuizInformationFile>();

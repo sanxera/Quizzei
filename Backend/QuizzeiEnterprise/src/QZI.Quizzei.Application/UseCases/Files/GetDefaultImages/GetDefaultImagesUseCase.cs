@@ -4,30 +4,29 @@ using QZI.Quizzei.Application.Shared.Services.Amazon.Interfaces;
 using QZI.Quizzei.Application.UseCases.Files.GetDefaultImages.Interfaces;
 using QZI.Quizzei.Application.UseCases.Files.GetDefaultImages.Models.Responses;
 
-namespace QZI.Quizzei.Application.UseCases.Files.GetDefaultImages
+namespace QZI.Quizzei.Application.UseCases.Files.GetDefaultImages;
+
+public class GetDefaultImagesUseCase : IGetDefaultImagesUseCase
 {
-    public class GetDefaultImagesUseCase : IGetDefaultImagesUseCase
+    private readonly IAmazonService _amazonService;
+
+    public GetDefaultImagesUseCase(IAmazonService amazonService)
     {
-        private readonly IAmazonService _amazonService;
+        _amazonService = amazonService;
+    }
 
-        public GetDefaultImagesUseCase(IAmazonService amazonService)
+    public async Task<GetDefaultImagesResponse> ExecuteAsync()
+    {
+        var response = new GetDefaultImagesResponse();
+
+        foreach (var imageName in ImagesPrefixedNames.GetAllImages())
         {
-            _amazonService = amazonService;
+            var imagePath = await _amazonService.GetObjectUrl(imageName, FileType.Image);
+            var imageResponse = ImageResponse.Create(imageName, imagePath);
+
+            response.DefaultImages.Add(imageResponse);
         }
 
-        public async Task<GetDefaultImagesResponse> ExecuteAsync()
-        {
-            var response = new GetDefaultImagesResponse();
-
-            foreach (var imageName in ImagesPrefixedNames.GetAllImages())
-            {
-                var imagePath = await _amazonService.GetObjectUrl(imageName, FileType.Image);
-                var imageResponse = ImageResponse.Create(imageName, imagePath);
-
-                response.DefaultImages.Add(imageResponse);
-            }
-
-            return response;
-        }
+        return response;
     }
 }

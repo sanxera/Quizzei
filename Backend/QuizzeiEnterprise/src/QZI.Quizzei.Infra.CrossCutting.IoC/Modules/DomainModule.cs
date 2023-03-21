@@ -30,6 +30,10 @@ using QZI.Quizzei.Application.UseCases.Files.ReadPdf.Services.Ocr;
 using QZI.Quizzei.Application.UseCases.Files.ReadPdf.Services.Ocr.Interfaces;
 using QZI.Quizzei.Application.UseCases.Files.UploadFile;
 using QZI.Quizzei.Application.UseCases.Files.UploadFile.Interfaces;
+using QZI.Quizzei.Application.UseCases.Questions.GetQuestionsByQuiz;
+using QZI.Quizzei.Application.UseCases.Questions.GetQuestionsByQuiz.Interfaces;
+using QZI.Quizzei.Application.UseCases.Questions.UpdateQuestionsUseCase;
+using QZI.Quizzei.Application.UseCases.Questions.UpdateQuestionsUseCase.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.CreateQuizInfo;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.CreateQuizInfo.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoByUser;
@@ -92,5 +96,7 @@ public static class DomainModule
         services.AddScoped<ICreateRoleUseCase, CreateRoleUseCase>();
         services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
         services.AddScoped<IGetDefaultImagesUseCase, GetDefaultImagesUseCase>();
+        services.AddScoped<IUpdateQuestionsUseCase, UpdateQuestionsUseCase>();
+        services.AddScoped<IGetQuestionsByQuizUseCase, GetQuestionsByQuizUseCase>();
     }
 }

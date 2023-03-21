@@ -34,11 +34,10 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        ConfigureEnvironment(env);
         app.UseApiConfiguration(env);
         app.UseSwaggerConfiguration();
-        ConfigureEnvironment(env);
     }
-
 
     private static void ConfigureEnvironment(IHostEnvironment hostEnvironment)
     {
