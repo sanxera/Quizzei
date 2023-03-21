@@ -4,6 +4,7 @@ using QZI.Quizzei.Application.Shared.Repositories;
 using QZI.Quizzei.Application.Shared.Services.Images.Interfaces;
 using QZI.Quizzei.Application.Shared.Services.Users.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoPerCategories.Models.Response;
+using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoPerCategories.Models.Request;
 
 namespace QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoPerCategories;
 
@@ -24,14 +25,15 @@ public class GetQuizzesInfoPerCategoriesUseCase : IGetQuizzesInfoPerCategoriesUs
         _userService = userService;
     }
 
-    public async Task<GetQuizzesByCategoryResponse> ExecuteAsync()
+    public async Task<GetQuizzesByCategoryResponse> ExecuteAsync(GetQuizzesInfoPerCategoriesRequest request)
     {
         var response = new GetQuizzesByCategoryResponse();
         var categories = await _categoryRepository.GetCategoriesInRange(5);
+        var user = await _userService.GetUserAsync(request.EmailOwner);
 
         foreach (var category in categories)
         {
-            var quizzesByCategory = await _quizInfoRepository.GetQuizzesByCategory(category.Id);
+            var quizzesByCategory = await _quizInfoRepository.GetQuizzesByCategoryFromOtherUsers(category.Id, user.UserUuid);
             var quizzesByCategoryResponse = new QuizzesByCategory { CategoryName = category.Description };
 
             await CreateQuizzesResponsePerCategory(quizzesByCategory, category, quizzesByCategoryResponse);
@@ -55,7 +57,7 @@ public class GetQuizzesInfoPerCategoriesUseCase : IGetQuizzesInfoPerCategoriesUs
                 QuizInfoUuid = quiz.QuizInfoUuid,
                 NumberOfQuestions = questions.Count,
                 OwnerNickName = await GetUserOwnerNickName(quiz.UserOwnerId),
-                ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName)
+                ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName!)
             };
 
             quizzesByCategoryResponse.QuizzesInfoResponses.Add(quizResponse);

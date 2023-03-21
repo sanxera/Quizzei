@@ -8,5 +8,5 @@ public interface IQuizInfoRepository : IRepository<QuizInformation>
     Task<IEnumerable<QuizInformation>> GetQuizInfoByUserUuid(Guid userUuid);
     Task<IEnumerable<QuizInformation>> GetQuizInfoByDifferentUsers(Guid userUuid);
     Task<IEnumerable<QuizInformation>> GetQuizzesByTitle(string name);
-    Task<IEnumerable<QuizInformation>> GetQuizzesByCategory(int categoryId);
+    Task<IEnumerable<QuizInformation>> GetQuizzesByCategoryFromOtherUsers(int categoryId, Guid userUuid);
 }
