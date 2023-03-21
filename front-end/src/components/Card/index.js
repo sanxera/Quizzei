@@ -15,7 +15,7 @@ const Card = ({ logo, title, ownerNickName, numberOfQuestions, description = '',
       size='small'
       onClick={() => onClick()}
       hoverable
-      cover={logo ? <img style={{ width: '100%', height: 150, borderRadius: '20px 20px 0px 0px' }} alt="example" src={logo} /> : null}
+      cover={logo ? <img style={{ width: '100%', height: 150, borderRadius: '20px 20px 0px 0px', padding: 5 }} alt="example" src={logo} /> : null}
       {...rest}
     >
       {children ?

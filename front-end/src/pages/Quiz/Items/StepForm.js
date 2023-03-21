@@ -1,19 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Row, Col, Select, Divider, Space } from 'antd';
+import moment from 'moment';
+import { Form, Input, Row, Col, Select, Divider, Space, Checkbox, DatePicker, Button as ButtonAntd } from 'antd';
 import { Button } from '../../../components/Button';
 import { InputWrapper } from '../../../components/InputWrapper';
-import { TagOutlined } from '@ant-design/icons';
+import { PlusOutlined, TagOutlined } from '@ant-design/icons';
+import { ModalQuizLogo } from '../ModalQuizLogo';
 
 const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 const StepForm = ({ data, form, showModalCategory, categories }) => {
+  const [showModalLogo, setShowModalLogo] = useState(false);
+  const [imageName, setImageName] = useState(data?.imageName || '');
+  const [imageUrl, setImageUrl] = useState(data?.imageUrl || '');
   async function onSelect(value) {
     if (!value) return;
     await form.setFieldsValue({ categoryId: value })
   }
 
+  async function onAddLogo(image = {}) {
+    await form.setFieldsValue({ imageName: image.imageName || '' })
+    setImageUrl(image.imageUrl);
+    setShowModalLogo(false);
+  }
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Logo
+      </div>
+    </div>
+  );
+
   const options = categories && categories.map(item => <Option key={item.idCategory} value={item.idCategory}>{item.name}</Option>)
   const category = categories ? categories.filter(item => item.name === data.categoryDescription) : [{ idCategory: 1 }];
+  // const dateFormat = 'YYYY/MM/DD';
 
   return (
     <Form
@@ -81,6 +106,38 @@ const StepForm = ({ data, form, showModalCategory, categories }) => {
             <Input.TextArea rows={6} placeholder='Descrição' />
           </Form.Item>
         </Col>
+        {/* // imageName */}
+
+
+
+        <Col span={5}>
+          <ButtonAntd style={{ height: 100, width: 130 }}
+            onClick={() => {
+              setImageName(data?.imageName)
+              setShowModalLogo(true);
+            }}>
+            {imageUrl ? <img style={{ width: '100%', height: 70, borderRadius: '20px 20px 0px 0px', padding: 5 }} src={imageUrl} /> : uploadButton}
+          </ButtonAntd>
+          <Form.Item name="imageName" initialValue={imageName} rules={[{ required: true }]}>
+            <Input hidden />
+          </Form.Item>
+        </Col>
+
+        <ModalQuizLogo
+          visible={showModalLogo}
+          onClose={() => setShowModalLogo(false)}
+          onAdd={onAddLogo}
+          initialValue={imageName}
+        />
+
+        {/* <Col span={19} style={{ display: 'flex', flexDirection: 'column' }}>
+          <Checkbox onChange={e => console.log(e)}>Este quiz é privado?</Checkbox>
+          <span>Data que o quiz será realizado</span>
+          <RangePicker
+            defaultValue={[moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]}
+            format={dateFormat}
+          />
+        </Col> */}
       </Row>
     </Form>
   )

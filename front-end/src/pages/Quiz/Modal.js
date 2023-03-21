@@ -13,7 +13,7 @@ import { Button } from '../../components/Button'
 import { create, createQuestions, listQuestions, update } from '../../services/quiz';
 import { create as createCategory, list as listCategories } from '../../services/categories';
 import { notification } from '../../utils/notification';
-import { ModalCategory } from './ModalCategory';
+// import { ModalCategory } from './ModalCategory';
 
 const { TabPane } = Tabs;
 const { Text } = Typography;
@@ -242,7 +242,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
         )}
       </Tabs>
 
-      {modalCategoryVisible && <ModalCategory visible={modalCategoryVisible} onAdd={onAddCategory} onClose={() => setModalCategoryVisible(false)} />}
+      {/* {modalCategoryVisible && <ModalCategory visible={modalCategoryVisible} onAdd={onAddCategory} onClose={() => setModalCategoryVisible(false)} />} */}
 
     </Modal>
   )

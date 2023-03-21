@@ -1,30 +1,22 @@
 import React from 'react';
 import { Button as ButtonAntd } from 'antd';
-import { useKeenSlider } from "keen-slider/react"
 import Card from './index';
 
-const SliderCard = ({ data, openInfoQuizzes }) => {
-  const [sliderRef] = useKeenSlider({
-    initial: 0,
-    slides: {
-      perView: 6,
-      spacing: 1,
-    },
-    renderMode: 'performance'
-  })
+import './index.less';
 
+const SliderCard = ({ data, openInfoQuizzes }) => {
   if (!data.quizzesInfoResponses || data.quizzesInfoResponses.length === 0) {
     return (<ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>)
   }
 
   return (
-    <div ref={sliderRef} className="keen-slider" style={{ display: 'flex', marginTop: 20, width: '80vw' }}>
+    <div className="slider-card">
       {data.quizzesInfoResponses.map((item, index) => (
         <Card
-          className="keen-slider__slide card"
+          className="card"
           key={`quizzes-${index}`}
           isQuiz
-          logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
+          logo={item.imageUrl || 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'}
           title={item.title}
           description={item.description}
           ownerNickName={item.ownerNickName}

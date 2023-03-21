@@ -50,17 +50,18 @@ const SiderMenu = () => {
       icon: <Folder size={20} />,
       onClick: () => navigate('/content')
     },
-    {
-      label: 'Configurações',
-      key: 'configuration',
-      icon: <Gear size={20} />,
-      onClick: () => navigate('/user')
-    },
+    // {
+    //   label: 'Configurações',
+    //   key: 'configuration',
+    //   icon: <Gear size={20} />,
+    //   onClick: () => navigate('/user')
+    // },
     {
       label: 'Sair',
       key: 'logout',
       icon: <SignOut size={20} />,
-      onClick: () => logout()
+      onClick: () => logout(),
+      danger: true,
     },
   ];
 
@@ -80,43 +81,40 @@ const SiderMenu = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         textAlign: 'center',
-        backgroundColor: '#47a7f0',
+        boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)'
       }}
-      trigger={null}>
+      collapsedWidth="0"
+      breakpoint='lg'
+      theme='light'
+      trigger={null}
+    >
       <div className={styles.logo}>
         <img
           style={{ height: 63 }}
           src={logoQuizzei}
         />
       </div>
-      <Divider style={{ backgroundColor: '#fff' }} />
+      <Divider style={{ backgroundColor: '#0000' }} />
       <div style={{ marginTop: 20 }}>
         <Avatar
           style={{
-            // backgroundColor: "#" + ((1 << 24) * Math.random() | 0).toString(16),
-            backgroundColor: '#51d1f3', 
+            backgroundColor: '#51d1f3',
             verticalAlign: 'middle',
-            border: '1px solid #fff'
+            border: '1px solid #000'
           }}
           size={64}
           gap={4}
         >{user.nickName[0]}</Avatar>
 
-        <Title style={{ color: 'white', marginTop: 20 }} level={3}>{user.nickName}</Title>
-        <Text style={{ color: 'white', marginTop: 20 }}>{user.email}</Text>
-
-        {/* <div>
-          <div style={{ display: 'flex', alignItems: 'center', color: '#fff', grid: 20 }}>
-            <UserFocus size={20} /> <Text style={{ color: '#fff' }}>Aluno</Text>
-          </div>
-        </div> */}
+        <Title strong style={{ marginTop: 20 }} level={3}>{user.nickName}</Title>
+        <Text strong style={{ marginTop: 20 }}>{user.email}</Text>
       </div>
       <Divider style={{ backgroundColor: '#fff' }} />
       <div>
         <Menu
-          style={{ backgroundColor: '#47a7f0', color: '#fff', marginTop: 25, overflow: 'hidden', border: 'none' }}
+          style={{ marginTop: 25, overflow: 'hidden', border: 'none', fontWeight: 'bold' }}
           mode="inline"
-          defaultSelectedKeys={['4']}
+          defaultSelectedKeys={['1']}
           items={items}
         />
       </div>

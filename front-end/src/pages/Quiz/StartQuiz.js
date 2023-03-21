@@ -47,7 +47,7 @@ const StartQuiz = ({ navigate, visible, rowData, onClose, dispatch }) => {
     >
       <Row justify='center' style={{ width: '100%', padding: 20, textAlign: 'center' }}>
         <Col span={24} style={{ marginBottom: 30, width: '100%' }}>
-          <img alt="example" style={{ width: '100%', borderRadius: 10 }} src='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg' />
+          <img alt="example" style={{ width: '100%', borderRadius: 10 }} src={rowData?.imageUrl} />
         </Col>
 
         <Col span={24} style={{ display: 'flex', justifyContent: 'center' }} >

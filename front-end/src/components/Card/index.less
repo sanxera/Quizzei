@@ -9,11 +9,20 @@
   }
 
   .card:hover {
-    background: #58abe9;
-    color: #FFFFFF;
+    color: #58abe9;
+    // box-shadow: 10px #0000;  
+    transition: 0.5s;
   }
 
-  .card:hover>.text {
-    color: #FFFFFF
+  .slider-card {
+    display: flex;
+    margin-top: 20px;
+    max-width: 75vw;
+
+    overflow: scroll;
+  }
+
+  .slider-card::-webkit-scrollbar {
+    display: none;
   }
 }
