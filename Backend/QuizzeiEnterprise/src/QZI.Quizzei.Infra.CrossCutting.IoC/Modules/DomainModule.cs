@@ -18,6 +18,8 @@ using QZI.Quizzei.Application.UseCases.Categories.GetCategoryById;
 using QZI.Quizzei.Application.UseCases.Categories.GetCategoryById.Interfaces;
 using QZI.Quizzei.Application.UseCases.Files.DownloadFile;
 using QZI.Quizzei.Application.UseCases.Files.DownloadFile.Interfaces;
+using QZI.Quizzei.Application.UseCases.Files.GetDefaultImages;
+using QZI.Quizzei.Application.UseCases.Files.GetDefaultImages.Interfaces;
 using QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz;
 using QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz.Interfaces;
 using QZI.Quizzei.Application.UseCases.Files.GetRandomFiles;
@@ -89,6 +91,6 @@ public static class DomainModule
         services.AddScoped<ISearchByTextUseCase, SearchByTextUseCase>();
         services.AddScoped<ICreateRoleUseCase, CreateRoleUseCase>();
         services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
-
+        services.AddScoped<IGetDefaultImagesUseCase, GetDefaultImagesUseCase>();
     }
 }

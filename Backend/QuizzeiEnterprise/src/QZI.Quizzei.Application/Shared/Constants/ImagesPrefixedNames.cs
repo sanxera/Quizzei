@@ -2,12 +2,11 @@
 
 public static class ImagesPrefixedNames
 {
-    public const string Image1 = "Image1.png";
-    public const string Image2 = "Image2.png";
-    public const string Image3 = "Image3.png";
-    public const string Image4 = "Image4.png";
-    public const string Image5 = "Image5.png";
-    public const string Image6 = "Image6.png";
+    public const string Image1 = "image-database.png";
+    public const string Image2 = "image-english-school.png";
+    public const string Image3 = "image-mathematics.png";
+    public const string Image4 = "image-pirate-story.png";
+    public const string Image5 = "image-science.png";
 
     public static string[] GetAllImages() =>
         new[]
@@ -16,7 +15,6 @@ public static class ImagesPrefixedNames
             Image2,
             Image3,
             Image4,
-            Image5,
-            Image6,
+            Image5
         };
 }

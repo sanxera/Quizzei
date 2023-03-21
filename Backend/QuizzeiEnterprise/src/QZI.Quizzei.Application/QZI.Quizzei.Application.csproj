@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="UseCases\Answers\AnswerQuiz\Services\" />
+    <Folder Include="UseCases\Files\GetDefaultImages\Models\Requests\" />
     <Folder Include="UseCases\Files\ReadPdf\Models\Request\" />
   </ItemGroup>
 
