@@ -3,43 +3,41 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetDevPack.Identity;
 using NetDevPack.Identity.User;
 using QZI.Quizzei.API.Configuration.Filters;
 
-namespace QZI.Quizzei.API.Configuration
+namespace QZI.Quizzei.API.Configuration;
+
+public static class ApiConfig
 {
-    public static class ApiConfig
+    public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
+        services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
+        services.AddDefaultIdentityConfiguration(configuration);
+        services.AddAspNetUserConfiguration();
+    }
+
+    public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
-            services.AddDefaultIdentityConfiguration(configuration);
-            services.AddAspNetUserConfiguration();
+            app.UseDeveloperExceptionPage();
         }
 
-        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        app.UseHttpsRedirection();
+
+        app.UseRouting();
+
+        app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
+        app.UseAuthConfiguration();
+
+        app.UseEndpoints(endpoints =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-
-            app.UseAuthConfiguration();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+            endpoints.MapControllers();
+        });
     }
 }

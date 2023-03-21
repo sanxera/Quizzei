@@ -78,15 +78,6 @@ const StepForm = ({ data, form, showModalCategory, categories }) => {
             filterOption={(input, option) => (option.children || "").toString().toLowerCase().includes((input || "").toLowerCase())}
             onChange={item => onSelect(item)}
             placeholder="Categoria"
-            dropdownRender={menu => (
-              <>
-                {menu}
-                <Divider style={{ margin: '8px 0' }} />
-                <Space style={{ padding: '0 8px 4px' }}>
-                  <Button icon={<TagOutlined />} title="Nova categoria" onClick={() => showModalCategory()} />
-                </Space>
-              </>
-            )}
           >
             {options}
           </Select>
