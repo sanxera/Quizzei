@@ -7,7 +7,9 @@ namespace QZI.Quizzei.Infra.Data;
 
 public class QuizzeiContext : IdentityDbContext<ApplicationUser>
 {
-    public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options) { }
+    public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options)
+    {
+    }
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<QuestionOption> Options { get; set; }
     public virtual DbSet<Question> Questions { get; set; }
