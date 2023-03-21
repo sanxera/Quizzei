@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace QZI.Quizzei.Domain.Shared.Interfaces
+namespace QZI.Quizzei.Domain.Shared.Interfaces;
+
+public interface IImageService
 {
-    public interface IImageService
-    {
-        Task<string> GetPrefixedImagesUrl(string imageName);
-    }
+    Task<string> GetPrefixedImagesUrl(string imageName);
 }
