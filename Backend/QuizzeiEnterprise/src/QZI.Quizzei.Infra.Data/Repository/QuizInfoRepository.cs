@@ -35,8 +35,8 @@ public class QuizInfoRepository : RepositoryBase<QuizInformation>, IQuizInfoRepo
         return await Context.QuizzesInfos.Where(x => EF.Functions.Like(x.Title, $"%{name}%")).ToListAsync();
     }
 
-    public async Task<IEnumerable<QuizInformation>> GetQuizzesByCategory(int categoryId)
+    public async Task<IEnumerable<QuizInformation>> GetQuizzesByCategoryFromOtherUsers(int categoryId, Guid userUuid)
     {
-        return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId).ToListAsync();
+        return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId && x.UserOwnerId != userUuid).ToListAsync();
     }
 }
