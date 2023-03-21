@@ -1,10 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using QZI.Quizzei.Domain.Domains.Categories.Entities;
-using QZI.Quizzei.Domain.Domains.Questions.Entities;
-using QZI.Quizzei.Domain.Domains.Quiz.Entities;
-using QZI.Quizzei.Domain.Domains.User.Entities;
+using QZI.Quizzei.Application.Shared.Entities;
 
 namespace QZI.Quizzei.Infra.Data;
 

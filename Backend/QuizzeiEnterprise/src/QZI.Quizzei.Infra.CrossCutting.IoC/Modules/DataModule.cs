@@ -2,11 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
-using QZI.Quizzei.Domain.Domains.Categories.Repositories;
-using QZI.Quizzei.Domain.Domains.Questions.Repositories;
-using QZI.Quizzei.Domain.Domains.Quiz.Repositories;
-using QZI.Quizzei.Domain.Domains.User.Entities;
+using QZI.Quizzei.Application.Shared.Entities;
+using QZI.Quizzei.Application.Shared.Repositories;
+using QZI.Quizzei.Application.Shared.UnitOfWork;
 using QZI.Quizzei.Infra.Data;
 using QZI.Quizzei.Infra.Data.Repository;
 using QZI.Quizzei.Infra.Data.UnitOfWork;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using QZI.Quizzei.Domain.Domains.Questions.Entities;
-using QZI.Quizzei.Domain.Domains.Questions.Repositories;
+using QZI.Quizzei.Application.Shared.Entities;
+using QZI.Quizzei.Application.Shared.Repositories;
 using QZI.Quizzei.Infra.Data.Repository.Base;
 
 namespace QZI.Quizzei.Infra.Data.Repository;

@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\QZI.Quizzei.Domain\QZI.Quizzei.Domain.csproj" />
+	  <ProjectReference Include="..\QZI.Quizzei.Application\QZI.Quizzei.Application.csproj" />
 	</ItemGroup>
 
 </Project>
