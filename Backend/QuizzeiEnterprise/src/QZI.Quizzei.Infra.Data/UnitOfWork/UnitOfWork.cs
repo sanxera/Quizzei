@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using QZI.Quizzei.Domain.Abstractions.UnitOfWork;
+using QZI.Quizzei.Application.Shared.UnitOfWork;
 
 namespace QZI.Quizzei.Infra.Data.UnitOfWork;
 

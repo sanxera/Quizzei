@@ -7,7 +7,7 @@ using QZI.Quizzei.Application.UseCases.Users.CreateRole.Models.Response;
 
 namespace QZI.Quizzei.Application.UseCases.Users.CreateRole;
 
-internal class CreateRoleUseCase : ICreateRoleUseCase
+public class CreateRoleUseCase : ICreateRoleUseCase
 {
     private readonly RoleManager<IdentityRole> _roleManager;
 
