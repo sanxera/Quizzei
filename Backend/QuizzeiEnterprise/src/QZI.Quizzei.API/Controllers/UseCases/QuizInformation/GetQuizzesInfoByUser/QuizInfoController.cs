@@ -7,7 +7,6 @@ using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoByUser.M
 
 namespace QZI.Quizzei.API.Controllers.UseCases.QuizInformation.GetQuizzesInfoByUser;
 
-//[Authorize]
 [Route("api/quizzes-info")]
 public class QuizInfoController : MainController
 {

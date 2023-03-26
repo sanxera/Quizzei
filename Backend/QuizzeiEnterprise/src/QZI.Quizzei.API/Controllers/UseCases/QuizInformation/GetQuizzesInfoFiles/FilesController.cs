@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz.Models.Request;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles.Interfaces;
+using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles.Models.Request;
 
 namespace QZI.Quizzei.API.Controllers.UseCases.QuizInformation.GetQuizzesInfoFiles;
 

@@ -45,6 +45,9 @@ public class QuizInfoMapping : IEntityTypeConfiguration<QuizInformation>
         builder.Property(e => e.CategoryId)
             .HasColumnName("CATEGORY_ID");
 
+        builder.Property(e => e.PermissionType)
+            .HasColumnName("PERMISSION_ID");
+
         builder.HasKey(e => e.QuizInfoUuid)
             .HasName("QUIZ_UUID");
 
@@ -52,6 +55,14 @@ public class QuizInfoMapping : IEntityTypeConfiguration<QuizInformation>
             .HasMany(x => x.Files)
             .WithOne(f => f.QuizInformation)
             .HasForeignKey(e => new
+            {
+                QUIZ_INFO_UUID = e.QuizInfoUuid
+            });
+
+        builder
+            .HasOne(x => x.QuizAccess)
+            .WithOne(f => f.QuizInfo)
+            .HasForeignKey<QuizAccess>(e => new
             {
                 QUIZ_INFO_UUID = e.QuizInfoUuid
             });
