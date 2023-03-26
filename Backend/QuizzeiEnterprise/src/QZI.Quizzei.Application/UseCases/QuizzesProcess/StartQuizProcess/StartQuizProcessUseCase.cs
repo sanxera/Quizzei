@@ -1,5 +1,6 @@
 ﻿using QZI.Quizzei.Application.UseCases.QuizzesProcess.StartQuizProcess.Interfaces;
 using QZI.Quizzei.Application.Shared.Entities;
+using QZI.Quizzei.Application.Shared.Enums;
 using QZI.Quizzei.Application.Shared.Exceptions;
 using QZI.Quizzei.Application.Shared.Repositories;
 using QZI.Quizzei.Application.Shared.Services.Users.Interfaces;
@@ -31,6 +32,8 @@ public class StartQuizProcessUseCase : IStartQuizProcessUseCase
         var userResponse = await _userService.GetUserAsync(request.EmailOwner);
         var quizInfo = await _quizInfoRepository.GetQuizInfoById(request.QuizUuid);
 
+        ValidateQuizPermission(request, quizInfo);
+
         await ValidateQuizQuestions(quizInfo.QuizInfoUuid);
 
         var quizProcess = QuizProcess.Create(quizInfo.QuizInfoUuid, userResponse.UserUuid);
@@ -39,6 +42,14 @@ public class StartQuizProcessUseCase : IStartQuizProcessUseCase
         await _unitOfWork.SaveChangesAsync();
 
         return StartQuizProcessResponse.Create(quizProcess.QuizProcessUuid);
+    }
+
+    private static void ValidateQuizPermission(StartQuizProcessRequest request, QuizInformation quizInfo)
+    {
+        if (quizInfo.PermissionType == PermissionType.Pubic) return;
+
+        if (quizInfo.QuizAccess?.AccessCode != request.AccessInformation?.AccessCode)
+            throw new GenericException("Access Code is invalid");
     }
 
     private async Task ValidateQuizQuestions(Guid quizInfoUuid)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,10 @@ public class QuizProcessController : MainController
     }
 
     [HttpPost("start-quiz/{quizInfo:guid}")]
-    public async Task<IActionResult> StartQuizProcess(Guid quizInfo)
+    public async Task<IActionResult> StartQuizProcess(Guid quizInfo, [FromBody] AccessInformationRequest? accessInformation)
     {
         var email = ReadEmailFromToken();
-        var result = await _useCase.ExecuteAsync(new StartQuizProcessRequest{EmailOwner = email, QuizUuid = quizInfo});
+        var result = await _useCase.ExecuteAsync(new StartQuizProcessRequest{EmailOwner = email, QuizUuid = quizInfo, AccessInformation = accessInformation});
 
         return Ok(result);
     }
