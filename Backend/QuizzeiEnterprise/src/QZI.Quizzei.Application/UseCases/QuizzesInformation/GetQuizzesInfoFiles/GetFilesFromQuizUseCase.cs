@@ -1,16 +1,15 @@
-﻿using QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz.Interfaces;
-using QZI.Quizzei.Application.Shared.Repositories;
-using QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz.Models.Request;
-using QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz.Models.Response;
+﻿using QZI.Quizzei.Application.Shared.Repositories;
+using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles.Interfaces;
+using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles.Models.Request;
+using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles.Models.Response;
 
-namespace QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz;
+namespace QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles;
 
-//TODO: REVISAR DE FAZ SENTIDO ESSE METODO ESTAR AQUI
-public class GetFilesFromQuizUseCase : IGetFilesFromQuizUseCase
+public class GetQuizzesInfoFilesUseCase : IGetQuizzesInfoFilesUseCase
 {
     private readonly IQuizInfoRepository _quizInfoRepository;
 
-    public GetFilesFromQuizUseCase(IQuizInfoRepository quizInfoRepository)
+    public GetQuizzesInfoFilesUseCase(IQuizInfoRepository quizInfoRepository)
     {
         _quizInfoRepository = quizInfoRepository;
     }

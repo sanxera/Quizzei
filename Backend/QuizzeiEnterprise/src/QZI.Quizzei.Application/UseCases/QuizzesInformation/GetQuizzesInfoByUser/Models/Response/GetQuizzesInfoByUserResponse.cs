@@ -16,4 +16,12 @@ public class QuizInfoResponse
     public int Rate { get; set; }
     public string OwnerNickName { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;
+    public QuizAccessResponse? QuizAccess { get; set; }
+}
+
+public class QuizAccessResponse
+{
+    public DateTime? InitialDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public string? AccessCode { get; set; }
 }

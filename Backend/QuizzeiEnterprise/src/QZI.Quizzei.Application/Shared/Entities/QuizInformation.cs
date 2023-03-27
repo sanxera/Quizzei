@@ -1,4 +1,6 @@
-﻿namespace QZI.Quizzei.Application.Shared.Entities;
+﻿using QZI.Quizzei.Application.Shared.Enums;
+
+namespace QZI.Quizzei.Application.Shared.Entities;
 
 public class QuizInformation : Entity
 {
@@ -10,10 +12,12 @@ public class QuizInformation : Entity
     public int CategoryId { get; set; }
     public string? ImageName { get; set; }
     public Guid UserOwnerId { get; set; }
+    public PermissionType PermissionType { get; set; }
 
     public ICollection<QuizInformationFile> Files { get; set; } = new List<QuizInformationFile>();
+    public QuizAccess? QuizAccess { get; set; }
 
-    public static QuizInformation Create(string title, string description, Guid userOwner, int categoryId, string imageName) =>
+    public static QuizInformation Create(string title, string description, Guid userOwner, int categoryId, string imageName, PermissionType permissionType) =>
         new()
         {
             QuizInfoUuid = Guid.NewGuid(),
@@ -24,7 +28,8 @@ public class QuizInformation : Entity
             CreatedAt = DateTime.Now,
             CreatedBy = "Admin",
             CategoryId = categoryId,
-            ImageName = imageName
+            ImageName = imageName,
+            PermissionType = permissionType
         };
 
     public void UpdateQuizRate(int rate) => Points = rate;

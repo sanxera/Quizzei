@@ -1,4 +1,4 @@
-﻿namespace QZI.Quizzei.Application.UseCases.Files.GetFilesFromQuiz.Models.Response;
+﻿namespace QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoFiles.Models.Response;
 
 public class GetFilesFromQuizInfoResponse
 {

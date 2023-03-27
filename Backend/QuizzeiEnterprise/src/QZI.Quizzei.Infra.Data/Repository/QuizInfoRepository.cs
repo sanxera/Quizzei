@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QZI.Quizzei.Application.Shared.Entities;
+using QZI.Quizzei.Application.Shared.Enums;
 using QZI.Quizzei.Application.Shared.Repositories;
 using QZI.Quizzei.Infra.Data.Repository.Base;
 
@@ -17,17 +18,21 @@ public class QuizInfoRepository : RepositoryBase<QuizInformation>, IQuizInfoRepo
     {
         return await Context.QuizzesInfos
             .Include(x => x.Files)
+            .Include(a => a.QuizAccess)
             .FirstOrDefaultAsync(x => x.QuizInfoUuid == id);
     }
 
     public async Task<IEnumerable<QuizInformation>> GetQuizInfoByUserUuid(Guid userUuid)
     {
-        return await Context.QuizzesInfos.Where(x => x.UserOwnerId == userUuid).ToListAsync();
+        return await Context.QuizzesInfos
+            .Include(x => x.QuizAccess)
+            .Where(x => x.UserOwnerId == userUuid)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<QuizInformation>> GetQuizInfoByDifferentUsers(Guid userUuid)
     {
-        return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid).ToListAsync();
+        return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid && x.PermissionType == PermissionType.Pubic).ToListAsync();
     }
 
     public async Task<IEnumerable<QuizInformation>> GetQuizzesByTitle(string name)
@@ -37,6 +42,6 @@ public class QuizInfoRepository : RepositoryBase<QuizInformation>, IQuizInfoRepo
 
     public async Task<IEnumerable<QuizInformation>> GetQuizzesByCategoryFromOtherUsers(int categoryId, Guid userUuid)
     {
-        return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId && x.UserOwnerId != userUuid).ToListAsync();
+        return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId && x.UserOwnerId != userUuid && x.PermissionType == PermissionType.Pubic).ToListAsync();
     }
 }
