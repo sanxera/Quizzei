@@ -88,10 +88,10 @@ const StepQuestion = ({ data, form }) => {
                                       <Form.Item
                                         {...item}
                                         name={[item.name, 'isCorrect']}
-                                        fieldKey={[item.fieldKey, 'isCorrect']}
+                                        fieldKey={[item.fieldKey, 'options']}
                                         key={index}
                                         valuePropName="checked"
-                                        initialValue={item?.isCorrect || false}
+                                        initialValue={form.getFieldsValue().questions && form.getFieldsValue().questions[question.fieldKey]?.options[index] && form.getFieldsValue().questions[question.fieldKey]?.options[index].isCorrect === true || true}
                                       >
                                         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#32CD80', height: '100%', alignItems: 'center' }}>
                                           <Checkbox />

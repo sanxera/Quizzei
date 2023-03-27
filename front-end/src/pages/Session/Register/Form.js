@@ -47,7 +47,11 @@ const FormComponent = ({ navigate }) => {
       wrapperCol={{ span: 24 }}
     >
       <Row gutter={36}>
-        <Col span={24}>
+
+        <Form.Item name="roleId" initialValue='0bd3463c-95dd-4dce-ae51-7c2c62609860'>
+          <Input hidden />
+        </Form.Item>
+        {/* <Col span={24}>
           <Form.Item
             name="roleId"
             rules={
@@ -67,7 +71,7 @@ const FormComponent = ({ navigate }) => {
               ))}
             </Select>
           </Form.Item>
-        </Col>
+        </Col> */}
 
         <Col span={24}>
           <Form.Item

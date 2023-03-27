@@ -12,21 +12,16 @@ import { listMyQuizzes, listPublicQuizzesByCategory, listPublicQuizzes } from '.
 import styles from './styles.less'
 import Filter from '../../components/Filter';
 import SliderCard from '../../components/Card/SliderCard';
+import { getUser } from '../../services/session';
 
 const { Title } = Typography;
 
 const List = () => {
   const navigate = useNavigate();
-  // const [sliderRef] = useKeenSlider({
-  //   slides: {
-  //     perView: 5,
-  //     spacing: 15,
-  //   },
-  // })
+  const [currentUser, setCurrentUser] = useState({});
   const [userQuizzes, setUserQuizzes] = useState({});
   const [publicQuizzes, setPublicQuizzes] = useState({});
   const [allQuizzes, setAllQuizzes] = useState({});
-  // const [allQuizzes, setAllQuizzes] = useState([])
   const [visible, setVisible] = useState(false);
   const [infoVisible, setInfoVisible] = useState(false);
   const [rowData, setRowData] = useState({});
@@ -37,9 +32,12 @@ const List = () => {
   }, [])
 
   async function init() {
+    // TODO adicionar o currentUser ao store para nao precisar chamar a função em todas as paginas
+    const currentUser = await getUser();
     const userQuizzes = await listMyQuizzes();
     const publicQuizzes = await listPublicQuizzesByCategory();
     const allQuizzes = await listPublicQuizzes();
+    await setCurrentUser(currentUser);
     await setUserQuizzes(userQuizzes);
     await setPublicQuizzes(publicQuizzes);
     await setAllQuizzes(allQuizzes);
@@ -83,7 +81,7 @@ const List = () => {
   }
 
   return (
-    <>
+    <div style={{ backgroundColor: '#FFFF', paddingBottom: 50, borderRadius: 15, padding: 20, boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)' }}>
       <Row>
         <Col span={24} style={{ textAlign: 'center' }}>
           <Title level={3}>Que tipo de quiz você está buscando?</Title>
@@ -96,17 +94,19 @@ const List = () => {
 
       <div className={styles.quizContainer}>
         <Row style={{ maxWidth: '90vw' }}>
-          <Col className={styles.quizCategory} span={24}>
+          <Col
+            className={styles.quizCategory}
+            span={24}
+          >
             <Title level={3} > Meus Quizzes</Title>
-            <Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />
+            {currentUser.admin === true ? (<Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />) : null}
           </Col>
 
           <Col className={`keen-slide ${styles.listQuizzes}`}>
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.length > 0 ? userQuizzes.quizzesInfoDto.map((item, index) => (
               <Card
                 key={`my-quizzes-${index}`}
-                // cardName={`keen-slider__slide${index}`}
-                logo='https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'
+                logo={item.imageUrl || 'https://img.freepik.com/premium-vector/set-colored-school-subjects_787525-31.jpg?w=1060' }//|| 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'}
                 title={item.title}
                 description={item.description}
                 onClick={() => handleModal(item)}
@@ -153,7 +153,7 @@ const List = () => {
         )}
 
       </div >
-    </>
+    </div>
   )
 }
 

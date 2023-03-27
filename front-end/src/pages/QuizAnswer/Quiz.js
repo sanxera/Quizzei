@@ -70,7 +70,7 @@ const Quiz = ({ data: { quizProcessUuid, quizInfoUuid, questions: data } }) => {
   };
 
   return (
-    <div>
+    <div  style={{ backgroundColor: '#FFFF', paddingBottom: 50, borderRadius: 15, padding: 20, boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)' }}>
       <Steps progressDot current={current}>
         {steps.map((item) => (
           <Step key={item.question} />

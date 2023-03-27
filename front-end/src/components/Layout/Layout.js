@@ -14,9 +14,8 @@ const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children,
       <Layout style={{ minHeight: '100vh', marginLeft: 200 }} {...rest}>
         <Content
           style={{
-            // backgroundColor: '#f0f2f5',
-            backgroundColor: '#FFFFFF',
-            padding: 50,
+            backgroundColor: '#f5f9fc',
+            padding: '20px 50px',
           }}
         >
           {children}

@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { Timeline, Row, Col, Calendar, Typography, PageHeader, Progress, Tooltip, Button as ButtonAntd } from 'antd';
 import { ChatCenteredText, User, LineSegment } from 'phosphor-react'
 import { historyQuiz } from '../../services/quiz';
+import { getUser } from '../../services/session';
 
 const { Title, Text } = Typography;
 
 const Dashboard = () => {
   const [history, setHistory] = useState({});
+   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     init();
@@ -14,7 +16,9 @@ const Dashboard = () => {
 
   async function init() {
     const data = await historyQuiz();
+    const user = await getUser();
     setHistory(data);
+    setCurrentUser(user);
   }
 
   async function onPanelChange(value, mode) {
@@ -26,11 +30,11 @@ const Dashboard = () => {
       <PageHeader
         className="site-page-header"
         title="Bem Vindo!"
-        subTitle="dashboard"
+        subTitle={currentUser.nickName || ''}
       />
 
-      <Row style={{ marginTop: 100, marginLeft: 10 }} gutter={2}>
-        <Col span={15}>
+      <Row style={{ marginTop: 5, marginLeft: 10 }} gutter={2}>
+        <Col span={15} style={{ backgroundColor: '#FFFF', paddingBottom: 50, borderRadius: 15, padding: 20, boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)' }}>
           <Title level={2}>Quizzes recente</Title>
           {history.quizzesHistoryInformation && history.quizzesHistoryInformation.length > 0 ? (
             <Timeline style={{ marginLeft: 20 }}>
@@ -84,8 +88,8 @@ const Dashboard = () => {
           )}
         </Col>
 
-        <Col span={7} style={{ marginLeft: 50 }}>
-          <Title level={2}>Calendário</Title>
+        <Col span={7} style={{ marginLeft: 50, maxHeight: 'auto',  backgroundColor: '#FFFF', paddingBottom: 50, borderRadius: 15, padding: 20, boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)' }}>
+          <Title level={2}>Calendário de atividades</Title>
           <Calendar style={{ borderBottom: '1px solid' }} fullscreen={false} onPanelChange={onPanelChange} headerRender={null} />
         </Col>
       </Row >

@@ -64,10 +64,11 @@ export async function verifiedRequest() {
 export async function getUser() {
   if (isEnvironmentDevelopment) return {
     userUuid: "220fe8e1-b06d-4da1-bf33-2e6f5e4dbcb8",
-    email: "manuel123@gmail.com",
+    email: "luiz@gmail.com",
     nickName: "Luiz Eduardo",
     roleUuid: "0bd3463c-95dd-4dce-ae51-7c2c62609860",
-    roleName: "Aluno"
+    roleName: "Aluno",
+    admin: true
   };
 
   const auth = getAuthority();
