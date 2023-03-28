@@ -1,5 +1,5 @@
 import request from '../utils/request';
-import { getAuthority } from "../utils/auth";
+// import { getAuthority } from "../utils/auth";
 
 const { REACT_APP_ENVIRONMENT } = process.env
 const isEnvironmentDevelopment = REACT_APP_ENVIRONMENT === 'DEVELOPMENT';

@@ -21,6 +21,7 @@ const SliderCard = ({ data, openInfoQuizzes }) => {
           description={item.description}
           ownerNickName={item.ownerNickName}
           numberOfQuestions={item.numberOfQuestions}
+          permissionType={item.permissionType || 1}
           onClick={() => openInfoQuizzes(item)}
           style={{ marginRight: 30, marginLeft: 0, minHeight: '20rem', padding: 0, width: 240 }}
         />

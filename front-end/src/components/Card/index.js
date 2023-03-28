@@ -1,14 +1,16 @@
 import React from 'react';
-import { Card as CardAntd, Row, Col, Typography } from 'antd'
+import { Card as CardAntd, Row, Col, Typography, Tag } from 'antd'
 import { UserOutlined, FileTextOutlined } from '@ant-design/icons'
 // import styles from './index.less';
 
 import './index.less';
+import { PERMISSION_TYPE_TAGS } from '../../utils/constant';
 
 const { Meta } = CardAntd;
 const { Title, Text } = Typography;
 
-const Card = ({ logo, title, ownerNickName, numberOfQuestions, description = '', cardName, onClick, isQuiz = false, children, ...rest }) => {
+const Card = ({ logo, title, ownerNickName, numberOfQuestions, description = '', permissionType, cardName, onClick, isQuiz = false, children, ...rest }) => {
+  const tagType = PERMISSION_TYPE_TAGS[permissionType || 1];
   return (
     <CardAntd
       className="card"
@@ -31,18 +33,17 @@ const Card = ({ logo, title, ownerNickName, numberOfQuestions, description = '',
             description={
               <div style={{ width: 200 }}>
                 <Text ellipsis={{ rows: 1 }}
-                className="text"
+                  className="text"
                 >{description}</Text>
                 {isQuiz && (
-                  <Row style={{ marginTop: 20, marginBottom: 20, textAlign: 'center' }} justify='center'>
-                    <Col
-                      className="text"
-                      span={15}>
-                      <UserOutlined /> {ownerNickName}
+                  <Row style={{ marginTop: 20, marginBottom: 20, padding: 0, textAlign: 'center' }} gutter={5} justify='center'>
+                    <Col>
+                      <Tag color={tagType.color}>{tagType.title}</Tag>
                     </Col>
-                    <Col
-                      className="text"
-                      span={9}>
+                    <Col>
+                      <UserOutlined /> {(ownerNickName || '').split(' ')[0]}
+                    </Col>
+                    <Col>
                       <FileTextOutlined /> {numberOfQuestions}
                     </Col>
                   </Row>

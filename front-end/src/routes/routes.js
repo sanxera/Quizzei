@@ -19,9 +19,7 @@ export const RoutesList = () => {
         {routes.map((route, index) =>
           <Route key={`route${index}`} path={route.path} element={
             <LayoutWrapper>
-              {/* <PageHeader title="Quizzes" subTitle="Lista do seus quizzes e outros publicados por usuarios / instituições"> */}
               {route.element}
-              {/* </PageHeader> */}
             </LayoutWrapper >
           } />
         )}

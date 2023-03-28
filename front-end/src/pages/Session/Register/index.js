@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Row, Col } from 'antd';
-import { Button } from '../../../components/Button';
 import LayoutWrapper from '../../../components/Layout/Layout';
 import loginImage from '../../../image/LogoArt.png'
 import FormComponent from './Form';
