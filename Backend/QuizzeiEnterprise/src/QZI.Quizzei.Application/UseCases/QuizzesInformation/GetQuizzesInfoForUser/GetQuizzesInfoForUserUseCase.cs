@@ -53,7 +53,8 @@ public class GetQuizzesInfoForUserUseCase : IGetQuizzesInfoForUserUseCase
                 QuizInfoUuid = quiz.QuizInfoUuid,
                 NumberOfQuestions = questions.Count,
                 OwnerNickName = user.NickName,
-                ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName)
+                ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName),
+                PermissionType = quiz.PermissionType
             });
         }
 
