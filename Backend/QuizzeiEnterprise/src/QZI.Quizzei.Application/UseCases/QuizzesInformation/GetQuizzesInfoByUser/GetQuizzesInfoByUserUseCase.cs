@@ -58,6 +58,7 @@ public class GetQuizzesInfoByUserUseCase : IGetQuizzesInfoByUserUseCase
                 NumberOfQuestions = questions.Count,
                 OwnerNickName = user.NickName,
                 ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName),
+                PermissionType = quiz.PermissionType,
                 QuizAccess = quiz.QuizAccess == null ? null : new QuizAccessResponse
                 {
                     AccessCode = quiz.QuizAccess?.AccessCode,
