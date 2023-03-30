@@ -10,7 +10,7 @@ const ContentQuestions = ({ data, onClick }) => {
   return (
     <Row justify='center'>
       <Col style={{ textAlign: 'center', marginTop: 50 }} span={24}>
-        <Title>{description}</Title>
+        <Title level={4}>{description}</Title>
       </Col>
       <Col style={{ display: 'flex', flexDirection: 'column', marginTop: 50 }}>
         {options.map((item, index) => (

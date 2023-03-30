@@ -13,6 +13,7 @@ import styles from './styles.less'
 import Filter from '../../components/Filter';
 import SliderCard from '../../components/Card/SliderCard';
 import { getUser } from '../../services/session';
+import { DEFAULT_THEME } from '../../utils/constant';
 
 const { Title } = Typography;
 
@@ -106,7 +107,7 @@ const List = () => {
             {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.length > 0 ? userQuizzes.quizzesInfoDto.map((item, index) => (
               <Card
                 key={`my-quizzes-${index}`}
-                logo={item.imageUrl || 'https://img.freepik.com/premium-vector/set-colored-school-subjects_787525-31.jpg?w=1060' }//|| 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'}
+                logo={item.imageUrl || DEFAULT_THEME}//|| 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'}
                 title={item.title}
                 description={item.description}
                 onClick={() => handleModal(item)}

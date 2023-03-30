@@ -8,9 +8,10 @@ import {
 import { Button } from '../../components/Button';
 import { InputWrapper } from '../../components/InputWrapper';
 import { listQuestions, startQuiz } from '../../services/quiz';
+import { notification } from '../../utils/notification';
+import { DEFAULT_THEME } from '../../utils/constant';
 
 import styles from './styles.less';
-import { notification } from '../../utils/notification';
 
 const { Title, Text } = Typography;
 
@@ -54,7 +55,7 @@ const StartQuiz = ({ navigate, visible, rowData, onClose, dispatch }) => {
     >
       <Row justify='center' style={{ width: '100%', padding: 20, textAlign: 'center' }}>
         <Col span={24} style={{ marginBottom: 30, width: '100%' }}>
-          <img alt="example" style={{ width: '100%', height: 200, borderRadius: 10 }} src={rowData?.imageUrl} />
+          <img alt="example" style={{ width: '100%', height: 250, borderRadius: 10 }} src={rowData?.imageUrl || DEFAULT_THEME} />
         </Col>
 
         <Col span={24} style={{ display: 'flex', justifyContent: 'center' }} >
@@ -66,9 +67,14 @@ const StartQuiz = ({ navigate, visible, rowData, onClose, dispatch }) => {
           <Text style={{ color: '#FFFFFF' }}>{rowData.description}</Text>
         </Col>
 
-        <Divider />
-        <Alert message="Aviso: O quiz que está tendo iniciar possui senha. Digite a senha para continuar." type="warning" showIcon />
-        <InputWrapper type="password" style={{ marginTop: 10, opacity: 0.9 }} placeholder="Digite a senha" onChange={e => setPassword(e.target.value)} />
+        {rowData.permissionType && [2, 3].includes(rowData.permissionType) && (
+          <div>
+            <Divider />
+
+            <Alert message="Aviso: O quiz que está tendo iniciar possui senha. Digite a senha para continuar." type="warning" showIcon />
+            <InputWrapper type="password" style={{ marginTop: 10, opacity: 0.9 }} placeholder="Digite a senha" onChange={e => setPassword(e.target.value)} />
+          </div>
+        )}
         <Divider />
 
         <Col span={12}>

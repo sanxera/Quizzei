@@ -10,7 +10,7 @@ public class ExceptionFilter : IExceptionFilter
         var ex = context.Exception;
 
         context.ExceptionHandled = true;
-        context.Result = new ObjectResult(ex);
+        context.Result = new ObjectResult(ex.Message);
         context.HttpContext.Response.StatusCode = 500;
     }
 }
