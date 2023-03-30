@@ -44,8 +44,8 @@ public class CreateQuizInfoUseCase : ICreateQuizInfoUseCase
 
     private async Task CreateQuizAccess(CreateQuizInfoRequest request, QuizInformation quizInfo)
     {
-        var quizAccess = QuizAccess.Create(quizInfo.QuizInfoUuid, request.QuizAccessRequest.InitialDate,
-            request.QuizAccessRequest.EndDate, request.QuizAccessRequest.AccessCode);
+        var quizAccess = QuizAccess.Create(quizInfo.QuizInfoUuid, request.QuizAccess.InitialDate,
+            request.QuizAccess.EndDate, request.QuizAccess.AccessCode);
 
         await _quizAccessRepository.AddAsync(quizAccess);
     }

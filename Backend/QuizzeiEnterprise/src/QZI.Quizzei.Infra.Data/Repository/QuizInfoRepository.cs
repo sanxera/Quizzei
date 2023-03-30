@@ -32,7 +32,7 @@ public class QuizInfoRepository : RepositoryBase<QuizInformation>, IQuizInfoRepo
 
     public async Task<IEnumerable<QuizInformation>> GetQuizInfoByDifferentUsers(Guid userUuid)
     {
-        return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid && x.PermissionType == PermissionType.Pubic).ToListAsync();
+        return await Context.QuizzesInfos.Where(x => x.UserOwnerId != userUuid).ToListAsync();
     }
 
     public async Task<IEnumerable<QuizInformation>> GetQuizzesByTitle(string name)
@@ -42,6 +42,6 @@ public class QuizInfoRepository : RepositoryBase<QuizInformation>, IQuizInfoRepo
 
     public async Task<IEnumerable<QuizInformation>> GetQuizzesByCategoryFromOtherUsers(int categoryId, Guid userUuid)
     {
-        return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId && x.UserOwnerId != userUuid && x.PermissionType == PermissionType.Pubic).ToListAsync();
+        return await Context.QuizzesInfos.Where(x => x.CategoryId == categoryId && x.UserOwnerId != userUuid).ToListAsync();
     }
 }

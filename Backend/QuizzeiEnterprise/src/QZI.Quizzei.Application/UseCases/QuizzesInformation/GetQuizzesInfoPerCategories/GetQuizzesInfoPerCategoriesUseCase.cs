@@ -57,7 +57,8 @@ public class GetQuizzesInfoPerCategoriesUseCase : IGetQuizzesInfoPerCategoriesUs
                 QuizInfoUuid = quiz.QuizInfoUuid,
                 NumberOfQuestions = questions.Count,
                 OwnerNickName = await GetUserOwnerNickName(quiz.UserOwnerId),
-                ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName!)
+                ImageUrl = await _imageService.GetPrefixedImagesUrl(quiz.ImageName!),
+                PermissionType = quiz.PermissionType
             };
 
             quizzesByCategoryResponse.QuizzesInfoResponses.Add(quizResponse);

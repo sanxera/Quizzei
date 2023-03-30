@@ -1,4 +1,6 @@
-﻿namespace QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoForUser.Models.Response;
+﻿using QZI.Quizzei.Application.Shared.Enums;
+
+namespace QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoForUser.Models.Response;
 
 public class GetQuizzesInfoForUserResponse
 {
@@ -16,4 +18,5 @@ public class QuizInfoResponse
     public int Rate { get; set; }
     public string OwnerNickName { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;
+    public PermissionType PermissionType { get; set; }
 }

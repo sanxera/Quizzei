@@ -9,5 +9,5 @@ public class CreateQuizInfoRequest
     public int CategoryId { get; set; }
     public string ImageName { get; set; } = null!;
     public PermissionType PermissionType { get; set; }
-    public CreateQuizAccessRequest QuizAccessRequest { get; set; } = null!;
+    public CreateQuizAccessRequest QuizAccess { get; set; } = null!;
 }
