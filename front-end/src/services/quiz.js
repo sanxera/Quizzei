@@ -191,11 +191,11 @@ export async function listQuestions(quizInfoUuid) {
           questions: [
             {
               questionUuid: 'xxxx',
-              questionDescription: 'Questão 1',
+              questionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum congue nunc, ac tincidunt diam fermentum in. Proin sed vulputate purus. Mauris lacinia egestas ipsum, eu bibendum turpis ultricies et. Integer ut orci tincidunt, cursus nisi in, lobortis neque. Nullam mattis molestie imperdiet. Morbi sollicitudin sollicitudin eleifend. Proin eleifend ipsum eget accumsan facilisis. Morbi porta porttitor luctus. Morbi dictum viverra consectetur. Donec non porttitor sem. Ut vel elit id mauris eleifend scelerisque. Curabitur feugiat consequat quam. Suspendisse id ultrices ante, bibendum vehicula purus. Praesent vel condimentum velit, eget egestas nisl.',
               options: [
                 {
                   optionUuid: 'xxxxx',
-                  optionDescription: 'Descricao 1',
+                  optionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum congue nunc, ac tincidunt diam fermentum in. Proin sed vulputate purus. Mauris lacinia egestas ipsum, eu bibendum turpis ultricies et. Integer ut orci tincidunt, cursus nisi in, lobortis neque. Nullam mattis molestie imperdiet. Morbi sollicitudin sollicitudin eleifend. Proin eleifend ipsum eget accumsan facilisis. Morbi porta porttitor luctus. Morbi dictum viverra consectetur. Donec non porttitor sem. .',
                   isCorrect: true,
                 },
                 {
@@ -275,6 +275,8 @@ export async function startQuiz(params) {
       accessCode: password
     }
   });
+
+  if (response.status !== 200) return {};
 
   return response.data;
 }

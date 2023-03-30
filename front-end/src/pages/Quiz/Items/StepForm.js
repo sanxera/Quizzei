@@ -12,7 +12,7 @@ const { Text } = Typography;
 
 const StepForm = ({ data, form, categories }) => {
   const [showModalLogo, setShowModalLogo] = useState(false);
-  const [imageName, setImageName] = useState(data?.imageName || '');
+  const [imageName, setImageName] = useState(data?.imageName || 'Arquitetura');
   const [imageUrl, setImageUrl] = useState(data?.imageUrl || '');
   const [permissionType, setPermissionType] = useState(PERMISSION_TYPE[data?.permissionType || 1]);
   const [period, setPeriod] = useState(DEFAULT_DATE);
@@ -49,10 +49,10 @@ const StepForm = ({ data, form, categories }) => {
         quizAccessModel = quizAccessModel;
         break;
       case 'PRIVATE':
-        quizAccessModel = { ...quizAccess, accessCode: '' };
+        quizAccessModel = { ...quizAccess, initialDate: null, endDate: null, accessCode: '' };
         break;
       case 'TEMPORARY':
-        quizAccessModel = { ...quizAccess, accessCode: '', initialDate: period[0], endDate: period[1] };
+        quizAccessModel = { ...quizAccess, initialDate: period[0], endDate: period[1] };
         break;
     }
 
@@ -165,7 +165,13 @@ const StepForm = ({ data, form, categories }) => {
         </Col>
 
         <Col span={19} style={{ display: 'flex', flexDirection: 'column' }}>
-          <Row gutter={[0, 15]}>
+          <Row gutter={[0, 10]}>
+            <Form.Item
+              name="quizAccess"
+              initialValue={data?.quizAccess || null}
+              hidden
+            />
+
             <Col span={24}>
               <Form.Item
                 name="permissionType"
@@ -187,26 +193,20 @@ const StepForm = ({ data, form, categories }) => {
               </div>
             </Col>
 
-            <Form.Item
-              name="quizAccess"
-              initialValue={data?.quizAccess || null}
-              hidden
-            />
-
             {['PRIVATE', 'TEMPORARY'].includes(permissionType) && (
               <Col span={15}>
                 <Form.Item
+                  style={{ margin: 0 }}
                   name={["quizAccess", 'accessCode']}
                   initialValue={data?.quizAccess?.accessCode || ''}
                 >
-                  <InputWrapper placeholder="Senha do quiz"
-                  />
+                  <InputWrapper placeholder="Senha do quiz" />
                 </Form.Item>
               </Col>
             )}
 
-            {permissionType === 'TEMPORARY' && !loading  && (
-              <Col span={10} style={{ display: 'flex', flexDirection: 'column' }}>
+            {permissionType === 'TEMPORARY' && !loading && (
+              <Col span={10} style={{ display: 'flex', flexDirection: 'column', margin: 0, padding: 0 }}>
                 <Text>Data que o quiz será realizado</Text>
                 <Form.Item name={["quizAccess", 'initialDate']} initialValue={data?.quizAccess?.initialDate || moment(new Date())} hidden />
                 <Form.Item name={["quizAccess", 'endDate']} initialValue={data?.quizAccess?.endDate || moment(new Date()).add(1, 'month')} hidden />
