@@ -3,17 +3,18 @@ import { Tabs, Form, Modal, Typography, Row, Col, Button as ButtonAntd, Upload, 
 import {
   InfoCircleOutlined,
   QuestionCircleOutlined,
-  FileSearchOutlined
+  FileSearchOutlined,
+  FileImageOutlined
 } from '@ant-design/icons';
 import { ListBullets, FilePdf } from 'phosphor-react';
 import StepForm from './Items/StepForm';
 import StepQuestion from './Items/StepQuestions';
 import StepContent from './Items/StepContent';
+import StepTheme from './Items/StepTheme';
 import { Button } from '../../components/Button'
 import { create, createQuestions, listQuestions, update } from '../../services/quiz';
 import { create as createCategory, list as listCategories } from '../../services/categories';
 import { notification } from '../../utils/notification';
-// import { ModalCategory } from './ModalCategory';
 
 const { TabPane } = Tabs;
 const { Text } = Typography;
@@ -178,7 +179,20 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
             form={form}
             data={data}
             categories={categories}
-            // showModalCategory={showModalCategory}
+          />
+        </TabPane>
+
+        <TabPane
+          tab={
+            <>
+              <FileImageOutlined />
+              Temas
+            </>
+          }
+          key="2">
+          <StepTheme
+            form={form}
+            data={data}
           />
         </TabPane>
 
@@ -189,7 +203,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
               Perguntas e Respostas
             </>
           }
-          key="2" >
+          key="3" >
           <>
             {!showQuestions && questions.length === 0 ? (
               <Row justify='center' style={{ marginTop: 50 }}>
@@ -241,7 +255,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
                 Conteúdo
               </>
             }
-            key="3" >
+            key="4" >
             <StepContent data={data} />
           </TabPane>
         )}
