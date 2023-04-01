@@ -7,6 +7,7 @@ public static class ImagesPrefixedNames
     public const string Image3 = "image-mathematics.png";
     public const string Image4 = "image-pirate-story.png";
     public const string Image5 = "image-science.png";
+    public const string Image6 = "Default.png";
 
     public static string[] GetAllImages() =>
         new[]
@@ -15,6 +16,7 @@ public static class ImagesPrefixedNames
             Image2,
             Image3,
             Image4,
-            Image5
+            Image5,
+            Image6
         };
 }
