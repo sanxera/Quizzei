@@ -6,4 +6,5 @@ public interface IQuizProcessRepository : IRepository<QuizProcess>
 {
     Task<QuizProcess> GetQuizProcessById(Guid id);
     Task<IList<QuizProcess>> GetQuizProcessByUser(Guid userUuid);
+    Task<IList<QuizProcess>> GetQuizProcessByQuiz(Guid quizUuid);
 }

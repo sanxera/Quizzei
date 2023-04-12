@@ -25,4 +25,9 @@ public class QuizProcessRepository : RepositoryBase<QuizProcess>, IQuizProcessRe
     {
         return await Context.QuizProcesses.Where(x => x.UserUuid == userUuid).ToListAsync();
     }
+
+    public async Task<IList<QuizProcess>> GetQuizProcessByQuiz(Guid quizUuid)
+    {
+        return await Context.QuizProcesses.Where(x => x.QuizInfoUuid == quizUuid).ToListAsync();
+    }
 }
