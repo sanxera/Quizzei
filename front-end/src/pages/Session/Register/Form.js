@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Input, Select, Row, Col } from 'antd';
+import { Form, Input, Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 import { Button } from '../../../components/Button';
 import { register } from '../../../services/session';
@@ -8,16 +8,14 @@ import { register } from '../../../services/session';
 import './index.css';
 import { notification } from '../../../utils/notification';
 
-const { Option } = Select;
-
 const INPUT_STYLE = {
   borderBottom: '1px solid',
 }
 
 
 const FormComponent = ({ navigate }) => {
-  const [password, setPassword] = useState(null);
-  const [disable, setDisable] = useState(false);
+  // const [password, setPassword] = useState(null);
+  // const [disable, setDisable] = useState(false);
 
   async function onFinish(data) {
     const { created } = await register(data);
@@ -30,13 +28,13 @@ const FormComponent = ({ navigate }) => {
     }, 1000)
   };
 
-  function validationPassword(confirmPassword) {
-    if (confirmPassword === password) {
-      setDisable(false);
-      return;
-    }
-    setDisable(true);
-  }
+  // function validationPassword(confirmPassword) {
+  //   if (confirmPassword === password) {
+  //     setDisable(false);
+  //     return;
+  //   }
+  //   setDisable(true);
+  // }
 
   return (
     <Form
@@ -128,8 +126,8 @@ const FormComponent = ({ navigate }) => {
                 type: 'string',
                 message: 'Por favor, digite uma senha.'
               }]}
-            validateStatus={disable ? 'error' : undefined}
-            hasFeedback
+            // validateStatus={disable ? 'error' : undefined}
+            // hasFeedback
           >
             <Input.Password
               bordered={false}
@@ -157,7 +155,7 @@ const FormComponent = ({ navigate }) => {
             <Button
               title="CADASTRAR-SE"
               style={{ width: '90%', marginTop: 25 }}
-              disabled={disable}
+              // disabled={disable}
               type="primary"
               htmlType="submit"
             />

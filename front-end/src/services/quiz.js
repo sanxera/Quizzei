@@ -63,14 +63,24 @@ export async function listMyQuizzes() {
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz",
           points: 5,
-          imageUrl: 'https://img.freepik.com/free-vector/personal-files-concept-illustration_114360-4503.jpg?w=1060&t=st=1679333217~exp=1679333817~hmac=9a0957eb5fb04782e21bec4aa0bafabd6ba75b80374875362bf16942ec9ef19e'
+          imageName: 'Default',
+          imageUrl: 'https://img.freepik.com/free-vector/curiosity-search-concept-illustration_114360-11031.jpg?w=1060&t=st=1680183682~exp=1680184282~hmac=c21946e90aad64c87feb2c6a0b994306df305c0af660e1771b5083bc4124a79f',
+          permissionType: 1,
+          quizAccess: null
         },
         {
           quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da2",
           title: "Meu Quiz 2",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz",
-          imageUrl: 'https://img.freepik.com/free-vector/personal-files-concept-illustration_114360-4013.jpg?w=1060&t=st=1679333219~exp=1679333819~hmac=8895b5df36622b33cdfb820cb5fe7c576c63331e226545917db28248e03fd1aa',
+          imageName: 'Default',
+          imageUrl: 'https://img.freepik.com/free-vector/curiosity-search-concept-illustration_114360-11031.jpg?w=1060&t=st=1680183682~exp=1680184282~hmac=c21946e90aad64c87feb2c6a0b994306df305c0af660e1771b5083bc4124a79f',
+          permissionType: 2,
+          quizAccess: {
+            accessCode: '123456',
+            initialDate: null,
+            endDate: null
+          }
         },
         {
           quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da3",
@@ -78,7 +88,13 @@ export async function listMyQuizzes() {
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz",
           imageName: 'Database',
-          imageUrl: 'https://img.freepik.com/premium-vector/shared-db-machine-hybrid-network-stock-illustration-centralized-database-server-transmission-concept_135661-468.jpg?w=1060'
+          imageUrl: 'https://img.freepik.com/premium-vector/shared-db-machine-hybrid-network-stock-illustration-centralized-database-server-transmission-concept_135661-468.jpg?w=1060',
+          permissionType: 3,
+          quizAccess: {
+            accessCode: '123456',
+            initialDate: '2023-04-28T17:13:34.157Z',
+            endDate: '2023-05-28T17:13:34.157Z'
+          }
         },
       ]
     };
@@ -103,19 +119,19 @@ export async function listQuizzesFromUser(userUuid) {
           title: "Meu Quiz 1",
           description: "Quiz sobre a vida do luiz",
           categoryDescription: "Categoria do Luiz",
-          points: 5
+          points: 5,
         },
         {
           quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da2",
           title: "Meu Quiz 2",
           description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
+          categoryDescription: "Categoria do Luiz",
         },
         {
           quizInfoUuid: "a78ad28c-9d6b-4ef9-9776-ea2919ddf91da3",
           title: "Meu Quiz 3",
           description: "Quiz sobre a vida do luiz",
-          categoryDescription: "Categoria do Luiz"
+          categoryDescription: "Categoria do Luiz",
         },
       ]
     };
@@ -177,11 +193,11 @@ export async function listQuestions(quizInfoUuid) {
           questions: [
             {
               questionUuid: 'xxxx',
-              questionDescription: 'Questão 1',
+              questionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum congue nunc, ac tincidunt diam fermentum in. Proin sed vulputate purus. Mauris lacinia egestas ipsum, eu bibendum turpis ultricies et. Integer ut orci tincidunt, cursus nisi in, lobortis neque. Nullam mattis molestie imperdiet. Morbi sollicitudin sollicitudin eleifend. Proin eleifend ipsum eget accumsan facilisis. Morbi porta porttitor luctus. Morbi dictum viverra consectetur. Donec non porttitor sem. Ut vel elit id mauris eleifend scelerisque. Curabitur feugiat consequat quam. Suspendisse id ultrices ante, bibendum vehicula purus. Praesent vel condimentum velit, eget egestas nisl.',
               options: [
                 {
                   optionUuid: 'xxxxx',
-                  optionDescription: 'Descricao 1',
+                  optionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum congue nunc, ac tincidunt diam fermentum in. Proin sed vulputate purus. Mauris lacinia egestas ipsum, eu bibendum turpis ultricies et. Integer ut orci tincidunt, cursus nisi in, lobortis neque. Nullam mattis molestie imperdiet. Morbi sollicitudin sollicitudin eleifend. Proin eleifend ipsum eget accumsan facilisis. Morbi porta porttitor luctus. Morbi dictum viverra consectetur. Donec non porttitor sem. .',
                   isCorrect: true,
                 },
                 {
@@ -246,16 +262,23 @@ export async function listQuestions(quizInfoUuid) {
   return { questions };
 }
 
-export async function startQuiz(quizInfoUuid) {
+export async function startQuiz(params) {
   if (isEnvironmentDevelopment) return { quizProcessCreatedUuid: '239210-3912-93-1293-12' };
-  if (!quizInfoUuid) return;
+  if (!params) return;
+
+  const { quizInfoUuid, password } = params;
   const auth = getAuthority();
   const response = await request(`api/quizzes-process/start-quiz/${quizInfoUuid}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${auth.token}`,
     },
+    data: {
+      accessCode: password
+    }
   });
+
+  if (response.status !== 200) return {};
 
   return response.data;
 }
@@ -294,7 +317,8 @@ export async function listPublicQuizzesByCategory() {
               numberOfQuestions: 4,
               ownerNickName: "Manuel",
               imageName: 'Database',
-              imageUrl: 'https://img.freepik.com/premium-vector/shared-db-machine-hybrid-network-stock-illustration-centralized-database-server-transmission-concept_135661-468.jpg?w=1060'
+              imageUrl: 'https://img.freepik.com/premium-vector/shared-db-machine-hybrid-network-stock-illustration-centralized-database-server-transmission-concept_135661-468.jpg?w=1060',
+              permissionType: 1,
             },
             {
               quizInfoUuid: "db8d7872-eeb2-4d6a-ab33-0aeae478307a",
@@ -302,7 +326,8 @@ export async function listPublicQuizzesByCategory() {
               description: "Quiz sobre a vida Romeno da ZN",
               categoryDescription: "Geografia",
               numberOfQuestions: 4,
-              ownerNickName: "Manuel"
+              ownerNickName: "Manuel",
+              permissionType: 2
             },
             {
               quizInfoUuid: "522d3b8e-f5b3-4c01-a6e7-0f39f10ce598",
@@ -310,7 +335,8 @@ export async function listPublicQuizzesByCategory() {
               description: "Um quiz feito para teste e ta ligado",
               categoryDescription: "Geografia",
               numberOfQuestions: 0,
-              ownerNickName: "Manuel"
+              ownerNickName: "Manuel",
+              permissionType: 3
             },
             {
               quizInfoUuid: "92b9d22f-9c62-478f-bfd1-601580e29909",
@@ -764,6 +790,10 @@ export async function historyQuiz() {
 
 export async function getDefaultLogo() {
   if (isEnvironmentDevelopment) return [
+    {
+      imageName: "Default",
+      imageUrl: "https://img.freepik.com/free-vector/curiosity-search-concept-illustration_114360-11031.jpg?w=1060&t=st=1680183682~exp=1680184282~hmac=c21946e90aad64c87feb2c6a0b994306df305c0af660e1771b5083bc4124a79f"
+    },
     {
       imageName: "Database",
       imageUrl: "https://img.freepik.com/premium-vector/shared-db-machine-hybrid-network-stock-illustration-centralized-database-server-transmission-concept_135661-468.jpg?w=1060"

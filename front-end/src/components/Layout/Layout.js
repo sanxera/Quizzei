@@ -8,10 +8,12 @@ const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children,
   const headerElement = header ? header : <SiderMenu navigate={navigate} />;
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh', width: '100vw' }}>
       {hasHeader && headerElement}
 
-      <Layout style={{ minHeight: '100vh', marginLeft: 200 }} {...rest}>
+      <Layout
+        style={{ marginLeft: 200 }}
+        {...rest}>
         <Content
           style={{
             backgroundColor: '#f5f9fc',

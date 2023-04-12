@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button as ButtonAntd } from 'antd';
 import Card from './index';
+import { DEFAULT_THEME } from '../../utils/constant';
 
 import './index.less';
 
@@ -16,11 +17,12 @@ const SliderCard = ({ data, openInfoQuizzes }) => {
           className="card"
           key={`quizzes-${index}`}
           isQuiz
-          logo={item.imageUrl || 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'}
+          logo={item.imageUrl || DEFAULT_THEME}
           title={item.title}
           description={item.description}
           ownerNickName={item.ownerNickName}
           numberOfQuestions={item.numberOfQuestions}
+          permissionType={item.permissionType || 1}
           onClick={() => openInfoQuizzes(item)}
           style={{ marginRight: 30, marginLeft: 0, minHeight: '20rem', padding: 0, width: 240 }}
         />
