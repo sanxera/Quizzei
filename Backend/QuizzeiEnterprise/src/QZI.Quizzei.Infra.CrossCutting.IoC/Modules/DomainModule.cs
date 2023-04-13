@@ -8,6 +8,8 @@ using QZI.Quizzei.Application.Shared.Services.Images;
 using QZI.Quizzei.Application.Shared.Services.Images.Interfaces;
 using QZI.Quizzei.Application.Shared.Services.Users;
 using QZI.Quizzei.Application.Shared.Services.Users.Interfaces;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReport;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Interfaces;
 using QZI.Quizzei.Application.UseCases.Answers.AnswerQuiz;
 using QZI.Quizzei.Application.UseCases.Answers.AnswerQuiz.Interfaces;
 using QZI.Quizzei.Application.UseCases.Categories.CreateCategory;
@@ -98,5 +100,6 @@ public static class DomainModule
         services.AddScoped<IGetDefaultImagesUseCase, GetDefaultImagesUseCase>();
         services.AddScoped<IUpdateQuestionsUseCase, UpdateQuestionsUseCase>();
         services.AddScoped<IGetQuestionsByQuizUseCase, GetQuestionsByQuizUseCase>();
+        services.AddScoped<IQuizReportUseCase, QuizReportUseCase>();
     }
 }
