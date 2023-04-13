@@ -12,6 +12,7 @@ public class QuestionAnalyticsResponse
     public Guid QuestionUuid { get; set; }
     public string Description { get; set; } = null!;
     public int TotalAnswers => Options.Select(x => x.TotalOptionAnswers).Sum();
+    public int TotalHitPercentage => (Options.Select(x => x.HitQuantity).Sum() * 100) / TotalAnswers;
     public List<OptionAnalyticsResponse> Options { get; set; }
 
     public static QuestionAnalyticsResponse Create(Guid questionUuid, string description, List<OptionAnalyticsResponse> options) =>
