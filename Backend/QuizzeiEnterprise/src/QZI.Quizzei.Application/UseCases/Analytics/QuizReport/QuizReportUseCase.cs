@@ -27,7 +27,7 @@ public class QuizReportUseCase : IQuizReportUseCase
     public async Task<QuizReportResponse> ExecuteAsync(QuizReportRequest request)
     {
         var quizInfo = await _quizInfoRepository.GetQuizInfoById(request.QuizUuid);
-        var quizProcesses = await _quizProcessRepository.GetQuizProcessByUser(request.QuizUuid);
+        var quizProcesses = await _quizProcessRepository.GetQuizProcessByQuiz(request.QuizUuid);
         var questions = await _questionRepository.GetQuestionsByQuizInfo(quizInfo.QuizInfoUuid);
 
         var questionsResponse = new List<QuestionAnalyticsResponse>();
@@ -60,7 +60,7 @@ public class QuizReportUseCase : IQuizReportUseCase
             var totalHitPercentage = totalAnswer != 0 ? (totalHitQuantity * 100) / totalAnswer : 0;
 
             optionsResponse.Add(OptionAnalyticsResponse.Create(option.QuestionOptionUuid, option.Description, totalAnswer,
-                totalHitQuantity, totalHitPercentage));
+                totalHitQuantity, totalHitPercentage, option.IsCorrect));
         }
 
         return optionsResponse;
