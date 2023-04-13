@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Tabs, Form, Modal, Typography, Row, Col, Button as ButtonAntd, Upload, message, Divider } from 'antd';
 import {
   InfoCircleOutlined,
@@ -22,7 +23,7 @@ const { Dragger } = Upload;
 
 const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
-const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
+const ModalQuiz = ({ rowData = {}, onClose, onCallback, visible, dispatch, navigate }) => {
   const [form] = Form.useForm();
   const [activeKey, setActiveKey] = useState('1');
   const [categories, setCategories] = useState([]);
@@ -30,8 +31,8 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   const [showQuestions, setShowQuestions] = useState(false);
   const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
-  const textButton = data && data.quizInfoUuid ? 'Atualizar' : 'Criar';
-  const titleModal = data && data.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
+  const textButton = rowData && rowData.quizInfoUuid ? 'Atualizar' : 'Criar';
+  const titleModal = rowData && rowData.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
 
   useEffect(() => {
     loadQuestions();
@@ -45,7 +46,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   }
 
   async function loadQuestions() {
-    const { quizInfoUuid } = data;
+    const { quizInfoUuid } = rowData;
     if (!quizInfoUuid) return;
 
     const response = await listQuestions(quizInfoUuid);
@@ -58,10 +59,10 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
   }
 
   async function onSubmit() {
-    let quizInfoUuid = data.quizInfoUuid;
+    let quizInfoUuid = rowData.quizInfoUuid;
     try {
       const { questions, ...restData } = await form.validateFields();
-      const isExistUuid = data.quizInfoUuid ? true : false;
+      const isExistUuid = rowData.quizInfoUuid ? true : false;
       if (!restData) return;
       switch (isExistUuid) {
         default:
@@ -79,7 +80,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
         await createQuestions(quizInfoUuid, { questions });
       }
 
-      notification({ status: 'success', message: !data.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
+      notification({ status: 'success', message: !rowData.quizInfoUuid ? 'Quiz criado com sucesso!' : 'Quiz atualizado com sucesso!' });
       await onCallback();
       await onCloseModal();
     } catch (error) {
@@ -88,17 +89,16 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
     }
   }
 
-  function showModalCategory() {
-    setModalCategoryVisible(true);
-  }
+  async function onClickReportQuiz() {
+    await dispatch({
+      type: 'REPORT_QUIZ',
+      data: {
+        quizUuid: rowData.quizInfoUuid,
+      },
+    });
 
-  async function onAddCategory(categoryName) {
-    if (!categoryName || (categoryName || "").length === 0) return;
-    const response = await createCategory(categoryName);
-    if (!response.createdId) return;
-
-    await loadCategories();
-    setModalCategoryVisible(false);
+    await onCloseModal();
+    await navigate('/report/quiz');
   }
 
   const props = {
@@ -138,6 +138,11 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
     },
   };
 
+  const extraButton = rowData && rowData.quizInfoUuid ? <Button
+    title="Ver relatório do quiz"
+    onClick={onClickReportQuiz} n
+  /> : <div />;
+
   return (
     <Modal
       title={<Text strong>{titleModal}</Text>}
@@ -146,6 +151,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
       bodyStyle={{ minHeight: 500 }}
       closable={false}
       footer={[
+        extraButton,
         <Button
           title="Cancelar"
           danger
@@ -177,7 +183,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           key="1">
           <StepForm
             form={form}
-            data={data}
+            data={rowData}
             categories={categories}
           />
         </TabPane>
@@ -192,7 +198,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           key="2">
           <StepTheme
             form={form}
-            data={data}
+            data={rowData}
           />
         </TabPane>
 
@@ -247,7 +253,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
           </>
         </TabPane>
 
-        {data && data.quizInfoUuid && (
+        {rowData && rowData.quizInfoUuid && (
           <TabPane
             tab={
               <>
@@ -256,7 +262,7 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
               </>
             }
             key="4" >
-            <StepContent data={data} />
+            <StepContent data={rowData} />
           </TabPane>
         )}
       </Tabs>
@@ -268,4 +274,4 @@ const ModalQuiz = ({ data = {}, onClose, onCallback, visible }) => {
 }
 
 
-export default ModalQuiz;
+export default connect(state => ({ ...state }))(ModalQuiz);

@@ -137,10 +137,11 @@ const List = () => {
 
         {visible && (
           <ModalQuiz
-            data={rowData}
+            rowData={rowData}
             onClose={onCloseModal}
             onCallback={init}
             visible={visible}
+            navigate={navigate}
           />
         )}
 
