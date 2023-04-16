@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Analytics\QuizReport\Services\" />
+    <Folder Include="UseCases\Analytics\QuizReportPerUser\Models\Responses\" />
     <Folder Include="UseCases\Answers\AnswerQuiz\Services\" />
     <Folder Include="UseCases\Files\GetDefaultImages\Models\Requests\" />
     <Folder Include="UseCases\Files\ReadPdf\Models\Request\" />

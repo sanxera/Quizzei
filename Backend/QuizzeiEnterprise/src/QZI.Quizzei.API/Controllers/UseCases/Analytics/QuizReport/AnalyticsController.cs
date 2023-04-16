@@ -22,7 +22,7 @@ public class AnalyticsController : MainController
     [HttpGet("generate-quiz-report/{quizUuid:guid}")]
     public async Task<IActionResult> GenerateQuizReport(Guid quizUuid)
     {
-        var response = await _useCase.ExecuteAsync(new QuizReportRequest { QuizUuid = quizUuid });
+        var response = await _useCase.ExecuteAsync(new QuizReportRequest { QuizUuid = quizUuid});
         return Ok(response);
     }
 }
