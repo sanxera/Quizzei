@@ -33,10 +33,11 @@ public class QuizReportUseCase : IQuizReportUseCase
         var questionsResponse = new List<QuestionAnalyticsResponse>();
         foreach (var question in questions)
         {
-            var answers = await _answerRepository.GetAnswersByQuestion(question.QuestionUuid);
+            var validAnswers = await GetValidAnswers(question, quizProcesses);
+
             var options = await _questionOptionRepository.GetQuestionOptionsByQuestionUuid(question.QuestionUuid);
 
-            var optionsResponse = CreateOptionAnalyticsResponses(options, answers);
+            var optionsResponse = CreateOptionAnalyticsResponses(options, validAnswers);
             questionsResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, optionsResponse));
         }
 
@@ -45,6 +46,15 @@ public class QuizReportUseCase : IQuizReportUseCase
         var totalQuestions = questions.Count;
 
         return QuizReportResponse.Create(request.QuizUuid, quizInfo.Description, totalCompletedQuiz, totalUncompletedQuiz, totalQuestions, questionsResponse);
+    }
+
+    private async Task<List<Answer>> GetValidAnswers(Question question, IList<QuizProcess> quizProcesses)
+    {
+        var answers = await _answerRepository.GetAnswersByQuestion(question.QuestionUuid);
+        var completedQuizzesUuids = quizProcesses.Where(x => x.Status == QuizProcessStatus.Finished)
+            .Select(x => x.QuizProcessUuid.ToString());
+        var validAnswers = answers.Where(x => completedQuizzesUuids.Contains(x.QuizProcessUuid.ToString())).ToList();
+        return validAnswers;
     }
 
     private static List<OptionAnalyticsResponse> CreateOptionAnalyticsResponses(IList<QuestionOption> options, IList<Answer> answers)
