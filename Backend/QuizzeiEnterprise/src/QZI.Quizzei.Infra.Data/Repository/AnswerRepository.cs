@@ -22,4 +22,9 @@ public class AnswerRepository : RepositoryBase<Answer>, IAnswerRepository
     {
         return await Context.Answers.Where(x => x.QuestionUuid == questionUuid).ToListAsync();
     }
+
+    public async Task<IList<Answer>> GetAnswersByQuestionAndProcess(Guid questionUuid, Guid quizProcessUuid)
+    {
+        return await Context.Answers.Where(x => x.QuestionUuid == questionUuid && x.QuizProcessUuid == quizProcessUuid).ToListAsync();
+    }
 }

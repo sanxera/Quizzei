@@ -10,6 +10,8 @@ using QZI.Quizzei.Application.Shared.Services.Users;
 using QZI.Quizzei.Application.Shared.Services.Users.Interfaces;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReport;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Interfaces;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerProcess;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerProcess.Interfaces;
 using QZI.Quizzei.Application.UseCases.Answers.AnswerQuiz;
 using QZI.Quizzei.Application.UseCases.Answers.AnswerQuiz.Interfaces;
 using QZI.Quizzei.Application.UseCases.Categories.CreateCategory;
@@ -48,6 +50,8 @@ using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoPerCateg
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.GetQuizzesInfoPerCategories.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.UpdateQuizInfo;
 using QZI.Quizzei.Application.UseCases.QuizzesInformation.UpdateQuizInfo.Interfaces;
+using QZI.Quizzei.Application.UseCases.QuizzesProcess.GetUsersByQuizzes;
+using QZI.Quizzei.Application.UseCases.QuizzesProcess.GetUsersByQuizzes.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesProcess.RatingQuiz;
 using QZI.Quizzei.Application.UseCases.QuizzesProcess.RatingQuiz.Interfaces;
 using QZI.Quizzei.Application.UseCases.QuizzesProcess.StartQuizProcess;
@@ -100,6 +104,8 @@ public static class DomainModule
         services.AddScoped<IGetDefaultImagesUseCase, GetDefaultImagesUseCase>();
         services.AddScoped<IUpdateQuestionsUseCase, UpdateQuestionsUseCase>();
         services.AddScoped<IGetQuestionsByQuizUseCase, GetQuestionsByQuizUseCase>();
+        services.AddScoped<IGetUsersByQuizzesUseCase, GetUsersByQuizzesUseCase>();
+        services.AddScoped<IQuizReportPerProcessUseCase, QuizReportPerProcessUseCase>();
         services.AddScoped<IQuizReportUseCase, QuizReportUseCase>();
     }
 }

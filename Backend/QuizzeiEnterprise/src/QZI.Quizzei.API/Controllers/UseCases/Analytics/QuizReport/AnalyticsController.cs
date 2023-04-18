@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoFixture;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Interfaces;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Models.Request;
-using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Models.Response;
 
 namespace QZI.Quizzei.API.Controllers.UseCases.Analytics.QuizReport;
 

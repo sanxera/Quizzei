@@ -2,29 +2,25 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Interfaces;
-using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Models.Request;
-using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerUser.Interfaces;
-using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerUser.Models.Requests;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerProcess.Interfaces;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerProcess.Models.Requests;
 
-namespace QZI.Quizzei.API.Controllers.UseCases.Analytics.QuizReportPerUser
+namespace QZI.Quizzei.API.Controllers.UseCases.Analytics.QuizReportPerUser;
+
+[Route("api/analytics")]
+public class AnalyticsController : MainController
 {
-    [Route("api/analytics")]
-    public class AnalyticsController : MainController
+    private readonly IQuizReportPerProcessUseCase _useCase;
+
+    public AnalyticsController(IHttpContextAccessor contextAccessor, IQuizReportPerProcessUseCase useCase) : base(contextAccessor)
     {
-        private readonly IQuizReportPerUserUseCase _useCase;
+        _useCase = useCase;
+    }
 
-        public AnalyticsController(IHttpContextAccessor contextAccessor, IQuizReportPerUserUseCase useCase) : base(contextAccessor)
-        {
-            _useCase = useCase;
-        }
-
-        [HttpGet("generate-quiz-report-per-user/{quizUuid:guid}")]
-        public async Task<IActionResult> GenerateQuizReport(Guid quizUuid)
-        {
-            var email = ReadEmailFromToken();
-            var response = await _useCase.ExecuteAsync(new QuizReportPerUseRequest { QuizUuid = quizUuid, UserEmail = email});
-            return Ok(response);
-        }
+    [HttpGet("generate-report-per-process/{quizProcessUuid:guid}")]
+    public async Task<IActionResult> GenerateQuizReport(Guid quizProcessUuid)
+    {
+        var response = await _useCase.ExecuteAsync(new QuizReportPerProcessRequest { QuizProcessUuid = quizProcessUuid });
+        return Ok(response);
     }
 }
