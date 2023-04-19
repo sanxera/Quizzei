@@ -186,7 +186,7 @@ export async function getReportPerQuizProcess(quizProcessUuid) {
         {
           "questionUuid": "1a0f3bba-b978-4b3d-f20c-08dacc9b0e99",
           "description": "Questão 1",
-          "userAnswerIsCorrect": false,
+          "userAnswerIsCorrect": true,
           "options": [
             {
               "optionUuid": "3b9c9d44-d4c1-45f3-133a-08dacc9b0e9b",
@@ -211,12 +211,12 @@ export async function getReportPerQuizProcess(quizProcessUuid) {
         {
           "questionUuid": "35164261-28a2-4a40-f20d-08dacc9b0e99",
           "description": "Questão 2",
-          "userAnswerIsCorrect": true,
+          "userAnswerIsCorrect": false,
           "options": [
             {
               "optionUuid": "9a1e3b31-2041-4b3c-133d-08dacc9b0e9b",
               "description": "Opção 1",
-              "isCorrect": false,
+              "isCorrect": true,
               "userCheck": false
             },
             {
@@ -234,7 +234,7 @@ export async function getReportPerQuizProcess(quizProcessUuid) {
             {
               "optionUuid": "66f8c9c6-cceb-42fb-1340-08dacc9b0e9b",
               "description": "Opção 4",
-              "isCorrect": false,
+              "isCorrect": true,
               "userCheck": false
             }
           ]

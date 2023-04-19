@@ -119,7 +119,7 @@ const ReportUsers = ({ quizUuid }) => {
         >
           <Card style={{ width: '100%' }}>
             <Row style={{ marginTop: 10 }}>
-              <Col span={15}>
+              <Col span={24}>
                 <Title level={5}>{index + 1}. {question.description}</Title>
                 <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }}>
                   {question.options.map((option, index) => {
