@@ -5,7 +5,7 @@ import { Row, Col, Typography } from 'antd'
 import FormComponent from './Form';
 import { login } from '../../../services/session';
 import { notification } from '../../../utils/notification';
-import loginImage from '../../../image/LogoArt.png'
+import loginImage from '../../../image/login.png'
 
 import './styles.css';
 
@@ -36,7 +36,7 @@ const Signin = () => {
         <img className='logo' alt="logo" src={loginImage} />
       </Col>
       <Col className='login-container' span={8}>
-        <Title className='login-title' level={2} >Quizzei</Title>
+        <Title className='login-title' level={2} >Bem-vindo</Title>
         <FormComponent onSubmit={onSubmit} />
       </Col>
     </Row>
