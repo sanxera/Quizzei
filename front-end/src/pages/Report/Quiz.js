@@ -37,13 +37,18 @@ const ReportQuiz = ({ data: { quizUuid } }) => {
                 <strong>{data.totalQuestions}</strong> <br /> <strong>Questões</strong>
               </Col>
 
-              <Divider type="vertical" />
+              <Col>
+                <Divider style={{ height: '100%' }} type="vertical" />
+              </Col>
 
               <Col span={5}>
                 <strong>{data.totalCompletedQuiz}</strong> <br /> <strong>Finalizados</strong>
               </Col>
 
-              <Divider type="vertical" />
+              <Col>
+                <Divider style={{ height: '100%' }} type="vertical" />
+              </Col>
+
               <Col span={5}>
                 <strong>{data.totalNotCompletedQuiz}</strong> <br /> <strong>Não finalizados</strong>
               </Col>

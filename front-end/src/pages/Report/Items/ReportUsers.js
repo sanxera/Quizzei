@@ -92,7 +92,9 @@ const ReportUsers = ({ quizUuid }) => {
             />
           </Col>
 
-          <Divider type='vertical' />
+          <Col>
+            <Divider style={{ height: '100%' }} type="vertical" />
+          </Col>
 
           <Col span={5}>
             <Text>Quiz feito: </Text>
