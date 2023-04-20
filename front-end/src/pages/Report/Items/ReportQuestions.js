@@ -17,13 +17,14 @@ const ReportQuestions = ({ data }) => {
         });
 
         const config = {
-          appendPadding: 0,
+          appendPadding: 8,
           data: graphData,
           angleField: 'value',
           colorField: 'type',
           radius: 0.8,
           legend: {
             layout: 'horizontal',
+            position: 'left'
           },
           label: {
             type: 'inner',
@@ -45,7 +46,7 @@ const ReportQuestions = ({ data }) => {
                 <div style={{ marginLeft: 20, display: 'flex', flexDirection: 'column' }}>
                   {question.options && question.options.map((item, indexOptions) => (
                     <div style={{ alignItems: 'inherit' }}>
-                      <Text>{indexOptions + 1}. {item.description} ({item.hitPercentage}%)</Text>
+                      <Text>{indexOptions + 1}. {item.description} ({item.totalOptionAnswersPercentage}%)</Text>
                       {item.isCorrect ? <Check color='green' /> : <div />}
                     </div>
                   ))}

@@ -21,9 +21,9 @@ export async function getReport(params) {
             "optionUuid": "3b9c9d44-d4c1-45f3-133a-08dacc9b0e9b",
             "description": "Opção 1",
             "isCorrect": true,
-            "totalOptionAnswers": 6,
-            "hitQuantity": 6,
-            "hitPercentage": 100
+            "totalOptionAnswers": 8,
+            "hitQuantity": 8,
+            "totalOptionAnswersPercentage": 90
           },
           {
             "optionUuid": "8b1204ea-6677-447f-133b-08dacc9b0e9b",
@@ -31,7 +31,7 @@ export async function getReport(params) {
             "isCorrect": true,
             "totalOptionAnswers": 1,
             "hitQuantity": 1,
-            "hitPercentage": 100
+            "totalOptionAnswersPercentage": 10
           },
           {
             "optionUuid": "aa684213-144e-4d95-133c-08dacc9b0e9b",
@@ -39,7 +39,7 @@ export async function getReport(params) {
             "isCorrect": false,
             "totalOptionAnswers": 1,
             "hitQuantity": 0,
-            "hitPercentage": 0
+            "totalOptionAnswersPercentage": 20
           }
         ]
       },
@@ -55,15 +55,15 @@ export async function getReport(params) {
             "isCorrect": false,
             "totalOptionAnswers": 6,
             "hitQuantity": 0,
-            "hitPercentage": 0
+            "totalOptionAnswersPercentage": 0
           },
           {
             "optionUuid": "0440643d-1938-4c57-133e-08dacc9b0e9b",
             "description": "Opção 2",
             "isCorrect": false,
-            "totalOptionAnswers": 2,
+            "totalOptionAnswers": 1,
             "hitQuantity": 0,
-            "hitPercentage": 0
+            "totalOptionAnswersPercentage": 0
           },
           {
             "optionUuid": "e6accdf5-0f3c-4e20-133f-08dacc9b0e9b",
@@ -71,7 +71,7 @@ export async function getReport(params) {
             "isCorrect": false,
             "totalOptionAnswers": 3,
             "hitQuantity": 0,
-            "hitPercentage": 0
+            "totalOptionAnswersPercentage": 0
           },
           {
             "optionUuid": "66f8c9c6-cceb-42fb-1340-08dacc9b0e9b",
@@ -79,7 +79,7 @@ export async function getReport(params) {
             "isCorrect": false,
             "totalOptionAnswers": 1,
             "hitQuantity": 0,
-            "hitPercentage": 0
+            "totalOptionAnswersPercentage": 0
           }
         ]
       }
