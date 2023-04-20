@@ -43,7 +43,7 @@ public class QuizReportPerProcessUseCase : IQuizReportPerProcessUseCase
                 if (answer != null)
                 {
                     userCorrect = answer.CorrectAnswer;
-                    optionsListResponse.Add(OptionAnalyticsResponse.Create(option.QuestionOptionUuid, option.Description, option.IsCorrect, answer.CorrectAnswer));
+                    optionsListResponse.Add(OptionAnalyticsResponse.Create(option.QuestionOptionUuid, option.Description, option.IsCorrect, true));
                 }
                 else
                     optionsListResponse.Add(OptionAnalyticsResponse.Create(option.QuestionOptionUuid, option.Description, option.IsCorrect, false));

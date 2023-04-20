@@ -16,7 +16,7 @@ public class QuizProcessController : Controller
         _useCase = useCase;
     }
 
-    [HttpPost("get-users-by-quiz/{quizInfoUuid:guid}")]
+    [HttpGet("get-users-by-quiz/{quizInfoUuid:guid}")]
     public async Task<IActionResult> GetUsersByQuizzes(Guid quizInfoUuid)
     {
         var response = await _useCase.ExecuteAsync(new GetUsersByQuizzesRequest{QuizInfoUuid = quizInfoUuid });

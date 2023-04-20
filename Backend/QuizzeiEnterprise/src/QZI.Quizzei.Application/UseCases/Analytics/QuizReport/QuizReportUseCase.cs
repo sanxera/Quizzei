@@ -47,6 +47,16 @@ public class QuizReportUseCase : IQuizReportUseCase
         var totalUncompletedQuiz = quizProcesses.Count(x => x.Status is QuizProcessStatus.Started or QuizProcessStatus.Cancelled);
         var totalQuestions = questions.Count;
 
+        foreach (var question in questionsResponse)
+        {
+            foreach (var option in question.Options)
+            {
+                option.TotalOptionAnswersPercentage = option.TotalOptionAnswers != 0
+                    ? (option.TotalOptionAnswers * 100) / question.TotalAnswers
+                    : 0;
+            }
+        }
+
         return QuizReportResponse.Create(request.QuizUuid, quizInfo.Description, totalCompletedQuiz, totalUncompletedQuiz, totalQuestions, questionsResponse);
     }
 

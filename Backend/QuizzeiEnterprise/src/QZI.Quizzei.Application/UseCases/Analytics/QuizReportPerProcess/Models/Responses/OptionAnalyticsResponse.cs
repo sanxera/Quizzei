@@ -15,6 +15,6 @@ public class OptionAnalyticsResponse
     public bool IsCorrect { get; set; }
     public bool UserCheck { get; set; }
 
-    public static OptionAnalyticsResponse Create(Guid optionUuid, string description, bool isCorrect, bool userAnswerIsCorrect)
-        => new(optionUuid, description, isCorrect, userAnswerIsCorrect);
+    public static OptionAnalyticsResponse Create(Guid optionUuid, string description, bool isCorrect, bool userCheck)
+        => new(optionUuid, description, isCorrect, userCheck);
 }
