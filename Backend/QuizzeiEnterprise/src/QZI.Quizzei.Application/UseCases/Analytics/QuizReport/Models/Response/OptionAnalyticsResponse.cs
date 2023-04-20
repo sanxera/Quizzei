@@ -16,6 +16,7 @@ public class OptionAnalyticsResponse
     public string Description { get; set; }
     public bool IsCorrect { get; set; }
     public int TotalOptionAnswers { get; set; }
+    public int TotalOptionAnswersPercentage { get; set; }
     public int HitQuantity { get; set; }
     public int HitPercentage { get; set; }
 
