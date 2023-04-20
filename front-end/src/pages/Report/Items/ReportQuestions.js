@@ -11,9 +11,10 @@ const ReportQuestions = ({ data }) => {
   return (
     <Col span={24}>
       {data.questions && data.questions.length > 0 && data.questions.map((question, index) => {
-        let graphData = {};
-        graphData = question.options.map((item, index) => {
-          return { type: `Opção ${index + 1}`, value: item.totalOptionAnswers }
+        const graphData = [];
+        question.options.map((item, index) => {
+          if (item.totalOptionAnswers <= 0) return;
+          graphData.push({ type: `Opção ${index + 1}`, value: item.totalOptionAnswers });
         });
 
         const config = {
@@ -24,7 +25,7 @@ const ReportQuestions = ({ data }) => {
           radius: 0.8,
           legend: {
             layout: 'horizontal',
-            position: 'left'
+            position: 'bottom'
           },
           label: {
             type: 'inner',
@@ -55,13 +56,7 @@ const ReportQuestions = ({ data }) => {
 
               <Col style={{ textAlign: 'center' }} span={9}>
                 <Text>Total de respostas: {question.totalAnswers}</Text>
-
                 <Pie style={{ height: 200 }} {...config} />
-                {/* <PieChart
-                  lineWidth={50}
-                  style={{ height: 125, marginTop: 15 }}
-                  data={graphData}
-                /> */}
               </Col>
             </Row>
           </Card>

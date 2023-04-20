@@ -53,7 +53,7 @@ export async function getReport(params) {
             "optionUuid": "9a1e3b31-2041-4b3c-133d-08dacc9b0e9b",
             "description": "Opção 1",
             "isCorrect": false,
-            "totalOptionAnswers": 6,
+            "totalOptionAnswers": 0,
             "hitQuantity": 0,
             "totalOptionAnswersPercentage": 0
           },
@@ -61,7 +61,7 @@ export async function getReport(params) {
             "optionUuid": "0440643d-1938-4c57-133e-08dacc9b0e9b",
             "description": "Opção 2",
             "isCorrect": false,
-            "totalOptionAnswers": 1,
+            "totalOptionAnswers": 2,
             "hitQuantity": 0,
             "totalOptionAnswersPercentage": 0
           },
