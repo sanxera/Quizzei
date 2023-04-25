@@ -100,14 +100,13 @@ const SiderMenu = () => {
           style={{
             backgroundColor: '#51d1f3',
             verticalAlign: 'middle',
-            border: '1px solid #000'
           }}
           size={64}
           gap={4}
         >{user.nickName[0]}</Avatar>
 
-        <Title strong style={{ marginTop: 20 }} level={3}>{user.nickName}</Title>
-        <Text strong style={{ marginTop: 20 }}>{user.email}</Text>
+        <Title strong style={{ marginTop: 10 }} level={3}>{user.nickName}</Title>
+        <Text type='secondary' strong>{user.email}</Text>
       </div>
       <Divider style={{ backgroundColor: '#fff' }} />
       <div>

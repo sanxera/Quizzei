@@ -8,7 +8,7 @@ const { Title, Text } = Typography;
 
 const Dashboard = () => {
   const [history, setHistory] = useState({});
-   const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     init();
@@ -73,8 +73,6 @@ const Dashboard = () => {
                           width={80}
                           type='circle'
                           percent={(item.correctAnswers * 100) / item.numberOfQuestions}
-                        // status={percent < 50 ? 'exception' : 'success'} 
-                        // success={{ percent: 50 }}
                         />
                       </Tooltip>
                     </div>
@@ -88,7 +86,7 @@ const Dashboard = () => {
           )}
         </Col>
 
-        <Col span={7} style={{ marginLeft: 50, maxHeight: 'auto',  backgroundColor: '#FFFF', paddingBottom: 50, borderRadius: 15, padding: 20, boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)' }}>
+        <Col span={7} style={{ marginLeft: 50, backgroundColor: '#FFFF', paddingBottom: 50, borderRadius: 15, padding: 20, boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)' }}>
           <Title level={2}>Calendário de atividades</Title>
           <Calendar style={{ borderBottom: '1px solid' }} fullscreen={false} onPanelChange={onPanelChange} headerRender={null} />
         </Col>
