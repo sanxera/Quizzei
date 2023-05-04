@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Input, Row, Col, Tooltip, Checkbox, Divider, Form, Collapse } from 'antd';
 import { Trash } from 'phosphor-react'
 
+import './index.less';
+
 const { Panel } = Collapse;
 
 const ACTIONS = {
@@ -62,7 +64,7 @@ const StepQuestion = ({ data, form }) => {
                             name={[question.fieldKey, 'options']}>
                             {(options, { add: addOptions, remove: removeOptions }) => (
                               <>
-                                <Divider>Respostas</Divider>
+                                <Divider>Opções</Divider>
                                 {options.map((item, index) => (
                                   <Row key={item.key} style={{ marginBottom: 20 }}>
                                     <Form.Item
@@ -89,13 +91,11 @@ const StepQuestion = ({ data, form }) => {
                                         {...item}
                                         name={[item.name, 'isCorrect']}
                                         fieldKey={[item.fieldKey, 'options']}
-                                        key={index}
+                                        key={`item.name-${index}`}
                                         valuePropName="checked"
-                                        initialValue={form.getFieldsValue().questions && form.getFieldsValue().questions[question.fieldKey]?.options[index] && form.getFieldsValue().questions[question.fieldKey]?.options[index].isCorrect === true || true}
+                                        initialValue={form.getFieldsValue().questions && form.getFieldsValue().questions[question.fieldKey]?.options[index] && form.getFieldsValue().questions[question.fieldKey]?.options[index].isCorrect === true || false}
                                       >
-                                        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#32CD80', height: '100%', alignItems: 'center' }}>
-                                          <Checkbox />
-                                        </div>
+                                        <Checkbox style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#32CD80', height: '100%', alignItems: 'center', textAlign: 'center' }} />
                                       </Form.Item>
                                     </Col>
                                     <Col span={1}>
@@ -115,7 +115,7 @@ const StepQuestion = ({ data, form }) => {
                                 ))}
                                 <Button style={{ width: '100%', marginTop: 20 }} type="dashed"
                                   onClick={() => addOptions()}
-                                >Adicionar resposta</Button>
+                                >Adicionar opções</Button>
                               </>
                             )}
                           </Form.List>
