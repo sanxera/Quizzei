@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Row, Col, Card, Typography, Badge, Select, Divider } from "antd";
-import { Check } from 'phosphor-react';
 import { getUsersByQuiz, getReportPerQuizProcess } from '../../../services/report';
 
 import './index.less'
@@ -59,7 +58,7 @@ const ReportUsers = ({ quizUuid }) => {
   if (!data || !data.users || loading) return <div />;
 
   const optionsUser = data.users.map((user, index) => ({ value: index, label: user.name }));
-  const optionsProcess = indexUser ?
+  const optionsProcess = indexUser !== null && indexUser >= 0 ?
     data.users[indexUser].quizzesProcess.map(quizzesProcess =>
     ({
       value: quizzesProcess.quizProcessUuid,
