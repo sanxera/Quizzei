@@ -109,7 +109,6 @@ const ModalQuiz = ({ rowData = {}, onClose, onCallback, visible, dispatch, navig
     },
     action: `${REACT_APP_QUIZZEI_BACKEND_URL}api/files/read-pdf`,
     onChange: async info => {
-      console.log("🚀 ~ file: Modal.js ~ line 111 ~ ModalQuiz ~ info", info.response)
       const { status, response } = info.file;
       if (status !== 'uploading') {
         console.log(info.file, info.fileList);

@@ -422,7 +422,39 @@ export async function listPublicQuizzesByCategory() {
               categoryDescription: "Arquitetura",
               numberOfQuestions: 0,
               ownerNickName: "Manuel"
-            }
+            },
+            {
+              quizInfoUuid: "de9fce3b-f19b-47ab-8a70-bc2abc5c6e69",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "de9fce3b-f19b-47ab-8a70-bc2abc5c6e69",
+              title: "Quiz do Usuário 1",
+              description: "Quiz de teste para apresentação",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
+            {
+              quizInfoUuid: "000432b9-9a8d-4df1-a3b5-e290ab47b665",
+              title: "Quiz de Estudos Gerais",
+              description: "Estuda",
+              categoryDescription: "Arquitetura",
+              numberOfQuestions: 0,
+              ownerNickName: "Manuel"
+            },
           ]
         },
         {

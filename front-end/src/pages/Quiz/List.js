@@ -21,6 +21,7 @@ const List = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [userQuizzes, setUserQuizzes] = useState({});
+  console.log("🚀  ~ file: List.js:24 ~ List ~ userQuizzes:", userQuizzes)
   const [publicQuizzes, setPublicQuizzes] = useState({});
   const [allQuizzes, setAllQuizzes] = useState({});
   const [visible, setVisible] = useState(false);
@@ -103,19 +104,8 @@ const List = () => {
             {currentUser.admin === true ? (<Button title="Criar quiz" onClick={handleModal} icon={<PlusCircleOutlined />} />) : null}
           </Col>
 
-          <Col className={`keen-slide ${styles.listQuizzes}`}>
-            {userQuizzes.quizzesInfoDto && userQuizzes.quizzesInfoDto.length > 0 ? userQuizzes.quizzesInfoDto.map((item, index) => (
-              <Card
-                key={`my-quizzes-${index}`}
-                logo={item.imageUrl || DEFAULT_THEME}//|| 'https://i.ytimg.com/vi/HEnqGVbi9Nc/maxresdefault.jpg'}
-                title={item.title}
-                description={item.description}
-                onClick={() => handleModal(item)}
-                style={{ marginRight: 30, padding: 0 }}
-              />
-            )) : (
-              <ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>
-            )}
+          <Col span={24} className={styles.listQuizzes}>
+            <SliderCard data={userQuizzes?.quizzesInfoDto || []} openInfoQuizzes={handleModal} isMyQuiz />
           </Col>
 
           <Col className={styles.quizCategory} span={24}>
@@ -127,7 +117,7 @@ const List = () => {
               {publicQuizzes.quizzesByCategories && publicQuizzes.quizzesByCategories.map((data, index) => (
                 <Col key={`public-quizzes-${index}`} style={{ left: 30, marginBottom: 30 }} span={24}>
                   <Title level={4} >{data.categoryName}</Title>
-                  <SliderCard data={data} openInfoQuizzes={openInfoQuizzes} />
+                  <SliderCard data={data.quizzesInfoResponses} openInfoQuizzes={openInfoQuizzes} />
                 </Col>
               ))}
             </Row>
