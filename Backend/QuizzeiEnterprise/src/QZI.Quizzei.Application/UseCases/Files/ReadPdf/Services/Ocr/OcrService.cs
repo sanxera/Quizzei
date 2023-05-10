@@ -20,7 +20,6 @@ public class OcrService : IOcrService
         process.StartInfo = startInfo;
 
         process.Start();
-
-        await Task.Delay(10000);
+        await process.WaitForExitAsync();
     }
 }
