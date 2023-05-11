@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Identity.Jwt;
@@ -12,6 +13,16 @@ public static class IdentityConfig
         services.AddIdentityEntityFrameworkContextConfiguration(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
                 b=>b.MigrationsAssembly("Qzi.Quizzei.Api")));
+
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 1;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredUniqueChars = 0;
+            options.Password.RequireNonAlphanumeric = false;
+        });
 
         services.AddIdentityConfiguration();
         services.AddJwtConfiguration(configuration, "AppSettings");

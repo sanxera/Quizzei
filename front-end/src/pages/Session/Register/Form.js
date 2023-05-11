@@ -18,13 +18,13 @@ const FormComponent = ({ navigate }) => {
   // const [disable, setDisable] = useState(false);
 
   async function onFinish(data) {
-    const { created } = await register(data);
-    const status = created ? 'success' : 'error';
-    const message = created ? 'Cadastro feito com sucesso!' : 'Ops, ocorreu um erro ao realizar o cadastro, tente novamente.';
+    const { createdUserUuid } = await register(data);
+    const status = createdUserUuid ? 'success' : 'error';
+    const message = createdUserUuid ? 'Cadastro feito com sucesso!' : 'Ops, ocorreu um erro ao realizar o cadastro, tente novamente.';
     await notification({ status, message });
 
     setTimeout(async () => {
-      if (created) await navigate('/');
+      if (createdUserUuid) await navigate('/');
     }, 1000)
   };
 
