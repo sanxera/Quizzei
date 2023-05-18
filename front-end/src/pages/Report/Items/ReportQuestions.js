@@ -1,6 +1,5 @@
 import React from 'react';
-import { Row, Col, Card, Typography, Badge } from "antd";
-import { PieChart } from 'react-minimal-pie-chart';
+import { Row, Col, Card, Typography } from "antd";
 import { Pie } from '@ant-design/plots';
 import { Check } from 'phosphor-react';
 
@@ -10,9 +9,9 @@ const { Title, Text } = Typography;
 const ReportQuestions = ({ data }) => {
   return (
     <Col span={24}>
-      {data.questions && data.questions.length > 0 && data.questions.map((question, index) => {
+      {data.questions && data.questions.length > 0 && data.questions.forEach((question, index) => {
         const graphData = [];
-        question.options.map((item, index) => {
+        question.options.forEach((item, index) => {
           if (item.totalOptionAnswers <= 0) return;
           graphData.push({ type: `Opção ${index + 1}`, value: item.totalOptionAnswers });
         });

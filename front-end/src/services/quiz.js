@@ -849,3 +849,18 @@ export async function getDefaultLogo() {
 
   return response.data.defaultImages;
 }
+
+export async function removeQuestionFile(imageUuid) {
+  if (isEnvironmentDevelopment) return {
+    deleted: true,
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/files/delete-image/${imageUuid}`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+  });
+
+  return response.data;
+}

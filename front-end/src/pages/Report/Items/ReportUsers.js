@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Row, Col, Card, Typography, Badge, Select, Divider } from "antd";

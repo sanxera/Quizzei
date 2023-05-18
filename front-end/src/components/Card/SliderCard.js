@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button as ButtonAntd } from 'antd';
 import { useKeenSlider } from 'keen-slider/react';
 import Card from './index';
