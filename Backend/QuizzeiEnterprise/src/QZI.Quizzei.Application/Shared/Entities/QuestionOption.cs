@@ -8,7 +8,7 @@ public class QuestionOption : Entity
     public string Description { get; set; } = null!;
     public bool IsCorrect { get; set; }
     public Guid QuestionUuid { get; set; }
-    public Question Question { get; set; } = null!;
+    public Question? Question { get; set; } = null!;
 
     public QuestionOption()
     {
@@ -16,7 +16,7 @@ public class QuestionOption : Entity
     }
 
     //TODO: REFATORAR
-    public QuestionOption(string description, bool isCorrect, Guid questionUuid, Question question)
+    public QuestionOption(string description, bool isCorrect, Guid questionUuid, Question? question)
     {
         Description = description;
         IsCorrect = isCorrect;

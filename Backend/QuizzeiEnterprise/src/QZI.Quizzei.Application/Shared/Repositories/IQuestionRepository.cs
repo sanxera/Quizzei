@@ -4,7 +4,7 @@ namespace QZI.Quizzei.Application.Shared.Repositories;
 
 public interface IQuestionRepository : IRepository<Question>
 {
-    Task<Question> GetQuestionById(Guid id);
+    Task<Question?> GetQuestionById(Guid id);
     Task<IList<Question>> GetQuestionsByQuizInfo(Guid quizInfoUuid);
-    void Delete(Question question);
+    void Delete(Question? question);
 }

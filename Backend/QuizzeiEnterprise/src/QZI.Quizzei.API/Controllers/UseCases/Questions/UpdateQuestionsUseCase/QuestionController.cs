@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using QZI.Quizzei.Application.UseCases.Questions.UpdateQuestionsUseCase.Interfaces;
 using QZI.Quizzei.Application.UseCases.Questions.UpdateQuestionsUseCase.Models.Request;
 
-namespace QZI.Quizzei.API.Controllers.UseCases.Questions.CreateQuestionsWithOptions;
+namespace QZI.Quizzei.API.Controllers.UseCases.Questions.UpdateQuestionsUseCase;
 
 //[Authorize]
 [Route("api/questions")]
@@ -21,6 +21,7 @@ public class QuestionsController : Controller
     public async Task<IActionResult> CreateQuestionsWithOptions(Guid quizInfoUuid, [FromBody] UpdateQuestionsRequest request)
     {
         request.QuizInfoUuid = quizInfoUuid;
+
         await _useCase.ExecuteAsync(request);
 
         return Ok();

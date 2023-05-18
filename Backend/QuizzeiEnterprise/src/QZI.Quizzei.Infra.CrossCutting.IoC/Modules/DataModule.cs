@@ -25,6 +25,7 @@ public static class DataModule
         services.AddScoped<IQuestionOptionRepository, QuestionOptionRepository>();
         services.AddScoped<IQuizInfoFileRepository, QuizInfoFileRepository>();
         services.AddScoped<IQuizAccessRepository, QuizAccessRepository>();
+        services.AddScoped<IQuestionImageRepository, QuestionImageRepository>();
 
         services.AddDbContext<QuizzeiContext>(options =>
             {

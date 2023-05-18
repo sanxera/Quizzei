@@ -38,5 +38,13 @@ public class QuestionMapping : IEntityTypeConfiguration<Question>
             {
                 QUESTION_UUID = e.QuestionUuid
             });
+
+        builder
+            .HasMany(x => x.Images)
+            .WithOne(f => f.Question)
+            .HasForeignKey(e => new
+            {
+                QUESTION_UUID = e.QuestionUuid
+            });
     }
 }
