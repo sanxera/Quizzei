@@ -56,7 +56,7 @@ public class AnswerQuizUseCase : IAnswerQuizUseCase
         return new AnswerQuizResponse { CorrectAnswers = correctAnswers, TotalQuestions = request.Answers.Count };
     }
 
-    private static void ValidateAnswer(GetUserResponse user, Question question, QuizProcess quizProcess)
+    private static void ValidateAnswer(GetUserResponse user, Question? question, QuizProcess quizProcess)
     {
         if (user is null || question is null || quizProcess is null)
         {

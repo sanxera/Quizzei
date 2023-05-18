@@ -13,10 +13,11 @@ public class QuestionRepository : RepositoryBase<Question>, IQuestionRepository
 {
     public QuestionRepository(QuizzeiContext context) : base(context) { }
 
-    public async Task<Question> GetQuestionById(Guid id)
+    public async Task<Question?> GetQuestionById(Guid id)
     {
         return await Context.Questions
             .Include(x => x.Options)
+            .Include(i => i.Images)
             .FirstOrDefaultAsync(x => x.QuestionUuid == id);
     }
 
@@ -24,10 +25,12 @@ public class QuestionRepository : RepositoryBase<Question>, IQuestionRepository
     {
         return await Context.Questions
             .Include(x => x.Options)
-            .Where(x => x.QuizInfoUuid == quizInfoUuid).ToListAsync();
+            .Include(i => i.Images)
+            .Where(x => x.QuizInfoUuid == quizInfoUuid)
+            .ToListAsync();
     }
 
-    public void Delete(Question question)
+    public void Delete(Question? question)
     {
         Context.Questions.Remove(question);
     }

@@ -66,4 +66,19 @@ public class AmazonService : IAmazonService
 
         await s3Client.PutObjectAsync(s3Request);
     }
+
+    public async Task DeleteObjectAsync(string fileName, FileType fileType)
+    {
+        var s3Client = new AmazonS3Client(_awsConfiguration.AccessKey, _awsConfiguration.SecretAccessKey, RegionEndpoint.SAEast1);
+        var path = fileType == FileType.Document ? "Files/" : "Images/";
+
+        var s3Request = new DeleteObjectRequest
+        {
+            BucketName = _awsConfiguration.BucketName,
+            Key = $"{path + fileName}"
+
+        };
+
+        await s3Client.DeleteObjectAsync(s3Request);
+    }
 }

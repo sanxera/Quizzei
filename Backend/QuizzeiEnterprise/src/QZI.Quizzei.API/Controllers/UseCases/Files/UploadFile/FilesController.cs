@@ -17,7 +17,7 @@ public class FilesController : Controller
         _useCase = useCase;
     }
 
-    [HttpPost("upload/{quizInfoUuid:guid}")]
+    [HttpPost("upload-pdf/{quizInfoUuid:guid}")]
     public async Task<IActionResult> Upload(Guid quizInfoUuid, IFormFile file)
     {
         var fileName = file.FileName;

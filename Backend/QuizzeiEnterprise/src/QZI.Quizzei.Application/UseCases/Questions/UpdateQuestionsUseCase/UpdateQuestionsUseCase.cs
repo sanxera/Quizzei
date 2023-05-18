@@ -1,5 +1,7 @@
 ﻿using QZI.Quizzei.Application.Shared.Entities;
+using QZI.Quizzei.Application.Shared.Enums;
 using QZI.Quizzei.Application.Shared.Repositories;
+using QZI.Quizzei.Application.Shared.Services.Amazon.Interfaces;
 using QZI.Quizzei.Application.Shared.UnitOfWork;
 using QZI.Quizzei.Application.UseCases.Questions.UpdateQuestionsUseCase.Interfaces;
 using QZI.Quizzei.Application.UseCases.Questions.UpdateQuestionsUseCase.Models.Request;
@@ -10,13 +12,17 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
 {
     private readonly IQuestionRepository _questionRepository;
     private readonly IQuestionOptionRepository _questionOptionRepository;
+    private readonly IQuestionImageRepository _questionImageRepository;
+    private readonly IAmazonService _amazonService;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateQuestionsUseCase(IQuestionRepository questionRepository, IQuestionOptionRepository questionOptionRepository, IUnitOfWork unitOfWork)
+    public UpdateQuestionsUseCase(IQuestionRepository questionRepository, IQuestionOptionRepository questionOptionRepository, IUnitOfWork unitOfWork, IAmazonService amazonService, IQuestionImageRepository questionImageRepository)
     {
         _questionRepository = questionRepository;
         _questionOptionRepository = questionOptionRepository;
         _unitOfWork = unitOfWork;
+        _amazonService = amazonService;
+        _questionImageRepository = questionImageRepository;
     }
 
     public async Task ExecuteAsync(UpdateQuestionsRequest request)
@@ -37,6 +43,9 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
                     await DeleteQuestion(questionRequest);
                     break;
 
+                case ActionEnum.NonAction:
+                    continue;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -45,11 +54,18 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
         await _unitOfWork.SaveChangesAsync();
     }
 
-
     private async Task CreateQuestionsWithOptions(Guid quizInfoUuid, UpdateQuestions questionRequest)
     {
         var question = Question.CreateQuestion(questionRequest.Description, quizInfoUuid);
         question.Options = QuestionOption.CreateAnyOptions(questionRequest.Options.ToList());
+
+        foreach (var questionRequestImage in questionRequest.Images)
+        {
+            question.Images.Add(QuestionImage.Create(questionRequestImage.ImageName));
+
+            var oldQuestionImage = await _questionImageRepository.GetQuestionImageById(questionRequestImage.QuestionImageUuid);
+            _questionImageRepository.DeleteById(oldQuestionImage!.QuestionImageUuid);
+        }
 
         await _questionRepository.AddAsync(question);
     }
@@ -57,8 +73,22 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
     private async Task UpdateQuestion(UpdateQuestions questionRequest)
     {
         var question = await _questionRepository.GetQuestionById(questionRequest.QuestionUuid);
-
         question.Description = questionRequest.Description;
+
+        foreach (var questionImage in question.Images)
+        {
+            var oldQuestionImage = await _questionImageRepository.GetQuestionImageById(questionImage.QuestionImageUuid);
+            _questionImageRepository.DeleteById(oldQuestionImage!.QuestionImageUuid);
+        }
+
+        foreach (var questionRequestImage in questionRequest.Images)
+        {
+            question.Images.Add(QuestionImage.Create(questionRequestImage.ImageName));
+
+            var oldQuestionImage = await _questionImageRepository.GetQuestionImageById(questionRequestImage.QuestionImageUuid);
+            _questionImageRepository.DeleteById(oldQuestionImage!.QuestionImageUuid);
+        }
+
         foreach (var optionRequest in questionRequest.Options)
         {
             switch (optionRequest.Action)
@@ -75,6 +105,9 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
                     await DeleteOption(optionRequest);
                     break;
 
+                case ActionEnum.NonAction:
+                    continue;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -90,10 +123,15 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
             _questionOptionRepository.Delete(option);
         }
 
+        foreach (var image in question.Images)
+        {
+            _questionImageRepository.Delete(image);
+        }
+
         _questionRepository.Delete(question);
     }
 
-    private void CreateOption(Question question, UpdateOptions option)
+    private void CreateOption(Question? question, UpdateOptions option)
     {
         var newOption = new QuestionOption(option.Description, option.IsCorrect, question.QuestionUuid, question);
 
