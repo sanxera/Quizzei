@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Button, Input, Row, Col, Checkbox, Divider, Form, Upload } from 'antd';
+import { Button, Input, Row, Col, Checkbox, Divider, Form, Upload, Spin } from 'antd';
 import { Trash } from 'phosphor-react'
 
 import '../index.less';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 
 const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
@@ -16,15 +16,16 @@ const ACTIONS = {
 
 
 const StepQuestionsPanel = ({ index, question, data, form }) => {
-  console.log(data);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     async function loadListImages() {
+      setLoading(true);
       if (!data[question.key]?.images || data[question.key]?.images.length === 0) return;
-      const images = data[question.key]?.images.map((image, index) => ({ uid: index, status: 'done', name: image.imageName, url: image.imageUrl }))
+      const images = await data[question.key]?.images.map((image, index) => ({ uid: index, status: 'done', name: image.imageName, url: image.imageUrl }))
       setImages(images);
+      setLoading(false);
     }
 
     loadListImages();
@@ -32,7 +33,6 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
 
   async function onChangeUpload(info, questionInfo) {
     const { status, response } = info.file;
-    console.log("🚀  ~ file: StepQuestionsPanel.js:34 ~ onChangeUpload ~ status:", status)
     const { fieldKey: questionKey } = questionInfo;
     const { questions } = form.getFieldsValue();
 
@@ -68,20 +68,20 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
         name: response.imageName,
         url: response.imageUrl
       })
-      setLoading(false);
       setImages(images);
+      setLoading(false);
     }
   }
 
   const uploadButton = (
     <div style={{ width: '100%' }}>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <PlusOutlined />
       <div
         style={{
           marginTop: 8,
         }}
       >
-        Upload
+        Adicionar imagem
       </div>
     </div>
   );
@@ -116,19 +116,24 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
           >
             <Input />
           </Form.Item>
-          <Upload
-            style={{ width: 200, margin: 0 }}
-            action={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-image`}
-            listType="picture-card"
-            fileList={images}
-            name="file"
-            headers={{enctype: 'multipart/form-data'}}
-            onChange={file => onChangeUpload(file, question)}
-          >
-            {images.length > 0 ? null : (
-              uploadButton
-            )}
-          </Upload>
+
+          {loading ? (
+            <Spin style={{ marginLeft: 20 }} />
+          ) : (
+            <Upload
+              name="file"
+              listType="picture-card"
+              headers={{ enctype: 'multipart/form-data' }}
+              action={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-image`}
+              onChange={file => onChangeUpload(file, question)}
+              defaultFileList={images}
+              style={{ width: 200, margin: 0 }}
+            >
+              {images.length > 0 ? null : (
+                uploadButton
+              )}
+            </Upload>
+          )}
         </Col>
 
         <Col span={22}>
