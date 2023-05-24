@@ -31,6 +31,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
 
   async function onChangeUpload(info, questionInfo) {
     const { status, response } = info.file;
+    console.log("🚀  ~ file: StepQuestionsPanel.js:34 ~ onChangeUpload ~ status:", status)
     const { fieldKey: questionKey } = questionInfo;
     const { questions } = form.getFieldsValue();
 
@@ -119,6 +120,8 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
             action={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-image`}
             listType="picture-card"
             fileList={images}
+            name="file"
+            headers={{enctype: 'multipart/form-data'}}
             onChange={file => onChangeUpload(file, question)}
           >
             {images.length > 0 ? null : (
