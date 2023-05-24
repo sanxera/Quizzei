@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Button, Input, Row, Col, Checkbox, Divider, Form, Upload } from 'antd';
 import { Trash } from 'phosphor-react'
 
 import '../index.less';
-import { EditOutlined, LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
@@ -13,64 +14,61 @@ const ACTIONS = {
   REMOVE: 2,
 }
 
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
 
 const StepQuestionsPanel = ({ index, question, data, form }) => {
-  const [typeQuestion, setTypeQuestion] = useState('question');
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState(question[data.key]?.images || []);
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    async function loadListImages() {
+      if (!data[question.key]?.imagesUrl || data[question.key]?.imagesUrl.length === 0) return;
+      const images = data[question.key]?.imagesUrl.map((image, index) => ({ uid: index, status: 'done', name: image.imageName, url: image.imageUrl }))
+      setImages(images);
+    }
+
+    loadListImages();
+  }, [])
 
   async function onChangeUpload(info, questionInfo) {
     const { status, response } = info.file;
+    const { fieldKey: questionKey } = questionInfo;
+    const { questions } = form.getFieldsValue();
+
+    if (status === 'removed') {
+      questions[questionKey].imagesUrl = []
+      form.setFieldsValue({
+        questions: [...questions]
+      })
+
+      setImages([]);
+      return;
+    }
     if (status === 'uploading') {
       setLoading(true);
       return;
     }
 
     if (status === 'done') {
-      const { fieldKey: questionKey } = questionInfo;
-      const { questions } = form.getFieldsValue();
-      const changeQuestion = questions[questionKey];
-      changeQuestion.imagesUrl.push({
+      questions[questionKey].imagesUrl = [];
+      questions[questionKey].imagesUrl.push({
         questionImageUuid: response.imageCreateUuid,
         imageName: response.fileName,
         imageUrl: response.imageUrl
       })
 
       form.setFieldsValue({
-        questions: [...questions, changeQuestion]
+        questions: [...questions]
       })
 
-      getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
-
-        images.push({
-          questionImageUuid: response.imageCreateUuid,
-          imageName: response.fileName,
-          imageUrl: response.imageUrl
-        })
-        setImages(images);
-      });
+      images.push({
+        uid: response.imageCreateUuid,
+        status: 'done',
+        name: response.fileName,
+        url: response.imageUrl
+      })
+      setLoading(false);
+      setImages(images);
     }
-  }
-
-  async function onRemoveImage(info, questionInfo) {
-    const { name } = info;
-    console.log("🚀  ~ file: StepQuestionsPanel.js:66 ~ onRemoveImage ~ name:", name)
-    const { questions } = form.getFieldsValue();
-    const { fieldKey: questionKey } = questionInfo;
-    const changeQuestion = questions[questionKey];
-    changeQuestion.imagesUrl = []
-
-    form.setFieldsValue({
-      questions: [...questions, changeQuestion]
-    })
-
-    setImages([]);
   }
 
   const uploadButton = (
@@ -98,58 +96,37 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
           <Input hidden />
         </Form.Item>
 
-        <Col>
-          <Button onClick={() => setTypeQuestion('question')}>
-            <EditOutlined />  Questão
-          </Button>
-          <Button onClick={() => setTypeQuestion('upload')}>
-            <UploadOutlined /> Imagem
-          </Button>
+        <Col span={24}>
+          <Form.Item
+            {...question}
+            name={[question.name, "description"]}
+            fieldKey={[question.fieldKey, 'description']}
+          >
+            <Input.TextArea placeholder='Digite a questão aqui!' />
+          </Form.Item>
+
+          <Form.Item
+            {...question}
+            initialValue={data[index]?.imagesUrl || []}
+            name={[question.name, "imagesUrl"]}
+            fieldKey={[question.fieldKey, 'description']}
+            hidden
+          >
+            <Input />
+          </Form.Item>
+          <Upload
+            style={{ width: 200, margin: 0 }}
+            action={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-image`}
+            listType="picture-card"
+            fileList={images}
+            onChange={file => onChangeUpload(file, question)}
+          >
+            {images.length > 0 ? null : (
+              uploadButton
+            )}
+          </Upload>
         </Col>
 
-        <Col span={24}>
-          {typeQuestion === 'question' ? (
-            <Form.Item
-              {...question}
-              name={[question.name, "description"]}
-              fieldKey={[question.fieldKey, 'description']}
-            >
-              <Input.TextArea placeholder='Digite a questão aqui!' />
-            </Form.Item>
-          ) : (
-            <>
-              <Form.Item
-                {...question}
-                name={[question.name, "imagesUrl"]}
-                fieldKey={[question.fieldKey, 'description']}
-              >
-                <Input hidden />
-              </Form.Item>
-              <Upload
-                style={{ width: 200 }}
-                action={`${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-image`}
-                listType="picture-card"
-                maxCount={1}
-                onChange={file => onChangeUpload(file, question)}
-                onRemove={file => onRemoveImage(file, question)}
-                disabled={images.length > 0}
-              >
-                {images.length > 0 ?
-                  images.map(image => (
-                    <img
-                      src={image.imageUrl}
-                      alt="avatar"
-                      style={{
-                        width: '100%',
-                      }}
-                    />
-                  )) : (
-                    uploadButton
-                  )}
-              </Upload>
-            </>
-          )}
-        </Col>
         <Col span={22}>
           <Form.List
             name={[question.fieldKey, 'options']}>

@@ -19,7 +19,6 @@ const List = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [userQuizzes, setUserQuizzes] = useState({});
-  console.log("🚀  ~ file: List.js:24 ~ List ~ userQuizzes:", userQuizzes)
   const [publicQuizzes, setPublicQuizzes] = useState({});
   const [allQuizzes, setAllQuizzes] = useState({});
   const [visible, setVisible] = useState(false);
