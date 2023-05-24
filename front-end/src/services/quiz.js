@@ -194,7 +194,7 @@ export async function listQuestions(quizInfoUuid) {
             {
               questionUuid: 'xxxx',
               questionDescription: 'Questao 1',
-              imagesUrl: [{
+              images: [{
                 questionImageUuid: '0-312-31203123-',
                 imageName: 'Paisagem',
                 imageUrl: 'https://cursinhoparamedicina.com.br/wp-content/uploads/2022/10/Paisagem-1.jpg'
@@ -254,7 +254,7 @@ export async function listQuestions(quizInfoUuid) {
     await questions.push({
       questionUuid: question.questionUuid,
       description: question.questionDescription,
-      imagesUrl: question.imagesUrl,
+      images: question.images,
       options: question.options.map(option => {
         return {
           optionUuid: option.optionUuid,

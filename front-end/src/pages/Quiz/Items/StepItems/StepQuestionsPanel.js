@@ -16,13 +16,14 @@ const ACTIONS = {
 
 
 const StepQuestionsPanel = ({ index, question, data, form }) => {
+  console.log(data);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     async function loadListImages() {
-      if (!data[question.key]?.imagesUrl || data[question.key]?.imagesUrl.length === 0) return;
-      const images = data[question.key]?.imagesUrl.map((image, index) => ({ uid: index, status: 'done', name: image.imageName, url: image.imageUrl }))
+      if (!data[question.key]?.images || data[question.key]?.images.length === 0) return;
+      const images = data[question.key]?.images.map((image, index) => ({ uid: index, status: 'done', name: image.imageName, url: image.imageUrl }))
       setImages(images);
     }
 
@@ -36,24 +37,24 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
     const { questions } = form.getFieldsValue();
 
     if (status === 'removed') {
-      questions[questionKey].imagesUrl = []
+      questions[questionKey].images = []
       form.setFieldsValue({
         questions: [...questions]
       })
 
       setImages([]);
-      return;
+      // return;
     }
     if (status === 'uploading') {
       setLoading(true);
-      return;
+      // return;
     }
 
     if (status === 'done') {
-      questions[questionKey].imagesUrl = [];
-      questions[questionKey].imagesUrl.push({
-        questionImageUuid: response.imageCreateUuid,
-        imageName: response.fileName,
+      questions[questionKey].images = [];
+      questions[questionKey].images.push({
+        questionImageUuid: response.questionImageUuid,
+        imageName: response.imageName,
         imageUrl: response.imageUrl
       })
 
@@ -62,9 +63,9 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
       })
 
       images.push({
-        uid: response.imageCreateUuid,
+        uid: response.questionImageUuid,
         status: 'done',
-        name: response.fileName,
+        name: response.imageName,
         url: response.imageUrl
       })
       setLoading(false);
@@ -108,8 +109,8 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
 
           <Form.Item
             {...question}
-            initialValue={data[index]?.imagesUrl || []}
-            name={[question.name, "imagesUrl"]}
+            initialValue={data[index]?.images || []}
+            name={[question.name, "images"]}
             fieldKey={[question.fieldKey, 'description']}
             hidden
           >

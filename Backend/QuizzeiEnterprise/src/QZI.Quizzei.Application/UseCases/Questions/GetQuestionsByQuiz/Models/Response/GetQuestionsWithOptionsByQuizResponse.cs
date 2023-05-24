@@ -9,7 +9,7 @@ public class QuestionResponse
 {
     public Guid QuestionUuid { get; set; }
     public string QuestionDescription { get; set; } = null!;
-    public IList<QuestionImageResponse> ImagesUrl { get; set; } = new List<QuestionImageResponse>();
+    public IList<QuestionImageResponse> Images { get; set; } = new List<QuestionImageResponse>();
     public IList<QuestionOptionResponse> Options { get; set; } = new List<QuestionOptionResponse>();
 
     public static QuestionResponse Create(Guid questionUuid, string questionDescription, List<QuestionImageResponse> imagesUrl, IList<QuestionOptionResponse> options) =>
@@ -18,7 +18,7 @@ public class QuestionResponse
             Options = options,
             QuestionDescription = questionDescription,
             QuestionUuid = questionUuid,
-            ImagesUrl = imagesUrl
+            Images = imagesUrl
         };
 }
 

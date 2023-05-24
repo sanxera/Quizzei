@@ -25,7 +25,7 @@ public class UploadImageUseCase : IUploadImageUseCase
     public async Task<UploadImageResponse> ExecuteAsync(UploadImageRequest request)
     {
         var questionImage = QuestionImage.Create($"{Guid.NewGuid()}-{request.FileName}");
-        await _amazonService.UploadObjectAsync(request.FileName, FileType.Image, request.FileStream, request.ContentType);
+        await _amazonService.UploadObjectAsync(questionImage.ImageName, FileType.Image, request.FileStream, request.ContentType);
 
         await _questionImageRepository.AddAsync(questionImage);
         await _unitOfWork.SaveChangesAsync();
