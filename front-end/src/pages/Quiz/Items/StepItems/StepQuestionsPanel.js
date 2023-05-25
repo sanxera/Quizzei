@@ -21,9 +21,9 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
 
   useEffect(() => {
     async function loadListImages() {
-      setLoading(true);
       if (!data[question.key]?.images || data[question.key]?.images.length === 0) return;
       const images = await data[question.key]?.images.map((image, index) => ({ uid: index, status: 'done', name: image.imageName, url: image.imageUrl }))
+      setLoading(true);
       setImages(images);
       setLoading(false);
     }
