@@ -45,10 +45,10 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
       setImages([]);
       // return;
     }
-    if (status === 'uploading') {
-      setLoading(true);
-      // return;
-    }
+    // if (status === 'uploading') {
+    //   setLoading(true);
+    //   // return;
+    // }
 
     if (status === 'done') {
       questions[questionKey].images = [];
@@ -68,6 +68,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
         name: response.imageName,
         url: response.imageUrl
       })
+      setLoading(true);
       setImages(images);
       setLoading(false);
     }
