@@ -1,5 +1,4 @@
 ﻿using QZI.Quizzei.Application.Shared.Entities;
-using QZI.Quizzei.Application.Shared.Enums;
 using QZI.Quizzei.Application.Shared.Repositories;
 using QZI.Quizzei.Application.Shared.Services.Amazon.Interfaces;
 using QZI.Quizzei.Application.Shared.UnitOfWork;
