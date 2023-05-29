@@ -1,19 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Form, Input, Row, Col, Select, DatePicker, Typography } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import { DEFAULT_DATE, GENERATE_PERIOD_DATE, PERMISSION_TYPE } from '../../../utils/constant';
 import { InputWrapper } from '../../../components/InputWrapper';
-// import { ModalQuizLogo } from '../ModalQuizLogo';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { Text } = Typography;
 
 const StepForm = ({ data, form, categories }) => {
-  const [showModalLogo, setShowModalLogo] = useState(false);
-  // const [imageName, setImageName] = useState(data?.imageName || 'Arquitetura');
-  // const [imageUrl, setImageUrl] = useState(data?.imageUrl || '');
   const [permissionType, setPermissionType] = useState(PERMISSION_TYPE[data?.permissionType || 1]);
   const [period, setPeriod] = useState(DEFAULT_DATE);
   const [loading, setLoading] = useState(false);
@@ -27,6 +23,7 @@ const StepForm = ({ data, form, categories }) => {
     }
 
     loadData();
+    
   }, [])
 
   // async function onAddLogo(image = {}) {
@@ -46,7 +43,6 @@ const StepForm = ({ data, form, categories }) => {
     let quizAccessModel = null;
     switch (PERMISSION_TYPE[value]) {
       default:
-        quizAccessModel = quizAccessModel;
         break;
       case 'PRIVATE':
         quizAccessModel = { ...quizAccess, initialDate: null, endDate: null, accessCode: '' };
@@ -80,18 +76,6 @@ const StepForm = ({ data, form, categories }) => {
   const options = categories && categories.map(item => <Option key={item.idCategory} value={item.idCategory}>{item.name}</Option>);
   const category = categories ? categories.filter(item => item.name === data.categoryDescription) : [{ idCategory: 1 }];
   const dateFormat = 'DD/MM/YYYY';
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Logo
-      </div>
-    </div>
-  );
 
   return (
     <Form

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Typography, Button as ButtonAntd } from 'antd';
+import { Row, Col, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import Card from '../../components/Card';
 import { Button } from '../../components/Button';
 import ModalQuiz from './Modal';
 import StartQuiz from './StartQuiz';
@@ -13,7 +12,6 @@ import styles from './styles.less'
 import Filter from '../../components/Filter';
 import SliderCard from '../../components/Card/SliderCard';
 import { getUser } from '../../services/session';
-import { DEFAULT_THEME } from '../../utils/constant';
 
 const { Title } = Typography;
 
@@ -21,7 +19,6 @@ const List = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [userQuizzes, setUserQuizzes] = useState({});
-  console.log("🚀  ~ file: List.js:24 ~ List ~ userQuizzes:", userQuizzes)
   const [publicQuizzes, setPublicQuizzes] = useState({});
   const [allQuizzes, setAllQuizzes] = useState({});
   const [visible, setVisible] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout, Menu, Avatar, Typography, Divider } from 'antd';
-import { Gauge, ChatCenteredText, Folder, Gear, SignOut } from 'phosphor-react'
+import { Gauge, ChatCenteredText, Folder, SignOut } from 'phosphor-react'
 import logoQuizzei from '../../image/logo-quizzei.png';
 import { setAuthority } from '../../utils/auth';
 
@@ -90,6 +90,7 @@ const SiderMenu = () => {
     >
       <div className={styles.logo}>
         <img
+          alt="logo-quizzei"
           style={{ height: 63 }}
           src={logoQuizzei}
         />

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { Upload, message } from 'antd';
 import { FileArrowUp } from 'phosphor-react';
@@ -16,7 +17,7 @@ const StepContent = ({ data }) => {
     headers: {
       enctype: 'multipart/form-data',
     },
-    action: `${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload/${data.quizInfoUuid}`,
+    action: `${REACT_APP_QUIZZEI_BACKEND_URL}api/files/upload-pdf/${data.quizInfoUuid}`,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {

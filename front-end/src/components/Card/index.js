@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card as CardAntd, Row, Col, Typography, Tag } from 'antd'
 import { UserOutlined, FileTextOutlined } from '@ant-design/icons'
-// import styles from './index.less';
 import { PERMISSION_TYPE_TAGS } from '../../utils/constant';
 
 import './index.less';
 
 const { Meta } = CardAntd;
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 const Card = ({ className, logo, title, ownerNickName, numberOfQuestions, description = '', permissionType, cardName, onClick, isMyQuiz = false, children, ...rest }) => {
   const tagType = PERMISSION_TYPE_TAGS[permissionType || 1];

@@ -193,11 +193,16 @@ export async function listQuestions(quizInfoUuid) {
           questions: [
             {
               questionUuid: 'xxxx',
-              questionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum congue nunc, ac tincidunt diam fermentum in. Proin sed vulputate purus. Mauris lacinia egestas ipsum, eu bibendum turpis ultricies et. Integer ut orci tincidunt, cursus nisi in, lobortis neque. Nullam mattis molestie imperdiet. Morbi sollicitudin sollicitudin eleifend. Proin eleifend ipsum eget accumsan facilisis. Morbi porta porttitor luctus. Morbi dictum viverra consectetur. Donec non porttitor sem. Ut vel elit id mauris eleifend scelerisque. Curabitur feugiat consequat quam. Suspendisse id ultrices ante, bibendum vehicula purus. Praesent vel condimentum velit, eget egestas nisl.',
+              questionDescription: 'Questao 1',
+              images: [{
+                questionImageUuid: '0-312-31203123-',
+                imageName: 'Paisagem',
+                imageUrl: 'https://cursinhoparamedicina.com.br/wp-content/uploads/2022/10/Paisagem-1.jpg'
+              }],
               options: [
                 {
                   optionUuid: 'xxxxx',
-                  optionDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum congue nunc, ac tincidunt diam fermentum in. Proin sed vulputate purus. Mauris lacinia egestas ipsum, eu bibendum turpis ultricies et. Integer ut orci tincidunt, cursus nisi in, lobortis neque. Nullam mattis molestie imperdiet. Morbi sollicitudin sollicitudin eleifend. Proin eleifend ipsum eget accumsan facilisis. Morbi porta porttitor luctus. Morbi dictum viverra consectetur. Donec non porttitor sem. .',
+                  optionDescription: 'descricao 1',
                   isCorrect: true,
                 },
                 {
@@ -249,6 +254,7 @@ export async function listQuestions(quizInfoUuid) {
     await questions.push({
       questionUuid: question.questionUuid,
       description: question.questionDescription,
+      images: question.images,
       options: question.options.map(option => {
         return {
           optionUuid: option.optionUuid,
@@ -848,4 +854,19 @@ export async function getDefaultLogo() {
   });
 
   return response.data.defaultImages;
+}
+
+export async function removeQuestionFile(imageUuid) {
+  if (isEnvironmentDevelopment) return {
+    deleted: true,
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/files/delete-image/${imageUuid}`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+  });
+
+  return response.data;
 }

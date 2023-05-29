@@ -8,7 +8,7 @@ const LayoutWrapper = ({ hasHeader = true, hasFooter = true, navigate, children,
   const headerElement = header ? header : <SiderMenu navigate={navigate} />;
 
   return (
-    <Layout style={{ minHeight: '100vh', width: '100vw' }}>
+    <Layout>
       {hasHeader && headerElement}
 
       <Layout

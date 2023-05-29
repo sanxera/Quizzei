@@ -84,9 +84,6 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
         foreach (var questionRequestImage in questionRequest.Images)
         {
             question.Images.Add(QuestionImage.Create(questionRequestImage.ImageName));
-
-            var oldQuestionImage = await _questionImageRepository.GetQuestionImageById(questionRequestImage.QuestionImageUuid);
-            _questionImageRepository.DeleteById(oldQuestionImage!.QuestionImageUuid);
         }
 
         foreach (var optionRequest in questionRequest.Options)

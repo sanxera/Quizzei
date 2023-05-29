@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input, Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
@@ -14,9 +14,7 @@ const INPUT_STYLE = {
 
 
 const FormComponent = ({ navigate }) => {
-  // const [password, setPassword] = useState(null);
-  // const [disable, setDisable] = useState(false);
-
+ 
   async function onFinish(data) {
     const { createdUserUuid } = await register(data);
     const status = createdUserUuid ? 'success' : 'error';

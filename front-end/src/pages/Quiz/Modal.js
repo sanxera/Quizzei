@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Form, Modal, Typography, Row, Col, Button as ButtonAntd, Upload, message, Divider } from 'antd';
@@ -14,7 +15,7 @@ import StepContent from './Items/StepContent';
 import StepTheme from './Items/StepTheme';
 import { Button } from '../../components/Button'
 import { create, createQuestions, listQuestions, update } from '../../services/quiz';
-import { create as createCategory, list as listCategories } from '../../services/categories';
+import { list as listCategories } from '../../services/categories';
 import { notification } from '../../utils/notification';
 
 const { TabPane } = Tabs;
@@ -29,7 +30,6 @@ const ModalQuiz = ({ rowData = {}, onClose, onCallback, visible, dispatch, navig
   const [categories, setCategories] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [showQuestions, setShowQuestions] = useState(false);
-  const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
   const textButton = rowData && rowData.quizInfoUuid ? 'Atualizar' : 'Criar';
   const titleModal = rowData && rowData.quizInfoUuid ? 'Editar quiz' : 'Criar novo quiz';
