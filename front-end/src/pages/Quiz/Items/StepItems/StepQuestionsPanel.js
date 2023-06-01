@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { Button, Input, Row, Col, Checkbox, Divider, Form, Upload, Spin } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Input, Row, Col, Checkbox, Divider, Form, Upload, Spin, Select, Space, Tooltip } from 'antd';
+import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Trash } from 'phosphor-react'
+import { notification } from '../../../../utils/notification';
 
 import '../index.less';
-import { PlusOutlined } from '@ant-design/icons';
+import { createQuestionCategory, getQuestionCategories } from '../../../../services/quiz';
 
 const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
@@ -18,6 +20,10 @@ const ACTIONS = {
 const StepQuestionsPanel = ({ index, question, data, form }) => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryName, setCategoryName] = useState('');
+
+  const inputTagRef = useRef(null);
 
   useEffect(() => {
     async function loadListImages() {
@@ -28,10 +34,16 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
       setLoading(false);
     }
 
+    loadQuestionCategories();
     loadListImages();
   }, [])
 
-  async function onChangeUpload(info, questionInfo) {
+  async function loadQuestionCategories() {
+    const categories = await getQuestionCategories();
+    setCategories(categories.questionCategories)
+  }
+
+  function onChangeUpload(info, questionInfo) {
     const { status, response } = info.file;
     const { fieldKey: questionKey } = questionInfo;
     const { questions } = form.getFieldsValue();
@@ -45,10 +57,6 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
       setImages([]);
       // return;
     }
-    // if (status === 'uploading') {
-    //   setLoading(true);
-    //   // return;
-    // }
 
     if (status === 'done') {
       questions[questionKey].images = [];
@@ -72,6 +80,34 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
       setImages(images);
       setLoading(false);
     }
+  }
+
+  async function onCreateCategory(e, question) {
+    const { fieldKey: questionKey } = question;
+    const { questions } = form.getFieldsValue();
+
+    e.preventDefault();
+    if (!categoryName) {
+      notification({ status: 'error', message: 'O nome da TAG deve ser informado antes de adicionar' });
+      return;
+    }
+
+    const response = await createQuestionCategory(categoryName);
+    setCategoryName('');
+
+    questions[questionKey].questionCategoryId = response.createdId;
+    await form.setFieldsValue({
+      questions: [...questions]
+    })
+
+    loadQuestionCategories();
+    setTimeout(() => {
+      inputTagRef.current?.focus();
+    }, 0);
+  }
+
+  function onChangeTag(e) {
+    setCategoryName(e.target.value)
   }
 
   const uploadButton = (
@@ -98,6 +134,57 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
         >
           <Input hidden />
         </Form.Item>
+
+        <Form.Item
+          {...question}
+          initialValue={data[index]?.questionCategoryId || null}
+          name={[question.name, "questionCategoryId"]}
+          fieldKey={[question.fieldKey, 'description']}
+        >
+          <Input hidden />
+        </Form.Item>
+
+        <Col style={{ marginBlock: 15 }} span={24}>
+          <Select
+            style={{
+              width: 300,
+            }}
+            placeholder="Categoria da questão"
+            dropdownRender={(menu) => (
+              <>
+                {menu}
+                <Divider
+                  style={{
+                    margin: '8px 0',
+                  }}
+                />
+                <Space
+                  style={{
+                    padding: '0 8px 4px',
+                  }}
+                >
+                  <Input
+                    placeholder="Informe a categoria"
+                    value={categoryName}
+                    ref={inputTagRef}
+                    onChange={onChangeTag}
+                  />
+                  <Button type="text" icon={<PlusOutlined />} onClick={e => onCreateCategory(e, question)}>
+                    Adicionar
+                  </Button>
+                </Space>
+              </>
+            )}
+            options={categories.map((item) => ({
+              label: item.name,
+              value: item.id,
+            }))}
+          />
+
+          <Tooltip title="Você pode agrupar as questões informando a TAG há qual cada uma pertence">
+            <QuestionCircleOutlined style={{ marginLeft: 10 }} />
+          </Tooltip>
+        </Col>
 
         <Col span={24}>
           <Form.Item

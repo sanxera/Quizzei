@@ -870,3 +870,42 @@ export async function removeQuestionFile(imageUuid) {
 
   return response.data;
 }
+
+export async function getQuestionCategories() {
+  if (isEnvironmentDevelopment) return {
+    questionCategories: [
+      {
+        id: 1,
+        name: 'DevOps',
+      }
+    ]
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/question-category/get-all`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+  });
+
+  return response.data;
+}
+
+export async function createQuestionCategory(name) {
+  if (isEnvironmentDevelopment) return {
+    createdId: 2
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/question-categorycreate`, {
+    method: 'POST',
+    data: {
+      name
+    },
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+  });
+
+  return response.data;
+}
