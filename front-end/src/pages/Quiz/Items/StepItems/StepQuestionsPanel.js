@@ -149,6 +149,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
             style={{
               width: 300,
             }}
+            value={data[index]?.questionCategoryId}
             placeholder="Categoria da questão"
             dropdownRender={(menu) => (
               <>

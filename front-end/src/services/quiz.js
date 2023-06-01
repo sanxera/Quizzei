@@ -194,6 +194,7 @@ export async function listQuestions(quizInfoUuid) {
             {
               questionUuid: 'xxxx',
               questionDescription: 'Questao 1',
+              questionCategoryId: 1,
               images: [{
                 questionImageUuid: '0-312-31203123-',
                 imageName: 'Paisagem',
@@ -254,6 +255,7 @@ export async function listQuestions(quizInfoUuid) {
     await questions.push({
       questionUuid: question.questionUuid,
       description: question.questionDescription,
+      questionCategoryId: question.questionCategoryId,
       images: question.images,
       options: question.options.map(option => {
         return {
