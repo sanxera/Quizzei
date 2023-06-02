@@ -6,16 +6,16 @@ namespace QZI.Quizzei.Application.UseCases.QuestionsCategories.GetAllQuestionsCa
 
 public class GetAllQuestionsCategoriesUseCase : IGetAllQuestionsCategoriesUseCase
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IQuestionCategoryRepository _questionCategoryRepository;
 
-    public GetAllQuestionsCategoriesUseCase(ICategoryRepository categoryRepository)
+    public GetAllQuestionsCategoriesUseCase(IQuestionCategoryRepository questionCategoryRepository)
     {
-        _categoryRepository = categoryRepository;
+        _questionCategoryRepository = questionCategoryRepository;
     }
 
     public async Task<GetAllQuestionsCategoriesResponse> ExecuteAsync()
     {
-        var categories = await _categoryRepository.GetAllCategories();
-        return new GetAllQuestionsCategoriesResponse(categories);
+        var questionCategories = await _questionCategoryRepository.GetAllQuestionsCategories();
+        return new GetAllQuestionsCategoriesResponse(questionCategories);
     }
 }

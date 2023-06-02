@@ -9,22 +9,22 @@ namespace QZI.Quizzei.Application.UseCases.QuestionsCategories.CreateQuestionCat
 
 public class CreateQuestionCategoryUseCase : ICreateQuestionCategoryUseCase
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IQuestionCategoryRepository _questionCategoryRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateQuestionCategoryUseCase(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+    public CreateQuestionCategoryUseCase(IQuestionCategoryRepository questionCategoryRepository, IUnitOfWork unitOfWork)
     {
-        _categoryRepository = categoryRepository;
+        _questionCategoryRepository = questionCategoryRepository;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<CreateQuestionCategoryResponse> ExecuteAsync(CreateQuestionCategoryRequest request)
     {
-        var newCategory = Category.CreateQuizCategory(request.Name);
+        var questionCategory = QuestionCategory.CreateQuestionCategory(request.Name);
 
-        await _categoryRepository.AddAsync(newCategory);
+        await _questionCategoryRepository.AddAsync(questionCategory);
         await _unitOfWork.SaveChangesAsync();
 
-        return new CreateQuestionCategoryResponse { CreatedId = newCategory.Id };
+        return new CreateQuestionCategoryResponse { CreatedId = questionCategory.Id };
     }
 }

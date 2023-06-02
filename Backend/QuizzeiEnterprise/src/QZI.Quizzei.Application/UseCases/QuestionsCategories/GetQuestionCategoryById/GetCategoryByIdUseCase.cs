@@ -8,20 +8,20 @@ namespace QZI.Quizzei.Application.UseCases.QuestionsCategories.GetQuestionCatego
 
 public class GetQuestionCategoryByIdUseCase : IGetQuestionCategoryByIdUseCase
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IQuestionCategoryRepository _questionCategoryRepository;
 
-    public GetQuestionCategoryByIdUseCase(ICategoryRepository categoryRepository)
+    public GetQuestionCategoryByIdUseCase(IQuestionCategoryRepository questionCategoryRepository)
     {
-        _categoryRepository = categoryRepository;
+        _questionCategoryRepository = questionCategoryRepository;
     }
 
     public async Task<GetQuestionCategoryByIdResponse> ExecuteAsync(GetQuestionCategoryByIdRequest request)
     {
-        var category = await _categoryRepository.GetCategoryById(request.Id);
+        var questionCategory = await _questionCategoryRepository.GetQuestionCategoryById(request.Id);
 
-        if (category == null)
-            throw new GenericException("Category not found !");
+        if (questionCategory == null)
+            throw new GenericException("Question Category not found !");
 
-        return new GetQuestionCategoryByIdResponse { Id = category.Id, Description = category.Description };
+        return new GetQuestionCategoryByIdResponse { Id = questionCategory.Id, Description = questionCategory.Description };
     }
 }

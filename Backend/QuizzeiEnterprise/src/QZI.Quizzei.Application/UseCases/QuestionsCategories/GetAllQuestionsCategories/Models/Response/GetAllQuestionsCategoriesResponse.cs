@@ -4,13 +4,13 @@ namespace QZI.Quizzei.Application.UseCases.QuestionsCategories.GetAllQuestionsCa
 
 public class GetAllQuestionsCategoriesResponse
 {
-    public IList<QuestionCategoryResponse> Categories { get; set; } = new List<QuestionCategoryResponse>();
+    public IList<QuestionCategoryResponse> QuestionsCategories { get; set; } = new List<QuestionCategoryResponse>();
 
-    public GetAllQuestionsCategoriesResponse(IEnumerable<Category> quizCategories)
+    public GetAllQuestionsCategoriesResponse(IEnumerable<QuestionCategory> quizCategories)
     {
         foreach (var quizCategory in quizCategories)
         {
-            Categories.Add(new QuestionCategoryResponse(quizCategory.Id, quizCategory.Description));
+            QuestionsCategories.Add(new QuestionCategoryResponse(quizCategory.Id, quizCategory.Description));
         }
     }
 }
