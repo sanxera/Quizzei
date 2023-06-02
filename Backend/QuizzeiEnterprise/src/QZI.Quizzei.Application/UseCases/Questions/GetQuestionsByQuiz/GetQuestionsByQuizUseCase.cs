@@ -35,7 +35,7 @@ public class GetQuestionsByQuizUseCase : IGetQuestionsByQuizUseCase
         foreach (var question in questions)
         {
             var imagesUrl = await GetImagesUrl(question);
-            var questionDto = QuestionResponse.Create(question.QuestionUuid, question.Description, imagesUrl, CreateOptionsResponse(question));
+            var questionDto = QuestionResponse.Create(question.QuestionUuid, question.Description, question.CategoryId, imagesUrl, CreateOptionsResponse(question));
             questionToReturn.Questions.Add(questionDto);
         }
 

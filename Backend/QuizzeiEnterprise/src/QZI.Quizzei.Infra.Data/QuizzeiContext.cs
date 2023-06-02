@@ -10,9 +10,11 @@ public class QuizzeiContext : IdentityDbContext<ApplicationUser>
     public QuizzeiContext(DbContextOptions<QuizzeiContext> options) : base(options)
     {
     }
+
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<QuestionOption> Options { get; set; }
-    public virtual DbSet<Question?> Questions { get; set; }
+    public virtual DbSet<Question> Questions { get; set; }
+    public virtual DbSet<QuestionCategory> QuestionsCategories { get; set; }
     public virtual DbSet<QuizInformation> QuizzesInfos { get; set; }
     public virtual DbSet<QuizProcess> QuizProcesses { get; set; }
     public virtual DbSet<QuizRate> QuizRates { get; set; }
