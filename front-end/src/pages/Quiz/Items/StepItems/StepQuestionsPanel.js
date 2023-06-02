@@ -4,9 +4,9 @@ import { Button, Input, Row, Col, Checkbox, Divider, Form, Upload, Spin, Select,
 import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Trash } from 'phosphor-react'
 import { notification } from '../../../../utils/notification';
+import { createQuestionCategory, getQuestionCategories } from '../../../../services/quiz';
 
 import '../index.less';
-import { createQuestionCategory, getQuestionCategories } from '../../../../services/quiz';
 
 const { REACT_APP_QUIZZEI_BACKEND_URL } = process.env;
 
@@ -18,13 +18,13 @@ const ACTIONS = {
 
 
 const StepQuestionsPanel = ({ index, question, data, form }) => {
+  const inputTagRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [loadingCategories, setLoadingCategories] = useState(false);
+  // const [loadingCategories, setLoadingCategories] = useState(false);
   const [images, setImages] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState('');
 
-  const inputTagRef = useRef(null);
 
   useEffect(() => {
     async function loadListImages() {
@@ -41,9 +41,9 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
 
   async function loadQuestionCategories() {
     const categories = await getQuestionCategories();
-    setLoadingCategories(true);
-    setCategories(categories.questionCategories)
-    setLoadingCategories(false);
+    // setLoadingCategories(true);
+    setCategories(categories.questionsCategories)
+    // setLoadingCategories(false);
   }
 
   function onChangeUpload(info, questionInfo) {
@@ -147,51 +147,53 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
           <Input hidden />
         </Form.Item>
 
-        {!loadingCategories && (
-          <Col style={{ marginBlock: 15 }} span={24}>
-            <Select
-              style={{
-                width: 300,
-              }}
-              value={data[index]?.questionCategoryId}
-              placeholder="Categoria da questão"
-              dropdownRender={(menu) => (
-                <>
-                  {menu}
-                  <Divider
-                    style={{
-                      margin: '8px 0',
-                    }}
+        <Col style={{ marginBlock: 15 }} span={24}>
+          <Select
+            style={{
+              width: 300,
+            }}
+            value={data[index]?.questionCategoryId}
+            placeholder="Categoria da questão"
+            dropdownRender={(menu) => (
+              <>
+                {menu}
+                <Divider
+                  style={{
+                    margin: '8px 0',
+                  }}
+                />
+                <Space
+                  style={{
+                    padding: '0 8px 4px',
+                  }}
+                >
+                  <Input
+                    placeholder="Informe a categoria"
+                    value={categoryName}
+                    ref={inputTagRef}
+                    onChange={onChangeTag}
                   />
-                  <Space
-                    style={{
-                      padding: '0 8px 4px',
-                    }}
-                  >
-                    <Input
-                      placeholder="Informe a categoria"
-                      value={categoryName}
-                      ref={inputTagRef}
-                      onChange={onChangeTag}
-                    />
-                    <Button type="text" icon={<PlusOutlined />} onClick={e => onCreateCategory(e, question)}>
-                      Adicionar
-                    </Button>
-                  </Space>
-                </>
-              )}
-              options={categories.map((item, index) => ({
-                key: index + 1,
+                  <Button type="text" icon={<PlusOutlined />} onClick={e => onCreateCategory(e, question)}>
+                    Adicionar
+                  </Button>
+                </Space>
+              </>
+            )}
+            options={(categories || []).map((item, indexOption) => {
+
+              return {
+                key: `question-${data[index].questionUuid}-category-option-${indexOption}`,
                 label: item.name,
                 value: item.idCategory,
-              }))}
-            />
+              }
+            }
+            )}
+          />
 
-            <Tooltip title="Você pode agrupar as questões informando a TAG há qual cada uma pertence">
-              <QuestionCircleOutlined style={{ marginLeft: 10 }} />
-            </Tooltip>
-          </Col>
-        )}
+          <Tooltip title="Você pode agrupar as questões informando a TAG há qual cada uma pertence">
+            <QuestionCircleOutlined style={{ marginLeft: 10 }} />
+          </Tooltip>
+        </Col>
 
         <Col span={24}>
           <Form.Item
