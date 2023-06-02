@@ -9,15 +9,17 @@ public class QuestionResponse
 {
     public Guid QuestionUuid { get; set; }
     public string QuestionDescription { get; set; } = null!;
+    public int QuestionCategoryId { get; set; }
     public IList<QuestionImageResponse> Images { get; set; } = new List<QuestionImageResponse>();
     public IList<QuestionOptionResponse> Options { get; set; } = new List<QuestionOptionResponse>();
 
-    public static QuestionResponse Create(Guid questionUuid, string questionDescription, List<QuestionImageResponse> imagesUrl, IList<QuestionOptionResponse> options) =>
+    public static QuestionResponse Create(Guid questionUuid, string questionDescription, int questionCategoryId, List<QuestionImageResponse> imagesUrl, IList<QuestionOptionResponse> options) =>
         new()
         {
             Options = options,
             QuestionDescription = questionDescription,
             QuestionUuid = questionUuid,
+            QuestionCategoryId = questionCategoryId,
             Images = imagesUrl
         };
 }

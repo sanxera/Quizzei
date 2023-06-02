@@ -22,6 +22,10 @@ public class QuestionMapping : IEntityTypeConfiguration<Question>
             .HasColumnName("QUIZ_UUID")
             .IsRequired();
 
+        builder.Property(e => e.CategoryId)
+            .HasColumnName("CATEGORY_ID")
+            .IsRequired();
+
         builder.Property(e => e.CreatedAt)
             .HasColumnName("CREATED_AT");
 
