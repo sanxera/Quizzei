@@ -10,6 +10,7 @@ public class UpdateQuestions
 {
     public Guid QuestionUuid { get; set; }
     public string Description { get; set; } = string.Empty;
+    public int QuestionCategoryId { get; set; }
     public ActionEnum Action { get; set; }
     public IList<UpdateImages> Images { get; set; } = new List<UpdateImages>();
     public IList<UpdateOptions> Options { get; set; } = new List<UpdateOptions>();
