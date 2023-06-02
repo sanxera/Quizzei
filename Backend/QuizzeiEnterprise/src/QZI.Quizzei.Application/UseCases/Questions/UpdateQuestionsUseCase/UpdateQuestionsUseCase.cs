@@ -55,7 +55,7 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
 
     private async Task CreateQuestionsWithOptions(Guid quizInfoUuid, UpdateQuestions questionRequest)
     {
-        var question = Question.CreateQuestion(questionRequest.Description, quizInfoUuid);
+        var question = Question.CreateQuestion(questionRequest.Description, questionRequest.QuestionCategoryId, quizInfoUuid);
         question.Options = QuestionOption.CreateAnyOptions(questionRequest.Options.ToList());
 
         foreach (var questionRequestImage in questionRequest.Images)
@@ -73,6 +73,7 @@ public class UpdateQuestionsUseCase : IUpdateQuestionsUseCase
     {
         var question = await _questionRepository.GetQuestionById(questionRequest.QuestionUuid);
         question.Description = questionRequest.Description;
+        question.CategoryId = questionRequest.QuestionCategoryId;
 
         foreach (var questionImage in question.Images)
         {
