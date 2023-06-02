@@ -877,7 +877,7 @@ export async function getQuestionCategories() {
   if (isEnvironmentDevelopment) return {
     questionCategories: [
       {
-        id: 1,
+        idCategory: 1,
         name: 'DevOps',
       }
     ]
@@ -899,7 +899,7 @@ export async function createQuestionCategory(name) {
   };
 
   const auth = getAuthority();
-  const response = await request(`api/question-categorycreate`, {
+  const response = await request(`api/question-category/create`, {
     method: 'POST',
     data: {
       name
