@@ -69,7 +69,7 @@ export function FinishedModal({ visible, data, quizProcessUuid, onClick }) {
           <Progress
             type='line'
             percent={percent}
-            success={{ percent: 50 }}
+            // success={{ percent: 50 }}
           />
         </Col>
 
