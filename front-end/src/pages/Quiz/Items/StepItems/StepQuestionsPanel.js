@@ -24,6 +24,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
   const [images, setImages] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState('');
+  const [questionCategoryId, setQuestionCategoryId] = useState(data[index]?.questionCategoryId || null);
 
 
   useEffect(() => {
@@ -95,19 +96,33 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
       return;
     }
 
-    const response = await createQuestionCategory(categoryName);
+    const { createdId } = await createQuestionCategory(categoryName);
     setCategoryName('');
 
-    questions[questionKey].questionCategoryId = response.createdId;
+    questions[questionKey].questionCategoryId = createdId;
     await form.setFieldsValue({
       questions: [...questions]
     })
+    setQuestionCategoryId(createdId);
 
     loadQuestionCategories();
     setTimeout(() => {
       inputTagRef.current?.focus();
     }, 0);
   }
+
+  async function onSelect(value) {
+    if (!value) return;
+
+    const { fieldKey: questionKey } = question;
+    const { questions } = form.getFieldsValue();
+
+    questions[questionKey].questionCategoryId = value;
+    await form.setFieldsValue({
+      questions: [...questions]
+    })
+    await setQuestionCategoryId(value);
+  };
 
   function onChangeTag(e) {
     setCategoryName(e.target.value)
@@ -152,8 +167,9 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
             style={{
               width: 300,
             }}
-            value={data[index]?.questionCategoryId}
+            value={questionCategoryId}
             placeholder="Categoria da questão"
+            onChange={item => onSelect(item)}
             dropdownRender={(menu) => (
               <>
                 {menu}

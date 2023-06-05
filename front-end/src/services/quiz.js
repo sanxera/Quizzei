@@ -194,7 +194,7 @@ export async function listQuestions(quizInfoUuid) {
             {
               questionUuid: 'xxxx',
               questionDescription: 'Questao 1',
-              questionCategoryId: 1,
+              questionCategoryId: null,
               images: [{
                 questionImageUuid: '0-312-31203123-',
                 imageName: 'Paisagem',
@@ -218,6 +218,7 @@ export async function listQuestions(quizInfoUuid) {
             },
             {
               questionUuid: 'xxxx',
+              questionCategoryId: 2,
               questionDescription: 'Questão 2',
               options: [
                 {
@@ -875,11 +876,19 @@ export async function removeQuestionFile(imageUuid) {
 
 export async function getQuestionCategories() {
   if (isEnvironmentDevelopment) return {
-    questionCategories: [
+    questionsCategories: [
       {
         idCategory: 1,
         name: 'DevOps',
-      }
+      },
+      {
+        idCategory: 2,
+        name: 'TI',
+      },
+      {
+        idCategory: 3,
+        name: 'Redes',
+      },
     ]
   };
 
