@@ -24,7 +24,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
   const [images, setImages] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState('');
-  const [questionCategoryId, setQuestionCategoryId] = useState(data[index]?.questionCategoryId || null);
+  const [questionCategoryId, setQuestionCategoryId] = useState(data[index]?.questionCategoryId || 1);
 
 
   useEffect(() => {
@@ -155,7 +155,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
 
         <Form.Item
           {...question}
-          initialValue={data[index]?.questionCategoryId || null}
+          initialValue={data[index]?.questionCategoryId || 1}
           name={[question.name, "questionCategoryId"]}
           fieldKey={[question.fieldKey, 'description']}
         >
