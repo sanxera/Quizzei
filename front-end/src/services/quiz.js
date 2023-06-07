@@ -194,6 +194,7 @@ export async function listQuestions(quizInfoUuid) {
             {
               questionUuid: 'xxxx',
               questionDescription: 'Questao 1',
+              questionCategoryId: null,
               images: [{
                 questionImageUuid: '0-312-31203123-',
                 imageName: 'Paisagem',
@@ -217,6 +218,7 @@ export async function listQuestions(quizInfoUuid) {
             },
             {
               questionUuid: 'xxxx',
+              questionCategoryId: 2,
               questionDescription: 'Questão 2',
               options: [
                 {
@@ -254,6 +256,7 @@ export async function listQuestions(quizInfoUuid) {
     await questions.push({
       questionUuid: question.questionUuid,
       description: question.questionDescription,
+      questionCategoryId: question.questionCategoryId,
       images: question.images,
       options: question.options.map(option => {
         return {
@@ -863,6 +866,53 @@ export async function removeQuestionFile(imageUuid) {
 
   const auth = getAuthority();
   const response = await request(`api/files/delete-image/${imageUuid}`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+  });
+
+  return response.data;
+}
+
+export async function getQuestionCategories() {
+  if (isEnvironmentDevelopment) return {
+    questionsCategories: [
+      {
+        idCategory: 1,
+        name: 'DevOps',
+      },
+      {
+        idCategory: 2,
+        name: 'TI',
+      },
+      {
+        idCategory: 3,
+        name: 'Redes',
+      },
+    ]
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/question-category/get-all`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`
+    },
+  });
+
+  return response.data;
+}
+
+export async function createQuestionCategory(name) {
+  if (isEnvironmentDevelopment) return {
+    createdId: 2
+  };
+
+  const auth = getAuthority();
+  const response = await request(`api/question-category/create`, {
+    method: 'POST',
+    data: {
+      name
+    },
     headers: {
       Authorization: `Bearer ${auth.token}`
     },
