@@ -198,7 +198,7 @@ const StepQuestionsPanel = ({ index, question, data, form }) => {
             options={(categories || []).map((item, indexOption) => {
 
               return {
-                key: `question-${data[index].questionUuid}-category-option-${indexOption}`,
+                // key: `question-${data[index].questionUuid}-category-option-${indexOption}`,
                 label: item.name,
                 value: item.idCategory,
               }
