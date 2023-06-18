@@ -10,6 +10,8 @@ using QZI.Quizzei.Application.Shared.Services.Users;
 using QZI.Quizzei.Application.Shared.Services.Users.Interfaces;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReport;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReport.Interfaces;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerCategory;
+using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerCategory.Interfaces;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerProcess;
 using QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerProcess.Interfaces;
 using QZI.Quizzei.Application.UseCases.Answers.AnswerQuiz;
@@ -122,5 +124,6 @@ public static class DomainModule
         services.AddScoped<IGetUsersByQuizzesUseCase, GetUsersByQuizzesUseCase>();
         services.AddScoped<IQuizReportPerProcessUseCase, QuizReportPerProcessUseCase>();
         services.AddScoped<IQuizReportUseCase, QuizReportUseCase>();
+        services.AddScoped<IQuizReportPerCategoryUseCase, QuizReportPerCategoryUseCase>();
     }
 }

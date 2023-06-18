@@ -9,4 +9,5 @@ public class AnswersRequest
 {
     public Guid QuestionUuid { get; set; }
     public Guid OptionUuid { get; set; }
+    public int Timer { get; set; }
 }
