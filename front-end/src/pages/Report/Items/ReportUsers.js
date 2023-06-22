@@ -96,7 +96,7 @@ const ReportUsers = ({ quizUuid }) => {
             <Divider style={{ height: '100%' }} type="vertical" />
           </Col>
 
-          <Col span={5}>
+          <Col span={5} style={{display: 'flex', flexDirection: 'column'}}>
             <Text>Quiz feito: </Text>
             <Select
               style={{ width: 230 }}

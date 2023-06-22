@@ -17,7 +17,7 @@ const SliderCard = ({ data, openInfoQuizzes, isMyQuiz }) => {
   })
 
   if (!data || data.length === 0) {
-    return (<ButtonAntd style={{ width: '80vw', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>)
+    return (<ButtonAntd style={{ width: '100%', minHeight: 100 }} type='dashed'>Não há quizzes</ButtonAntd>)
   }
 
   return (
