@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 const ReportQuestions = ({ data }) => {
   return (
     <Col span={24}>
-      {data.questions && data.questions.length > 0 && data.questions.forEach((question, index) => {
+      {data.questions && data.questions.length > 0 && data.questions.map((question, index) => {
         const graphData = [];
         question.options.forEach((item, index) => {
           if (item.totalOptionAnswers <= 0) return;

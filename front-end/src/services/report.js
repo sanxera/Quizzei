@@ -373,6 +373,6 @@ export async function getByQuestionsCategory(quizProcessUuid) {
     }
   }
 
-  const response = await request(`api/analytics/generate-report-per-process/${quizProcessUuid}`);
+  const response = await request(`api/analytics/generate-quiz-report-per-category/${quizProcessUuid}`);
   return response.data;
 }
