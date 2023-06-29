@@ -42,7 +42,7 @@ public class AnswerQuizUseCase : IAnswerQuizUseCase
 
             var selectedOption = question.Options.FirstOrDefault(x => x.QuestionOptionUuid == answer.OptionUuid);
 
-            var newAnswer = Answer.CreateAnswer(selectedOption!.QuestionOptionUuid, question.QuestionUuid, quizProcess.QuizProcessUuid, user.UserUuid, selectedOption.IsCorrect);
+            var newAnswer = Answer.CreateAnswer(selectedOption!.QuestionOptionUuid, question.QuestionUuid, quizProcess.QuizProcessUuid, user.UserUuid, selectedOption.IsCorrect, answer.Timer);
 
             await _answerRepository.AddAsync(newAnswer);
 

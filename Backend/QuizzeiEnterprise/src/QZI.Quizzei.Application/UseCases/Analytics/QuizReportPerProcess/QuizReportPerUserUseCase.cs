@@ -36,12 +36,14 @@ public class QuizReportPerProcessUseCase : IQuizReportPerProcessUseCase
 
             var optionsListResponse = new List<OptionAnalyticsResponse>();
             var userCorrect = false;
+            var timer = 0;
             foreach (var option in options)
             {
                 var answer = answers.FirstOrDefault(x => x.QuestionOptionUuid == option.QuestionOptionUuid);
 
                 if (answer != null)
                 {
+                    timer = answer.Timer;
                     userCorrect = answer.CorrectAnswer;
                     optionsListResponse.Add(OptionAnalyticsResponse.Create(option.QuestionOptionUuid, option.Description, option.IsCorrect, true));
                 }
@@ -49,7 +51,7 @@ public class QuizReportPerProcessUseCase : IQuizReportPerProcessUseCase
                     optionsListResponse.Add(OptionAnalyticsResponse.Create(option.QuestionOptionUuid, option.Description, option.IsCorrect, false));
             }
 
-            questionsListResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, userCorrect, optionsListResponse));
+            questionsListResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, userCorrect, timer, optionsListResponse));
         }
 
 

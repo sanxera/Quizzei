@@ -8,8 +8,9 @@ public class Answer : Entity
     public Guid QuestionOptionUuid { get; set; }
     public Guid UserUuid { get; set; }
     public bool CorrectAnswer{ get; set; }
+    public int Timer { get; set; }
 
-    public static Answer CreateAnswer(Guid option, Guid question, Guid quizProcess, Guid userUuid, bool correctAnswer)
+    public static Answer CreateAnswer(Guid option, Guid question, Guid quizProcess, Guid userUuid, bool correctAnswer, int timer)
     {
         return new Answer
         {
@@ -18,6 +19,7 @@ public class Answer : Entity
             QuestionUuid = question,
             UserUuid = userUuid,
             CorrectAnswer = correctAnswer,
+            Timer = timer,
             CreatedAt = DateTime.Now,
             CreatedBy = "Admin"
         };
