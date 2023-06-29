@@ -14,6 +14,11 @@ const ReportQuestionsCategory = ({ data }) => {
         {data.questionsCategories && (
           <Collapse defaultActiveKey={['1']}>
             {data?.questionsCategories.map(category => {
+              const totalSeconds = category?.averageTimer || 0;
+
+              const hours = Math.floor(totalSeconds / 3600);
+              const minutes = Math.floor((totalSeconds / 3600) / 60);
+              const seconds = totalSeconds % 60;
               return (
                 <Panel header={`${category?.questionCategoryDescription}`}>
                   <Row>
@@ -30,6 +35,14 @@ const ReportQuestionsCategory = ({ data }) => {
 
                           <Col span={5}>
                             <strong>{category.totalHitPercentage}%</strong> <br /> <strong>Acertos</strong>
+                          </Col>
+
+                          <Col>
+                            <Divider style={{ height: '100%' }} type="vertical" />
+                          </Col>
+
+                          <Col span={5}>
+                            <strong>{hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</strong> <br /> <strong>Tempo médio</strong>
                           </Col>
                         </Row>
                       </Card>
