@@ -96,7 +96,7 @@ const ReportUsers = ({ quizUuid }) => {
             <Divider style={{ height: '100%' }} type="vertical" />
           </Col>
 
-          <Col span={5} style={{display: 'flex', flexDirection: 'column'}}>
+          <Col span={5} style={{ display: 'flex', flexDirection: 'column' }}>
             <Text>Quiz feito: </Text>
             <Select
               style={{ width: 230 }}
@@ -112,38 +112,47 @@ const ReportUsers = ({ quizUuid }) => {
         </Row>
       </Card>
 
-      {answersUser && answersUser.questions && answersUser.questions.map((question, index) => (
-        <Badge.Ribbon
-          key={`filter-by-user-${index + 1}`}
-          text={question.userAnswerIsCorrect === true ? 'Acertou' : 'Errou'}
-          color={question.userAnswerIsCorrect === true ? 'lime' : 'red'}
-          placement='start'
-        >
-          <Card style={{ width: '100%' }}>
-            <Row style={{ marginTop: 10 }}>
-              <Col span={24}>
-                <Title level={5}>{index + 1}. {question.description}</Title>
-                <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }}>
-                  {question.options.map((option, index) => {
-                    const code = 'a'.charCodeAt(0);
-                    const letterOption = String.fromCharCode(code + index);
-                    const typeCheck = option.isCorrect === true ? 'success' : 'danger';
-                    return (
-                      <div className={option.userCheck === true ? `question-option-check-${typeCheck}` : null}>
-                        <Text
-                          type={typeCheck}
-                        >
-                          {letterOption.toUpperCase()}. {option.description}
-                        </Text>
-                      </div>
-                    )
-                  })}
-                </div>
-              </Col>
-            </Row>
-          </Card>
-        </Badge.Ribbon>
-      ))}
+      {answersUser && answersUser.questions && answersUser.questions.map((question, index) => {
+        const totalSeconds = question?.timer || 0;
+
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds / 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        return (
+          <Badge.Ribbon
+            key={`filter-by-user-${index + 1}`}
+            text={question.userAnswerIsCorrect === true ? 'Acertou' : 'Errou'}
+            color={question.userAnswerIsCorrect === true ? 'lime' : 'red'}
+            placement='start'
+          >
+            <Card style={{ width: '100%' }}>
+              <Row style={{ marginTop: 10 }}>
+                <Col span={24}>
+                  <Title level={5}>{index + 1}. {question.description}</Title>
+                  <Text style={{ marginLeft: 20 }} type='secondary' strong>Resolvido em: {hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</Text>
+                  <div style={{ display: 'flex', flexDirection: 'column', marginLeft: 20 }}>
+                    {question.options.map((option, index) => {
+                      const code = 'a'.charCodeAt(0);
+                      const letterOption = String.fromCharCode(code + index);
+                      const typeCheck = option.isCorrect === true ? 'success' : 'danger';
+                      return (
+                        <div className={option.userCheck === true ? `question-option-check-${typeCheck}` : null}>
+                          <Text
+                            type={typeCheck}
+                          >
+                            {letterOption.toUpperCase()}. {option.description}
+                          </Text>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </Col>
+              </Row>
+            </Card>
+          </Badge.Ribbon>
+        )
+      })}
     </Col>
   )
 }
