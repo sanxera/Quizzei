@@ -47,23 +47,25 @@ public class QuestionCategoryAnalyticsResponse
 
 public class QuestionAnalyticsResponse
 {
-    public QuestionAnalyticsResponse(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, List<OptionAnalyticsResponse> options)
+    public QuestionAnalyticsResponse(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, int averageTime, List<OptionAnalyticsResponse> options)
     {
         QuestionUuid = questionUuid;
         Description = description;
         TotalAnswers = totalAnswers;
         TotalHitPercentage = totalHitPercentage;
         Options = options;
+        AverageTime = averageTime;
     }
 
     public Guid QuestionUuid { get; set; }
     public string Description { get; set; }
     public int TotalAnswers { get; set; }
     public int TotalHitPercentage { get; set; }
+    public int AverageTime { get; set; }
     public List<OptionAnalyticsResponse> Options { get; set; }
 
-    public static QuestionAnalyticsResponse Create(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, List<OptionAnalyticsResponse> options)
-        => new(questionUuid, description, totalAnswers, totalHitPercentage, options);
+    public static QuestionAnalyticsResponse Create(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, int averageTime, List<OptionAnalyticsResponse> options)
+        => new(questionUuid, description, totalAnswers, totalHitPercentage, averageTime, options);
 }
 
 public class OptionAnalyticsResponse

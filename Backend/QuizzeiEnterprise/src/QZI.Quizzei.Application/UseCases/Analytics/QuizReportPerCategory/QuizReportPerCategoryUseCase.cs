@@ -48,9 +48,8 @@ namespace QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerCategory
                     var optionsResponse = CreateOptionAnalyticsResponses(options, validAnswers);
                     var totalAnswers = optionsResponse.Select(x => x.TotalOptionAnswers).Sum();
                     var totalHitPercentage = totalAnswers != 0 ? (optionsResponse.Select(x => x.HitQuantity).Sum() * 100) / totalAnswers : 0;
-                    questionsResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, totalAnswers, totalHitPercentage, optionsResponse));
+                    questionsResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, totalAnswers, totalHitPercentage, GetAverageTimer(validAnswers.Select(x => x.Timer)), optionsResponse));
                 }
-
 
                 var questionCategoryResponse = QuestionCategoryAnalyticsResponse.Create(categoryId, questionsByCategory.Count, questionsResponse.Sum(x => x.TotalHitPercentage) / questionsByCategory.Count, category.Description, questionsResponse);
                 questionCategoriesResponse.Add(questionCategoryResponse);
@@ -102,6 +101,11 @@ namespace QZI.Quizzei.Application.UseCases.Analytics.QuizReportPerCategory
                 .Select(x => x.QuizProcessUuid.ToString());
             var validAnswers = answers.Where(x => completedQuizzesUuids.Contains(x.QuizProcessUuid.ToString())).ToList();
             return validAnswers;
+        }
+
+        private static int GetAverageTimer(IEnumerable<int> timers)
+        {
+            return !timers.Any() ? 0 : Convert.ToInt32(timers.Average());
         }
     }
 }

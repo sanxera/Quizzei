@@ -40,7 +40,7 @@ public class QuizReportUseCase : IQuizReportUseCase
             var optionsResponse = CreateOptionAnalyticsResponses(options, validAnswers);
             var totalAnswers = optionsResponse.Select(x => x.TotalOptionAnswers).Sum();
             var totalHitPercentage = totalAnswers != 0 ? (optionsResponse.Select(x => x.HitQuantity).Sum() * 100) / totalAnswers : 0;
-            questionsResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, totalAnswers, totalHitPercentage, optionsResponse));
+            questionsResponse.Add(QuestionAnalyticsResponse.Create(question.QuestionUuid, question.Description, totalAnswers, totalHitPercentage, GetAverageTimer(validAnswers.Select(x => x.Timer)), optionsResponse));
         }
 
         var totalCompletedQuiz = quizProcesses.Count(x => x.Status == QuizProcessStatus.Finished);
@@ -86,5 +86,10 @@ public class QuizReportUseCase : IQuizReportUseCase
         }
 
         return optionsResponse;
+    }
+
+    private static int GetAverageTimer(IEnumerable<int> timers)
+    {
+        return !timers.Any() ? 0 : Convert.ToInt32(timers.Average());
     }
 }

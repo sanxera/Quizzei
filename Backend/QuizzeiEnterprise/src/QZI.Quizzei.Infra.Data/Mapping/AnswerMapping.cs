@@ -28,6 +28,9 @@ public class AnswerMapping : IEntityTypeConfiguration<Answer>
         builder.Property(e => e.CorrectAnswer)
             .HasColumnName("CORRECT_ANSWER");
 
+        builder.Property(e => e.Timer)
+            .HasColumnName("TIMER");
+
         builder.Property(e => e.CreatedAt)
             .HasColumnName("CREATED_AT");
 
