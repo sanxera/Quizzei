@@ -15,18 +15,15 @@ const ReportQuiz = ({ data: { quizUuid } }) => {
   const [questionsCategories, setQuestionsCategories] = useState({});
   const [graphConfig, setGraphConfig] = useState({});
   const [reportType, setReportType] = useState('REPORT_QUESTIONS');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function loadData() {
+      const graphData = [];
       const data = await getReport(quizUuid);
       setData(data);
 
       const questionsCategories = await getByQuestionsCategory(quizUuid);
-      setQuestionsCategories(questionsCategories);
-    }
-
-    async function loadGraphQuestionCategory() {
-      const graphData = [];
 
       questionsCategories?.questionsCategories.map(item => {
         // if (item.totalHitPercentage <= 0) return;
@@ -54,19 +51,21 @@ const ReportQuiz = ({ data: { quizUuid } }) => {
       };
 
       setGraphConfig(config);
+      setQuestionsCategories(questionsCategories);
     }
 
-
-
+   
+    setLoading(true);
     loadData();
-    loadGraphQuestionCategory();
+    setLoading(false);
   }, [])
 
   async function onChangeReport({ target: { value } }) {
     setReportType(value);
   }
 
-  if (!data.quizUuid) return <div />;
+  console.log("🚀  ~ file: Quiz.js:73 ~ ReportQuiz ~ loading:", loading)
+  if (!data.quizUuid || loading) return <div />;
 
   return (
     <PageHeader
