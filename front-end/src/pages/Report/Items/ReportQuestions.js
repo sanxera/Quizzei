@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 const ReportQuestions = ({ data }) => {
   return (
     <Col span={24}>
-      {data.questions && data.questions.length > 0 && data.questions.forEach((question, index) => {
+      {data.questions && data.questions.length > 0 && data.questions.map((question, index) => {
         const graphData = [];
         question.options.forEach((item, index) => {
           if (item.totalOptionAnswers <= 0) return;
@@ -36,12 +36,19 @@ const ReportQuestions = ({ data }) => {
           ],
         };
 
+        const totalSeconds = question?.averageTimer || 0;
+
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds / 3600) / 60);
+        const seconds = totalSeconds % 60;
+
         return (
           <Card style={{ width: '100%' }}>
             <Row>
               <Col span={15}>
                 <Title level={5}>{index + 1}. {question.description}</Title>
                 <Text style={{ margin: '70px 0px 0px 20px' }} type="secondary">{question.totalHitPercentage}% das pessoas que responderam o questão acertaram</Text>
+                <Text style={{ marginLeft: 20 }} type='secondary' strong>Tempo medio: {hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</Text>
 
                 <div style={{ marginLeft: 20, display: 'flex', flexDirection: 'column' }}>
                   {question.options && question.options.map((item, indexOptions) => (

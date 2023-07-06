@@ -2,11 +2,11 @@
 
 public class QuestionAnalyticsResponse
 {
-    private QuestionAnalyticsResponse(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, int averageTime, List<OptionAnalyticsResponse> options)
+    private QuestionAnalyticsResponse(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, int averageTimer, List<OptionAnalyticsResponse> options)
     {
         Description = description;
         Options = options;
-        AverageTime = averageTime;
+        AverageTimer = averageTimer;
         TotalAnswers = totalAnswers;
         TotalHitPercentage = totalHitPercentage;
         QuestionUuid = questionUuid;
@@ -16,7 +16,7 @@ public class QuestionAnalyticsResponse
     public string Description { get; set; } = null!;
     public int TotalAnswers { get; set; }
     public int TotalHitPercentage { get; set; }
-    public int AverageTime { get; set; }
+    public int AverageTimer { get; set; }
     public List<OptionAnalyticsResponse> Options { get; set; }
 
     public static QuestionAnalyticsResponse Create(Guid questionUuid, string description, int totalAnswers, int totalHitPercentage, int averageTimer, List<OptionAnalyticsResponse> options) =>

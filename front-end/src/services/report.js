@@ -246,3 +246,133 @@ export async function getReportPerQuizProcess(quizProcessUuid) {
   const response = await request(`api/analytics/generate-report-per-process/${quizProcessUuid}`);
   return response.data;
 }
+
+
+export async function getByQuestionsCategory(quizProcessUuid) {
+  if (isEnvironmentDevelopment) {
+    return {
+      "quizUuid": "0f9eec9c-ec41-4f42-94e3-01a700506d6b",
+      "quizDescription": " Mauris blandit laoreet leo, eget tempus nisi dictum id. Nulla facilisi. Nam vitae iaculis est. Nam quis eleifend diam",
+      "totalCompletedQuiz": 9,
+      "totalNotCompletedQuiz": 3,
+      "totalQuestions": 3,
+      "questionsCategories": [
+        {
+          "questionCategoryId": 3,
+          "questionCategoryDescription": "Conhecimentos Gerais",
+          "totalQuestions": 1,
+          "totalHitPercentage": 90,
+          "questions": [
+            {
+              "questionUuid": "1a0f3bba-b978-4b3d-f20c-08dacc9b0e99",
+              "description": "Questão 1",
+              "totalAnswers": 11,
+              "totalHitPercentage": 90,
+              "options": [
+                {
+                  "optionUuid": "3b9c9d44-d4c1-45f3-133a-08dacc9b0e9b",
+                  "description": "Opção 1",
+                  "isCorrect": true,
+                  "totalOptionAnswers": 9,
+                  "totalOptionAnswersPercentage": 81,
+                  "hitQuantity": 9,
+                  "hitPercentage": 100
+                },
+                {
+                  "optionUuid": "8b1204ea-6677-447f-133b-08dacc9b0e9b",
+                  "description": "Opção 2",
+                  "isCorrect": true,
+                  "totalOptionAnswers": 1,
+                  "totalOptionAnswersPercentage": 9,
+                  "hitQuantity": 1,
+                  "hitPercentage": 100
+                },
+                {
+                  "optionUuid": "aa684213-144e-4d95-133c-08dacc9b0e9b",
+                  "description": "Opção 3",
+                  "isCorrect": false,
+                  "totalOptionAnswers": 1,
+                  "totalOptionAnswersPercentage": 9,
+                  "hitQuantity": 0,
+                  "hitPercentage": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "questionCategoryId": 1,
+          "questionCategoryDescription": "Informática",
+          "totalQuestions": 2,
+          "totalHitPercentage": 0,
+          "questions": [
+            {
+              "questionUuid": "35164261-28a2-4a40-f20d-08dacc9b0e99",
+              "description": "Questão 2",
+              "totalAnswers": 9,
+              "totalHitPercentage": 0,
+              "options": [
+                {
+                  "optionUuid": "9a1e3b31-2041-4b3c-133d-08dacc9b0e9b",
+                  "description": "Opção 1",
+                  "isCorrect": false,
+                  "totalOptionAnswers": 7,
+                  "totalOptionAnswersPercentage": 77,
+                  "hitQuantity": 0,
+                  "hitPercentage": 0
+                },
+                {
+                  "optionUuid": "0440643d-1938-4c57-133e-08dacc9b0e9b",
+                  "description": "Opção 2",
+                  "isCorrect": false,
+                  "totalOptionAnswers": 1,
+                  "totalOptionAnswersPercentage": 11,
+                  "hitQuantity": 0,
+                  "hitPercentage": 0
+                },
+                {
+                  "optionUuid": "e6accdf5-0f3c-4e20-133f-08dacc9b0e9b",
+                  "description": "Opção 3",
+                  "isCorrect": false,
+                  "totalOptionAnswers": 0,
+                  "totalOptionAnswersPercentage": 0,
+                  "hitQuantity": 0,
+                  "hitPercentage": 0
+                },
+                {
+                  "optionUuid": "66f8c9c6-cceb-42fb-1340-08dacc9b0e9b",
+                  "description": "Opção 4",
+                  "isCorrect": false,
+                  "totalOptionAnswers": 1,
+                  "totalOptionAnswersPercentage": 11,
+                  "hitQuantity": 0,
+                  "hitPercentage": 0
+                }
+              ]
+            },
+            {
+              "questionUuid": "7b65b877-9875-4e31-d18e-08db573959a1",
+              "description": "string",
+              "totalAnswers": 0,
+              "totalHitPercentage": 0,
+              "options": [
+                {
+                  "optionUuid": "040df819-ffee-4110-87e5-08db573959a6",
+                  "description": "string",
+                  "isCorrect": true,
+                  "totalOptionAnswers": 0,
+                  "totalOptionAnswersPercentage": 0,
+                  "hitQuantity": 0,
+                  "hitPercentage": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  const response = await request(`api/analytics/generate-quiz-report-per-category/${quizProcessUuid}`);
+  return response.data;
+}
