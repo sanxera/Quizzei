@@ -31,20 +31,10 @@ const Quiz = ({ data: { quizProcessUuid, quizInfoUuid, questions: data } }) => {
   let [seconds, setSeconds] = useState(0);
 
   useEffect(async () => {
-    const totalSeconds = answerQuestionsData.answers[current]?.timer || 0;
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds / 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    await setHours(hours);
-    await setMinutes(minutes);
-    await setSeconds(seconds);
-
-    const timerInterval = setInterval(() => {
-      updateTimer();
-    }, 1000);
-
-    setIntervalId(timerInterval);
+    startTimer();
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [current])
 
   useEffect(() => {
@@ -58,6 +48,64 @@ const Quiz = ({ data: { quizProcessUuid, quizInfoUuid, questions: data } }) => {
     setCurrent(0);
   }
 
+  function startTimer() {
+    clearInterval(intervalId);
+    const totalSeconds = answerQuestionsData.answers[current]?.timer || 0;
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds / 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    setHours(hours);
+    setMinutes(minutes);
+    setSeconds(seconds);
+    const timerId = setInterval(() => {
+      updateTimer();
+    }, 1000);
+
+    setIntervalId(timerId);
+  }
+
+  function updateTimer() {
+    let timerHours = null;
+    let timerMinutes = null;
+    let timerSeconds = null;
+    setSeconds(prevSeconds => {
+      let updatedSeconds = prevSeconds + 1;
+
+      if (updatedSeconds >= 60) {
+        updatedSeconds = 0;
+        setMinutes(prevMinutes => {
+          let updatedMinutes = prevMinutes + 1;
+
+          if (updatedMinutes >= 60) {
+            updatedMinutes = 0;
+            setHours(prevHours => {
+              let updatedHours = prevHours + 1
+              timerHours = updatedHours;
+              return updatedHours;
+            });
+          }
+
+          timerMinutes = updatedMinutes;
+          return updatedMinutes;
+        });
+      }
+
+      timerSeconds = updatedSeconds;
+      return updatedSeconds;
+
+    });
+    onChangeTimer({ hours: timerHours, minutes: timerMinutes, seconds: timerSeconds });
+  }
+
+  function resetTimer() {
+    console.log("🚀  ~ file: Quiz.js:112 ~ resetTimer ~ timerInterval:", intervalId)
+    clearInterval(intervalId);
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
+  }
+
   async function onClickOption(indexOption, data) {
     await setLoading(true);
     await answerQuestionsData.answers.push(data);
@@ -68,6 +116,7 @@ const Quiz = ({ data: { quizProcessUuid, quizInfoUuid, questions: data } }) => {
   }
 
   async function onFinishQuiz() {
+    resetTimer();
     console.log("🚀  ~ file: Quiz.js:61 ~ onFinishQuiz ~ answerQuestionsData:", answerQuestionsData)
     const response = await answerQuestions(answerQuestionsData);
     const { totalQuestions, correctAnswers } = response;
@@ -94,34 +143,6 @@ const Quiz = ({ data: { quizProcessUuid, quizInfoUuid, questions: data } }) => {
     setAnswerQuestions(answerQuestionsData);
   }
 
-  function updateTimer() {
-    console.log("🚀  ~ file: Quiz.js:120 ~ updateTimer ~ seconds:", seconds)
-    seconds++;
-
-    if (seconds >= 60) {
-      seconds = 0;
-      minutes++;
-
-      if (minutes >= 60) {
-        minutes = 0;
-        hours++;
-      }
-    }
-
-    setHours(hours);
-    setMinutes(minutes);
-    setSeconds(seconds);
-
-    onChangeTimer({ hours, minutes, seconds });
-  }
-
-  function resetTimer() {
-    console.log("🚀  ~ file: Quiz.js:112 ~ resetTimer ~ timerInterval:", intervalId)
-    clearInterval(intervalId);
-    setHours(0);
-    setMinutes(0);
-    setSeconds(0);
-  }
 
   if (steps.length === 0 || loading) return <Skeleton />;
 
@@ -145,8 +166,7 @@ const Quiz = ({ data: { quizProcessUuid, quizInfoUuid, questions: data } }) => {
 
       <>
         <div className="steps-content">
-          {/* <Timer onChange={onChangeTimer} data={{ hours: 0, minutes: 0, seconds: 0 }} /> */}
-          <Text>{`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
+          <Text style={{ display: 'none' }}>{`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
           <ContentQuestions data={steps[current].content} onClick={onClickOption} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
